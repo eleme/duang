@@ -1,0 +1,7 @@
+.*
+*.swp
+*.log
+dist
+node_modules
+!.gitignore
+!.eslintrc
