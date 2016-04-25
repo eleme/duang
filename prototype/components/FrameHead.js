@@ -11,7 +11,7 @@ def((FrameHeadLogo) => class extends Jinkela {
         color: #fff;
         height: ${height}px;
         line-height: ${height}px;
-        z-index: 1;
+        z-index: 2;
       }
     `;
   }

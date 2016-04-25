@@ -1,8 +1,17 @@
-def(() => class extends Jinkela {
-  static cast(list) {
-    list = list.map(item => new this(item));
-    list.renderTo = target => list.forEach(item => item.renderTo(target));
-    return list;
-  }
+def((Item) => class extends Item {
   get template() { return `<li><a href="{href}">{text}</a></li>`; }
+  get styleSheet() {
+    return `
+      :scope {
+        > a { display: block; }
+        transition: background 200ms ease;
+        &.active {
+          background: #ccc;
+        }
+        &:hover {
+          background: #d4d4d4;
+        }
+      }
+    `;
+  }
 });

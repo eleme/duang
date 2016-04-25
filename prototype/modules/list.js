@@ -1,11 +1,14 @@
-def((Frame) => class extends Frame {
-  init() {
-    console.log(123);
-  }
+def((Frame, Table) => class extends Frame {
   get Main() {
     return class extends Jinkela {
+      get scheme() {
+        let { key } = new UParams();
+        for (let i of config) {
+          if (i.key === key) return i;
+        }
+      }
       init() {
-        this.element.textContent = 'abc main';
+        new Table({ scheme: this.scheme }).renderTo(this);
       }
     };
   }
