@@ -10,6 +10,13 @@ def((ListItem) => class extends ListItem {
         line-height: 2;
         list-style: disc inside;
         padding: 0 1em;
+        transition: background 200ms ease;
+        &.active {
+          background: #ccc;
+        }
+        &:hover {
+          background: #d4d4d4;
+        }
       }
     `;
   }

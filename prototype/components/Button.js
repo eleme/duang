@@ -1,4 +1,4 @@
-def(() => class extends Jinkela {
+def((Item) => class extends Item {
   get template() {
     return `<button></button>`;
   }

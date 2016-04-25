@@ -1,6 +1,7 @@
-def((Item) => class extends Item {
+def((Item, TableRowActions) => class extends Item {
   get template() { return `<td><meta ref="meta" /></td>`; }
   init() {
+    if (this.align) this.element.align = this.align;
     if ('value' in this) {
       let { value } = this;
       switch (this.type) {
@@ -14,6 +15,9 @@ def((Item) => class extends Item {
           img.src = value;
           value = img;
           break;
+        case 'actions':
+          value = new TableRowActions({ data: value });
+          break;
         case 'price':
           value = new Text('￥' + value);
           break;
@@ -24,5 +28,13 @@ def((Item) => class extends Item {
     } else {
       this.meta = new Text(this.title);
     }
+  }
+  get styleSheet() {
+    return `
+      :scope {
+        border: solid #e4e4e4;
+        border-width: 1px 0;
+      }
+    `;
   }
 });
