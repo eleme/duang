@@ -1,4 +1,4 @@
-def((FrameHead, FrameBody) => class extends Jinkela {
+def((FrameHead, FrameBody, FrameAsideMenu) => class extends Jinkela {
   init() {
     new FrameHead({ parent: this }).renderTo(this);
     new FrameBody({ parent: this }).renderTo(this);
@@ -6,7 +6,7 @@ def((FrameHead, FrameBody) => class extends Jinkela {
   get Aside() {
     return class extends Jinkela {
       init() {
-        this.element.textContent = 'aside';
+        new FrameAsideMenu().renderTo(this);
       }
     };
   }
@@ -19,7 +19,15 @@ def((FrameHead, FrameBody) => class extends Jinkela {
   }
   get styleSheet() {
     return `
-      html, body { margin: 0; }
+      html, body {
+        margin: 0;
+        font-size: 14px;
+        font-family: Lato, 'Helvetica Neue', Arial, Helvetica, sans-serif;
+      }
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
       :scope {
         display: flex;
         flex-direction: column;

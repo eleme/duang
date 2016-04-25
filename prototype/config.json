@@ -1,0 +1,66 @@
+[
+  {
+    "key": "hongbao",
+    "title": "红包组列表",
+    "creatable": true,
+    "editable": true,
+    "pageSize": 30,
+    "fields": [
+      { "key": "id", "title": "id", "type": "date" },
+      { "key": "group_id", "title": "红包组 id" },
+      { "key": "enable", "title": "有效", "type": "checkbox" },
+      { "key": "type", "title": "红包组类型", "type": "select", "args": [
+        { "1": "专享", "2": "普通" }
+      ] }
+    ],
+    "filters": [
+      { "for": "id" },
+      { "for": "group_id" }
+    ],
+    "actions": [
+      { "text": "下载", "action": "download" },
+      { "text": "删除", "action": "delete" }
+    ],
+    "inputs": [
+      { "for": "group_id" },
+      { "for": "enable" },
+      { "for": "type" }
+    ]
+  },
+  {
+    "key": "gifts",
+    "title": "礼品管理",
+    "pageSize": 30,
+    "fields": [
+      { "key": "id", "title": "id", "type": "int" },
+      { "key": "name", "title": "名称", "type": "string" }
+    ]
+  },
+  {
+    "key": "sellervip",
+    "title": "商家会员卡",
+    "pageSize": 30,
+    "fields": [
+      { "key": "id", "title": "id", "type": "int" },
+      { "key": "name", "title": "名称", "type": "string" }
+    ]
+  },
+  {
+    "key": "elemevip",
+    "title": "饿了么员卡",
+    "pageSize": 30,
+    "fields": [
+      { "key": "id", "title": "id", "type": "int" },
+      { "key": "name", "title": "名称", "type": "string" }
+    ]
+  },
+  {
+    "key": "pointmall",
+    "title": "积分商城平台",
+    "pageSize": 30,
+    "fields": [
+      { "key": "id", "title": "id", "type": "int" },
+      { "key": "name", "title": "名称", "type": "string" }
+    ]
+  }
+]

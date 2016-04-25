@@ -1,12 +1,17 @@
-def(() => class extends Jinkela {
+def((FrameHeadLogo) => class extends Jinkela {
   init() {
-    this.element.textContent = 'frame head';
+    new FrameHeadLogo().renderTo(this);
   }
   get styleSheet() {
+    let height = 36;
     return `
       :scope {
-        background: #eee;
-        height: 50px;
+        background: #222;
+        box-shadow: 0 0 5px rgba(0,0,0,0.5);
+        color: #fff;
+        height: ${height}px;
+        line-height: ${height}px;
+        z-index: 1;
       }
     `;
   }
