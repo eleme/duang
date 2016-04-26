@@ -1,10 +1,4 @@
-def((Table, TableTip, Pager) => class extends Jinkela {
-  getScheme() {
-    let { key } = new UParams();
-    for (let i of config) {
-      if (i.key === key) return i;
-    }
-  }
+def((Scheme, Table, TableTip, Pager) => class extends Scheme {
   load() {
     return co(function*() {
       let params = {};
@@ -25,7 +19,7 @@ def((Table, TableTip, Pager) => class extends Jinkela {
     alert(error.message || 'Unknown Error');
   }
   init() {
-    let scheme = this.scheme = this.getScheme();
+    let scheme = this.scheme;
     this.$data = this.load();
     let table = new Table({ scheme }).renderTo(this);
     let tip = new TableTip().renderTo(this);
