@@ -16,7 +16,7 @@ def((Item, TableRowActions) => class extends Item {
           value = img;
           break;
         case 'actions':
-          value = new TableRowActions({ data: value });
+          value = new TableRowActions({ data: value, scheme: this.scheme, id: this.id });
           break;
         case 'price':
           value = new Text('￥' + value);

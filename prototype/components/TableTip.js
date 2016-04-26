@@ -3,10 +3,14 @@ def(() => class extends Jinkela {
     this.element.textContent = 'Loading ...';
   }
   render(result) {
-    if (result.length) {
-      this.element.style.display = 'none';
+    if (result && result instanceof Array) {
+      if (result.length) {
+        this.element.style.display = 'none';
+      } else {
+        this.element.textContent = 'No Data';
+      }
     } else {
-      this.element.textContent = 'No Data';
+      this.element.textContent = result.message || result;
     }
   }
   get styleSheet() {

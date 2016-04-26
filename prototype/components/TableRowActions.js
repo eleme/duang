@@ -1,11 +1,6 @@
 def((TableRowActionsItem) => class extends Jinkela {
   init() {
-    let data = this.data.map(item => {
-      item = Object.create(item);
-      item.text = item.title;
-      return item;
-    });
-    TableRowActionsItem.cast(data).renderTo(this);
+    TableRowActionsItem.cast(this.data, { scheme: this.scheme, id: this.id }).renderTo(this);
   }
   get template() { return '<ul></ul>'; }
   get styleSheet() {

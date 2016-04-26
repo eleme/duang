@@ -17,14 +17,8 @@ def((Table, TableTip, Pager) => class extends Jinkela {
       let result = yield response.json();
       if (response.status >= 400) throw result;
       /**/ Object.keys(result).some(key => result[key] instanceof Array && (result = result[key]));
-      return result.map(data => {
-        let fields = scheme.fields.map(item => {
-          item = Object.create(item);
-          item.value = data[item.key];
-          return item;
-        });
-        return { fields };
-      });
+      /**/ result.forEach(item => item.id = item[String(Object.keys(item)).match(/(\w*_)?id|$/)[0]]);
+      return result;
     }.bind(this));
   }
   error(error) {
@@ -39,6 +33,8 @@ def((Table, TableTip, Pager) => class extends Jinkela {
       table.render(list);
       tip.render(list);
       new Pager({ scheme, list }).renderTo(this);
+    }, error => {
+      tip.render(error);
     });
   }
 });
