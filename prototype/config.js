@@ -17,8 +17,12 @@ const config = [
       { type: 'custom', api: '/xxx', title: '和谐' }
     ],
     inputs: [
-      { key: 'price', 'title': '价格', 'type': 'price' },
-      { key: 'exchange_code', 'title': '兑换码', 'type': 'string' }
+      { key: 'a', title: 'String', component: 'String' },
+      { key: 'b', title: 'Text', component: 'Text' },
+      { key: 'c', title: 'Select', component: 'Select', args: { options: { 1: '选项 1', 2: '选项 2' } } },
+      { key: 'd', title: 'Radio', component: 'Radio', args: { options: { 1: '选项 1', 2: '选项 2' } } },
+      { key: 'e', title: 'Checkbox', component: 'Checkbox', args: { options: { 1: '选项 1', 2: '选项 2' } } },
+      { key: 'f', title: 'Date', component: 'Date' }
     ]
   },
   {

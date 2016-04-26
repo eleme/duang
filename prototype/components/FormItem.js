@@ -9,20 +9,24 @@ def((Item) => class extends Item {
     `;
   }
   init() {
-    switch (this.type) {
-      case 'price':
-        this.ctrl = document.createElement('input');
-        break;
-      default:
-        this.ctrl = document.createElement('input');
-        break;
-    }
+    let { component = 'String' } = this;
+    req('Input' + component).then(Component => {
+      this.ctrl = new Component(this.args);
+    }, error => {
+      this.ctrl = new Text('Type Not Found');
+    });
   }
   get styleSheet() {
     return `
       :scope {
+        td {
+          padding: .5em;
+        }
         > :nth-child(1) {
           text-align: right;
+          &:after {
+            content: ': ';
+          }
         }
       }
     `;
