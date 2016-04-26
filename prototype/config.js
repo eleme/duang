@@ -15,6 +15,10 @@ const config = [
       { type: 'edit', title: '编辑' },
       { type: 'delete', title: '删除' },
       { type: 'custom', api: '/xxx', title: '和谐' }
+    ],
+    inputs: [
+      { key: 'price', 'title': '价格', 'type': 'price' },
+      { key: 'exchange_code', 'title': '兑换码', 'type': 'string' }
     ]
   },
   {

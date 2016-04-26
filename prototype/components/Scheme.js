@@ -1,9 +1,14 @@
-def(() => class extends Jinkela {
-  get scheme() {
-    let { key } = new UParams();
-    let scheme;
-    for (scheme of config) if (scheme.key === key) break;
-    Object.defineProperty(this, 'scheme', { value: scheme });
-    return scheme;
-  }
+def(() => {
+
+  const schemeMap = Object.create(null);
+  config.forEach(scheme => schemeMap[scheme.key] = scheme);
+
+  return class extends Jinkela {
+    get scheme() {
+      let { key } = new UParams();
+      Object.defineProperty(this, 'scheme', { value: schemeMap[key] });
+      return schemeMap[key];
+    }
+  };
+
 });

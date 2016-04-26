@@ -1,13 +1,6 @@
-def((Scheme) => class extends Scheme {
+def((Scheme, Form, FormSubmit) => class extends Scheme {
   init() {
-    console.log(this.scheme);
-  }
-  get styleSheet() {
-    return `
-      :scope {
-        margin: 1em;
-        font-size: 64px;
-      }
-    `;
+    let form = new Form({ scheme: this.scheme }).renderTo(this);
+    new FormSubmit({ scheme: this.scheme, form }).renderTo(this);
   }
 });

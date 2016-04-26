@@ -8,7 +8,7 @@ def((Item) => class extends Item {
         border: 0;
         border-radius: 5px;
         background: #1e89e0;
-        padding: .25em .5em;
+        padding: .5em 1em;
         cursor: pointer;
         color: #fff;
         &:before {
