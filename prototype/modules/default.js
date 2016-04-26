@@ -1,12 +1,3 @@
-def((Frame) => class extends Frame {
-  init() {
-    console.log(123);
-  }
-  get Main() {
-    return class extends Jinkela {
-      init() {
-        this.element.textContent = 'default main';
-      }
-    };
-  }
+def((Frame, MainWithDefault) => class extends Frame {
+  get Main() { return MainWithDefault; }
 });
