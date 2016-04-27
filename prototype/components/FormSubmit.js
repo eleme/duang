@@ -7,9 +7,13 @@ def((Button) => class extends Jinkela {
     let value = JSON.stringify(this.form.value);
     let $response;
     if (id) {
-      $response = fetch(this.scheme.api + '/' + id, { method: 'PUT', body: value });
+      $response = fetch(this.scheme.api + '/' + id, {
+        method: 'PUT', body: value, credentials: 'include', headers: { 'Content-Type': 'application/json' }
+      });
     } else {
-      $response = fetch(this.scheme.api, { method: 'POST', body: value });
+      $response = fetch(this.scheme.api, {
+        method: 'POST', body: value, credentials: 'include', headers: { 'Content-Type': 'application/json' }
+      });
     }
     $response.then(result => {
       console.log(result);

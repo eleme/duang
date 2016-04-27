@@ -10,6 +10,7 @@ def((Item, Value) => {
       `;
     }
     get checked() { return this.input.checked; }
+    set checked(value) { this.input.checked = value; }
     get styleSheet() {
       return `
         :scope {
@@ -26,6 +27,10 @@ def((Item, Value) => {
         return { value: key, text: this.options[key] };
       });
       this.list = InputRadioItem.cast(list).renderTo(this);
+    }
+    set value(value) {
+      let set = new Set(value);
+      this.list.forEach(item => item.checked = set.has(item.value));
     }
     get value() {
       return this.list.filter(item => item.checked).map(item => item.input.value) + '';

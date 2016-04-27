@@ -10,6 +10,11 @@ def((FormItem) => class extends Jinkela {
       }
     `;
   }
+  set value(data) {
+    this.list.forEach(item => {
+      item.value = data[item.key];
+    });
+  }
   get value() {
     return this.list.reduce((result, item) => {
       result[item.key] = item.value;

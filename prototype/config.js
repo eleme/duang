@@ -1,46 +1,46 @@
 const config = [
   {
-    key: 'user_gifts',
-    api: '//sakura.test.ele.me/sakura/pointmall/user_gifts',
-    title: '礼品兑换记录',
+    key: 'list1',
+    api: '//127.0.0.1:1234/list',
+    title: '测试列表 1',
     pageSize: 30,
     fields: [
-      { key: 'gift_id', 'title': 'ID', 'type': 'int' },
-      { key: 'price', 'title': '价格', 'type': 'price' },
-      { key: 'exchange_code', 'title': '兑换码', 'type': 'string' },
-      { key: 'created_at', 'title': '兑换时间', 'type': 'datetime'}
+      { key: 'id', 'title': 'ID' },
+      { key: 'name', 'title': 'Name' },
+      { key: 'opts', 'title': 'Opts' },
     ],
-    actionsTitle: '操作', // Default: "Actions"
     actions: [
       { type: 'edit', title: '编辑' },
       { type: 'delete', title: '删除' },
       { type: 'custom', api: '/xxx', title: '和谐' }
     ],
     inputs: [
-      { key: 'a', title: 'String', component: 'String' },
-      { key: 'b', title: 'Text', component: 'Text' },
-      { key: 'c', title: 'Select', component: 'Select', args: { options: { 1: '选项 1', 2: '选项 2' } } },
-      { key: 'd', title: 'Radio', component: 'Radio', args: { options: { 1: '选项 1', 2: '选项 2' } } },
-      { key: 'e', title: 'Checkbox', component: 'Checkbox', args: { options: { 1: '选项 1', 2: '选项 2' } } },
-      { key: 'f', title: 'Date', component: 'Date' }
+      { key: 'name', title: 'Name', component: 'String' },
+      { key: 'desc', title: 'Desc', component: 'Text' },
+      { key: 'opts', title: 'opts', component: 'Checkbox', args: { options: { A: 'A', B: 'B', C: 'C', D: 'D' } } },
+      { key: 'level', title: 'Level', component: 'Select', args: { options: { A: 'A', B: 'B', C: 'C', D: 'D' } } },
+      { key: 'radio', title: 'Radio', component: 'Radio', args: { options: { A: 'A', B: 'B', C: 'C', D: 'D' } } }
     ]
   },
   {
-    key: 'gifts',
-    api: 'http://sakura.test.ele.me/sakura/pointmall/gifts',
-    title: '礼品兑换记录',
-    title: '礼品管理',
+    key: 'list2',
+    api: '//127.0.0.1:1234/list',
+    title: '测试列表 2',
     pageSize: 30,
     fields: [
-      { key: 'id', 'title': 'ID', 'type': 'int' },
-      { key: 'thumb_url', 'title': '缩略图', 'type': 'thumb' },
-      { key: 'name', 'title': '名称', 'type': 'string' },
-      { key: 'price', 'title': '价格', 'type': 'price' },
-      { key: 'amount', 'title': '库存', 'type': 'int' },
+      { key: 'id', 'title': 'ID' },
+      { key: 'name', 'title': 'Name' },
+      { key: 'opts', 'title': 'Opts' },
     ],
-    actionsTitle: '操作', // Default: "Actions"
     actions: [
+      { type: 'edit', title: '编辑' },
+      { type: 'delete', title: '删除' },
       { type: 'custom', api: '/xxx', title: '和谐' }
+    ],
+    inputs: [
+      { key: 'name', title: 'Text', component: 'String' },
+      { key: 'opts', title: 'Opts', component: 'Checkbox', args: { options: { A: 'A', B: 'B', C: 'C', D: 'D' } } },
+      { key: 'level', title: 'Level', component: 'Select', args: { options: { A: 'A', B: 'B', C: 'C', D: 'D' } } }
     ]
   }
 ];

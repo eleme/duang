@@ -1,4 +1,8 @@
 def((Item) => class extends Item {
+  set value(value) {
+    if (this.ctrl.tagName === 'META') return setTimeout(() => this.value = value, 16);
+    this.ctrl.value = value;
+  }
   get value() { return this.ctrl.value; }
   get template() {
     return `

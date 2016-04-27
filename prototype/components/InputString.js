@@ -1,4 +1,6 @@
 def(() => class extends Jinkela {
+  get value() { return this.element.value; }
+  set value(value) { console.log(value); this.element.value = value; }
   get template() { return `<input/>`; }
   get styleSheet() {
     return `
