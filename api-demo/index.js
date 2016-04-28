@@ -41,6 +41,7 @@ router.post('/list', (ctx, next) => {
   let data = ctx.request.body;
   data.id = inc++;
   fakeData.push(data);
+  ctx.body = {};
 });
 
 router.get('/list/:id', (ctx, next) => {
