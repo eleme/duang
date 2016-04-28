@@ -9,23 +9,14 @@ def((ListItem) => class extends ListItem {
         location.hash = new UParams({ module: 'editor', key, id: this.id });
         break;
       case 'delete':
-        fetch(this.scheme.api + '/' + this.id, { method: 'DELETE', credentials: 'include' }).then(response => {
-          if (response.status >= 400) return response.json().then(result => { throw result; });
-          return response.json();
-        }).then(result => {
-          // TODO: 根据 result 来选择行为
+        api(this.scheme.api + '/' + this.id, { method: 'DELETE' }).then(result => {
           init();
         }, error => {
           alert(error.message);
         });
         break;
       case 'custom':
-        fetch([ this.scheme.api, this.id, this.api ].join('/'), {
-          method: 'POST', credentials: 'include'
-        }).then(response => {
-          if (response.status >= 400) return response.json().then(result => { throw result; });
-          return response.json();
-        }).then(result => {
+        api([ this.scheme.api, this.id, this.api ].join('/'), { method: 'POST' }).then(result => {
           init();
         }, error => {
           alert(error.message);

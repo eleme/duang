@@ -6,11 +6,7 @@ def((Scheme, Table, TableTip, Pager) => class extends Scheme {
       params.limit = scheme.pageSize;
       params.offset = scheme.pageSize * (new UParams().page - 1 || 0);
     }
-    return fetch(scheme.api + '?' + new UParams(params), { credentials: 'include' }).then(response => {
-      let result = response.json();
-      if (response.status >= 400) throw result;
-      return result;
-    });
+    return api(scheme.api + '?' + new UParams(params));
   }
   error(error) {
     alert(error.message || 'Unknown Error');

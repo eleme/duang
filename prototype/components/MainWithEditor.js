@@ -2,8 +2,7 @@ def((Scheme, Form, FormSubmit) => class extends Scheme {
   load() {
     let { id } = new UParams();
     if (!id) return Promise.resolve();
-    let $response = fetch(this.scheme.api + '/' + id, { credentials: 'include' });
-    return $response.then(response => response.json());
+    return api(this.scheme.api + '/' + id);
   }
   init() {
     this.load().then(value => {

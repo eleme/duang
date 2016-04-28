@@ -5,17 +5,13 @@ def((Button) => class extends Jinkela {
   click() {
     let { id } = new UParams();
     let value = JSON.stringify(this.form.value);
-    let $response;
+    let $result;
     if (id) {
-      $response = fetch(this.scheme.api + '/' + id, {
-        method: 'PUT', body: value, credentials: 'include', headers: { 'Content-Type': 'application/json' }
-      });
+      $result = api(this.scheme.api + '/' + id, { method: 'PUT', body: value });
     } else {
-      $response = fetch(this.scheme.api, {
-        method: 'POST', body: value, credentials: 'include', headers: { 'Content-Type': 'application/json' }
-      });
+      $result = api(this.scheme.api, { method: 'POST', body: value });
     }
-    $response.then(result => {
+    $result.then(result => {
       history.back();
     });
   }
