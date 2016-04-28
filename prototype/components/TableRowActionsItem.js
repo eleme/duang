@@ -20,11 +20,13 @@ def((ListItem) => class extends ListItem {
         });
         break;
       case 'custom':
-        fetch(this.api, { method: 'POST', credentials: 'include' }).then(response => {
+        fetch([ this.scheme.api, this.id, this.api ].join('/'), {
+          method: 'POST', credentials: 'include'
+        }).then(response => {
           if (response.status >= 400) return response.json().then(result => { throw result; });
           return response.json();
         }).then(result => {
-          console.log(result);
+          init();
         }, error => {
           alert(error.message);
         });

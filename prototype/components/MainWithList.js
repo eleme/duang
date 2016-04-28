@@ -1,19 +1,16 @@
 def((Scheme, Table, TableTip, Pager) => class extends Scheme {
   load() {
-    return co(function*() {
-      let params = {};
-      let { scheme } = this;
-      if (scheme.pageSize) {
-        params.limit = scheme.pageSize;
-        params.offset = scheme.pageSize * (new UParams().page - 1 || 0);
-      }
-      let response = yield fetch(scheme.api + '?' + new UParams(params), { credentials: 'include' });
-      let result = yield response.json();
+    let params = {};
+    let { scheme } = this;
+    if (scheme.pageSize) {
+      params.limit = scheme.pageSize;
+      params.offset = scheme.pageSize * (new UParams().page - 1 || 0);
+    }
+    return fetch(scheme.api + '?' + new UParams(params), { credentials: 'include' }).then(response => {
+      let result = response.json();
       if (response.status >= 400) throw result;
-      /**/ Object.keys(result).some(key => result[key] instanceof Array && (result = result[key]));
-      /**/ result.forEach(item => item.id = item[String(Object.keys(item)).match(/(\w*_)?id|$/)[0]]);
       return result;
-    }.bind(this));
+    });
   }
   error(error) {
     alert(error.message || 'Unknown Error');

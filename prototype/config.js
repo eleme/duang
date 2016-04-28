@@ -8,11 +8,13 @@ const config = [
       { key: 'id', 'title': 'ID' },
       { key: 'name', 'title': 'Name' },
       { key: 'opts', 'title': 'Opts' },
+      { key: 'level', 'title': 'Level' },
+      { key: 'radio', 'title': 'Radio' }
     ],
     actions: [
       { type: 'edit', title: '编辑' },
       { type: 'delete', title: '删除' },
-      { type: 'custom', api: '/xxx', title: '和谐' }
+      { type: 'custom', api: 'hx', title: '和谐' }
     ],
     inputs: [
       { key: 'name', title: 'Name', component: 'String' },
@@ -35,7 +37,7 @@ const config = [
     actions: [
       { type: 'edit', title: '编辑' },
       { type: 'delete', title: '删除' },
-      { type: 'custom', api: '/xxx', title: '和谐' }
+      { type: 'custom', api: 'hx', title: '和谐' }
     ],
     inputs: [
       { key: 'name', title: 'Text', component: 'String' },

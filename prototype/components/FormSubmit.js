@@ -16,7 +16,7 @@ def((Button) => class extends Jinkela {
       });
     }
     $response.then(result => {
-      console.log(result);
+      history.back();
     });
   }
   get styleSheet() {

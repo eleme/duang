@@ -24,16 +24,23 @@ koa.use((ctx, next) => {
 
 const router = new KoaRouter();
 
+let inc = 1;
 const fakeData = [
-  { id: 1, name: '半壶纱', desc: '半壶纱', opts: [ 'A', 'C' ], level: 'A', radio: 'A' },
-  { id: 2, name: '一路上有你', desc: '一路上有你', opts: [ 'A', 'D' ], level: 'A', radio: 'C' },
-  { id: 3, name: '独角戏', desc: '独角戏', opts: [ 'C', 'D' ], level: 'C', radio: 'A' },
-  { id: 4, name: '大梦想家', desc: '大梦想家', opts: [ 'B', 'D' ], level: 'D', radio: 'D' },
-  { id: 5, name: '甜蜜蜜', desc: '甜蜜蜜', opts: [ 'A', 'B' ], level: 'B', radio: 'B' }
+  { id: inc++, name: '半壶纱', desc: '半壶纱', opts: [ 'A', 'C' ], level: 'A', radio: 'A' },
+  { id: inc++, name: '一路上有你', desc: '一路上有你', opts: [ 'A', 'D' ], level: 'A', radio: 'C' },
+  { id: inc++, name: '独角戏', desc: '独角戏', opts: [ 'C', 'D' ], level: 'C', radio: 'A' },
+  { id: inc++, name: '大梦想家', desc: '大梦想家', opts: [ 'B', 'D' ], level: 'D', radio: 'D' },
+  { id: inc++, name: '甜蜜蜜', desc: '甜蜜蜜', opts: [ 'A', 'B' ], level: 'B', radio: 'B' }
 ];
 
 router.get('/list', (ctx, next) => {
   ctx.body = fakeData;
+});
+
+router.post('/list', (ctx, next) => {
+  let data = ctx.request.body;
+  data.id = inc++;
+  fakeData.push(data);
 });
 
 router.get('/list/:id', (ctx, next) => {
@@ -42,7 +49,15 @@ router.get('/list/:id', (ctx, next) => {
     item = Object.assign({}, item);
     delete item.id;
     ctx.body = item;
-  };
+  }
+});
+
+router.delete('/list/:id', (ctx, next) => {
+  let id = +ctx.params.id;
+  for (let i = 0; i < fakeData.length; i++) if (fakeData[i].id === id) {
+    fakeData.splice(i, 1);
+    ctx.body = {};
+  }
 });
 
 router.put('/list/:id', (ctx, next) => {
@@ -50,7 +65,15 @@ router.put('/list/:id', (ctx, next) => {
   let data = ctx.request.body;
   for (let item of fakeData) if (item.id === id) {
     for (let i in item) if (i !== 'id') item[i] = data[i];
-    ctx.status = 204;
+    ctx.body = {};
+  }
+});
+
+router.post('/list/:id/hx', (ctx, next) => {
+  let id = +ctx.params.id;
+  for (let item of fakeData) if (item.id === id) {
+    item.name = '已和谐';
+    ctx.body = {};
   }
 });
 
