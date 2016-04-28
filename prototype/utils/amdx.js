@@ -1,5 +1,7 @@
 const def = factory => {
-  let deps = String((factory + '').match(/\(([\s\S]*?)\)|$/)[1] || '').match(/[^,\s]+/g) || [];
+  let matched = (factory + '').match(/\([\s\S]*?\)/g) || [];
+  matched = String(matched[0]).slice(1, -1);
+  let deps = matched.match(/[^,\s]+/g) || [];
   deps = deps.map(item => '/components/' + item.replace(/\$/g, '/') + '.js');
   if ((factory + '').match(/^\s*function\s*\*/)) factory = co.bind(null, factory);
   define(deps, factory);
