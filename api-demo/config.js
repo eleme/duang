@@ -1,9 +1,9 @@
-const config = [
+module.exports = [
   {
     key: 'list1',
-    api: '//127.0.0.1:1234/list',
+    api: 'list1',
     title: '测试列表 1',
-    pageSize: 30,
+    pageSize: 15,
     fields: [
       { key: 'id', 'title': 'ID' },
       { key: 'name', 'title': 'Name' },
@@ -26,9 +26,9 @@ const config = [
   },
   {
     key: 'list2',
-    api: '//127.0.0.1:1234/list',
+    api: 'list2',
     title: '测试列表 2',
-    pageSize: 30,
+    pageSize: 15,
     fields: [
       { key: 'id', 'title': 'ID' },
       { key: 'name', 'title': 'Name' },
