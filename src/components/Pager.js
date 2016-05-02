@@ -13,14 +13,14 @@ def((Button) => class extends Jinkela {
     params.page |= 0;
     if (params.page < 1) params.page = 1;
     params.page++;
-    location.href = '#' + params;
+    location.hash = '#' + params;
   }
   prev() {
     let params = new UParams();
     params.page |= 0;
     params.page--;
     if (params.page < 1) params.page = 1;
-    location.href = '#' + params;
+    location.hash = '#' + params;
   }
   get styleSheet() {
     return `

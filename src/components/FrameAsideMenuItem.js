@@ -1,8 +1,10 @@
 def((ListItem) => class extends ListItem {
   init() {
     if (this.currentKey === this.key) this.element.classList.add('active');
-    this.href = '#' + new UParams({ module: 'list', key: this.key });
     this.text = this.title;
+  }
+  onClick() {
+    location.hash = '#' + new UParams({ module: 'list', key: this.key });
   }
   get styleSheet() {
     return `
