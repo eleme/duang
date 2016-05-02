@@ -3,8 +3,7 @@ const fetch = require('node-fetch');
 const router = new KoaRouter();
 const fs = require('fs');
 
-// const $index = fetch('http://raw.githubusercontent.com/eleme/duang/98bffb2/src/index.html').then(response => {
-const $index = fetch('http://127.0.0.1:8000/src/index.html').then(response => {
+const $index = fetch('http://raw.githubusercontent.com/eleme/duang/0.0.1/src/index.html').then(response => {
   return response.text();
 });
 router.get('/web', (ctx, next) => {
