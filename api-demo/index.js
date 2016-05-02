@@ -8,15 +8,14 @@ const koa = new (require('koa'));
 koa.use(KoaBodyParser());
 koa.use(require('./lib/header'));
 
-{
-  const router = new KoaRouter();
-  router.get('/', ctx => {
-    ctx.body = require('./config');
+koa.use((ctx, next) => {
+  return next().catch(error => {
+    ctx.body = error.stack || error.message || error;
+    ctx.status = 500;
   });
-  koa.use(router.routes());
-}
+}); 
 
-koa.use(require('./controllers/list1'));
-koa.use(require('./controllers/list2'));
+const glob = require('glob');
+glob.sync('./controllers/**/*.js').forEach(name => koa.use(require(name)));
 
 koa.listen(1234);

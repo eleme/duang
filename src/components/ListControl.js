@@ -1,4 +1,4 @@
-def((Button) => class extends Jinkela {
+def((Button, ListControlFilters) => class extends Jinkela {
   get styleSheet() {
     return `
       :scope {
@@ -8,6 +8,7 @@ def((Button) => class extends Jinkela {
     `;
   }
   init() {
+    new ListControlFilters({ scheme: this.scheme }).renderTo(this);
     new Button({ text: 'Create', onClick: () => this.click() }).renderTo(this);
   }
   click() {

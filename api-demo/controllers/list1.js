@@ -3,10 +3,19 @@ const KoaRouter = require('koa-router');
 const router = new KoaRouter();
 
 router.get('/list1', (ctx, next) => {
-  let { offset, limit } = ctx.query;
-  offset |= 0;
-  limit |= 0;
-  ctx.body = fakeData.slice(offset, offset + limit);
+  let { offset, limit, where = '{}' } = ctx.query;
+  return Promise.resolve(where).then(JSON.parse).then(where => {
+    offset |= 0;
+    limit = limit | 0 || 30;
+    ctx.body = fakeData.filter(item => {
+      return Object.keys(item).every(key => {
+        return !(key in where) || JSON.stringify(item[key]) === JSON.stringify(where[key]);
+      });
+    }).slice(offset, offset + limit);
+  }, error => {
+    ctx.body = { message: 'JSON parse error' };
+    ctx.status = 400;
+  });
 });
 
 router.post('/list1', (ctx, next) => {

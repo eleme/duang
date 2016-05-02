@@ -1,4 +1,4 @@
-def((Item) => class extends Item {
+def((Item, Input) => class extends Item {
   set value(value) {
     if (this.ctrl.tagName === 'META') return setTimeout(() => this.value = value, 16);
     this.ctrl.value = value;
@@ -13,12 +13,7 @@ def((Item) => class extends Item {
     `;
   }
   init() {
-    let { component = 'String' } = this;
-    req('Input' + component).then(Component => {
-      this.ctrl = new Component(this.args);
-    }, error => {
-      this.ctrl = new Text('Type Not Found');
-    });
+    this.ctrl = new Input(this);
   }
   get styleSheet() {
     return `

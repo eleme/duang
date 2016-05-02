@@ -2,10 +2,12 @@ def((Scheme, ListControl, Table, TableTip, Pager) => class extends Scheme {
   load() {
     let params = {};
     let { scheme } = this;
+    let { page, where } = new UParams();
     if (scheme.pageSize) {
       params.limit = scheme.pageSize;
-      params.offset = scheme.pageSize * (new UParams().page - 1 || 0);
+      params.offset = scheme.pageSize * (page - 1 || 0);
     }
+    if (where) params.where = where;
     return api(scheme.api + '?' + new UParams(params));
   }
   error(error) {
@@ -14,10 +16,10 @@ def((Scheme, ListControl, Table, TableTip, Pager) => class extends Scheme {
   init() {
     let scheme = this.scheme;
     this.$data = this.load();
+    new ListControl({ scheme }).renderTo(this);
+    let table = new Table({ scheme }).renderTo(this);
     let tip = new TableTip().renderTo(this);
     this.$data.then(list => {
-      new ListControl({ scheme }).renderTo(this);
-      let table = new Table({ scheme }).renderTo(this);
       table.render(list);
       tip.render(list);
       new Pager({ scheme, list }).renderTo(this);

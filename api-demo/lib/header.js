@@ -4,10 +4,12 @@ module.exports = (ctx, next) => {
   } else {
     next();
   }
-  ctx.set({
-    'Access-Control-Allow-Methods': ctx.headers['access-control-request-method'],
-    'Access-Control-Allow-Headers': ctx.headers['access-control-request-headers'],
-    'Access-Control-Allow-Origin': ctx.headers['origin'],
-    'Access-Control-Allow-Credentials': true
-  });
+  if (ctx.headers['access-control-request-method']) {
+    ctx.set('Access-Control-Allow-Methods', ctx.headers['access-control-request-method']);
+  }
+  if (ctx.headers['access-control-request-headers']) {
+    ctx.set('Access-Control-Allow-Headers', ctx.headers['access-control-request-headers']);
+  }
+  if (ctx.headers['origin']) ctx.set('Access-Control-Allow-Origin', ctx.headers['origin']);
+  ctx.set('Access-Control-Allow-Credentials', true);
 };

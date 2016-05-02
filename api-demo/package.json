@@ -9,8 +9,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "glob": "^7.0.3",
     "koa": "^2.0.0",
     "koa-bodyparser": "^3.0.0",
-    "koa-router": "^7.0.1"
+    "koa-router": "^7.0.1",
+    "koa-static": "^3.0.0"
   }
 }

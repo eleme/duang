@@ -21,6 +21,8 @@ def((Item) => {
         }
       `;
     }
+    get value() { return this.element.value; }
+    set value(value) { this.element.value = value; }
   };
 
 });

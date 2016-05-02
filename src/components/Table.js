@@ -21,6 +21,7 @@ def((TableRow, TableHead) => class extends Jinkela {
     return `
       :scope {
         color: #666;
+        font-size: 14px;
         line-height: 32px;
         margin: 1em;
         width: calc(100% - 2em);

@@ -15,6 +15,9 @@ def((Item, Value) => {
       return `
         :scope {
           margin-right: 1em;
+          &:last-child {
+            margin-right: 0;
+          }
         }
       `;
     }
@@ -22,6 +25,13 @@ def((Item, Value) => {
 
   return class extends Value {
     get template() { return `<form></form>`; }
+    get styleSheet() {
+      return `
+        :scope {
+          margin: 0;
+        }
+      `;
+    }
     init() {
       let list = Object.keys(this.options).map(key => {
         return { value: key, text: this.options[key] };

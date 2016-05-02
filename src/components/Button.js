@@ -1,4 +1,7 @@
 def((Item) => class extends Item {
+  init() {
+    this.element.style.backgroundColor = this.color || '#5bbd72';
+  }
   get template() {
     return `<button text="{text}"></button>`;
   }
@@ -7,8 +10,8 @@ def((Item) => class extends Item {
       :scope {
         border: 0;
         border-radius: 5px;
-        background: #1e89e0;
-        padding: .5em 1em;
+        padding: .4em .8em;
+        font-size: 12px;
         cursor: pointer;
         color: #fff;
         &:before {
