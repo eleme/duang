@@ -13,6 +13,7 @@
     "koa": "^2.0.0",
     "koa-bodyparser": "^3.0.0",
     "koa-router": "^7.0.1",
-    "koa-static": "^3.0.0"
+    "koa-static": "^3.0.0",
+    "node-fetch": "^1.5.1"
   }
 }

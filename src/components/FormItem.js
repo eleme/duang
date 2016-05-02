@@ -1,9 +1,6 @@
 def((Item, Input) => class extends Item {
-  set value(value) {
-    if (this.ctrl.tagName === 'META') return setTimeout(() => this.value = value, 16);
-    this.ctrl.value = value;
-  }
-  get value() { return this.ctrl.value; }
+  set value(value) { this.input.value = value; }
+  get value() { return this.input.value; }
   get template() {
     return `
       <tr>
@@ -13,7 +10,7 @@ def((Item, Input) => class extends Item {
     `;
   }
   init() {
-    this.ctrl = new Input(this);
+    this.input = this.ctrl = new Input(this);
   }
   get styleSheet() {
     return `
