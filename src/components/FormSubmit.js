@@ -3,7 +3,20 @@ def((Button, FormItem) => class extends FormItem {
     this.title = '';
   }
   createInput() {
-    return new Button({ text: '提交', onClick: event => this.click(event) });
+    let submit = new Button({ text: '提交', onClick: event => this.click() });
+    let back = new Button({ text: '返回', onClick: event => this.back(), color: '#ccc' });
+    return new class extends Jinkela {
+      init() {
+        submit.renderTo(this);
+        back.renderTo(this);
+      }
+      get styleSheet() {
+        return ':scope > * { margin-right: 1em; }'
+      }
+    };
+  }
+  back() {
+    history.back();
   }
   click() {
     let { id } = new UParams();
@@ -15,7 +28,9 @@ def((Button, FormItem) => class extends FormItem {
       $result = api(this.scheme.key, { method: 'POST', body: value });
     }
     $result.then(result => {
-      history.back();
+      this.back();
+    }, error => {
+      alert(error.message);
     });
   }
   get styleSheet() {

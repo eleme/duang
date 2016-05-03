@@ -44,6 +44,11 @@ router.delete('/list1/:id', (ctx, next) => {
 router.put('/list1/:id', (ctx, next) => {
   let id = +ctx.params.id;
   let data = ctx.request.body;
+  if (data.name === '') {
+    ctx.status = 400;
+    ctx.body = { message: 'name 不能为空' };
+    return;
+  }
   for (let item of fakeData) if (item.id === id) {
     for (let i in item) if (i !== 'id') item[i] = data[i];
     ctx.body = {};

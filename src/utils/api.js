@@ -12,7 +12,7 @@ var api = (url, options) => {
     if (response.status < 400) {
       return response[type]();
     } else {
-      response[type]().then(result => { throw result; });
+      return response[type]().then(result => { throw result; });
     }
   });
 };
