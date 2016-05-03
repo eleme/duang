@@ -1,12 +1,16 @@
-def((FormItem) => class extends Jinkela {
+def((FormSubmit, FormItem) => class extends Jinkela {
   get template() { return '<table></table>'; }
   init() {
     this.list = FormItem.cast(this.scheme.inputs || []).renderTo(this);
+    new FormSubmit({ scheme: this.scheme, form: this }).renderTo(this);
   }
   get styleSheet() {
     return `
       :scope {
+        font-size: 14px;
         margin: 1em;
+        width: calc(100% - 2em);
+        border-collapse: collapse;
       }
     `;
   }

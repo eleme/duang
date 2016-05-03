@@ -10,7 +10,10 @@ def((Item, Input) => class extends Item {
     `;
   }
   init() {
-    this.input = this.ctrl = new Input(this);
+    this.input = this.ctrl = this.createInput();
+  }
+  createInput() {
+    return new Input(this);
   }
   get styleSheet() {
     return `
@@ -20,7 +23,7 @@ def((Item, Input) => class extends Item {
         }
         > :nth-child(1) {
           text-align: right;
-          &:after {
+          &:not(:empty):after {
             content: ': ';
           }
         }

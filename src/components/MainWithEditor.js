@@ -8,7 +8,6 @@ def((Scheme, Form, FormSubmit) => class extends Scheme {
     this.load().then(value => {
       let form = new Form({ scheme: this.scheme }).renderTo(this);
       form.value = value;
-      new FormSubmit({ scheme: this.scheme, form }).renderTo(this);
     });
   }
 });

@@ -1,6 +1,9 @@
-def((Button) => class extends Jinkela {
+def((Button, FormItem) => class extends FormItem {
   init() {
-    new Button({ text: '提交', onClick: event => this.click(event) }).renderTo(this);
+    this.title = '';
+  }
+  createInput() {
+    return new Button({ text: '提交', onClick: event => this.click(event) });
   }
   click() {
     let { id } = new UParams();
@@ -18,7 +21,19 @@ def((Button) => class extends Jinkela {
   get styleSheet() {
     return `
       :scope {
-        margin: 1em;
+        td {
+          position: relative;
+          padding-top: calc(2em + 5px);
+          &::before {
+            content: '';
+            height: 1px;
+            left: 0;
+            right: 0;
+            background: #e4e4e4;
+            top: 1em;
+            position: absolute;
+          }
+        }
       }
     `;
   }
