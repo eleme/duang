@@ -27,14 +27,14 @@
 
 ##### 3. 提供一个接口（路径）作为 CMS 的 Web 界面
 
-在这套 API 上开一个 /web 路径作为 Web 界面，这个路由去抓取[入口文件](https://raw.githubusercontent.com/eleme/duang/0.0.1/src/index.html)，并将里面的 `{{API}}` 替换成 API 服务的访问路径，然后加上响应头 Content-Type: text/html，并把替换后的内容放入响应实体中。
+在这套 API 上开一个 /web 路径作为 Web 界面，这个路由去抓取[入口文件](https://raw.githubusercontent.com/eleme/duang/0.0.2/src/index.html)，并将里面的 `{{API}}` 替换成 API 服务的访问路径，然后加上响应头 Content-Type: text/html，并把替换后的内容放入响应实体中。
 以 koa 为例：
 
 ```js
 const KoaRouter = require('koa-router');
 const fetch = require('node-fetch');
 const router = new KoaRouter();
-const ENTRY = 'http://raw.githubusercontent.com/eleme/duang/0.0.1/src/index.html';
+const ENTRY = 'http://raw.githubusercontent.com/eleme/duang/0.0.2/src/index.html';
 const $index = fetch(ENTRY).then(response => response.text());
 router.get('/web', (ctx, next) => {
   return $index.then(result => {
