@@ -1,7 +1,7 @@
 def(() => {
 
   const schemeMap = Object.create(null);
-  config.forEach(scheme => schemeMap[scheme.key] = scheme);
+  config.schemes.forEach(scheme => schemeMap[scheme.key] = scheme);
 
   return class extends Jinkela {
     get scheme() {

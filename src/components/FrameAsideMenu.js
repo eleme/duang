@@ -1,7 +1,7 @@
 def((FrameAsideMenuItem) => class extends Jinkela {
   init() {
     let { key } = new UParams();
-    FrameAsideMenuItem.cast(config, { currentKey: key }).renderTo(this);
+    FrameAsideMenuItem.cast(config.schemes, { currentKey: key }).renderTo(this);
   }
   get A() {
     return (function*A () {});
