@@ -8,7 +8,7 @@ def((Scheme, ListControl, Table, TableTip, Pager) => class extends Scheme {
       params.offset = scheme.pageSize * (page - 1 || 0);
     }
     if (where) params.where = where;
-    return api(scheme.api + '?' + new UParams(params));
+    return api(scheme.key + '?' + new UParams(params));
   }
   error(error) {
     alert(error.message || 'Unknown Error');

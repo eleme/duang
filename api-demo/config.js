@@ -1,7 +1,6 @@
 module.exports = [
   {
     key: 'list1',
-    api: 'list1',
     title: '测试列表 1',
     pageSize: 15,
     fields: [
@@ -31,7 +30,6 @@ module.exports = [
   },
   {
     key: 'list2',
-    api: 'list2',
     title: '测试列表 2',
     pageSize: 15,
     fields: [

@@ -9,14 +9,14 @@ def((ListItem) => class extends ListItem {
         location.hash = new UParams({ module: 'editor', key, id: this.id });
         break;
       case 'delete':
-        api(this.scheme.api + '/' + this.id, { method: 'DELETE' }).then(result => {
+        api(this.scheme.key + '/' + this.id, { method: 'DELETE' }).then(result => {
           init();
         }, error => {
           alert(error.message);
         });
         break;
       case 'custom':
-        api([ this.scheme.api, this.id, this.api ].join('/'), { method: 'POST' }).then(result => {
+        api([ this.scheme.key, this.id, this.api ].join('/'), { method: 'POST' }).then(result => {
           init();
         }, error => {
           alert(error.message);

@@ -10,9 +10,9 @@ def((Button, FormItem) => class extends FormItem {
     let value = JSON.stringify(this.form.value);
     let $result;
     if (id) {
-      $result = api(this.scheme.api + '/' + id, { method: 'PUT', body: value });
+      $result = api(this.scheme.key + '/' + id, { method: 'PUT', body: value });
     } else {
-      $result = api(this.scheme.api, { method: 'POST', body: value });
+      $result = api(this.scheme.key, { method: 'POST', body: value });
     }
     $result.then(result => {
       history.back();

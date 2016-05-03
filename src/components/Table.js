@@ -3,7 +3,7 @@ def((TableRow, TableHead) => class extends Jinkela {
   init() {
     let { scheme } = this;
     new TableHead({ scheme }).renderTo(this);
-    if (!scheme.api) return alert('require api');
+    if (!scheme.key) return alert('require key');
   }
   render(list) {
     let { scheme } = this;
