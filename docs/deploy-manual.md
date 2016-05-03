@@ -5,17 +5,18 @@
 假如现在有一套 API，部署在 [http://127.0.0.1](http://127.0.0.1)，那么这个 API 的根目录被请求时应该响应一个 Duang 的配置文件。比如：
 
 ```json
-[
-  {
-    "key": "mylist",
-    "api": "mylist",
-    "title": "MyList",
-    "fields": [
-      { "key": "id", "title": "ID" },
-      { "key": "name", "title": "Name" }
-    ]
-  }
-]
+{
+  "schemes": [
+    {
+      "key": "mylist",
+      "title": "MyList",
+      "fields": [
+        { "key": "id", "title": "ID" },
+        { "key": "name", "title": "Name" }
+      ]
+    }
+  ]
+}
 ```
 
 
