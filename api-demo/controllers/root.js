@@ -1,20 +1,13 @@
 const KoaRouter = require('koa-router');
-const fetch = require('node-fetch');
 const router = new KoaRouter();
-const fs = require('fs');
+const argollector = require('argollector');
+const { version } = require('../package');
 
-const $index = fetch('http://raw.githubusercontent.com/eleme/duang/0.0.3/src/index.html').then(response => {
-  return response.text();
-});
+const SRC = argollector['--src'] || `//github.elemecdn.com/eleme/duang/${version}/src/duang.js`;
+
 router.get('/', (ctx, next) => {
-  return $index.then(result => {
-    ctx.set('Content-Type', 'text/html');
-    ctx.body = result.replace(/\{\{API\}\}/g, '//127.0.0.1:1234/api');
-  }).catch(error => {
-    console.log(error.stack);
-    ctx.status = 500;
-    ctx.body = error.stack;
-  });
+  ctx.set('Content-Type', 'text/html');
+  ctx.body = `<script src="${SRC}" config="/api"></script>`;
 });
 
 module.exports = router.routes();

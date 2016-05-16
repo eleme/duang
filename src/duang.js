@@ -1,0 +1,14 @@
+{
+  let [ , path ] = document.currentScript.src.match(/^(.*)\/duang\.js$/);
+  document.write(`
+    <base href="${path}/" />
+    <script src="//github.elemecdn.com/uglifyjs!YanagiEiichi/jinkela/1.2.2/jinkela.js"></script>
+    <script src="//github.elemecdn.com/uglifyjs!YanagiEiichi/jinkela/1.2.2/directives/ref.js"></script>
+    <script src="//github.elemecdn.com/uglifyjs!YanagiEiichi/jinkela/1.2.2/plugins/nesting.js"></script>
+    <script src="//github.elemecdn.com/YanagiEiichi/uparams/1.3.0/uparams.min.js"></script>
+    <script src="//github.elemecdn.com/uglifyjs!requirejs/requirejs/2.2.0/require.js"></script>
+    <script src="${path}/utils/amdx.js"></script>
+    <script src="${path}/utils/api.js"></script>
+    <script src="${path}/utils/init.js"></script>
+  `);
+}
