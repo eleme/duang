@@ -1,7 +1,8 @@
-def((TableRow, TableHead) => class extends Jinkela {
-  get template() { return `<table></table>`; }
+def((TableRow, TableHead, TableCaption) => class extends Jinkela {
+  get tagName() { return 'table'; }
   init() {
     let { scheme } = this;
+    if (scheme.caption) new TableCaption({ scheme }).renderTo(this);
     new TableHead({ scheme }).renderTo(this);
     if (!scheme.key) return alert('require key');
   }

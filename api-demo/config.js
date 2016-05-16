@@ -4,6 +4,9 @@ module.exports = {
       key: 'list1',
       title: '测试列表 1',
       pageSize: 15,
+      caption: [
+        { component: 'HTML', args: { html: '<h1>呵呵</h1>' } }
+      ],
       fields: [
         { key: 'id', 'title': 'ID' },
         { key: 'name', 'title': 'Name' },
