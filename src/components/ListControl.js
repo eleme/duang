@@ -1,4 +1,4 @@
-def((Button, ListControlFilters) => class extends Jinkela {
+def((ListControlItem, ListControlFilters) => class extends Jinkela {
   get styleSheet() {
     return `
       :scope {
@@ -9,10 +9,8 @@ def((Button, ListControlFilters) => class extends Jinkela {
   }
   init() {
     new ListControlFilters({ scheme: this.scheme }).renderTo(this);
-    new Button({ text: 'Create', onClick: () => this.click() }).renderTo(this);
-  }
-  click() {
-    let { key } = new UParams();
-    location.hash = new UParams({ module: 'editor', key });
+    let { scheme } = this;
+    let { operations = [] } = scheme;
+    ListControlItem.cast(operations, { scheme }).renderTo(this);
   }
 });

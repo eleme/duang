@@ -14,6 +14,10 @@ module.exports = {
         { key: 'level', 'title': 'Level' },
         { key: 'radio', 'title': 'Radio' }
       ],
+      operations: [
+        { type: 'create', title: '创建' },
+        { type: 'custom', api: 'hx-all', title: '和谐全部' }
+      ],
       actions: [
         { type: 'edit', title: '编辑' },
         { type: 'delete', title: '删除' },

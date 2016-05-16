@@ -24,6 +24,11 @@ router.get('/list1/opts', (ctx, next) => {
   };
 });
 
+router.post('/list1/hx-all', (ctx, next) => {
+  for (let item of fakeData) item.name = '已和谐';
+  ctx.body = null;
+});
+
 router.post('/list1', (ctx, next) => {
   let data = ctx.request.body;
   fakeData.push(data);
