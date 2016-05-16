@@ -4,11 +4,12 @@ def((Item) => class extends Item {
 
     let resolve;
     this.$promise = new Promise($resolve => resolve = $resolve);
-    let { component = 'String', args, scheme } = this;
-
+    let { component = 'String', args, scheme, params, query } = this;
     let $args;
+    let url = scheme.key + '/' + args;
+    if (query) url = url + '?' + new UParams(params);
     if (typeof args === 'string') {
-      $args = args[0] === '/' ? api(args) : api(scheme.key + '/' + args);
+      $args = args[0] === '/' ? api(args) : api(url);
     } else {
       $args = Promise.resolve(args);
     }

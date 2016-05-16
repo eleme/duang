@@ -1,6 +1,6 @@
 const fakeData = new (require('../lib/fakedata'));
 const KoaRouter = require('koa-router');
-const router = new KoaRouter();
+const router = new KoaRouter({ prefix: '/api' });
 
 router.get('/list1', (ctx, next) => {
   let { offset, limit, where = '{}' } = ctx.query;
@@ -22,6 +22,23 @@ router.post('/list1', (ctx, next) => {
   let data = ctx.request.body;
   fakeData.push(data);
   ctx.body = {};
+});
+
+router.get('/list1/caption', (ctx, next) => {
+  let { offset, limit, where = '{}' } = ctx.query;
+  return Promise.resolve(where).then(JSON.parse).then(where => {
+    offset |= 0;
+    limit = limit | 0 || 30;
+    let count = fakeData.filter(item => {
+      return Object.keys(item).every(key => {
+        return !(key in where) || JSON.stringify(item[key]) === JSON.stringify(where[key]);
+      });
+    }).length;
+    ctx.body = { html: `<h1 style="text-align: left; font-size: 14px;">共有 ${count} 条记录</h1>` };
+  }, error => {
+    ctx.body = { message: 'JSON parse error' };
+    ctx.status = 400;
+  });
 });
 
 router.get('/list1/:id', (ctx, next) => {

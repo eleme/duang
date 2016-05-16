@@ -1,6 +1,6 @@
 const fakeData = new (require('../lib/fakedata'));
 const KoaRouter = require('koa-router');
-const router = new KoaRouter();
+const router = new KoaRouter({ prefix: '/api' });
 
 router.get('/list2', (ctx, next) => {
   let { offset, limit } = ctx.query;

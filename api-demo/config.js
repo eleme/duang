@@ -5,7 +5,7 @@ module.exports = {
       title: '测试列表 1',
       pageSize: 15,
       caption: [
-        { component: 'HTML', args: { html: '<h1>呵呵</h1>' } }
+        { component: 'HTML', args: 'caption', query: true }
       ],
       fields: [
         { key: 'id', 'title': 'ID' },
