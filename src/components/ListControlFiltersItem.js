@@ -17,7 +17,7 @@ def((Input, Item, Button) => class extends Item {
     `;
   }
   init() {
-    this.input = this.ctrl = new Input(this, { onReady: () => this.ready() });
+    this.input = this.ctrl = new Input(this, { onReady: () => this.ready(), scheme: this.scheme });
     new Button({ text: 'Apply', onClick: () => this.apply() }).renderTo(this);
   }
   ready() {

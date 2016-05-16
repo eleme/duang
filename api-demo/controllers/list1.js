@@ -18,6 +18,12 @@ router.get('/list1', (ctx, next) => {
   });
 });
 
+router.get('/list1/opts', (ctx, next) => {
+  ctx.body = {
+    options: { A: 'A', B: 'B', C: 'C', D: 'D' }
+  };
+});
+
 router.post('/list1', (ctx, next) => {
   let data = ctx.request.body;
   fakeData.push(data);

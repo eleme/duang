@@ -6,7 +6,7 @@ def((Item) => class extends Item {
     this.$promise = new Promise($resolve => resolve = $resolve);
     let { component = 'String', args, scheme, params, query } = this;
     let $args;
-    let url = scheme.key + '/' + args;
+    let url = scheme ? scheme.key + '/' + args : args;
     if (query) url = url + '?' + new UParams(params);
     if (typeof args === 'string') {
       $args = args[0] === '/' ? api(args) : api(url);

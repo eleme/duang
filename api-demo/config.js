@@ -20,8 +20,8 @@ module.exports = {
         { type: 'custom', api: 'hx', title: '和谐' }
       ],
       filters: [
-        { key: 'opts', title: 'Opts', component: 'Checkbox', args: { options: { A: 'A', B: 'B', C: 'C', D: 'D' } } },
-        { key: 'level', title: 'Level', component: 'Select', args: { options: { A: 'A', B: 'B', C: 'C', D: 'D' } } },
+        { key: 'opts', title: 'Opts', component: 'Checkbox', args: 'opts' },
+        { key: 'level', title: 'Level', component: 'Select', args: 'opts' },
         { key: 'radio', title: 'Radio', component: 'Radio', args: { options: { A: 'A', B: 'B', C: 'C', D: 'D' } } }
       ],
       inputs: [
