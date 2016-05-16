@@ -2,8 +2,6 @@ def((Item) => class extends Item {
   get template() { return `<span></span>`; }
   init() {
 
-    let resolve;
-    this.$promise = new Promise($resolve => resolve = $resolve);
     let { component = 'String', args, scheme, params, query } = this;
     let $args;
     let url = scheme ? scheme.key + '/' + args : args;
@@ -22,8 +20,8 @@ def((Item) => class extends Item {
     });
 
     Promise.all([ $Component, $args ]).then(([ Component, args ]) => {
-      this.input = new Component(args).renderTo(this);
-      resolve();
+      this.input = new Component(args, { value: this.value }).renderTo(this);
+      this.$promise.resolve();
     }, error => {
       this.element.textContent = error.message;
     });
@@ -32,5 +30,19 @@ def((Item) => class extends Item {
       if (typeof this.onReady === 'function') this.onReady();
     });
 
+  }
+  get $promise() {
+    let resolve;
+    let value = new Promise($resolve => resolve = $resolve);
+    value.resolve = resolve;
+    Object.defineProperty(this, '$promise', { value });
+    return value;
+  }
+  get value() { return this.$value; }
+  set value(value) {
+    this.$value = value;
+    this.$promise.then(() => {
+      this.input.value = value;
+    });
   }
 });

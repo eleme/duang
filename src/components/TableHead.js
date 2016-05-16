@@ -1,4 +1,4 @@
-def((TableCell) => class extends Jinkela {
+def((TableHeadCell) => class extends Jinkela {
   get template() { return `<thead><tr ref="tr"></tr></thead>`; }
   init() {
     let { scheme } = this;
@@ -6,6 +6,6 @@ def((TableCell) => class extends Jinkela {
     if (scheme.actions && scheme.actions.length) {
       fields.push({ title: scheme.actionsTitle || 'Actions', align: 'right' });
     }
-    TableCell.cast(fields, { scheme }).renderTo(this.tr);
+    TableHeadCell.cast(fields, { scheme }).renderTo(this.tr);
   }
 });
