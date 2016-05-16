@@ -21,7 +21,9 @@ def((Item, Input) => class extends Item {
         td {
           padding: .5em;
         }
-        > :nth-child(1) {
+        > :first-child {
+          width: 1px;
+          white-space: nowrap;
           text-align: right;
           &:not(:empty):after {
             content: ': ';

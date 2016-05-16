@@ -14,7 +14,7 @@ def((Output) => class extends Jinkela {
   get styleSheet() {
     return `
       :scope {
-        /* color: red; */
+        text-align: left;
       }
     `;
   }

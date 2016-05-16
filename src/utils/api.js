@@ -25,11 +25,12 @@ const api = new class extends Function {
     if (element) base = this.resolvePath(base, element.getAttribute('config'));
     return (path, options) => {
       return fetch(this.resolvePath(base, path), this.extendOptions(options)).then(response => {
-        let type = /\bjson\b/.test(response.headers.get('content-type')) ? 'json' : 'text';
+        let type = response.headers.get('content-type');
+        let key = /\bjson\b/.test(type) ? 'json' : 'text';
         if (response.status < 400) {
-          return response[type]();
+          return response[key]();
         } else {
-          return response[type]().then(result => { throw result; });
+          return response[key]().then(result => { throw result; });
         }
       });
     };
