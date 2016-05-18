@@ -1,5 +1,10 @@
 const init = new function() {
-  let $config = api('').then(result => window.config = result);
+  let $config;
+  if (window.config) {
+    $config = Promise.resolve(config);
+  } else {
+    $config = api('').then(result => window.config = result);
+  }
   let loadModule = () => new Promise((resolve, reject) => {
     require([ 'modules/' + (new UParams().module || 'default') + '.js' ], Module => {
       document.body.innerHTML = '';
