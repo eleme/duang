@@ -2,9 +2,7 @@ def((Item) => class extends Item {
   get template() { return `<span></span>`; }
   init() {
 
-    let resolve;
-    this.$promise = new Promise($resolve => resolve = $resolve);
-    let { component = 'String', args, scheme, query } = this;
+    let { component = 'String', args, scheme } = this;
     let $args;
     let url = scheme ? scheme.key + '/' + args : args;
     if (typeof args === 'string') {
@@ -22,7 +20,7 @@ def((Item) => class extends Item {
 
     Promise.all([ $Component, $args ]).then(([ Component, args ]) => {
       this.input = new Component(args).renderTo(this);
-      resolve();
+      this.$promise.resolve();
     }, error => {
       this.element.textContent = error.message;
     });
@@ -30,6 +28,13 @@ def((Item) => class extends Item {
     this.$promise.then(() => {
       if (typeof this.onReady === 'function') this.onReady();
     });
+  }
+  get $promise() {
+    let resolve;
+    let value = new Promise($resolve => resolve = $resolve);
+    value.resolve = resolve;
+    Object.defineProperty(this, '$promise', { value });
+    return value;
   }
   get value() { return this.input.value; }
   set value(value) {
