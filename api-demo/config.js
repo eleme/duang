@@ -32,6 +32,7 @@ module.exports = {
       ],
       filters: [
         { key: 'opts', title: 'Opts', component: 'Checkbox', args: 'opts' },
+        { key: 'name', title: 'Name', component: 'String' },
         { key: 'level', title: 'Level', component: 'Select', args: 'opts' },
         { key: 'radio', title: 'Radio', component: 'Radio', args: { options: { A: 'A', B: 'B', C: 'C', D: 'D' } } }
       ],

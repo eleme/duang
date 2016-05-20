@@ -4,7 +4,7 @@ def(() => class extends Jinkela {
     if (this.width !== void 0) this.element.style.width = this.width;
   }
   get value() { return this.element.value; }
-  set value(value) { this.element.value = value; }
+  set value(value) { this.element.value = value === void 0 ? '' : value; }
   get template() { return `<input/>`; }
   get styleSheet() {
     return `
