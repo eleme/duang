@@ -5,10 +5,10 @@ const init = new function() {
   } else {
     $config = api('').then(result => window.config = result);
   }
-  let loadModule = () => new Promise((resolve, reject) => {
+  const loadModule = () => new Promise((resolve, reject) => {
     require([ 'modules/' + (new UParams().module || 'default') + '.js' ], Module => {
-      document.body.innerHTML = '';
-      new Module().renderTo(document.body);
+      if (init.module) document.body.removeChild(init.module.element);
+      init.module = new Module().renderTo(document.body);
       resolve();
     }, reject);
   });

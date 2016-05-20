@@ -19,9 +19,16 @@ module.exports = {
         { type: 'custom', api: 'hx-all', title: '和谐全部' }
       ],
       actions: [
-        { type: 'edit', title: '编辑' },
-        { type: 'delete', title: '删除' },
-        { type: 'custom', api: 'hx', title: '和谐' }
+        { method: 'edit', title: '编辑' },
+        {
+          method: 'delete', title: '删除', confirm: {
+            title: '确认删除？',
+            text: '确定要删除这条记录么？',
+            yes: { text: '(╬▔皿▔) 是的！' },
+            cancel: { text: '(っ °Д °;)っ 再考虑考虑！', color: '#ccc' }
+          }
+        },
+        { method: 'post', api: 'hx', title: '和谐' }
       ],
       filters: [
         { key: 'opts', title: 'Opts', component: 'Checkbox', args: 'opts' },
