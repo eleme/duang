@@ -2,6 +2,7 @@ def((Scheme, ListControl, Table, TableTip, Pager) => class extends Scheme {
   load() {
     let params = {};
     let { scheme } = this;
+    if (!scheme) return location.hash = '';
     let { page, where } = new UParams();
     if (scheme.pageSize) {
       params.limit = scheme.pageSize;

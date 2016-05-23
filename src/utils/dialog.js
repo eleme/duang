@@ -5,7 +5,7 @@ const dialog = new class extends Jinkela {
     this.element.addEventListener('click', event => event.dontCancel || this.cancel());
     this.close.addEventListener('click', event => this.cancel());
   }
-  render() { console.log(this.element); this.renderTo(document.body); }
+  render() { this.renderTo(document.body); }
   popup(content) {
     this.title = content.title;
     this.dd.innerHTML = '';
