@@ -5,7 +5,7 @@ const api = new class extends Function {
   }
   resolvePath(base, path) {
     return [].concat(path).reduce((base, item) => {
-      if (/^\/\//.test(item)) return item;
+      if (/^(?:https?:)?\/\//.test(item)) return item;
       if (/^\//.test(item)) return base.replace(/^((?:https?:)?\/\/[^/]*)?(.*)/, `$1${item}`);
       if (item && base[base.length - 1] !== '/') base += '/';
       return base + item;
