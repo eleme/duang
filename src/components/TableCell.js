@@ -21,6 +21,7 @@ def((Output, Item, TableRowActions) => class extends Item {
       :scope {
         border: solid #e4e4e4;
         border-width: 1px 0;
+        padding: .1em .5em;
       }
     `;
   }

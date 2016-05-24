@@ -1,15 +1,8 @@
 def((Scheme, ListControl, Table, TableTip, Pager) => class extends Scheme {
   load() {
-    let params = {};
     let { scheme } = this;
     if (!scheme) return location.hash = '';
-    let { page, where } = new UParams();
-    if (scheme.pageSize) {
-      params.limit = scheme.pageSize;
-      params.offset = scheme.pageSize * (page - 1 || 0);
-    }
-    if (where) params.where = where;
-    return api(scheme.key + '?' + new UParams(params));
+    return api(scheme.key + '?' + this.queryParams);
   }
   error(error) {
     alert(error.message || 'Unknown Error');

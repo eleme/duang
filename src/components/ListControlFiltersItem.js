@@ -9,6 +9,7 @@ def((Input, Item, Button) => class extends Item {
         margin-bottom: 1em;
         > * {
           display: inline-block;
+          vertical-align: middle;
         }
         > button {
           margin-left: 1em;

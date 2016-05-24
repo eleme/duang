@@ -3,13 +3,13 @@ const api = new class extends Function {
     super('...args', 'return this(...args)');
     return this.bind(this.launch);
   }
-  resolvePath(base, path) {
-    return [].concat(path).reduce((base, item) => {
+  resolvePath(path) {
+    return this.basePath.concat(path).reduce((base, item) => {
       if (/^(?:https?:)?\/\//.test(item)) return item;
       if (/^\//.test(item)) return base.replace(/^((?:https?:)?\/\/[^/]*)?(.*)/, `$1${item}`);
       if (item && base[base.length - 1] !== '/') base += '/';
       return base + item;
-    }, base);
+    });
   };
   extendOptions(options) {
     options = Object.assign({ credentials: 'include' }, options);
@@ -19,14 +19,28 @@ const api = new class extends Function {
     }
     return options;
   }
-  get launch() {
-    let base = location.origin + location.pathname.replace(/[^/]*$/, 'api');
+  get basePath() {
+    let value = [ location.origin + location.pathname.replace(/[^/]*$/, 'api') ];
     const element = document.querySelector('[config]');
-    if (element) base = this.resolvePath(base, element.getAttribute('config'));
+    if (element) value.push(element.getAttribute('config'));
+    Object.defineProperty(this, 'basePath', { value });
+    return value;
+  }
+  get launch() {
     return (path, options) => {
-      return fetch(this.resolvePath(base, path), this.extendOptions(options)).then(response => {
+      return fetch(this.resolvePath(path), this.extendOptions(options)).then(response => {
         let type = response.headers.get('content-type');
-        let key = /\bjson\b/.test(type) ? 'json' : 'text';
+        let key;
+        switch (true) {
+          case /\bjson\b/.test(type):
+            key = 'json';
+            break;
+          case /\btext\b/.test(type):
+            key = 'text';
+            break;
+          default: 
+            key = 'body';
+        }
         if (response.status < 400) {
           return response[key]();
         } else {

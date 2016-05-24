@@ -3,9 +3,8 @@ module.exports = {
     {
       key: 'list1',
       title: '测试列表 1',
-      pageSize: 15,
       caption: [
-        { component: 'HTML', args: 'caption', query: true }
+        { component: 'HTML', args: 'caption' }
       ],
       fields: [
         { key: 'id', 'title': 'ID' },
@@ -15,8 +14,9 @@ module.exports = {
         { key: 'radio', 'title': 'Radio' }
       ],
       operations: [
-        { type: 'create', title: '创建' },
-        { type: 'custom', api: 'hx-all', title: '和谐全部' }
+        { method: 'create', title: '创建' },
+        { method: 'open', href: 'download', title: '下载' },
+        { api: 'hx-all', title: '和谐全部' }
       ],
       actions: [
         { method: 'edit', title: '编辑' },
@@ -54,15 +54,15 @@ module.exports = {
         { key: 'opts', 'title': 'Opts' },
       ],
       actions: [
-        { type: 'edit', title: '编辑' },
-        { type: 'delete', title: '删除' },
-        { type: 'custom', api: 'hx', title: '和谐' }
+        { method: 'edit', title: '编辑' },
+        { method: 'delete', title: '删除' },
+        { api: 'hx', title: '和谐' }
       ],
       inputs: [
         { key: 'name', title: 'Text', component: 'String' },
         { key: 'opts', title: 'Opts', component: 'Checkbox', args: { options: { A: 'A', B: 'B', C: 'C', D: 'D' } } },
         { key: 'level', title: 'Level', component: 'Select', args: { options: { A: 'A', B: 'B', C: 'C', D: 'D' } } }
       ]
-    }
+    } 
   ]
 };

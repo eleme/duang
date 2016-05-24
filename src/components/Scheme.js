@@ -9,6 +9,16 @@ def(() => {
       Object.defineProperty(this, 'scheme', { value: schemeMap[key] });
       return schemeMap[key];
     }
+    get queryParams() {
+      let params = {};
+      let { page, where } = new UParams();
+      if (this.scheme.pageSize) {
+        params.limit = this.scheme.pageSize;
+        params.offset = this.scheme.pageSize * (page - 1 || 0);
+      }
+      if (where) params.where = where;
+      return new UParams(params);
+    }
   };
 
 });

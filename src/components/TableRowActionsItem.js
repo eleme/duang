@@ -14,7 +14,7 @@ def((ListItem, Confirm) => class extends ListItem {
       default:
         let path = [ this.scheme.key, this.id ];
         if ('api' in this) path.push(this.api);
-        api(path.join('/'), { method: this.method }).then(result => {
+        api(path.join('/'), { method: this.method || 'POST' }).then(result => {
           init();
         }, error => {
           alert(error.message);
