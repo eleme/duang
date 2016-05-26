@@ -6,6 +6,7 @@ def(() => class extends Jinkela {
     this.element.innerHTML = this.html.replace(/\{(.*?)\}/g, ($0, key) => this[key]);
   }
   init() {
+    this.element.innerHTML = this.html;
     this.value = this.value;
   }
 });

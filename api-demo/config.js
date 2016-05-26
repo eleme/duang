@@ -1,4 +1,5 @@
 module.exports = {
+  logo: { component: 'HTML', args: { html: 'Duang 测试系统' } },
   schemes: [
     {
       key: 'list1',

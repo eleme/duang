@@ -1,12 +1,8 @@
-def((FrameHeadLogo) => class extends Jinkela {
-  get template() {
-    return `<a href="JavaScript:">Duang</a>`;
-  }
+def((FrameHeadLogo, Output) => class extends Jinkela {
   init() {
-    this.element.addEventListener('click', event => this.click(event));
-  }
-  click(event) {
-    location.hash = '';
+    let { logo = 'Duang' } = config;
+    if (typeof logo === 'string') logo = { component: 'HTML', args: { html: logo } };
+    new Output(logo).renderTo(this);;
   }
   get styleSheet() {
     return `
