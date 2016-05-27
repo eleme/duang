@@ -49,6 +49,7 @@ module.exports = {
       key: 'list2',
       title: '测试列表 2',
       pageSize: 15,
+      require: [ 'LIST2' ],
       fields: [
         { key: 'id', 'title': 'ID' },
         { key: 'name', 'title': 'Name' },

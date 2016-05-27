@@ -3,10 +3,13 @@ def(() => class extends Jinkela {
   set value(value) {
     if (this.$value === value) return;
     this.$value = value;
-    this.element.innerHTML = this.html.replace(/\{(.*?)\}/g, ($0, key) => this[key]);
+    this.render();
   }
   init() {
-    this.element.innerHTML = this.html;
+    this.render();
     this.value = this.value;
+  }
+  render() {
+    this.element.innerHTML = this.html.replace(/\{(.*?)\}/g, ($0, key) => this[key]);
   }
 });

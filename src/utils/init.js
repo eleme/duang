@@ -12,7 +12,15 @@ const init = new function() {
       resolve();
     }, reject);
   });
-  return () => $config.then(loadModule);
+  let $session = $config.then(config => {
+    if (!config.session) return window.session = {};
+    let signin = new Function('return `' + config.session.signin + '`')();
+    return api(config.session.authorize).then(
+      result => window.session = result,
+      reason => location.href = api.resolvePath(signin)
+    );
+  });
+  return () => $session.then(loadModule);
 };
 
 addEventListener('DOMContentLoaded', init);

@@ -1,7 +1,14 @@
 def((FrameAsideMenuItem) => class extends Jinkela {
   init() {
     let { key } = new UParams();
-    FrameAsideMenuItem.cast(config.schemes, { currentKey: key }).renderTo(this);
+    let { schemes } = config;
+    if (session.permissions) {
+      schemes = schemes.filter(scheme => {
+        if (!scheme.require) return true;
+        return scheme.require.some((dep => ~session.permissions.indexOf(dep)));
+      });
+    }
+    FrameAsideMenuItem.cast(schemes, { currentKey: key }).renderTo(this);
   }
   get A() {
     return (function*A () {});

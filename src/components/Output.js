@@ -2,7 +2,12 @@ def((Item) => class extends Item {
   get template() { return `<span></span>`; }
   init() {
 
-    let { component = 'HTML', args, scheme, params, query } = this;
+    let { component, args, scheme, params, query } = this;
+    if (!component) {
+      component = 'HTML';
+      args = { html: '{value}' };
+    }
+
     let $args;
     let url = scheme ? scheme.key + '/' + args : args;
     if (query) url = url + '?' + new UParams(params);

@@ -7,6 +7,7 @@ def((FrameHeadLogo, Output) => class extends Jinkela {
   get styleSheet() {
     return `
       :scope {
+        float: left;
         width: 200px;
         padding-left: 1em;
       }
