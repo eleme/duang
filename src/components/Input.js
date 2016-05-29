@@ -1,5 +1,5 @@
 def((Item) => class extends Item {
-  get template() { return `<span></span>`; }
+  get tagName() { return `span`; }
   init() {
 
     let { component = 'String', args, scheme } = this;

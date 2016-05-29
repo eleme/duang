@@ -94,7 +94,7 @@ router.put('/list1/:id', (ctx, next) => {
     return;
   }
   for (let item of fakeData) if (item.id === id) {
-    for (let i in item) if (i !== 'id') item[i] = data[i];
+    for (let i in data) if (i !== 'id') item[i] = data[i];
     ctx.body = {};
   }
 });

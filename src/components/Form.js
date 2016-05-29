@@ -1,5 +1,5 @@
 def((FormSubmit, FormItem) => class extends Jinkela {
-  get template() { return '<table></table>'; }
+  get tagName() { return 'table'; }
   init() {
     this.list = FormItem.cast(this.scheme.inputs || []).renderTo(this);
     new FormSubmit({ scheme: this.scheme, form: this }).renderTo(this);
@@ -17,12 +17,26 @@ def((FormSubmit, FormItem) => class extends Jinkela {
   set value(data) {
     if (!data) return;
     this.list.forEach(item => {
-      item.value = data[item.key];
+      switch (item.squash) {
+        case 'direct':
+          item.value = Object.assign({ '': data[item.key] }, data);
+          break;
+        default:
+          item.value = data[item.key];
+      }
     });
   }
   get value() {
     return this.list.reduce((result, item) => {
-      result[item.key] = item.value;
+      let { value } = item;
+      switch (item.squash) {
+        case 'direct':
+          result[item.key] = value[''];
+          Object.keys(value).filter(key => key).forEach(key => result[key] = value[key]);
+          break;
+        default:
+          result[item.key] = value;
+      }
       return result;
     }, Object.create(null));
   }

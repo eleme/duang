@@ -41,6 +41,25 @@ module.exports = {
         { key: 'name', title: 'Name', component: 'String' },
         { key: 'desc', title: 'Desc', component: 'Text' },
         { key: 'opts', title: 'Opts', component: 'Checkbox', args: { options: { A: 'A', B: 'B', C: 'C', D: 'D' } } },
+        {
+          key: 'type',
+          title: 'Type',
+          component: 'GroupingSelect',
+          squash: 'direct',
+          args: {
+            options: { A: 'A', B: 'B', C: 'C', D: 'D' },
+            subGroupMap: {
+              'A': [
+                { key: 'a1', title: 'Name', component: 'String' },
+                { key: 'a2', title: 'Desc', component: 'String' },
+              ],
+              'B': [
+                { key: 'b1', title: 'Name', component: 'String' },
+                { key: 'b2', title: 'Desc', component: 'String' },
+              ]
+            }
+          }
+        },
         { key: 'level', title: 'Level', component: 'Select', args: { options: { A: 'A', B: 'B', C: 'C', D: 'D' } } },
         { key: 'radio', title: 'Radio', component: 'Radio', args: { options: { A: 'A', B: 'B', C: 'C', D: 'D' } } }
       ]

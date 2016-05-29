@@ -25,6 +25,7 @@ def((Item, Input) => class extends Item {
           width: 1px;
           white-space: nowrap;
           text-align: right;
+          vertical-align: top;
           &:not(:empty):after {
             content: ': ';
           }
