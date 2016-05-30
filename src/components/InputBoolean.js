@@ -16,7 +16,11 @@ def(() => class extends Jinkela {
       set: value => this.value = value
     });
     this.value = !!this.$value;
-    this.element.addEventListener('click', () => this.value = !this.$value);
+    if (this.readonly) {
+      if (this.readonly) this.element.setAttribute('readonly', 'readonly');
+    } else {
+      this.element.addEventListener('click', () => this.value = !this.$value);
+    }
   }
   get styleSheet() {
     return `
@@ -29,6 +33,7 @@ def(() => class extends Jinkela {
         box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
         display: inline-block;
         cursor: pointer;
+        &[readonly] { cursor: default; }
         &:before {
           content: attr(data-value);
           display: inline-block;

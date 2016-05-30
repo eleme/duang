@@ -2,7 +2,17 @@ def((FormSubmit, FormItem) => class extends Jinkela {
   get tagName() { return 'table'; }
   init() {
     let { scheme } = this;
-    this.list = FormItem.cast(this.scheme.inputs || [], { scheme }).renderTo(this);
+    let { inputs = [] } = scheme;
+    let { id } = new UParams();
+    let action = id ? 'edit' : 'create';
+    inputs = JSON.parse(JSON.stringify(inputs)).filter(item => item[action] !== 'none');
+    inputs.forEach((item) => {
+      if (item[action] === 'readonly') {
+        if (!item.args) item.args = {};
+        item.args.readonly = true;
+      }
+    });
+    this.list = FormItem.cast(inputs, { scheme }).renderTo(this);
     new FormSubmit({ scheme, form: this }).renderTo(this);
   }
   get styleSheet() {

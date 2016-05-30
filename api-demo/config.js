@@ -55,6 +55,8 @@ module.exports = {
         { key: 'name', title: 'Name', component: 'String' },
         { key: 'desc', title: 'Desc', component: 'Text' },
         { key: 'opts', title: 'Opts', component: 'Checkbox', args: { '@options': 'opts' } },
+        { key: 'boolean', title: 'Boolean', component: 'Boolean' },
+        { key: 'number', title: 'Number', component: 'Number' },
         {
           key: 'type',
           title: 'Type',

@@ -1,6 +1,9 @@
 def((Item, Value) => {
 
   class InputCheckboxItem extends Item {
+    init() {
+      if (this.readonly) this.input.setAttribute('disabled', 'disabled');
+    }
     get template() {
       return `
         <label>
@@ -33,10 +36,11 @@ def((Item, Value) => {
       `;
     }
     init() {
-      let list = Object.keys(this.options).map(key => {
-        return { value: key, text: this.options[key] };
+      let { options, readonly } = this;
+      let list = Object.keys(options).map(key => {
+        return { value: key, text: options[key] };
       });
-      this.list = InputCheckboxItem.cast(list).renderTo(this);
+      this.list = InputCheckboxItem.cast(list, { readonly }).renderTo(this);
     }
     set value(value) {
       let set = new Set(value);

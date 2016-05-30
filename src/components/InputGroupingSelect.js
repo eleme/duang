@@ -29,8 +29,9 @@ def((Input, InputSelect, FormItem) => {
 
   return class extends Jinkela {
     init() {
-      let { options } = this;
-      this.select = new InputSelect({ options, onChange: event => this.selectChange(event) }).renderTo(this);
+      let { options, readonly } = this;
+      const onChange = event => this.selectChange(event);
+      this.select = new InputSelect({ options, readonly, onChange }).renderTo(this);
       this.selectChange();
     }
     selectChange() {

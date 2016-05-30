@@ -17,6 +17,7 @@ def((Item) => {
       }
       InputSelectItem.cast(options).renderTo(this);
       this.element.addEventListener('change', event => this.change(event));
+      if (this.readonly) this.element.setAttribute('disabled', 'dsabled');
     }
     change() {
       if (typeof this.onChange === 'function') this.onChange(event);      
