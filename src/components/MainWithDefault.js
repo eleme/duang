@@ -1,6 +1,10 @@
-def((Table, TableTip, Pager) => class extends Jinkela {
+def((Output) => class extends Jinkela {
+  init() {
+    let welcome = config.welcome || { component: 'HTML', args: { html: '<h1>Duang!!!</h1>' } };
+    new Output(welcome).renderTo(this);;
+  }
   get template() {
-    return `<h1>Duang!!!</h1>`;
+    return ``;
   }
   get styleSheet() {
     return `

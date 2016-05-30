@@ -1,7 +1,8 @@
 def((Output) => class extends Jinkela {
   init() {
-    if (!session.username) return;
-    let output = new Output(config.session, { value: session.username }).renderTo(this);
+    let value = session.username || session.user && session.user.name;
+    if (!value) return;
+    let output = new Output(config.session, { value }).renderTo(this);
   }
   get styleSheet() {
     return `

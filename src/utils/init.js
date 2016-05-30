@@ -15,7 +15,7 @@ const init = new function() {
   let $session = $config.then(config => {
     if (!config.session) return window.session = {};
     let signin = new Function('return `' + config.session.signin + '`')();
-    return api(config.session.authorize).then(
+    return api(config.session.authorize, { method: config.session.method || 'post' }).then(
       result => window.session = result,
       reason => location.href = api.resolvePath(signin)
     );
