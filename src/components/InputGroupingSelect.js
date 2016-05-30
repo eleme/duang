@@ -13,7 +13,7 @@ def((Input, InputSelect, FormItem) => {
       });
     }
     init() {
-      this.inputs = FormItem.cast(this.group).renderTo(this);
+      this.inputs = FormItem.cast(this.group, { scheme: this.scheme }).renderTo(this);
     }
     get tagName() { return 'table'; }
     get styleSheet() {
@@ -35,8 +35,8 @@ def((Input, InputSelect, FormItem) => {
     }
     selectChange() {
       let group = this.subGroupMap[this.select.value] || [];
-      if (group.length) {
-        let table = new SubGroupMap({ group });
+      if (group.length) { 
+        let table = new SubGroupMap({ group, scheme: this.scheme });
         this.table = this.table ? table.renderWith(this.table) : table.renderTo(this);
       } else {
         if (this.table) this.element.removeChild(this.table.element);

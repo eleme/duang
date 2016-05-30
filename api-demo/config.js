@@ -1,5 +1,19 @@
 module.exports = {
-  logo: { component: 'HTML', args: { html: 'Duang 测试系统' } },
+  welcome: {
+    component: 'HTML',
+    args: { html: '<h4>饿了么营销系统</h4>' }
+  },
+  logo: {
+    component: 'HTML',
+    args: {
+      html: '<img src="//static11.elemecdn.com/eleme/activities/dist/baida/eleme.d3f894.svg" style="vertical-align: middle; margin-right: .5em;" /><span style="vertical-align: middle;">饿了么 — 营销系统</span>'
+    }
+  },
+  session: {
+    authorize: '//sakura.test.elenet.me/sakura/token_validation',
+    method: 'POST',
+    signin: "${location.origin.replace(/sakura|tsubaki/, 'sso') + '/sso/login?from=' + encodeURIComponent(location.href)}",
+  },
   schemes: [
     {
       key: 'list1',
@@ -32,15 +46,15 @@ module.exports = {
         { method: 'post', api: 'hx', title: '和谐' }
       ],
       filters: [
-        { key: 'opts', title: 'Opts', component: 'Checkbox', args: 'opts' },
+        { key: 'opts', title: 'Opts', component: 'Checkbox', args: { '@options': 'opts' } },
         { key: 'name', title: 'Name', component: 'String' },
-        { key: 'level', title: 'Level', component: 'Select', args: 'opts' },
+        { key: 'level', title: 'Level', component: 'Select', args: { '@options': 'opts' } },
         { key: 'radio', title: 'Radio', component: 'Radio', args: { options: { A: 'A', B: 'B', C: 'C', D: 'D' } } }
       ],
       inputs: [
         { key: 'name', title: 'Name', component: 'String' },
         { key: 'desc', title: 'Desc', component: 'Text' },
-        { key: 'opts', title: 'Opts', component: 'Checkbox', args: { options: { A: 'A', B: 'B', C: 'C', D: 'D' } } },
+        { key: 'opts', title: 'Opts', component: 'Checkbox', args: { '@options': 'opts' } },
         {
           key: 'type',
           title: 'Type',
@@ -84,6 +98,6 @@ module.exports = {
         { key: 'opts', title: 'Opts', component: 'Checkbox', args: { options: { A: 'A', B: 'B', C: 'C', D: 'D' } } },
         { key: 'level', title: 'Level', component: 'Select', args: { options: { A: 'A', B: 'B', C: 'C', D: 'D' } } }
       ]
-    } 
+    }
   ]
 };

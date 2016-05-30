@@ -1,8 +1,9 @@
 def((FormSubmit, FormItem) => class extends Jinkela {
   get tagName() { return 'table'; }
   init() {
-    this.list = FormItem.cast(this.scheme.inputs || []).renderTo(this);
-    new FormSubmit({ scheme: this.scheme, form: this }).renderTo(this);
+    let { scheme } = this;
+    this.list = FormItem.cast(this.scheme.inputs || [], { scheme }).renderTo(this);
+    new FormSubmit({ scheme, form: this }).renderTo(this);
   }
   get styleSheet() {
     return `

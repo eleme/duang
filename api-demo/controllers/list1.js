@@ -35,9 +35,7 @@ router.post('/list1/download', (ctx, next) => {
 });
 
 router.get('/list1/opts', (ctx, next) => {
-  ctx.body = {
-    options: { A: 'A', B: 'B', C: 'C', D: 'D' }
-  };
+  ctx.body = { A: 'A', B: 'B', C: 'C', D: 'D' };
 });
 
 router.post('/list1/hx-all', (ctx, next) => {
