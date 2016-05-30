@@ -13,7 +13,17 @@ def((Input, InputSelect, FormItem) => {
       });
     }
     init() {
-      this.inputs = FormItem.cast(this.group, { scheme: this.scheme }).renderTo(this);
+      let { group } = this;
+      let { id } = new UParams();
+      let action = id ? 'edit' : 'create';
+      group = JSON.parse(JSON.stringify(group)).filter(item => item[action] !== 'none');
+      group.forEach((item) => {
+        if (item[action] === 'readonly') {
+          if (!item.args) item.args = {};
+          item.args.readonly = true;
+        }
+      });
+      this.inputs = FormItem.cast(group, { scheme: this.scheme }).renderTo(this);
     }
     get tagName() { return 'table'; }
     get styleSheet() {

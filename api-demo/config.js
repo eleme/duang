@@ -66,7 +66,7 @@ module.exports = {
             options: { A: 'A', B: 'B', C: 'C', D: 'D' },
             subGroupMap: {
               'A': [
-                { key: 'a1', title: 'Name', component: 'String' },
+                { key: 'a1', title: 'Name', component: 'String', edit: 'readonly' },
                 { key: 'a2', title: 'Desc', component: 'String' },
               ],
               'B': [
