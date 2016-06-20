@@ -5,6 +5,7 @@ const api = new class extends Function {
   }
   resolvePath(path) {
     return this.basePath.concat(path).reduce((base, item) => {
+      if (item === void 0) return base;
       if (/^(?:https?:)?\/\//.test(item)) return item;
       if (/^\//.test(item)) return base.replace(/^((?:https?:)?\/\/[^/]*)?(.*)/, `$1${item}`);
       if (item && base[base.length - 1] !== '/') base += '/';
@@ -36,10 +37,8 @@ const api = new class extends Function {
             key = 'json';
             break;
           case /\btext\b/.test(type):
+          default:
             key = 'text';
-            break;
-          default: 
-            key = 'body';
         }
         if (response.status < 400) {
           return response[key]();

@@ -4,10 +4,11 @@ def(() => {
   config.schemes.forEach(scheme => schemeMap[scheme.key] = scheme);
 
   return class extends Jinkela {
+    get key() { return new UParams().key; }
     get scheme() {
-      let { key } = new UParams();
-      Object.defineProperty(this, 'scheme', { value: schemeMap[key] });
-      return schemeMap[key];
+      let value = schemeMap[this.key];
+      Object.defineProperty(this, 'scheme', { value });
+      return value;
     }
     get queryParams() {
       let params = {};

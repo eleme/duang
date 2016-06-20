@@ -27,10 +27,10 @@ def((Button, FormItem) => class extends FormItem {
     } else {
       $result = api(this.scheme.key, { method: 'POST', body: value });
     }
-    $result.then(result => {
+    $result.then(doAction).then(result => {
       this.back();
     }, error => {
-      alert(error.message);
+      if (error) alert(error.message || error);
     });
   }
   get styleSheet() {

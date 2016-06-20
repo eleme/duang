@@ -3,17 +3,6 @@ module.exports = {
     component: 'HTML',
     args: { html: '<h4>饿了么营销系统</h4>' }
   },
-  logo: {
-    component: 'HTML',
-    args: {
-      html: '<img src="//static11.elemecdn.com/eleme/activities/dist/baida/eleme.d3f894.svg" style="vertical-align: middle; margin-right: .5em;" /><span style="vertical-align: middle;">饿了么 — 营销系统</span>'
-    }
-  },
-  session: {
-    authorize: '//sakura.test.elenet.me/sakura/token_validation',
-    method: 'POST',
-    signin: "${location.origin.replace(/sakura|tsubaki/, 'sso') + '/sso/login?from=' + encodeURIComponent(location.href)}",
-  },
   schemes: [
     {
       key: 'list1',
@@ -99,6 +88,23 @@ module.exports = {
         { key: 'name', title: 'Text', component: 'String' },
         { key: 'opts', title: 'Opts', component: 'Checkbox', args: { options: { A: 'A', B: 'B', C: 'C', D: 'D' } } },
         { key: 'level', title: 'Level', component: 'Select', args: { options: { A: 'A', B: 'B', C: 'C', D: 'D' } } }
+      ]
+    },
+    {
+      key: 'confirm_and_submit',
+      title: '带有验证的提交',
+      caption: [
+        { component: 'HTML', args: 'message', query: true }
+      ],
+      filters: [
+        { key: "category", title: "Category", component: 'Select', args: { '@options': 'categories' } }
+      ],
+      operations: [
+        { method: 'create', title: 'Create' }
+      ],
+      inputs: [
+        { key: 'category', title: 'Create', component: 'Select', args: { '@options': 'categories' } },
+        { key: 'file', title: 'File', component: 'FileBase64' }
       ]
     }
   ]

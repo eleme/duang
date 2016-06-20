@@ -11,5 +11,6 @@
     <script src="${path}/utils/api.js"></script>
     <script src="${path}/utils/dialog.js"></script>
     <script src="${path}/utils/init.js"></script>
+    <script src="${path}/utils/doAction.js"></script>
   `);
 }
