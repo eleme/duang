@@ -2,8 +2,9 @@ def((Item) => class extends Item {
   init() {
     this.element.style.backgroundColor = this.color || '#5bbd72';
   }
+  get tag() { return 'button'; }
   get template() {
-    return `<button text="{text}"></button>`;
+    return `<${this.tag} text="{text}"></${this.tag}>`;
   }
   get styleSheet() {
     return `
@@ -14,14 +15,47 @@ def((Item) => class extends Item {
         font-size: 12px;
         cursor: pointer;
         color: #fff;
+        position: relative;
+        text-align: center;
         &:before {
           content: attr(text);
+        }
+        &:after {
+          position: absolute;
+          left: .8em;
+          right: .8em;
+          top: .4em;
+          bottom: .4em;
+        }
+        &.busy:before {
+          visibility: hidden;
+        }
+        &.busy:after {
+          content: '';
+          animation: button-busy 1000ms infinite;
         }
         &:hover {
           opacity: 0.8;
         }
         &:focus {
           outline: none;
+        }
+      }
+      @keyframes button-busy {
+        0% {
+          content: '·';
+        }
+        25% {
+          content: '··';
+        }
+        50% {
+          content: '···';
+        }
+        75% {
+          content: '····';
+        }
+        100% {
+          content: '·';
         }
       }
     `;
