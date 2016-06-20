@@ -9,16 +9,19 @@ def((Scheme, ListControl, Table, TableTip, Pager) => class extends Scheme {
   }
   init() {
     let scheme = this.scheme;
-    this.$data = this.load();
     new ListControl({ scheme }).renderTo(this);
     let table = new Table({ scheme }).renderTo(this);
-    let tip = new TableTip().renderTo(this);
-    this.$data.then(list => {
-      table.render(list);
-      tip.render(list);
-      new Pager({ scheme, list }).renderTo(this);
-    }, error => {
-      tip.render(error);
-    });
+    // Load data if "fields" exists
+    if (scheme.fields && scheme.fields.length) {
+      let tip = new TableTip().renderTo(this);
+      this.$data = this.load();
+      this.$data.then(list => {
+        table.render(list);
+        tip.render(list);
+        new Pager({ scheme, list }).renderTo(this);
+      }, error => {
+        tip.render(error);
+      });
+    }
   }
 });

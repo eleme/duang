@@ -9,7 +9,7 @@ def((TableRow, TableHead, TableCaption) => class extends Jinkela {
   render(list) {
     let { scheme } = this;
     list = list.map(data => {
-      let fields = scheme.fields.map(item => {
+      let fields = (scheme.fields || []).map(item => {
         item = Object.create(item);
         item.value = data[item.key];
         return item;

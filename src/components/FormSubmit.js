@@ -3,7 +3,7 @@ def((Button, FormItem) => class extends FormItem {
     this.title = '';
   }
   createInput() {
-    let submit = new Button({ text: '提交', onClick: event => this.click() });
+    let submit = new Button({ text: '提交', onClick: event => this.submit() });
     let back = new Button({ text: '返回', onClick: event => this.back(), color: '#ccc' });
     return new class extends Jinkela {
       init() {
@@ -18,7 +18,7 @@ def((Button, FormItem) => class extends FormItem {
   back() {
     history.back();
   }
-  click() {
+  submit() {
     let { id } = new UParams();
     let value = JSON.stringify(this.form.value);
     let $result;
