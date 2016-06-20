@@ -3,7 +3,7 @@ def((ListItem, Confirm) => class extends ListItem {
     this.text = this.title;
   }
   onClick() {
-    this.confirm ? Confirm.popup(this.confirm).then(() => this.exec()) : this.exec();
+    this.confirm ? Confirm.popup(this.confirm).then(result => result && this.exec()) : this.exec();
   }
   exec() {
     switch (this.method) {

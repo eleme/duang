@@ -12,8 +12,8 @@ def((Button) => class extends Jinkela {
 
     if (this.onYes.action) this.onYes = doAction.bind(null, this.onYes);
     if (this.onCancel.action) this.onCancel = doAction.bind(null, this.onCancel);
-    let onYes = () => this.resolve(Promise.resolve('yes').then(this.onYes));
-    let onCancel = () => this.resolve(Promise.resolve('cancel').then(this.onCancel));
+    let onYes = () => this.resolve(Promise.resolve().then(this.onYes));
+    let onCancel = () => this.resolve(Promise.resolve().then(this.onCancel));
 
     if (!this.yes) this.yes = 'Yes';
     this.yes = typeof this.yes === 'string' ? { text: this.yes } : this.yes;
@@ -36,8 +36,8 @@ def((Button) => class extends Jinkela {
       this.handlers.delete(handler);
     });
   }
-  onYes() {}
-  onCancel() {}
+  onYes() { return true; }
+  onCancel() { return false; }
   get template() {
     return `
       <div>
