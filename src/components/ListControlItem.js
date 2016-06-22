@@ -5,7 +5,7 @@ def((Button, Scheme) => class extends Button {
   onClick() {
     let path = [ this.scheme.key ];
     switch (this.method) {
-      case 'create':
+      case 'create': // Discarded
         let { key } = new UParams();
         location.hash = new UParams({ module: 'editor', key });
         break;
