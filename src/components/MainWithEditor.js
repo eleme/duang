@@ -1,6 +1,7 @@
 def((Scheme, Form, FormSubmit) => class extends Scheme {
   load() {
-    let { id } = new UParams();
+    let { params = '{}' } = new UParams();
+    let { id } = JSON.parse(params) || {};
     if (!id) return Promise.resolve();
     return api(this.scheme.key + '/' + id);
   }

@@ -1,10 +1,11 @@
 def((Item, TableCell) => class extends Item {
   get template() { return `<tr></tr>`; }
   init() {
-    let { scheme, fields, id } = this;
-    let { actions = [] } = scheme;
-    fields = [...fields];
-    if (actions.length) fields.push({ type: 'actions', value: scheme.actions, align: 'right' });
-    TableCell.cast(fields || [], { scheme, id: this.id }).renderTo(this);
+    let { scheme, fieldMap } = this;
+    let { fields = [], actions = [] } = scheme;
+    fields.forEach(field => {
+      new TableCell(field, { value: fieldMap[field.key] }, this).renderTo(this);
+    });
+    if (actions.length) new TableCell({ actions, align: 'right' }, this).renderTo(this);
   }
 });

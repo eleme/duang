@@ -18,7 +18,7 @@ router.get('/list1', (ctx, next) => {
   });
 });
 
-router.post('/list1/download', (ctx, next) => {
+router.get('/list1/download', (ctx, next) => {
   let { offset, limit, where = '{}' } = ctx.query;
   return Promise.resolve(where).then(JSON.parse).then(where => {
     offset |= 0;

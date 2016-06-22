@@ -19,7 +19,8 @@ def((Button, FormItem) => class extends FormItem {
     history.back();
   }
   submit() {
-    let { id } = new UParams();
+    let { params = '{}' } = new UParams();
+    let { id } = JSON.parse(params);
     let value = JSON.stringify(this.form.value);
     let $result;
     if (id) {

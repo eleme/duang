@@ -3,7 +3,8 @@ def((FormSubmit, FormItem) => class extends Jinkela {
   init() {
     let { scheme } = this;
     let { inputs = [] } = scheme;
-    let { id } = new UParams();
+    let { params = '{}' } = new UParams();
+    let { id } = JSON.parse(params);
     let action = id ? 'edit' : 'create';
     inputs = JSON.parse(JSON.stringify(inputs)).filter(item => item[action] !== 'none');
     inputs.forEach((item) => {

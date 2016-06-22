@@ -1,12 +1,12 @@
 module.exports = {
   welcome: {
     component: 'HTML',
-    args: { html: '<h4>饿了么营销系统</h4>' }
+    args: { html: '<h4>Duang 23333</h4>' }
   },
   schemes: [
     {
       key: 'list1',
-      title: '测试列表 1',
+      title: '普通列表',
       caption: [
         { component: 'HTML', args: 'caption' }
       ],
@@ -71,7 +71,7 @@ module.exports = {
     },
     {
       key: 'list2',
-      title: '测试列表 2',
+      title: '有权限的列表',
       pageSize: 15,
       require: [ 'LIST2' ],
       fields: [
@@ -105,6 +105,27 @@ module.exports = {
       inputs: [
         { key: 'category', title: 'Create', component: 'Select', args: { '@options': 'categories' } },
         { key: 'file', title: 'File', component: 'FileBase64' }
+      ]
+    },
+    {
+      key: 'assoc',
+      title: '关联表',
+      fields: [
+        { key: 'id', 'title': 'ID' },
+        { key: 'name', 'title': 'Name' }
+      ],
+      actions: [
+        {
+          _blank: true, method: 'list', title: '查看详情',
+          key: 'assoc/:parent_id', params: { '@parent_id': '$.id' }
+        }
+      ]
+    },
+    {
+      key: 'assoc/:parent_id',
+      fields: [
+        { key: 'id', 'title': 'ID' },
+        { key: 'name', 'title': 'Name' }
       ]
     }
   ]

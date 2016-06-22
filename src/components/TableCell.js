@@ -1,19 +1,12 @@
 def((Output, Item, TableRowActions) => class extends Item {
   get tagName() { return `td`; }
   init() {
-    if (this.align) this.element.align = this.align;
-    let { value } = this;
-    let { component, args } = this;
-    if (component) {
-      new Output({ component, args, value }).renderTo(this);
-    } else {
-      switch (this.type) {
-        case 'actions':
-          new TableRowActions({ data: value, scheme: this.scheme, id: this.id }).renderTo(this);
-          break;
-        default:
-          this.element.innerHTML = value;
-      }
+    let { align, value, component, args, actions, scheme, fieldMap } = this;
+    if (align) this.element.align = align;
+    switch (true) {
+      case !!component: return new Output({ component, args, value, fieldMap }).renderTo(this);
+      case !!actions: return new TableRowActions({ actions, scheme, fieldMap }).renderTo(this);
+      default: this.element.innerHTML = value;
     }
   }
   get styleSheet() {

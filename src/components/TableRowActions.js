@@ -1,6 +1,6 @@
 def((TableRowActionsItem) => class extends Jinkela {
   init() {
-    TableRowActionsItem.cast(this.data, { scheme: this.scheme, id: this.id }).renderTo(this);
+    TableRowActionsItem.cast(this.actions, this).renderTo(this);
   }
   get template() { return '<ul></ul>'; }
   get styleSheet() {

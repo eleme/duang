@@ -14,7 +14,8 @@ def((Input, InputSelect, FormItem) => {
     }
     init() {
       let { group } = this;
-      let { id } = new UParams();
+      let { params = '{}' } = new UParams();
+      let { id } = JSON.parse(params) || {};
       let action = id ? 'edit' : 'create';
       group = JSON.parse(JSON.stringify(group)).filter(item => item[action] !== 'none');
       group.forEach((item) => {
