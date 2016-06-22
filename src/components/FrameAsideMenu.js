@@ -4,7 +4,7 @@ def((FrameAsideMenuItem) => class extends Jinkela {
     let { schemes } = config;
     let { permissions = [] } = session;
     schemes = schemes.filter(scheme => {
-      if (~String(scheme.key).indexOf(':')) return false;
+      if (/(?:^|\/):/.test(scheme.key)) return false;
       if (!scheme.require) return true;
       return scheme.require.some((dep => ~permissions.indexOf(dep)));
     });

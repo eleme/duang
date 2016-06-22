@@ -6,8 +6,8 @@ def((Button, Scheme) => class extends Button {
     let path = [ this.scheme.key ];
     switch (this.method) {
       case 'create':
-        let { key } = new UParams();
-        location.hash = new UParams({ module: 'editor', key });
+        let { key, params = '{}' } = new UParams();
+        location.hash = new UParams({ module: 'editor', key, params });
         break;
       case 'open':
         let { queryParams } = new Scheme();

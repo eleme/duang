@@ -1,5 +1,5 @@
 const refactor = (tmpl, data) => {
-  if (typeof tmpl !== 'object') return;
+  if (typeof tmpl !== 'object') return tmpl;
   return Object.keys(tmpl).reduce((result, key) => {
     let value = tmpl[key];
     if (key[0] === '@') {

@@ -4,7 +4,7 @@ def((Scheme, ListControl, Table, TableTip, Pager) => class extends Scheme {
     if (!scheme) return location.hash = '';
     let { key } = scheme;
     let params = JSON.parse(UParams().params || '{}');
-    key = key.replace(/:([^/]+)/, ($0, $1) => params[$1]);
+    key = key.replace(/:([^/]+)/g, ($0, $1) => params[$1]);
     return api(key + '?' + queryParams);
   }
   init() {

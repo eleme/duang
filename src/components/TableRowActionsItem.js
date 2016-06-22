@@ -13,11 +13,15 @@ def((ListItem, Confirm) => class extends ListItem {
   }
   listAction() {
     let { key, params, _blank } = this;
+    params = refactor(params, this.fieldMap);
     this.go('list', key, params, _blank);
   }
   editAction() {
     let { _blank } = this;
-    this.go('editor', new UParams().key, { '@id': '$..id' }, _blank);
+    let { params = '{}' } = new UParams();
+    params = JSON.parse(params);
+    params['@id'] = '$.id';
+    this.go('editor', new UParams().key, params, _blank);
   }
   defaultAction() {
     let path = [ this.scheme.key, this.fieldMap.id ];

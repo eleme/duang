@@ -19,14 +19,18 @@ def((Button, FormItem) => class extends FormItem {
     history.back();
   }
   submit() {
+    let { scheme, form } = this;
+    let { key } = scheme;
     let { params = '{}' } = new UParams();
-    let { id } = JSON.parse(params);
-    let value = JSON.stringify(this.form.value);
+    params = JSON.parse(params);
+    let { id } = params;
+    key = key.replace(/:([^/]+)/g, ($0, $1) => params[$1]);
+    let value = JSON.stringify(form.value);
     let $result;
     if (id) {
-      $result = api(this.scheme.key + '/' + id, { method: 'PUT', body: value });
+      $result = api(key + '/' + id, { method: 'PUT', body: value });
     } else {
-      $result = api(this.scheme.key, { method: 'POST', body: value });
+      $result = api(key, { method: 'POST', body: value });
     }
     $result.then(doAction).then(result => {
       this.back();
