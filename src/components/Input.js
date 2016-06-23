@@ -2,7 +2,8 @@ def((Item) => class extends Item {
   get tagName() { return `span`; }
   init() {
 
-    let { component = 'String', args, scheme } = this;
+    let { component = 'String', args } = this;
+    let { scheme } = depot;
 
     let path = [];
     if (scheme) path.push(scheme.key);

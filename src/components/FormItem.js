@@ -13,7 +13,7 @@ def((Item, Input) => class extends Item {
     this.input = this.ctrl = this.createInput();
   }
   createInput() {
-    return new Input(this, { scheme: this.scheme });
+    return new Input(this);
   }
   get styleSheet() {
     return `

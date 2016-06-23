@@ -1,15 +1,15 @@
 def((TableRow, TableHead, TableCaption) => class extends Jinkela {
   get tagName() { return 'table'; }
   init() {
-    let { scheme } = this;
-    if (scheme.caption) new TableCaption({ scheme }).renderTo(this);
-    new TableHead({ scheme }).renderTo(this);
+    let { scheme } = depot;
+    if (scheme.caption) new TableCaption().renderTo(this);
+    new TableHead().renderTo(this);
     if (!scheme.key) return alert('require key');
   }
   render(list) {
-    let { scheme } = this;
+    let { scheme } = depot;
     list.forEach(fieldMap  => {
-      new TableRow({ fieldMap, scheme }).renderTo(this);
+      new TableRow({ fieldMap }).renderTo(this);
     });
   }
   get styleSheet() {

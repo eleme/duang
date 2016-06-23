@@ -2,7 +2,7 @@ def((Button) => class extends Jinkela {
   init() {
     let page = this.page = +new UParams().page || 1;
     let canPrev = page > 1;
-    let canNext = this.list.length === this.scheme.pageSize;
+    let canNext = this.list.length === depot.scheme.pageSize;
     if (!canPrev && !canNext) return this.element.style.display = 'none';
     if (canPrev) new Button({ text: 'Prev', onClick: () => this.prev() }).renderTo(this);
     new Jinkela({ init() { this.element.textContent = page; } }).renderTo(this);

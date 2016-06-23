@@ -1,8 +1,8 @@
 def((Item, TableCell) => class extends Item {
   get template() { return `<tr></tr>`; }
   init() {
-    let { scheme, fieldMap } = this;
-    let { fields = [], actions = [] } = scheme;
+    let { fieldMap } = this;
+    let { fields = [], actions = [] } = depot.scheme;
     fields.forEach(field => {
       new TableCell(field, { value: fieldMap[field.key] }, this).renderTo(this);
     });

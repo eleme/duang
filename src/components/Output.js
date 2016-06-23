@@ -2,7 +2,8 @@ def((Item) => class extends Item {
   get template() { return `<span></span>`; }
   init() {
 
-    let { component, args, scheme, params, query } = this;
+    let { component, args, params, query } = this;
+    let { scheme } = depot;
     if (!component) {
       component = 'HTML';
       args = { html: '{value}' };

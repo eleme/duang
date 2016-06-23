@@ -19,7 +19,8 @@ def((Button, FormItem) => class extends FormItem {
     history.back();
   }
   submit() {
-    let { scheme, form } = this;
+    let { form } = this;
+    let { scheme } = depot;
     let { key } = scheme;
     let { params = '{}' } = new UParams();
     params = JSON.parse(params);

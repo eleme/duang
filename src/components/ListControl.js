@@ -8,9 +8,9 @@ def((ListControlItem, ListControlFilters) => class extends Jinkela {
     `;
   }
   init() {
-    new ListControlFilters({ scheme: this.scheme }).renderTo(this);
-    let { scheme } = this;
+    new ListControlFilters().renderTo(this);
+    let { scheme } = depot;
     let { operations = [] } = scheme;
-    ListControlItem.cast(operations, { scheme }).renderTo(this);
+    ListControlItem.cast(operations).renderTo(this);
   }
 });
