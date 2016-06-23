@@ -10,8 +10,8 @@
     <script src="//github.elemecdn.com/uglifyjs!requirejs/requirejs/2.2.0/require.js"></script>
     <script src="${path}/utils/amdx.js"></script>
     <script src="${path}/utils/api.js"></script>
+    <script src="${path}/utils/depot.js"></script>
     <script src="${path}/utils/dialog.js"></script>
-    <script src="${path}/utils/init.js"></script>
     <script src="${path}/utils/doAction.js"></script>
     <script src="${path}/utils/refactor.js"></script>
   `);

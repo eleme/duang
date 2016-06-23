@@ -1,0 +1,56 @@
+const depot = new class {
+  constructor() {
+    addEventListener('load', () => this.hashchange());
+    addEventListener('hashchange', () => this.hashchange());
+  }
+  onRouteChange() {
+    require([ 'modules/' + (new UParams().module || 'default') + '.js' ], Module => {
+      if (this.moduleComponent) document.body.removeChild(this.moduleComponent.element);
+      this.moduleComponent = new Module().renderTo(document.body);
+    });
+  }
+  hashchange() {
+    if (this.config.then) return this.config.then(() => this.hashchange()); // Await until config loaded
+    if (this.session.then) return this.session.then(() => this.hashchange()); // Await until session loaded
+    Object.defineProperty(this, '@@cache', { configurable: true, value: {} });
+    this.onRouteChange();
+  }
+  cache(name, resolver) {
+    let cache = this['@@cache'];
+    if (name in cache) return cache[name];
+    return cache[name] = resolver();
+  }
+  parseJSON(json) { try { return JSON.parse(json); } catch (error) {} }
+  get config() {
+    return window.config ? config : api('').then(result => window.config = result);
+  }
+  get session() {
+    if (!config.session) return window.session = {};
+    return api(config.session.authorize, { method: config.session.method || 'post' }).then(
+      value => Object.defineProperty(this, 'session', { configurable: true, value }),
+      reason => location.href = api.resolvePath(new Function('return `' + config.session.signin + '`')())
+    );
+  }
+  get module() { return this.uParams.module; }
+  get key() {  return this.uParams.key;  }
+  get scheme() { return this.schemeMap[this.key]; }
+  get where() {  return this.cache('where', () => this.parseJSON(this.uParams.where) || {});  }
+  get params() {  return this.cache('params', () => this.parseJSON(this.uParams.params) || {});  }
+  get uParams() { return this.cache('uParams', () => new UParams()); }
+  get schemeMap() {
+    let value = Object.create(null);
+    this.config.schemes.forEach(scheme => value[scheme.key] = scheme);
+    Object.defineProperty(this, 'schemeMap', { value });
+    return value;
+  }
+  get queryParams() {
+    let params = {};
+    let { page, where } = this.uParams;
+    if (this.scheme.pageSize) {
+      params.limit = this.scheme.pageSize;
+      params.offset = this.scheme.pageSize * (page - 1 || 0);
+    }
+    if (where) params.where = where;
+    return new UParams(params);
+  }
+};
