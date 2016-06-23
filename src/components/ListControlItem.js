@@ -3,25 +3,33 @@ def((Button) => class extends Button {
     this.text = this.title;
   }
   onClick() {
+    this.confirm ? Confirm.popup(this.confirm).then(result => result && this.exec()) : this.exec();
+  }
+  get exec() { return this[this.method + 'Action'] || this.defaultAction; }
+  goAction() {
+    let { module, key, params, _blank } = this;
+    params = refactor(params, this.fieldMap);
+    params = JSON.stringify(refactor(params, depot));
+    let hash = '#' + new UParams({ module, key, params });
+    _blank ? open(location.href.replace(/(#.*)?$/, hash)) : location.hash = hash;
+  }
+  createAction() {
+    let { key, params = '{}' } = depot.uParams;
+    location.hash = new UParams({ module: 'editor', key, params });
+  }
+  openAction() {
+    let { queryParams } = depot;
+    let url = api.resolvePath([ depot.scheme.key, this.href ]);
+    open(`${url}?${queryParams}`);
+  }
+  defaultAction() {
     let path = [ depot.scheme.key ];
-    switch (this.method) {
-      case 'create':
-        let { key, params = '{}' } = depot.uParams;
-        location.hash = new UParams({ module: 'editor', key, params });
-        break;
-      case 'open':
-        let { queryParams } = depot;
-        let url = api.resolvePath([ depot.scheme.key, this.href ]);
-        open(`${url}?${queryParams}`);
-        break;
-      default:
-        if ('api' in this) path.push(this.api);
-        api(path.join('/'), { method: this.method || 'POST' }).then(result => {
-          depot.refresh();
-        }, error => {
-          alert(error.message);
-        });
-    }
+    if ('api' in this) path.push(this.api);
+    api(path.join('/'), { method: this.method || 'POST' }).then(result => {
+      depot.refresh();
+    }, error => {
+      alert(error.message);
+    });
   }
   get styleSheet() {
     return `
