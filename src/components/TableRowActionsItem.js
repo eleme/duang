@@ -6,21 +6,19 @@ def((ListItem, Confirm) => class extends ListItem {
     this.confirm ? Confirm.popup(this.confirm).then(result => result && this.exec()) : this.exec();
   }
   get exec() { return this[this.method + 'Action'] || this.defaultAction; }
-  go(module, key, params, _blank) {
+  goAction() {
+    let { module, key, params, _blank } = this;
+    params = refactor(params, this.fieldMap);
     params = JSON.stringify(refactor(params, this.fieldMap));
     let hash = '#' + new UParams({ module, key, params });
     _blank ? open(location.href.replace(/(#.*)?$/, hash)) : location.hash = hash;
   }
-  listAction() {
-    let { key, params, _blank } = this;
-    params = refactor(params, this.fieldMap);
-    this.go('list', key, params, _blank);
-  }
   editAction() {
     let { _blank } = this;
-    let { params, key } = depot;
-    params['@id'] = '$.id';
-    this.go('editor', key, params, _blank);
+    this.module = 'editor';
+    this.params = Object.assign({ '@id': '$.id' }, depot.params);
+    this.key = depot.key;
+    this.goAction();
   }
   defaultAction() {
     let path = [ depot.scheme.key, this.fieldMap.id ];
