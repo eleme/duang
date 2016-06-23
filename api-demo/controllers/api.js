@@ -3,7 +3,8 @@ const KoaRouter = require('koa-router');
 const router = new KoaRouter();
 
 router.get('/api', ctx => {
-  ctx.body = require('../config');
+  ctx.set('Content-Type', 'application/json');
+  ctx.body = JSON.stringify(require('../config'), 0, 2);
 });
 
 module.exports = router.routes();
