@@ -1,6 +1,6 @@
 def((Button) => class extends Jinkela {
   init() {
-    let page = this.page = +new UParams().page || 1;
+    let page = this.page = +depot.uParams.page || 1;
     let canPrev = page > 1;
     let canNext = this.list.length === depot.scheme.pageSize;
     if (!canPrev && !canNext) return this.element.style.display = 'none';

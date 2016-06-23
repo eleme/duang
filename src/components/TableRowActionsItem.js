@@ -18,16 +18,15 @@ def((ListItem, Confirm) => class extends ListItem {
   }
   editAction() {
     let { _blank } = this;
-    let { params = '{}' } = new UParams();
-    params = JSON.parse(params);
+    let { params, key } = depot;
     params['@id'] = '$.id';
-    this.go('editor', new UParams().key, params, _blank);
+    this.go('editor', key, params, _blank);
   }
   defaultAction() {
-    let path = [ this.scheme.key, this.fieldMap.id ];
+    let path = [ depot.scheme.key, this.fieldMap.id ];
     if ('api' in this) path.push(this.api);
     api(path.join('/'), { method: this.method || 'POST' }).then(result => {
-      init();
+      depot.refresh();
     }, error => {
       alert(error.message);
     });

@@ -4,7 +4,7 @@ const depot = new class {
     addEventListener('hashchange', () => this.hashchange());
   }
   onRouteChange() {
-    require([ 'modules/' + (new UParams().module || 'default') + '.js' ], Module => {
+    require([ 'modules/' + (depot.module || 'default') + '.js' ], Module => {
       if (this.moduleComponent) document.body.removeChild(this.moduleComponent.element);
       this.moduleComponent = new Module().renderTo(document.body);
     });
@@ -52,5 +52,8 @@ const depot = new class {
     }
     if (where) params.where = where;
     return new UParams(params);
+  }
+  refresh() {
+    this.onRouteChange();
   }
 };

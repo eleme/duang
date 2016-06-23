@@ -22,33 +22,23 @@ def((Input, Item, Button) => class extends Item {
     new Button({ text: 'Apply', onClick: () => this.apply() }).renderTo(this);
   }
   ready() {
-    let where = this.getWhereByParams();
+    let { where } = depot;
     let value = this.value = where[this.key];
     if (value !== void 0) {
       new Button({ text: 'Clear', onClick: () => this.clear(), color: '#ccc' }).renderTo(this);
     }
   }
-  getWhereByParams(params) {
-    let { where } = params || new UParams();
-    try {
-      return JSON.parse(where);
-    } catch(error) {
-      return {};
-    }
-  }
   apply() {
-    let params = new UParams();
-    let where = this.getWhereByParams(params);
+    let { uParams, where } = depot;
     where[this.key] = this.value;
-    params.where = JSON.stringify(where);
-    location.hash = new UParams(params);
+    uParams.where = JSON.stringify(where);
+    location.hash = new UParams(uParams);
   }
   clear() {
-    let params = new UParams();
-    let where = this.getWhereByParams(params);
+    let { uParams, where } = depot;
     delete where[this.key];
-    params.where = JSON.stringify(where);
-    location.hash = new UParams(params);
+    uParams.where = JSON.stringify(where);
+    location.hash = new UParams(uParams);
   }
   get value() { return this.input.value; }
   set value(value) { this.input.value = value; }

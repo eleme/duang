@@ -9,7 +9,7 @@ const doAction = data => {
     case 'patch':
       {
         let body = JSON.stringify(args.body);
-        return api([ new UParams().key, args.key ], { method: action, body }).then(doAction);
+        return api([ depot.key, args.key ], { method: action, body }).then(doAction);
       }
     case 'reject': return Promise.reject(args);
     case 'resolve': return Promise.resolve(args);

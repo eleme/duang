@@ -2,8 +2,8 @@ def((Output) => class extends Jinkela {
   get tagName() { return 'caption'; }
   init() {
     let params = {};
-    let { scheme } = depot;
-    let { page, where } = new UParams();
+    let { scheme, uParams } = depot;
+    let { page, where } = uParams;
     if (scheme.pageSize) {
       params.limit = scheme.pageSize;
       params.offset = scheme.pageSize * (page - 1 || 0);

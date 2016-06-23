@@ -20,10 +20,8 @@ def((Button, FormItem) => class extends FormItem {
   }
   submit() {
     let { form } = this;
-    let { scheme } = depot;
+    let { scheme, params } = depot;
     let { key } = scheme;
-    let { params = '{}' } = new UParams();
-    params = JSON.parse(params);
     let { id } = params;
     key = key.replace(/:([^/]+)/g, ($0, $1) => params[$1]);
     let value = JSON.stringify(form.value);

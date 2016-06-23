@@ -1,9 +1,8 @@
 def((ListControl, Table, TableTip, Pager) => class extends Jinkela {
   load() {
-    let { queryParams, scheme } = depot;
+    let { queryParams, scheme, params } = depot;
     if (!scheme) return location.hash = '';
     let { key } = scheme;
-    let params = JSON.parse(UParams().params || '{}');
     key = key.replace(/:([^/]+)/g, ($0, $1) => params[$1]);
     return api(key + '?' + queryParams);
   }

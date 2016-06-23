@@ -6,7 +6,7 @@ def((Button) => class extends Button {
     let path = [ depot.scheme.key ];
     switch (this.method) {
       case 'create':
-        let { key, params = '{}' } = new UParams();
+        let { key, params = '{}' } = depot.uParams;
         location.hash = new UParams({ module: 'editor', key, params });
         break;
       case 'open':
@@ -17,7 +17,7 @@ def((Button) => class extends Button {
       default:
         if ('api' in this) path.push(this.api);
         api(path.join('/'), { method: this.method || 'POST' }).then(result => {
-          init();
+          depot.refresh();
         }, error => {
           alert(error.message);
         });
