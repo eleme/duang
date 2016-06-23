@@ -1,6 +1,6 @@
 def((FrameAsideMenuItem) => class extends Jinkela {
   init() {
-    let { key } = new UParams();
+    let { key, session } = depot;
     let { schemes } = config;
     let { permissions = [] } = session;
     schemes = schemes.filter(scheme => {
