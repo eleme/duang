@@ -1,8 +1,8 @@
 def((Item) => class extends Item {
-  get template() { return `<span></span>`; }
+  get tagName() { return `span`; }
   init() {
 
-    let { component, args, params, query } = this;
+    let { component, args = {}, params, query } = this;
     let { scheme } = depot;
 
     if (!component) {
@@ -12,13 +12,12 @@ def((Item) => class extends Item {
 
     let path = [];
     if (scheme) path.push(scheme.key);
-
     let $args = function callee(args) {
       let tasks = [];
       for (let i in args) {
         let item = args[i];
         if (i[0] === '@') {
-          let task = api(path.concat(item)).then(result => {
+          let task = api(path.concat(item), { expires: 1000 }).then(result => {
             args[i.slice(1)] = result;
           });
           tasks.push(task);
@@ -30,7 +29,7 @@ def((Item) => class extends Item {
         }
       }
       return Promise.all(tasks).then(() => args);
-    }(args);
+    }(JSON.parse(JSON.stringify(args)));
 
     $args = $args.catch(error => {
       throw new Error(`Component "${component}" args "${args}" loading error with "${error.message}"`);

@@ -6,7 +6,7 @@
     <script src="//github.elemecdn.com/uglifyjs!YanagiEiichi/jinkela/1.2.2/directives/ref.js"></script>
     <script src="//github.elemecdn.com/uglifyjs!YanagiEiichi/jinkela/1.2.2/plugins/nesting.js"></script>
     <script src="//github.elemecdn.com/YanagiEiichi/uparams/1.3.0/uparams.min.js"></script>
-    <script src="//github.elemecdn.com/YanagiEiichi/jinkela-datepicker/1.1.2/datepicker.js"></script>
+    <script src="//github.elemecdn.com/YanagiEiichi/jinkela-datepicker/1.1.3/datepicker.js"></script>
     <script src="//github.elemecdn.com/uglifyjs!s3u/JSONPath/v0.15.0/lib/jsonpath.js"></script>
     <script src="//github.elemecdn.com/uglifyjs!requirejs/requirejs/2.2.0/require.js"></script>
     <script src="${path}/utils/amdx.js"></script>
