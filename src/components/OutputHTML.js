@@ -10,6 +10,9 @@ def(() => class extends Jinkela {
     this.value = this.value;
   }
   render() {
-    this.element.innerHTML = String(this.html).replace(/\{(.*?)\}/g, ($0, key) => this[key]);
+    this.element.innerHTML = String(this.html).replace(/\{(.*?)\}/g, ($0, key) => {
+      let base = typeof this.value === 'string' ? this : this.value;
+      return key.split('.').reduce((base, name) => Object(base)[name], base);
+    });
   }
 });

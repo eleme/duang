@@ -39,7 +39,7 @@ router.get('/confirm_and_submit/message', (ctx, next) => {
   let where = JSON.parse(ctx.query.where || '{}');
   let result = categories.find(item => item.value === where.category);
   if (!result) ctx.body = { html: '' };
-  ctx.body = { html: `<h1>count === ${count}</h1>` };
+  ctx.body = { count };
 });
 
 router.get('/confirm_and_submit/categories', (ctx, next) => {

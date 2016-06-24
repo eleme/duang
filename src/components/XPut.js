@@ -5,7 +5,7 @@ def((Item) => class extends Item {
   }
   resolveAt() {
     let path = [];
-    if (depot.scheme) path.push(depot.key);
+    if (depot.scheme) path.push(depot.resolvedKey);
     return function callee(base) {
       let tasks = [];
       Object.keys(base).forEach(i => {

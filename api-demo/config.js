@@ -8,7 +8,7 @@ module.exports = {
       key: 'list1',
       title: '普通列表',
       caption: [
-        { component: 'HTML', args: 'caption' }
+        { component: 'HTML', '@args': 'caption' }
       ],
       fields: [
         { key: 'id', 'title': 'ID' },
@@ -94,7 +94,7 @@ module.exports = {
       key: 'confirm_and_submit',
       title: '带有验证的提交',
       caption: [
-        { component: 'HTML', args: 'message', query: true }
+        { component: 'HTML', 'args': { html: '<div>count = {count}</div>' }, query: true, '@value': 'message' }
       ],
       filters: [
         { key: "category", title: "Category", component: 'Select', args: { '@options': 'categories' } }
