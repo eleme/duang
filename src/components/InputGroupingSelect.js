@@ -64,6 +64,7 @@ def((Input, InputSelect, FormItem) => {
       return Object.assign({ '': this.select.value }, this.table ? this.table.value : {});
     }
     set value(value) {
+      if (value === void 0) return;
       this.select.value = value[''];
       this.selectChange();
       if (this.table) this.table.value = value;

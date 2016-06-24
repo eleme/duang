@@ -13,7 +13,7 @@ def((Item, Input) => class extends Item {
     this.element.dataset.component = this.component;
     this.input = this.ctrl = this.createInput();
     if ('title' in this) {
-      this.element.firstChild.textContent = this.title;
+      this.element.firstElementChild.textContent = this.title;
     } else {
       this.element.removeChild(this.element.firstElementChild);
       this.element.firstElementChild.colSpan = 2;

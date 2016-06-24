@@ -35,10 +35,28 @@ module.exports = {
         { method: 'post', api: 'hx', title: '和谐' }
       ],
       filters: [
-        { key: 'opts', title: 'Opts', component: 'Checkbox', args: { '@options': 'opts' } },
         { key: 'name', title: 'Name', component: 'String' },
-        { key: 'level', title: 'Level', component: 'Select', args: { '@options': 'opts' } },
-        { key: 'radio', title: 'Radio', component: 'Radio', args: { options: { A: 'A', B: 'B', C: 'C', D: 'D' } } }
+        { key: 'opts', component: 'Checkbox', args: { '@options': 'opts' } },
+        { key: 'level', component: 'Select', args: { '@options': 'opts' } },
+        { key: 'radio', component: 'Radio', args: { options: { A: 'A', B: 'B', C: 'C', D: 'D' } } },
+        {
+          key: 'a_type',
+          squash: 'direct',
+          component: 'GroupingSelect',
+          args: {
+            horizontal: true,
+            options: { a1: 'A1', a23: 'A23' },
+            subGroupMap: {
+              a1: [
+                { key: 'a1' }
+              ],
+              a23: [
+                { key: 'a2' },
+                { key: 'a3' }
+              ]
+            }
+          }
+        },
       ],
       inputs: [
         { key: 'name', title: 'Name', component: 'String' },
