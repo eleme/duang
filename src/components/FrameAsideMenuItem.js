@@ -4,7 +4,10 @@ def((ListItem) => class extends ListItem {
     this.text = this.title || this.key.replace(/([^/]{2})[^/]{3,}\//g, '$1../');
   }
   onClick() {
-    location.hash = '#' + new UParams({ module: 'list', key: this.key });
+    let { module = 'list', key, where = {}, params = {} } = this;
+    where = JSON.stringify(where);
+    params = JSON.stringify(params);
+    location.hash = '#' + new UParams({ module, key, where, params });
   }
   get styleSheet() {
     return `
