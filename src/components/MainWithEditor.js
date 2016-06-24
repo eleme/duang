@@ -1,8 +1,11 @@
 def((Form, FormSubmit) => class extends Jinkela {
   load() {
-    let { id } = depot.params;
+    let { params, scheme } = depot;
+    let { id } = params;
+    let { key } = scheme;
     if (!id) return Promise.resolve();
-    return api(depot.scheme.key + '/' + id);
+    key = key.replace(/:([^/]+)/g, ($0, $1) => params[$1]);
+    return api(key + '/' + id);
   }
   init() {
     this.load().then(value => {
