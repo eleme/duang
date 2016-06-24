@@ -16,7 +16,7 @@ def((Item) => class extends Item {
           });
           tasks.push(task);
         } else {
-          if (typeof item === 'object') {
+          if (item && typeof item === 'object') {
             tasks.push(callee(item));
           }
         }
