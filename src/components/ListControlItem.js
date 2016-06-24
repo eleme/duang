@@ -8,8 +8,8 @@ def((Button) => class extends Button {
   get exec() { return this[this.method + 'Action'] || this.defaultAction; }
   goAction() {
     let { module, key, params, _blank } = this;
-    params = refactor(params, this.fieldMap);
-    params = JSON.stringify(refactor(params, depot));
+    let { scheme, where } = depot;
+    params = JSON.stringify(refactor(params, { params: depot.params, scheme, where }));
     let hash = '#' + new UParams({ module, key, params });
     _blank ? open(location.href.replace(/(#.*)?$/, hash)) : location.hash = hash;
   }
