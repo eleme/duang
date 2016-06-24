@@ -23,7 +23,7 @@ def((Button) => class extends Button {
     open(`${url}?${queryParams}`);
   }
   defaultAction() {
-    let path = [ depot.scheme.key ];
+    let path = [ depot.scheme.resolvedKey ];
     if ('api' in this) path.push(this.api);
     api(path.join('/'), { method: this.method || 'POST' }).then(result => {
       depot.refresh();

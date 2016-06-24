@@ -21,6 +21,10 @@ def(() => class extends Jinkela {
     } else {
       this.element.addEventListener('click', () => this.value = !this.$value);
     }
+    let { text = {} } = this;
+    this.element.setAttribute('data-text-true', text.true || 'true');
+    this.element.setAttribute('data-text-false', text.false || 'false');
+    if (this.fontSize) this.element.style.fontSize = this.fontSize + 'px';
   }
   get styleSheet() {
     return `
@@ -35,7 +39,7 @@ def(() => class extends Jinkela {
         cursor: pointer;
         &[readonly] { cursor: default; }
         &:before {
-          content: attr(data-value);
+          content: attr(data-text-false);
           display: inline-block;
           text-align: center;
           color: #fff;
@@ -48,7 +52,7 @@ def(() => class extends Jinkela {
           margin: -1px;
         }
         &[data-value=true]:before {
-          content: 'true';
+          content: attr(data-text-true);
           background: rgb(91, 189, 114);
           transform: translateX(20px);
         }

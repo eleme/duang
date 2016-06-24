@@ -30,15 +30,19 @@ def((Item) => class extends Item {
     let resolve;
     let value = new Promise($resolve => resolve = $resolve);
     value.then(() => {
+      if ('$value' in this) {
+        this.value = this.$value;
+        delete this.$value;
+      }
       if (typeof this.onReady === 'function') this.onReady();
     });
     value.resolve = resolve;
     Object.defineProperty(this, '$promise', { value });
     return value;
   }
-  get value() { return this.result && this.result.value; }
+  get value() { return '$value' in this ? this.$value : this.result && this.result.value; }
   set value(value) {
-    if (!this.result) this.$promise.then(this.value = value);
+    if (!this.result) return this.$value = value;
     this.result.value = value;
   }
 });

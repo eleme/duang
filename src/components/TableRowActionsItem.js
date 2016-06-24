@@ -21,7 +21,7 @@ def((ListItem, Confirm) => class extends ListItem {
     this.goAction();
   }
   defaultAction() {
-    let path = [ depot.scheme.key, this.fieldMap.id ];
+    let path = [ depot.resolvedKey, this.fieldMap.id ];
     if ('api' in this) path.push(this.api);
     api(path.join('/'), { method: this.method || 'POST' }).then(result => {
       depot.refresh();
