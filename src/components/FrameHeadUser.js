@@ -1,9 +1,14 @@
 def((Output) => class extends Jinkela {
   init() {
-    let { session } = depot;
+    let { session, config } = depot;
     let value = session.username || session.user && session.user.name;
     if (!value) return;
-    let output = new Output(session, { value }).renderTo(this);
+    let { component, args } = config.session;
+    if (!component) {
+      component = 'HTML';
+      args = { html: '{value}' };
+    }
+    let output = new Output({ component, args, value }).renderTo(this);
   }
   get styleSheet() {
     return `
