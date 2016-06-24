@@ -19,13 +19,13 @@ def((Input, Item, Button) => class extends Item {
   }
   init() {
     this.input = this.ctrl = new Input(this, { onReady: () => this.ready() });
-    new Button({ text: 'Apply', onClick: () => this.apply() }).renderTo(this);
+    new Button({ text: depot.getConst('Apply'), onClick: () => this.apply() }).renderTo(this);
   }
   ready() {
     let { where } = depot;
     let value = this.value = where[this.key];
     if (value !== void 0) {
-      new Button({ text: 'Clear', onClick: () => this.clear(), color: '#ccc' }).renderTo(this);
+      new Button({ text: depot.getConst('Clear'), onClick: () => this.clear(), color: '#ccc' }).renderTo(this);
     }
   }
   apply() {

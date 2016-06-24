@@ -21,6 +21,10 @@ const depot = new class {
     return cache[name] = resolver();
   }
   parseJSON(json) { try { return JSON.parse(json); } catch (error) {} }
+  getConst(name) {
+    let { config, scheme } = this;
+    return (scheme && scheme.const && scheme.const[name]) || (config.const && config.const[name]) || name;
+  }
   get config() {
     return window.config ? config : api('').then(result => window.config = result);
   }
