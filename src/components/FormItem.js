@@ -4,7 +4,7 @@ def((Item, Input) => class extends Item {
   get template() {
     return `
       <tr>
-        <td>{title}</td>
+        <td></td>
         <td><meta ref="ctrl"></td>
       </tr>
     `;
@@ -12,6 +12,12 @@ def((Item, Input) => class extends Item {
   init() {
     this.element.dataset.component = this.component;
     this.input = this.ctrl = this.createInput();
+    if ('title' in this) {
+      this.element.firstChild.textContent = this.title;
+    } else {
+      this.element.removeChild(this.element.firstElementChild);
+      this.element.firstElementChild.colSpan = 2;
+    }
   }
   createInput() {
     return new Input(this);
@@ -26,7 +32,7 @@ def((Item, Input) => class extends Item {
           line-height: 18px;
           vertical-align: top;
         }
-        > :first-child {
+        > :first-child:not([colspan]) {
           width: 1px;
           white-space: nowrap;
           text-align: right;

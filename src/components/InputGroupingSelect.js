@@ -24,6 +24,7 @@ def((Input, InputSelect, FormItem) => {
         }
       });
       this.inputs = FormItem.cast(group).renderTo(this);
+      if (this.horizontal) this.element.setAttribute('data-horizontal', this.horizontal);
     }
     get tagName() { return 'table'; }
     get styleSheet() {
@@ -32,6 +33,11 @@ def((Input, InputSelect, FormItem) => {
           font-size: 14px;
           margin-top: 1em;
           border-collapse: collapse;
+          &[data-horizontal] {
+            margin-top: 0;
+            display: inline-table;
+            vertical-align: middle;
+          }
         }
       `;
     }
@@ -47,7 +53,7 @@ def((Input, InputSelect, FormItem) => {
     selectChange() {
       let group = this.subGroupMap[this.select.value] || [];
       if (group.length) { 
-        let table = new SubGroupMap({ group });
+        let table = new SubGroupMap({ group, horizontal: this.horizontal });
         this.table = this.table ? table.renderWith(this.table) : table.renderTo(this);
       } else {
         if (this.table) this.element.removeChild(this.table.element);

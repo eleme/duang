@@ -1,12 +1,20 @@
 def((Input, Item, Button) => class extends Item {
+  init() {
+    this.input = this.ctrl = new Input(this, { onReady: () => this.ready() });
+    new Button({ text: depot.getConst('Apply'), onClick: () => this.apply() }).renderTo(this);
+    this.element.setAttribute('data-filter-component', this.component);
+    if ('title' in this) this.element.setAttribute('data-filter-title', this.title + '：');
+  }
   get template() {
-    return `<label><span>{title}</span>：<meta ref="ctrl" /></label>`;
+    return `<label><meta ref="ctrl" /></label>`;
   }
   get styleSheet() {
     return `
       :scope {
+        &::before { content: attr(data-filter-title); }
         display: block;
         margin-bottom: 1em;
+        white-space: nowrap;
         > * {
           display: inline-block;
           vertical-align: middle;
@@ -16,10 +24,6 @@ def((Input, Item, Button) => class extends Item {
         }
       }
     `;
-  }
-  init() {
-    this.input = this.ctrl = new Input(this, { onReady: () => this.ready() });
-    new Button({ text: depot.getConst('Apply'), onClick: () => this.apply() }).renderTo(this);
   }
   ready() {
     let { where } = depot;
