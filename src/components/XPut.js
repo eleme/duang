@@ -36,11 +36,9 @@ def((Item) => class extends Item {
     Object.defineProperty(this, '$promise', { value });
     return value;
   }
-  get value() { return this.$value; }
+  get value() { return this.result && this.result.value; }
   set value(value) {
-    this.$value = value;
-    this.$promise.then(() => {
-      this.input.value = value;
-    });
+    if (!this.result) this.$promise.then(this.value = value);
+    this.result.value = value;
   }
 });
