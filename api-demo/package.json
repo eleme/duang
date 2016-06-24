@@ -1,6 +1,6 @@
 {
   "name": "api-demo",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "private": true,
   "main": "index.js",
   "dependencies": {

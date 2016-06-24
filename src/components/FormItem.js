@@ -10,6 +10,7 @@ def((Item, Input) => class extends Item {
     `;
   }
   init() {
+    this.element.dataset.component = this.component;
     this.input = this.ctrl = this.createInput();
   }
   createInput() {
@@ -21,11 +22,14 @@ def((Item, Input) => class extends Item {
         td {
           padding: .5em;
         }
+        &[data-component="GroupingSelect"] > :first-child {
+          line-height: 18px;
+          vertical-align: top;
+        }
         > :first-child {
           width: 1px;
           white-space: nowrap;
           text-align: right;
-          vertical-align: top;
           &:not(:empty):after {
             content: ': ';
           }
