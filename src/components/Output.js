@@ -4,19 +4,34 @@ def((Item) => class extends Item {
 
     let { component, args, params, query } = this;
     let { scheme } = depot;
+
     if (!component) {
       component = 'HTML';
       args = { html: '{value}' };
     }
 
-    let $args;
-    let url = scheme ? scheme.key + '/' + args : args;
-    if (query) url = url + '?' + new UParams(params);
-    if (typeof args === 'string') {
-      $args = args[0] === '/' ? api(args) : api(url);
-    } else {
-      $args = Promise.resolve(args);
-    }
+    let path = [];
+    if (scheme) path.push(scheme.key);
+
+    let $args = function callee(args) {
+      let tasks = [];
+      for (let i in args) {
+        let item = args[i];
+        if (i[0] === '@') {
+          let task = api(path.concat(item)).then(result => {
+            args[i.slice(1)] = result;
+          });
+          tasks.push(task);
+          delete args[i];
+        } else {
+          if (typeof item === 'object') {
+            tasks.push(callee(item));
+          }
+        }
+      }
+      return Promise.all(tasks).then(() => args);
+    }(args);
+
     $args = $args.catch(error => {
       throw new Error(`Component "${component}" args "${args}" loading error with "${error.message}"`);
     });
