@@ -6,12 +6,15 @@ def((Item) => class extends Item {
   resolveAt() {
     let path = [];
     if (depot.scheme) path.push(depot.resolvedKey);
+    let { query } = this;
     return function callee(base) {
       let tasks = [];
       Object.keys(base).forEach(i => {
         let item = base[i];
         if (i[0] === '@') {
-          let task = api(path.concat(item), { expires: 1000 }).then(result => {
+          let options = { expires: 1000 };
+          if (query) options.query = { where: depot.where };
+          let task = api(path.concat(item), options).then(result => {
             base[i.slice(1)] = result;
           });
           tasks.push(task);

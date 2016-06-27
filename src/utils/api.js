@@ -44,7 +44,13 @@
     }
     get launch() {
       return (path, options) => {
-        const resolver = () => fetch(this.resolvePath(path), this.extendOptions(options)).then(response => {
+        let url = this.resolvePath(path);
+        if (options && 'query' in options) {
+          url += '?' + Object.keys(options.query).map(key => {
+            return `${encodeURIComponent(key)}=${encodeURIComponent(JSON.stringify(options.query[key]))}`;
+          }).join('&');
+        }
+        const resolver = () => fetch(url, this.extendOptions(options)).then(response => {
           let type = response.headers.get('content-type');
           let key;
           switch (true) {
