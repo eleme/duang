@@ -3,6 +3,7 @@ def(() => class extends Jinkela {
     this.value = this.default || '';
     if (this.width !== void 0) this.element.style.width = this.width;
     if (this.readonly) this.element.setAttribute('readonly', 'readonly');
+    if ('placeholder' in this) this.element.setAttribute('placeholder', this.placeholder);
   }
   get value() { return this.element.value; }
   set value(value) { this.element.value = value === void 0 ? '' : value; }

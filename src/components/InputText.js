@@ -7,6 +7,7 @@ def(() => class extends Jinkela {
     if (this.width !== void 0) this.element.style.width = this.width;
     if (this.height !== void 0) this.element.style.height = this.height;
     if (this.readonly) this.element.setAttribute('readonly', 'readonly');
+    if ('placeholder' in this) this.element.setAttribute('placeholder', this.placeholder);
   }
   get styleSheet() {
     return `
