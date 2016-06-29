@@ -58,8 +58,10 @@
               key = 'json';
               break;
             case /\btext\b/.test(type):
-            default:
               key = 'text';
+              break;
+            default:
+              key = 'blob';
           }
           if (response.status < 400) {
             return response[key]();
