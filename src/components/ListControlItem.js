@@ -10,7 +10,7 @@ def((Button) => class extends Button {
     let { module, key, params, _blank, target, title } = this;
     let { scheme, where } = depot;
     params = JSON.stringify(refactor(params, { params: depot.params, scheme, where }));
-    let uParams = new UParams({ module, key, params, where });
+    let uParams = new UParams({ module, key, params });
     if (_blank) target = '_blank';
     switch (target) {
       case '_blank':
@@ -27,6 +27,7 @@ def((Button) => class extends Button {
   createAction() {
     this.module = 'editor';
     this.key = depot.key;
+    this.params = this.params || depot.params;
     this.goAction();
   }
   openAction() {
