@@ -7,25 +7,37 @@ def((Button) => class extends Button {
   }
   get exec() { return this[this.method + 'Action'] || this.defaultAction; }
   goAction() {
-    let { module, key, params, _blank } = this;
+    let { module, key, params, _blank, target, title } = this;
     let { scheme, where } = depot;
     params = JSON.stringify(refactor(params, { params: depot.params, scheme, where }));
-    let hash = '#' + new UParams({ module, key, params });
-    _blank ? open(location.href.replace(/(#.*)?$/, hash)) : location.hash = hash;
+    let uParams = new UParams({ module, key, params });
+    if (_blank) target = '_blank';
+    switch (target) {
+      case '_blank':
+        return open(location.href.replace(/(#.*)?$/, '#' + uParams));
+      case 'dialog':
+        return require([ 'modules/' + (module || 'default') + '.js' ], Module => {
+          let { Main } = Module.prototype;
+          dialog.popup(new Main({ depot: depot.fork(uParams), title }));
+        });
+      default:
+        return location.hash = '#' + uParams;
+    }
   }
   createAction() {
-    let { key, params = '{}' } = depot.uParams;
-    location.hash = new UParams({ module: 'editor', key, params });
+    this.module = 'editor';
+    this.key = depot.key;
+    this.goAction();
   }
   openAction() {
-    let { queryParams } = depot;
-    let url = api.resolvePath([ depot.scheme.key, this.href ]);
+    let { queryParams, resolvedKey } = depot;
+    let url = api.resolvePath([ resolvedKey, this.href ]);
     open(`${url}?${queryParams}`);
   }
   defaultAction() {
-    let path = [ depot.scheme.resolvedKey ];
+    let path = [ depot.resolvedKey ];
     if ('api' in this) path.push(this.api);
-    api(path.join('/'), { method: this.method || 'POST' }).then(result => {
+    api(path, { method: this.method || 'POST' }).then(result => {
       depot.refresh();
     }, error => {
       alert(error.message);

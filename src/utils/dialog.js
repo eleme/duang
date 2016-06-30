@@ -4,23 +4,30 @@ const dialog = new class extends Jinkela {
     this.dl.addEventListener('click', event => event.dontCancel = true);
     this.element.addEventListener('click', event => event.dontCancel || this.cancel());
     this.close.addEventListener('click', event => this.cancel());
+    this.stack = [];
   }
   render() { this.renderTo(document.body); }
   popup(content) {
-    this.title = content.title;
-    this.dd.innerHTML = '';
-    content.renderTo(this.dd);
-    this.element.className = 'active';
+    if (content && this.content) this.stack.push(this.content);
+    while (!content && this.stack.length) content = this.stack.pop();
+    if (content) {
+      this.content = content;
+      this.title.innerHTML = content.title || '&nbsp;';
+      this.dd.innerHTML = '';
+      content.renderTo(this.dd);
+      this.element.className = 'active';
+    } else {
+      this.content = null;
+      this.element.className = '';
+    }
   }
-  get cancel() {
-    return () => this.element.className = '';
-  }
+  get cancel() { return () => this.popup(); }
   get template() {
     return `
       <div>
         <dl ref="dl">
           <dt>
-            <h3><span>{title}</span></h3>
+            <h3><span ref="title"></span></h3>
             <a href="JavaScript:" ref="close">
               <svg width="16" height="16" stroke="#4c4c4c">
                 <line x1="0" y1="0" x2="16" y2="16" />

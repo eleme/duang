@@ -62,7 +62,7 @@ def((Button) => {
       `;
     }
     init() {
-      if (!this.text) this.text = depot.getConst('Select File');
+      if (!this.text) this.text = 'Select File';
       this.input.addEventListener('change', event => this.change(event));
       this.button = new SpanButton({ text: this.text }).renderTo(this.label);
       this.preview = new Preview(this).renderTo(this);

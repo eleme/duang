@@ -7,14 +7,23 @@ def((ListItem, Confirm) => class extends ListItem {
   }
   get exec() { return this[this.method + 'Action'] || this.defaultAction; }
   goAction() {
-    let { module, key, params, _blank } = this;
-    params = refactor(params, this.fieldMap);
+    let { module, key, params, _blank, target, title } = this;
     params = JSON.stringify(refactor(params, this.fieldMap));
-    let hash = '#' + new UParams({ module, key, params });
-    _blank ? open(location.href.replace(/(#.*)?$/, hash)) : location.hash = hash;
+    let uParams = new UParams({ module, key, params });
+    if (_blank) target = '_blank';
+    switch (target) {
+      case '_blank':
+        return open(location.href.replace(/(#.*)?$/, '#' + uParams));
+      case 'dialog':
+        return require([ 'modules/' + (module || 'default') + '.js' ], Module => {
+          let { Main } = Module.prototype;
+          dialog.popup(new Main({ depot: depot.fork(uParams), title }));
+        });
+      default:
+        return location.hash = '#' + uParams;
+    }
   }
   editAction() {
-    let { _blank } = this;
     this.module = 'editor';
     this.params = Object.assign({ '@id': '$.id' }, depot.params);
     this.key = depot.key;
@@ -23,7 +32,7 @@ def((ListItem, Confirm) => class extends ListItem {
   defaultAction() {
     let path = [ depot.resolvedKey, this.fieldMap.id ];
     if ('api' in this) path.push(this.api);
-    api(path.join('/'), { method: this.method || 'POST' }).then(result => {
+    api(path, { method: this.method || 'POST' }).then(result => {
       depot.refresh();
     }, error => {
       alert(error.message);

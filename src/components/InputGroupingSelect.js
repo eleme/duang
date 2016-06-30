@@ -13,8 +13,8 @@ def((Input, InputSelect, FormItem) => {
       });
     }
     init() {
-      let { group } = this;
-      let { id } = depot.params;
+      let { group, depot } = this;
+      let { id } = depot;
       let action = id ? 'edit' : 'create';
       group = JSON.parse(JSON.stringify(group)).filter(item => item[action] !== 'none');
       group.forEach((item) => {
@@ -51,9 +51,10 @@ def((Input, InputSelect, FormItem) => {
       this.selectChange();
     }
     selectChange() {
+      let { depot, horizontal } = this;
       let group = this.subGroupMap[this.select.value] || [];
       if (group.length) { 
-        let table = new SubGroupMap({ group, horizontal: this.horizontal });
+        let table = new SubGroupMap({ group, horizontal, depot });
         this.table = this.table ? table.renderWith(this.table) : table.renderTo(this);
       } else {
         if (this.table) this.element.removeChild(this.table.element);

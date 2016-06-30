@@ -18,12 +18,12 @@ module.exports = {
         { key: 'radio', 'title': 'Radio' }
       ],
       operations: [
-        { method: 'create', title: '创建' },
+        { method: 'create', title: '创建', target: 'dialog' },
         { method: 'open', href: 'download', title: '下载' },
         { api: 'hx-all', title: '和谐全部' }
       ],
       actions: [
-        { method: 'edit', title: '编辑' },
+        { method: 'edit', title: '编辑', target: 'dialog' },
         {
           method: 'delete', title: '删除', confirm: {
             title: '确认删除？',

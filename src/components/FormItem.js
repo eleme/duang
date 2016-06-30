@@ -5,13 +5,13 @@ def((Item, Input) => class extends Item {
     return `
       <tr>
         <td></td>
-        <td><meta ref="ctrl"></td>
+        <td ref="ctrl"></td>
       </tr>
     `;
   }
   init() {
     this.element.dataset.component = this.component;
-    this.input = this.ctrl = this.createInput();
+    this.input = this.createInput().renderTo(this.ctrl);
     if ('title' in this) {
       this.element.firstElementChild.textContent = this.title;
     } else {

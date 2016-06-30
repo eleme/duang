@@ -1,4 +1,4 @@
-const depot = new class {
+var depot = new class {
   constructor() {
     addEventListener('load', () => this.hashchange());
     addEventListener('hashchange', () => this.hashchange());
@@ -25,6 +25,7 @@ const depot = new class {
     let { config, scheme } = this;
     return (scheme && scheme.const && scheme.const[name]) || (config.const && config.const[name]) || name;
   }
+  getSchemeByKey(key) { return this.schemeMap[key]; }
   get config() {
     return window.config ? config : api('').then(result => window.config = result);
   }
@@ -36,12 +37,12 @@ const depot = new class {
     );
   }
   get module() { return this.uParams.module; }
-  get id() {  return this.params.id;  }
-  get key() {  return this.uParams.key;  }
+  get id() { return this.params.id;  }
+  get key() { return this.uParams.key;  }
   get resolvedKey() {  return String(this.key).replace(/:([^/]+)/g, ($0, $1) => this.params[$1]); }
-  get scheme() { return this.schemeMap[this.key]; }
-  get where() {  return this.cache('where', () => this.parseJSON(this.uParams.where) || {});  }
-  get params() {  return this.cache('params', () => this.parseJSON(this.uParams.params) || {});  }
+  get scheme() { return this.getSchemeByKey(this.key); }
+  get where() { return this.cache('where', () => this.parseJSON(this.uParams.where) || {});  }
+  get params() { return this.cache('params', () => this.parseJSON(this.uParams.params) || {});  }
   get uParams() { return this.cache('uParams', () => new UParams()); }
   get schemeMap() {
     let value = Object.create(null);
@@ -59,7 +60,11 @@ const depot = new class {
     if (where) params.where = where;
     return new UParams(params);
   }
-  refresh() {
-    this.onRouteChange();
+  refresh() { this.onRouteChange(); }
+  fork(uParams) {
+    return Object.create(Object.getPrototypeOf(this), {
+      uParams: { configurable: true, value: uParams },
+      '@@cache': { configurable: true, value: {} }
+    });
   }
 };

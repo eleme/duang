@@ -16,23 +16,29 @@ def((Button, FormItem) => class extends FormItem {
     };
   }
   back() {
-    history.back();
+    if (depot.module === 'editor') {
+      history.back();
+    } else {
+      dialog.cancel();
+    }
   }
   submit() {
-    let { form } = this;
-    let { scheme, params } = depot;
-    let { key } = scheme;
-    let { id } = params;
-    key = key.replace(/:([^/]+)/g, ($0, $1) => params[$1]);
+    let { form, depot } = this;
+    let { id, resolvedKey } = depot;
     let value = JSON.stringify(form.value);
     let $result;
     if (id) {
-      $result = api(key + '/' + id, { method: 'PUT', body: value });
+      $result = api([ resolvedKey, id ], { method: 'PUT', body: value });
     } else {
-      $result = api(key, { method: 'POST', body: value });
+      $result = api(resolvedKey, { method: 'POST', body: value });
     }
     $result.then(doAction).then(result => {
-      this.back();
+      if (window.depot.module === 'editor') {
+        history.back();
+      } else {
+        dialog.cancel();
+        window.depot.refresh();
+      }
     }, error => {
       if (error) alert(error.message || error);
     });

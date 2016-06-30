@@ -1,9 +1,9 @@
 def((FormSubmit, FormItem) => class extends Jinkela {
   get tagName() { return 'table'; }
   init() {
-    let { scheme, params } = depot;
+    let { depot } = this;
+    let { id, scheme, params } = depot;
     let { inputs = [] } = scheme;
-    let { id } = params;
     let action = id ? 'edit' : 'create';
     inputs = JSON.parse(JSON.stringify(inputs)).filter(item => item[action] !== 'none');
     inputs.forEach((item) => {
@@ -12,8 +12,8 @@ def((FormSubmit, FormItem) => class extends Jinkela {
         item.args.readonly = true;
       }
     });
-    this.list = FormItem.cast(inputs).renderTo(this);
-    new FormSubmit({ form: this }).renderTo(this);
+    this.list = FormItem.cast(inputs, { depot }).renderTo(this);
+    new FormSubmit({ depot, form: this }).renderTo(this);
   }
   get styleSheet() {
     return `
