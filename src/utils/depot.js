@@ -27,7 +27,9 @@ var depot = new class {
   }
   getSchemeByKey(key) { return this.schemeMap[key]; }
   get config() {
-    return window.config ? config : api('').then(result => window.config = result);
+    const configElement = document.querySelector('script[config]');
+    const config = configElement && configElement.getAttribute('config') || '';
+    return window.config ? window.config : api(config).then(result => window.config = result);
   }
   get session() {
     if (!config.session) return window.session = {};
