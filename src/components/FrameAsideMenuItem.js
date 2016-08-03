@@ -5,9 +5,15 @@ def((ListItem) => class extends ListItem {
   }
   onClick() {
     let { module = 'list', key, where = {}, params = {} } = this;
-    where = JSON.stringify(where);
-    params = JSON.stringify(params);
-    location.hash = '#' + new UParams({ module, key, where, params });
+    let tasks = [];
+    if (this['@where']) tasks.push(api([ this.key, this['@where'] ]).then(result => where = result));
+    if (this['@params']) tasks.push(api([ this.key, this['@params'] ]).then(result => params = result));
+    const done = () => {
+      where = JSON.stringify(where);
+      params = JSON.stringify(params);
+      location.hash = '#' + new UParams({ module, key, where, params });
+    };
+    tasks.length ? Promise.all(tasks).then(done) : done();
   }
   get styleSheet() {
     return `
