@@ -3,7 +3,11 @@ def((Input, Item, Button) => class extends Item {
     this.input = new Input(this, { onReady: () => this.ready() }).renderTo(this);
     new Button({ text: depot.getConst('Apply'), onClick: () => this.apply() }).renderTo(this);
     this.element.setAttribute('data-filter-component', this.component);
+    this.element.addEventListener('keydown', event => this.keydown(event));
     if ('title' in this) this.element.setAttribute('data-filter-title', this.title + '：');
+  }
+  keydown({ keyCode, target }) {
+    if (target.tagName !== 'TEXTAREA' && keyCode === 13) this.apply();
   }
   ready() {
     let { where } = depot;
