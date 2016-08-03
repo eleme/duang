@@ -45,7 +45,7 @@ def((Input, Item, Button) => class extends Item {
   }
   get value() { return this.input.value; }
   set value(value) { this.input.value = value; }
-  get tagName() { return `label`; }
+  get tagName() { return `div`; }
   get styleSheet() {
     return `
       :scope {
