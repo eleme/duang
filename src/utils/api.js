@@ -38,7 +38,7 @@
     get basePath() {
       let value = [ location.origin + location.pathname.replace(/[^/]*$/, 'api') ];
       let baseElement = document.querySelector('script[base]');
-      let base = baseElement && configElement.getAttribute('base');
+      let base = baseElement && baseElement.getAttribute('base');
       if (!base) {
         let configElement = document.querySelector('script[config]');
         let config = configElement && configElement.getAttribute('config') || '';

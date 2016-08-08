@@ -16,8 +16,8 @@ def(() => class extends Jinkela {
     if (this.element.classList.contains('busy')) return;
     if (typeof this.onClick !== 'function') return;
     this.element.classList.add('busy');
-    let that = this.onClick(event);
-    if (that && that.then) {
+    let what = this.onClick(event);
+    if (what && what.then) {
       what.catch(() => {}).then(() => {
         this.element.classList.remove('busy');
       });

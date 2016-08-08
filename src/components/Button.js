@@ -6,6 +6,16 @@ def((Item) => class extends Item {
   get template() {
     return `<${this.tag} text="{text}"></${this.tag}>`;
   }
+  get busy() {
+    return this.element.classList.contains('busy');
+  }
+  set busy(value) {
+    if (value) {
+      this.element.classList.add('busy');
+    } else {
+      this.element.classList.remove('busy');
+    }
+  }
   get styleSheet() {
     return `
       :scope {

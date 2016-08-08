@@ -4,7 +4,7 @@ def((Button, FormItem) => class extends FormItem {
   }
   createInput() {
     let submit = new Button({ text: '提交', onClick: event => this.submit() });
-    let back = new Button({ text: '返回', onClick: event => this.back(), color: '#ccc' });
+    let back = this.backComponent = new Button({ text: '返回', onClick: event => this.back(), color: '#ccc' });
     return new class extends Jinkela {
       init() {
         submit.renderTo(this);
@@ -23,6 +23,7 @@ def((Button, FormItem) => class extends FormItem {
     }
   }
   submit() {
+    this.backComponent.busy = true;
     let { form, depot } = this;
     let { id, resolvedKey } = depot;
     let value = JSON.stringify(form.value);
@@ -32,7 +33,7 @@ def((Button, FormItem) => class extends FormItem {
     } else {
       $result = api(resolvedKey, { method: 'POST', body: value });
     }
-    $result.then(doAction).then(result => {
+    return $result.then(doAction).then(result => {
       if (window.depot.module === 'editor') {
         history.back();
       } else {
@@ -41,6 +42,9 @@ def((Button, FormItem) => class extends FormItem {
       }
     }, error => {
       if (error) alert(error.message || error);
+    }).then(() => {
+      // finally
+      this.backComponent.busy = false;
     });
   }
   get styleSheet() {
