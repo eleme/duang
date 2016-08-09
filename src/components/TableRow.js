@@ -8,4 +8,12 @@ def((Item, TableCell) => class extends Item {
     });
     if (actions.length) new TableCell({ actions, align: 'right' }, this).renderTo(this);
   }
+  get styleSheet() {
+    return `
+      :scope:hover {
+        background: #eee;
+        transition: background 200ms ease;
+      }
+    `;
+  }
 });

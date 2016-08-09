@@ -7,9 +7,10 @@ def((ListItem, Confirm) => class extends ListItem {
   }
   get exec() { return this[this.method + 'Action'] || this.defaultAction; }
   goAction() {
-    let { module, key, params, _blank, target, title } = this;
-    params = JSON.stringify(refactor(params, this.fieldMap));
-    let uParams = new UParams({ module, key, params });
+    let { module, key, params, _blank, target, title, where } = this;
+    params = JSON.stringify(refactor(params || {}, this.fieldMap));
+    where = JSON.stringify(refactor(where || {}, this.fieldMap));
+    let uParams = new UParams({ module, key, params, where });
     if (_blank) target = '_blank';
     switch (target) {
       case '_blank':
@@ -43,6 +44,10 @@ def((ListItem, Confirm) => class extends ListItem {
       :scope {
         margin-left: .5em;
         display: inline-block;
+        &:hover {
+          text-shadow: 0px 0px 2px #999;
+          color: #000;
+        }
       }
     `;
   }

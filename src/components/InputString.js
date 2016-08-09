@@ -12,10 +12,12 @@ def(() => class extends Jinkela {
     return `
       :scope {
         &[readonly] { background: #f7f7f7; }
+        box-sizing: border-box;
         width: 300px;
+        height: 25px;
         border: 1px solid #ccc;        
         border-radius: 5px;
-        padding: .5em;
+        padding: .4em .5em;
       }
     `;
   }

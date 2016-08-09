@@ -16,7 +16,7 @@ def((TableRow, TableHead, TableCaption) => class extends Jinkela {
     return `
       :scope {
         color: #666;
-        font-size: 14px;
+        font-size: 13px;
         line-height: 32px;
         margin: 1em;
         width: calc(100% - 2em);

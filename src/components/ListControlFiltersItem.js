@@ -3,6 +3,7 @@ def((Input, Item, Button) => class extends Item {
     this.input = new Input(this, { onReady: () => this.ready() }).renderTo(this);
     new Button({ text: depot.getConst('Apply'), onClick: () => this.apply() }).renderTo(this);
     this.element.setAttribute('data-filter-component', this.component);
+    this.element.setAttribute('data-floating', !!this.floating);
     this.element.addEventListener('keydown', event => this.keydown(event));
     if ('title' in this) this.element.setAttribute('data-filter-title', this.title + '：');
   }
@@ -53,6 +54,10 @@ def((Input, Item, Button) => class extends Item {
   get styleSheet() {
     return `
       :scope {
+        &[data-floating=true] {
+          float: left;
+          margin-right: 1em;
+        }
         &::before { content: attr(data-filter-title); }
         display: block;
         margin-bottom: 1em;
