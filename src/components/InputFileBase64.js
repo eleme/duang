@@ -48,7 +48,7 @@ def((Button) => {
     }
     change(event) {
       let { target } = event;
-      let [ file ] = target.files;
+      let file = target.files[0];
       if (!file) return;
       this.fileInfo.element.textContent = file.size.toLocaleString() + ' Bytes';
       let fr = new FileReader();

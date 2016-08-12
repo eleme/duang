@@ -70,7 +70,7 @@ def((Button) => {
     }
     change(event) {
       let { target } = event;
-      let [ file ] = target.files;
+      let file = target.files[0];
       if (!file) return;
       this.button.element.classList.add('busy');
       api(this.api, { method: 'POST', body: file }).then(result => {
