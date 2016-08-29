@@ -1,6 +1,11 @@
 def((Item, Input) => class extends Item {
-  set value(value) { this.input.value = value; }
-  get value() { return this.input.value; }
+  set value(value) {
+    if (!this.input) return setTimeout(() => this.value = value);
+    this.input.value = value;
+  }
+  get value() {
+    return this.input.value;
+  }
   get template() {
     return `
       <tr>
