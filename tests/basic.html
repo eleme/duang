@@ -1,0 +1,29 @@
+<script src="https://github.elemecdn.com/YanagiEiichi/tester/0.0.13/tester.js"></script>
+<script src="../src/duang.js"></script>
+<script>
+window.config = {
+  schemes: [
+    { title: "a", key: "a" },
+    { title: "b", key: "b" },
+    { key: "b/:id" }
+  ]
+};
+addEventListener('load', () => {
+  setTimeout(() => {
+    let [ dialog, page ] = document.body.children;
+    Tester.assert(dialog);
+    Tester.assert(page);
+    let [ header, contaner ] = page.children;
+    Tester.assert(header);
+    Tester.assert(contaner);
+    let [ menu, main ] = contaner.children;
+    Tester.assert(menu);
+    Tester.assert(main);
+    let [ a, b, bx ] = menu.getElementsByTagName('li');
+    Tester.assert(a);
+    Tester.assert(b);
+    Tester.assert(!bx);
+    Tester.feedback(true);
+  }, 100);
+});
+</script>
