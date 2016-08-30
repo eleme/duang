@@ -1,5 +1,10 @@
 .PHONY: start stop
 
+test:
+	@                                                               \
+	open http://127.0.0.1:8000/tests &                              \
+	python -m SimpleHTTPServer
+
 start: stop
 	@                                                               \
 	open http://127.0.0.1:8000/src;                                 \

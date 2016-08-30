@@ -8,6 +8,9 @@ def((TableRow, TableHead, TableCaption) => class extends Jinkela {
   }
   render(list) {
     let { scheme } = depot;
+    if (!(list instanceof Array)) {
+      return console.error('Resumt must be a list');
+    }
     list.forEach(fieldMap  => {
       new TableRow({ fieldMap }).renderTo(this);
     });
