@@ -12,6 +12,7 @@ def((Button) => {
     get styleSheet() {
       return `
         :scope {
+          display: none;
           vertical-align: middle;
           margin-left: 1em;
         }
@@ -20,7 +21,7 @@ def((Button) => {
   }
 
   class Preview extends Jinkela {
-    get template() { return `<a target="_blank" href="JavaScript:"><img ></a>`; }
+    get template() { return `<a target="_blank" href="JavaScript:"><img/></a>`; }
     set token(token) {
       if (token) {
         api([ this.api, token ]).then(result => {
@@ -30,12 +31,25 @@ def((Button) => {
           this.element.firstChild.src = url;
         });
       } else {
-        this.element.style.display = 'none';
+        // this.element.style.display = 'none';
       }
     }
     get styleSheet() {
       return `
         :scope {
+          display: inline-block;
+          width: 50px;
+          height: 50px;
+          margin-left: .5em;
+          vertical-align: middle;
+          text-align: center;
+          &::after {
+            content: '';
+            display: inline-block;
+            height: 100%;
+            width: 0px;
+            vertical-align: middle;
+          }
           img {
             display: none;
             max-width: ${this.maxWidth || '50px'};
@@ -43,7 +57,6 @@ def((Button) => {
             display: inline-block;
             vertical-align: middle;
             border-radius: 100%;
-            margin-left: .5em;
           }
         }
       `;
@@ -81,17 +94,7 @@ def((Button) => {
     get styleSheet() {
       return `
         :scope {
-          img {
-            display: none;
-            max-width: ${this.maxWidth || '50px'};
-            max-height: ${this.maxHeight || '50px'};
-            display: inline-block;
-            vertical-align: middle;
-            border-radius: 100%;
-            margin-left: .5em;
-          }
           label {}
-          label ~ * { display: none; }
           label[notEmpty=true] ~ * { display: inline-block; }
           input { display: none; }
         }

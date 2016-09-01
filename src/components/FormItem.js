@@ -9,7 +9,7 @@ def((Item, Input) => class extends Item {
   get template() {
     return `
       <tr>
-        <td></td>
+        <td ref="text"></td>
         <td ref="ctrl"></td>
       </tr>
     `;
@@ -19,9 +19,9 @@ def((Item, Input) => class extends Item {
     this.ctrl.depot = this.depot;
     this.input = this.createInput().renderTo(this.ctrl);
     if ('title' in this) {
-      this.element.firstElementChild.textContent = this.title;
+      this.text.textContent = this.title;
     } else {
-      this.element.removeChild(this.element.firstElementChild);
+      this.element.removeChild(this.text);
       this.element.firstElementChild.colSpan = 2;
     }
   }
@@ -31,14 +31,14 @@ def((Item, Input) => class extends Item {
   get styleSheet() {
     return `
       :scope {
-        td {
+        > * {
           padding: .5em;
         }
         &[data-component="GroupingSelect"] > :first-child {
           line-height: 18px;
           vertical-align: top;
         }
-        > :first-child:not([colspan]) {
+        > td:first-child:not([colspan]) {
           width: 1px;
           white-space: nowrap;
           text-align: right;
