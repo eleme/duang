@@ -2,7 +2,8 @@ def((TableRow, TableHead, TableCaption) => class extends Jinkela {
   get tagName() { return 'table'; }
   init() {
     let { scheme } = depot;
-    if (scheme.caption) new TableCaption().renderTo(this);
+    let { caption, captionType = 'table', key } = scheme;
+    if (captionType === 'table' && scheme.caption) new TableCaption().renderTo(this);
     new TableHead().renderTo(this);
     if (!scheme.key) return alert('require key');
   }

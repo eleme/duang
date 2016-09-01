@@ -48,7 +48,7 @@ def((Button) => class extends Button {
     return `
       :scope {
         display: inline-block;
-        margin-right: 1em;
+        margin-left: 1em;
         &:last-child {
           margin-left: 0;
         }

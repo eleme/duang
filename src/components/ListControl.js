@@ -1,16 +1,14 @@
-def((ListControlItem, ListControlFilters) => class extends Jinkela {
+def((ListControlAside, ListControlMain) => class extends Jinkela {
+  init() {
+    new ListControlMain().renderTo(this);
+    new ListControlAside().renderTo(this);
+  }
   get styleSheet() {
     return `
       :scope {
-        text-align: right;
-        margin: 1em;
+        margin: 1em 1em -1em 1em;
+        display: flex;
       }
     `;
-  }
-  init() {
-    new ListControlFilters().renderTo(this);
-    let { scheme } = depot;
-    let { operations = [] } = scheme;
-    ListControlItem.cast(operations).renderTo(this);
   }
 });
