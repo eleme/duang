@@ -3,6 +3,8 @@ def((ListControlItem) => class extends Jinkela {
     return `
       :scope {
         text-align: right;
+        margin-bottom: 1em;
+        overflow: hidden;
       }
     `;
   }
@@ -10,5 +12,6 @@ def((ListControlItem) => class extends Jinkela {
     let { scheme } = depot;
     let { operations = [] } = scheme;
     ListControlItem.cast(operations).renderTo(this);
+    if (!operations.length) this.element.style.display = 'none';
   }
 });
