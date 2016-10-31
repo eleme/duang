@@ -45,7 +45,6 @@ def((ListItem, Confirm) => class extends ListItem {
         margin-left: .5em;
         display: inline-block;
         &:hover {
-          text-shadow: 0px 0px 2px #999;
           color: #000;
         }
       }

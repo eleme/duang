@@ -27,7 +27,7 @@ const dialog = new class extends Jinkela {
       <div>
         <dl ref="dl">
           <dt>
-            <h3><span ref="title"></span></h3>
+            <h5><span ref="title"></span></h5>
             <a href="JavaScript:" ref="close">
               <svg width="16" height="16" stroke="#4c4c4c">
                 <line x1="0" y1="0" x2="16" y2="16" />
@@ -78,12 +78,14 @@ const dialog = new class extends Jinkela {
             padding: 0px 1em;
             border-bottom: 1px solid #ebe6e1;
             display: block;
-            font-size: 16px;
+            font-size: 13px;
             position: relative;
-            h3 {
+            h5 {
               float: left;
               margin: 0;
+              color: #aaa;
               font-size: inherit;
+              font-weight: normal;
               line-height: inherit;
             }
             a {

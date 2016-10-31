@@ -8,4 +8,11 @@ def((TableHeadCell) => class extends Jinkela {
     }
     TableHeadCell.cast(fields).renderTo(this.tr);
   }
+  get styleSheet() {
+    return `
+      :scope td {
+        background: #f9f9f9;
+      }
+    `;
+  }
 });

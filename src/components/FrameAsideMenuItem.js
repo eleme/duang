@@ -18,8 +18,9 @@ def((ListItem) => class extends ListItem {
   get styleSheet() {
     return `
       :scope {
-        line-height: 2;
-        list-style: disc inside;
+        line-height: 2.4;
+        font-size: 13px;
+        list-style: none;
         white-space: nowrap;
         > a {
           text-overflow: ellipsis;
@@ -27,11 +28,13 @@ def((ListItem) => class extends ListItem {
         }
         padding: 0 1em;
         transition: background 200ms ease;
+        color: #777;
         &.active {
-          background: #ccc;
+          background: #eee;
+          color: #444;
         }
         &:hover {
-          background: #d4d4d4;
+          background: #f8f8f8;
         }
       }
     `;

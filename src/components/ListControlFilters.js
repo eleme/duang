@@ -4,7 +4,6 @@ def((ListControlFiltersItem) => class extends Jinkela {
       :scope {
         text-align: left;
         margin-bottom: 1em;
-        overflow: hidden;
       }
     `;
   }
