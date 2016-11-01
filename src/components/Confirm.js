@@ -41,7 +41,7 @@ def((Button) => class extends Jinkela {
   get template() {
     return `
       <div>
-        <h3>{text}</h3>
+        <h5>{text}</h5>
         <div>
           <meta ref="yesButton" />
           <meta ref="cancelButton" />
@@ -52,12 +52,13 @@ def((Button) => class extends Jinkela {
   get styleSheet() {
     return `
       :scope {
-        h3 {
+        h5 {
           margin: 0 0 2em 0;
-          font-size: 18px;
+          font-size: 16px;
+          font-weight: normal;
         }
         button {
-          font-size: 16px;
+          font-size: 13px;
           margin: 0 1em;
         }
         padding: 2em;

@@ -21,12 +21,18 @@ def((FrameHead, FrameBody, FrameAsideMenu) => class extends Jinkela {
     return `
       html, body {
         margin: 0;
-        font-size: 14px;
+        font-size: 13px;
         font-family: Lato, 'Helvetica Neue', Arial, Helvetica, sans-serif;
       }
       a {
         text-decoration: none;
         color: inherit;
+      }
+      select {
+        outline: none;
+      }
+      input {
+        outline: none;
       }
       :scope {
         display: flex;

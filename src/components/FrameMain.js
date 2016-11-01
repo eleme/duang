@@ -7,7 +7,7 @@ def(() => class extends Jinkela {
       :scope {
         flex: 1;
         overflow: auto;
-        background: #f7f7f7;
+        padding-bottom: 32px;
       }
     `;
   }
