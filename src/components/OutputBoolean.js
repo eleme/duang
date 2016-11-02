@@ -11,16 +11,15 @@ def(() => class extends Jinkela {
         color: #fff;
         &::before { content: attr(data-text); }
         text-align: center;
-        border-radius: 5px;
-        line-height: 1.25;
+        line-height: 1.4;
         font-size: 12px;
         padding: 3px 5px;
         width: 42px;
         &[data-value=true] {
-          background: rgb(91, 189, 114); 
+          background: #13CE66;
         }
         &[data-value=false] {
-          background: rgb(204, 52, 0);
+          background: #F7BA2A;
         }
       }
     `;

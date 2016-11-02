@@ -8,6 +8,7 @@ def((ListControlAside, ListControlMain) => class extends Jinkela {
       :scope {
         margin: 1em 1em -1em 1em;
         display: flex;
+        align-items: flex-end;
       }
     `;
   }

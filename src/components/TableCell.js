@@ -12,9 +12,9 @@ def((Output, Item, TableRowActions) => class extends Item {
   get styleSheet() {
     return `
       :scope {
-        border: solid #e4e4e4;
+        border: solid #EFF2F7;
         border-width: 1px 0;
-        padding: .1em .5em;
+        padding: .1em 1.2em;
       }
     `;
   }

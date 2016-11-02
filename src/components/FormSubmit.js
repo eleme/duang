@@ -53,15 +53,6 @@ def((Button, FormItem) => class extends FormItem {
         td {
           position: relative;
           padding-top: calc(2em + 5px);
-          &::before {
-            content: '';
-            height: 1px;
-            left: 0;
-            right: 0;
-            background: #e4e4e4;
-            top: 1em;
-            position: absolute;
-          }
         }
       }
     `;

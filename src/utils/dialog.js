@@ -54,7 +54,6 @@ const dialog = new class extends Jinkela {
         visibility: hidden;
         opacity: 0;
         background: rgba(0,0,0,0.8);
-        text-align: center;
         &.active {
           visibility: visible;
           opacity: 1;
@@ -76,16 +75,15 @@ const dialog = new class extends Jinkela {
             overflow: hidden;
             line-height: 48px;
             padding: 0px 1em;
-            border-bottom: 1px solid #ebe6e1;
             display: block;
             font-size: 13px;
             position: relative;
             h5 {
               float: left;
               margin: 0;
-              color: #aaa;
-              font-size: inherit;
-              font-weight: normal;
+              font-size: 15px;
+              font-weight: bold;
+              color: #1F2D3D;
               line-height: inherit;
             }
             a {
@@ -96,14 +94,24 @@ const dialog = new class extends Jinkela {
               top: 0;
               bottom: 0;
               right: 1em;
-              color: inherit;
+              color: #99A9BF;
               text-decoration: none;
             }
             svg {
+              stroke: #99A9BF;
               display: block;
             }
           }
-          > dd { margin: 0; }
+          > dd {
+            margin: 0;
+            div > div {
+              text-align: right;
+
+              button {
+                margin: 0 0 0 1em;
+              }
+            }
+          }
         }
       }
     `;

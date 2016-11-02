@@ -44,8 +44,9 @@ def((ListItem, Confirm) => class extends ListItem {
       :scope {
         margin-left: .5em;
         display: inline-block;
+        color: #20A0FF;
         &:hover {
-          color: #000;
+          color: #1D8CE0;
         }
       }
     `;

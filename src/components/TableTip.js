@@ -17,9 +17,12 @@ def(() => class extends Jinkela {
     return `
       :scope {
         text-align: center;
-        font-size: 18px;
+        font-size: 14px;
         padding: 1em;
-        color: #aaa;
+        color: #99A9BF;
+        margin: 0 1em;
+        background-color: #F9FAFC;
+        border-radius: 4px;
       }
     `;
   }

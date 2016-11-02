@@ -15,7 +15,7 @@ def((Output) => class extends Jinkela {
       :scope {
         float: right;
         padding-right: 1em;
-        font-size: 12px;
+        font-size: 13px;
       }
     `;
   }

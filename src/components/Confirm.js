@@ -54,14 +54,14 @@ def((Button) => class extends Jinkela {
       :scope {
         h5 {
           margin: 0 0 2em 0;
-          font-size: 16px;
+          font-size: 14px;
           font-weight: normal;
         }
         button {
           font-size: 13px;
           margin: 0 1em;
         }
-        padding: 2em;
+        padding: 1em;
       }
     `;
   }

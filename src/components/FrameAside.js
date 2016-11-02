@@ -6,7 +6,6 @@ def(() => class extends Jinkela {
     return `
       :scope {
         width: 200px;
-        border-right: 1px solid #eee;
         z-index: 1;
       }
     `;
