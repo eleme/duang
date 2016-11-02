@@ -15,9 +15,11 @@ def(() => class extends Jinkela {
         &[readonly] { background: #f7f7f7; }
         width: 300px;
         height: 60px;
-        border: 1px solid #ccc;        
+        border: 1px solid #ccc;
         border-radius: 5px;
         padding: .5em;
+        font-size: 13px;
+        outline: none;
       }
     `;
   }

@@ -39,12 +39,10 @@ def((Item, Input) => class extends Item {
           vertical-align: top;
         }
         > td:first-child:not([colspan]) {
-          width: 1px;
+          width: 80px;
           white-space: nowrap;
-          text-align: right;
-          &:not(:empty):after {
-            content: ': ';
-          }
+          vertical-align: top;
+          color: #475669;
         }
       }
     `;
