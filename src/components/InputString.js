@@ -14,9 +14,9 @@ def(() => class extends Jinkela {
         &[readonly] { background: #f7f7f7; }
         box-sizing: border-box;
         width: 300px;
-        height: 25px;
+        height: 28px;
         font-size: 13px;
-        line-height: 24px;
+        line-height: 28px;
         border: 1px solid #ccc;
         border-radius: 5px;
         padding: .4em .5em;

@@ -11,4 +11,11 @@ def((Form, FormSubmit) => class extends Jinkela {
       form.value = value;
     });
   }
+  get styleSheet() {
+    return `
+      :scope {
+        border-left: 1px solid #EFF2F7;
+      }
+    `;
+  }
 });

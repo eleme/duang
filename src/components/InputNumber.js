@@ -22,6 +22,9 @@ def(() => class extends Jinkela {
         border: 1px solid #ccc;
         border-radius: 5px;
         padding: .5em;
+        min-width: 120px;
+        height: 28px;
+        font-size: 13px;
       }
     `;
   }

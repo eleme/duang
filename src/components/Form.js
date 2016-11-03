@@ -26,6 +26,8 @@ def((FormSubmit, FormItem) => class extends Jinkela {
         table {
           border-left: 1px solid #EFF2F7;
           padding-left: 8px;
+          display: block;
+          padding-left: 16px;
         }
       }
     `;

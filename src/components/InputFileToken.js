@@ -2,6 +2,13 @@ def((Button) => {
 
   class SpanButton extends Button {
     get tag() { return 'span'; }
+    get styleSheet() {
+      return `
+        :scope {
+          display: inline-block;
+        }
+      `;
+    }
   }
 
   class CancelButton extends Jinkela {
@@ -13,7 +20,7 @@ def((Button) => {
       return `
         :scope {
           display: none;
-          vertical-align: middle;
+          vertical-align: top;
           margin-left: 1em;
         }
       `;
@@ -41,7 +48,7 @@ def((Button) => {
           width: 50px;
           height: 50px;
           margin-left: .5em;
-          vertical-align: middle;
+          vertical-align: top;
           text-align: center;
           &::after {
             content: '';
@@ -51,12 +58,11 @@ def((Button) => {
             vertical-align: middle;
           }
           img {
-            display: none;
-            max-width: ${this.maxWidth || '50px'};
-            max-height: ${this.maxHeight || '50px'};
+            width: ${this.maxWidth || '50px'};
+            height: ${this.maxHeight || '50px'};
             display: inline-block;
             vertical-align: middle;
-            border-radius: 100%;
+            box-shadow: 0 0 1px #E5E9F2;
           }
         }
       `;

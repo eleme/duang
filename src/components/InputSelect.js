@@ -20,14 +20,17 @@ def((Item) => {
       if (this.readonly) this.element.setAttribute('disabled', 'dsabled');
     }
     change() {
-      if (typeof this.onChange === 'function') this.onChange(event);      
+      if (typeof this.onChange === 'function') this.onChange(event);
     }
     get styleSheet() {
       return `
         :scope {
-          border: 1px solid #ccc;        
+          border: 1px solid #ccc;
           border-radius: 5px;
           padding: .5em;
+          font-size: 13px;
+          min-width: 120px;
+          height: 28px;
         }
       `;
     }
