@@ -11,7 +11,7 @@ def((Item, TableCell) => class extends Item {
   get styleSheet() {
     return `
       :scope:hover {
-        background: #f8f8f8;
+        background: #F9FAFC;
         transition: background 200ms ease;
       }
     `;

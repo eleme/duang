@@ -25,7 +25,11 @@ def((Item) => {
     get styleSheet() {
       return `
         :scope {
-          border: 1px solid #ccc;
+          &:focus { border-color: #20A0FF; }
+          transition: border-color .2s cubic-bezier(.645,.045,.355,1);
+          vertical-align: middle;
+          border: 1px solid #C0CCDA;
+          background-color: transparent;
           border-radius: 5px;
           padding: .5em;
           font-size: 13px;

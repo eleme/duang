@@ -13,9 +13,12 @@ def(() => class extends Jinkela {
     return `
       :scope {
         &[readonly] { background: #f7f7f7; }
+        &:focus { border-color: #20A0FF; }
+        vertical-align: middle;
+        transition: border-color .2s cubic-bezier(.645,.045,.355,1);
         width: 300px;
         height: 60px;
-        border: 1px solid #ccc;
+        border: 1px solid #C0CCDA;
         border-radius: 5px;
         padding: .5em;
         font-size: 13px;

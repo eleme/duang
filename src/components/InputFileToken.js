@@ -57,7 +57,7 @@ def((Button) => {
             width: 0px;
             vertical-align: middle;
           }
-          img {
+          img[src] {
             width: ${this.maxWidth || '50px'};
             height: ${this.maxHeight || '50px'};
             display: inline-block;

@@ -5,7 +5,7 @@ def((Input, Item, Button) => class extends Item {
     this.element.setAttribute('data-filter-component', this.component);
     this.element.setAttribute('data-floating', !!this.floating);
     this.element.addEventListener('keydown', event => this.keydown(event));
-    if ('title' in this) this.element.setAttribute('data-filter-title', this.title + '：');
+    if ('title' in this) this.element.setAttribute('data-filter-title', this.title);
   }
   keydown({ keyCode, target }) {
     if (target.tagName !== 'TEXTAREA' && keyCode === 13) this.apply();
@@ -58,7 +58,11 @@ def((Input, Item, Button) => class extends Item {
           float: left;
           margin-right: 1em;
         }
-        &::before { content: attr(data-filter-title); }
+        &::before {
+          content: attr(data-filter-title);
+          display: inline-block;
+          width: 120px;
+        }
         display: block;
         margin-bottom: 1em;
         white-space: nowrap;

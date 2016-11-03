@@ -33,7 +33,7 @@ def((ListItem) => class extends ListItem {
           color: #20A0FF;
         }
         &:hover {
-          background: #f8f8f8;
+          background: #F9FAFC;
         }
       }
     `;

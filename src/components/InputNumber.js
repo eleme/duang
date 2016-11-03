@@ -19,7 +19,7 @@ def(() => class extends Jinkela {
       :scope {
         &[readonly] { background: #f7f7f7; }
         width: 6em;
-        border: 1px solid #ccc;
+        border: 1px solid #C0CCDA;
         border-radius: 5px;
         padding: .5em;
         min-width: 120px;
