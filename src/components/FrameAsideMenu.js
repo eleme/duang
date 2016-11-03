@@ -1,5 +1,11 @@
 def((FrameAsideMenuItem) => class extends Jinkela {
   init() {
+    this.hashchange = this.hashchange.bind(this);
+    addEventListener('hashchange', this.hashchange);
+    this.hashchange();
+  }
+  hashchange() {
+    while (this.element.firstChild) this.element.firstChild.remove();
     let { key, session } = depot;
     let { schemes } = config;
     let { permissions = [] } = session;

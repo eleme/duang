@@ -1,14 +1,12 @@
-def((FrameHead, FrameBody, FrameAsideMenu) => class extends Jinkela {
-  init() {
-    new FrameHead({ parent: this }).renderTo(this);
-    new FrameBody({ parent: this }).renderTo(this);
+def((FrameHead, FrameBody) => class extends Jinkela {
+  static get header() {
+    let value = new FrameHead();
+    Object.defineProperty(this, 'header', { value, configurable: true });
+    return value;
   }
-  get Aside() {
-    return class extends Jinkela {
-      init() {
-        new FrameAsideMenu().renderTo(this);
-      }
-    };
+  init() {
+    this.constructor.header.renderTo(this);
+    new FrameBody({ parent: this }).renderTo(this);
   }
   get Main() {
     return class extends Jinkela {

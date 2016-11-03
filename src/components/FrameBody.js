@@ -1,6 +1,5 @@
-def((FrameAside, FrameMain) => class extends Jinkela {
+def((FrameMain) => class extends Jinkela {
   init() {
-    new FrameAside({ parent: this }).renderTo(this);
     new FrameMain({ parent: this }).renderTo(this);
   }
   get styleSheet() {
