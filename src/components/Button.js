@@ -21,8 +21,9 @@ def((Item) => class extends Item {
       :scope {
         border: 0;
         border-radius: 1px;
-        padding: .4em .8em;
-        font-size: 12px;
+        padding: 0 .8em;
+        line-height: 28px;
+        font-size: 13px;
         cursor: pointer;
         color: #fff;
         position: relative;

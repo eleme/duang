@@ -34,14 +34,13 @@ def((Item, Input) => class extends Item {
         > * {
           padding: .5em;
         }
-        &[data-component="GroupingSelect"] > :first-child {
-          line-height: 18px;
+        td {
           vertical-align: top;
+          line-height: 28px;
         }
         > td:first-child:not([colspan]) {
           width: 80px;
           white-space: nowrap;
-          vertical-align: top;
           color: #475669;
         }
       }

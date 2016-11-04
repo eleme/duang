@@ -45,8 +45,8 @@ def((Button) => {
       return `
         :scope {
           display: inline-block;
-          width: 50px;
-          height: 50px;
+          width: 28px;
+          height: 28px;
           margin-left: .5em;
           vertical-align: top;
           text-align: center;
@@ -58,10 +58,9 @@ def((Button) => {
             vertical-align: middle;
           }
           img[src] {
-            width: ${this.maxWidth || '50px'};
-            height: ${this.maxHeight || '50px'};
+            width: ${this.maxWidth || '28px'};
+            height: ${this.maxHeight || '28px'};
             display: inline-block;
-            vertical-align: middle;
             box-shadow: 0 0 1px #E5E9F2;
           }
         }

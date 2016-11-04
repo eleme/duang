@@ -32,7 +32,7 @@ def((FormItem, FormItemWithDiv) => class extends Jinkela {
         white-space: nowrap;
       }
       :scope {
-        font-size: 14px;
+        font-size: 13px;
         margin-top: 1em;
         border-collapse: collapse;
         &[data-horizontal] {

@@ -17,7 +17,7 @@ def(() => class extends Jinkela {
     return `
       :scope {
         text-align: center;
-        font-size: 14px;
+        font-size: 13px;
         padding: 1em;
         color: #99A9BF;
         margin: 0 1em;

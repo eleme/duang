@@ -18,7 +18,7 @@ def((FormSubmit, FormItem) => class extends Jinkela {
   get styleSheet() {
     return `
       :scope {
-        font-size: 14px;
+        font-size: 13px;
         margin: 1em;
         width: calc(100% - 2em);
         border-collapse: collapse;
