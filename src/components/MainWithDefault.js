@@ -1,16 +1,23 @@
-def((Output) => class extends Jinkela {
+def((MainWithDefaultItem) => class extends Jinkela {
   init() {
-    let welcome = config.welcome || { component: 'HTML', args: { html: '<h1>Duang!!!</h1>' } };
-    new Output(welcome).renderTo(this);;
+    while (this.element.firstChild) this.element.firstChild.remove();
+    let { key, session } = depot;
+    let { schemes } = config;
+    let { permissions = [] } = session;
+    schemes = schemes.filter(scheme => {
+      if (/(?:^|\/):/.test(scheme.key)) return false;
+      if (scheme.hidden) return false;
+      if (!scheme.require) return true;
+      return scheme.require.some((dep => ~permissions.indexOf(dep)));
+    });
+    MainWithDefaultItem.cast(schemes, { currentKey: key }).renderTo(this);
   }
-  get template() {
-    return ``;
-  }
+  get template() { return `<div></div>`; }
   get styleSheet() {
     return `
       :scope {
-        margin: 1em;
-        font-size: 64px;
+        list-style: none;
+        padding: 0;
       }
     `;
   }
