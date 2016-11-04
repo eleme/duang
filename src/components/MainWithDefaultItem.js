@@ -44,9 +44,7 @@ def((Item) => class extends Item {
         transition: background 200ms ease;
         color: #324057;
         overflow: hidden;
-        &.active {
-          color: #20A0FF;
-        }
+        cursor: pointer;
         &:hover {
           background: #F9FAFC;
         }
