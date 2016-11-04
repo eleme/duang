@@ -19,7 +19,7 @@ def((Button) => class extends Jinkela {
     this.yes = typeof this.yes === 'string' ? { text: this.yes } : this.yes;
     this.yesButton = new Button(this.yes, { onClick: onYes });
 
-    if (!this.cancel) this.cancel = { text: 'Cancel', color: '#ccc' };
+    if (!this.cancel) this.cancel = { text: 'Cancel', color: '#D3DCE6' };
     this.cancel = typeof this.cancel === 'string' ? { text: this.cancel } : this.cancel;
     this.cancelButton = new Button(this.cancel, { onClick: onCancel });
   }

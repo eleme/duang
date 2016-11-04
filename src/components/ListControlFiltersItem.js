@@ -20,7 +20,7 @@ def((Input, Item, Button) => class extends Item {
       this.value = where[key];
     }
     this.defaultValue = this.value;
-    new Button({ text: depot.getConst('Clear'), onClick: () => this.clear(), color: '#ccc' }).renderTo(this);
+    new Button({ text: depot.getConst('Clear'), onClick: () => this.clear(), color: '#D3DCE6' }).renderTo(this);
   }
   apply() {
     let { uParams, where } = depot;
