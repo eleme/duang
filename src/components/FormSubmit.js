@@ -4,7 +4,7 @@ def((Button, FormItem) => class extends FormItem {
   }
   createInput() {
     let submit = new Button({ text: '提交', onClick: event => this.submit() });
-    let back = this.backComponent = new Button({ text: '返回', onClick: event => this.back(), color: '#ccc' });
+    let back = this.backComponent = new Button({ text: '返回', onClick: event => this.back(), color: '#D3DCE6' });
     return new class extends Jinkela {
       init() {
         submit.renderTo(this);

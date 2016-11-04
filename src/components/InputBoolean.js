@@ -33,7 +33,7 @@ def(() => class extends Jinkela {
         height: 24px;
         line-height: 24px;
         border-radius: 12px;
-        border: 1px solid #ccc;
+        border: 1px solid #D3DCE6;
         box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
         display: inline-block;
         cursor: pointer;
@@ -46,14 +46,14 @@ def(() => class extends Jinkela {
           width: 60px;
           height: 24px;
           border-radius: 12px;
-          background: #999;
+          background: #D3DCE6;
           transition: transform 200ms ease;
           padding: 1px;
           margin: -1px;
         }
         &[data-value=true]:before {
           content: attr(data-text-true);
-          background: rgb(91, 189, 114);
+          background: #58B7FF;
           transform: translateX(20px);
         }
       }
