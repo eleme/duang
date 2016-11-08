@@ -1,6 +1,7 @@
 def((TableHeadCell) => class extends Jinkela {
   get template() { return `<thead><tr ref="tr"></tr></thead>`; }
   init() {
+    let { depot = window.depot } = this;
     let { scheme } = depot;
     let fields = (scheme.fields || []).slice(0);
     if (scheme.actions && scheme.actions.length) {
