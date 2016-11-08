@@ -9,6 +9,8 @@
     <script src="//github.elemecdn.com/YanagiEiichi/jinkela-datepicker/1.1.4/datepicker.js"></script>
     <script src="//github.elemecdn.com/uglifyjs!s3u/JSONPath/v0.15.0/lib/jsonpath.js"></script>
     <script src="//github.elemecdn.com/uglifyjs!requirejs/requirejs/2.2.0/require.js"></script>
+    <script src="//github.com/josdejong/jsoneditor/blob/master/dist/jsoneditor.min.js"></script>
+    <script src="//github.com/josdejong/jsoneditor/blob/master/dist/jsoneditor.min.css"><script>
     <script src="${path}/utils/amdx.js"></script>
     <script src="${path}/utils/api.js"></script>
     <script src="${path}/utils/depot.js"></script>
