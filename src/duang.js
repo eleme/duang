@@ -1,20 +1,39 @@
 {
-  let [ , path ] = document.currentScript.src.match(/^(.*)\/duang\.js$/);
-  document.write(`
-    <base href="${path}/" />
-    <script src="https://github.elemecdn.com/uglifyjs!YanagiEiichi/jinkela/1.2.9/jinkela.js"></script>
-    <script src="https://github.elemecdn.com/uglifyjs!YanagiEiichi/jinkela/1.2.9/directives/ref.js"></script>
-    <script src="https://github.elemecdn.com/uglifyjs!YanagiEiichi/jinkela/1.2.9/directives/jkl.js"></script>
-    <script src="https://github.elemecdn.com/uglifyjs!YanagiEiichi/jinkela/1.2.9/plugins/nesting.js"></script>
-    <script src="https://github.elemecdn.com/YanagiEiichi/uparams/1.3.0/uparams.min.js"></script>
-    <script src="https://github.elemecdn.com/YanagiEiichi/jinkela-datepicker/1.1.4/datepicker.js"></script>
-    <script src="https://github.elemecdn.com/uglifyjs!s3u/JSONPath/v0.15.0/lib/jsonpath.js"></script>
-    <script src="https://github.elemecdn.com/uglifyjs!requirejs/requirejs/2.2.0/require.js"></script>
-    <script src="${path}/utils/amdx.js"></script>
-    <script src="${path}/utils/api.js"></script>
-    <script src="${path}/utils/depot.js"></script>
-    <script src="${path}/utils/dialog.js"></script>
-    <script src="${path}/utils/doAction.js"></script>
-    <script src="${path}/utils/refactor.js"></script>
-  `);
+  let [ , path ] = document.currentScript.src.match(/^(.*\/)duang\.js$/);
+  let base = document.createElement('base');
+  base.setAttribute('href', path);
+  document.head.appendChild(base);
+  let dependencies = [
+    [ // Basic
+      'https://github.elemecdn.com/uglifyjs!YanagiEiichi/jinkela/1.2.9/jinkela.js',
+      'https://github.elemecdn.com/YanagiEiichi/uparams/1.3.0/uparams.min.js',
+      'https://github.elemecdn.com/uglifyjs!s3u/JSONPath/v0.15.0/lib/jsonpath.js',
+      `utils/api.js`,
+      `utils/doAction.js`,
+      `utils/refactor.js`,
+      `utils/amdx.js`,
+    ],
+    [ // Plugins
+      'https://github.elemecdn.com/uglifyjs!requirejs/requirejs/2.2.0/require.js',
+      'https://github.elemecdn.com/uglifyjs!YanagiEiichi/jinkela/1.2.9/directives/ref.js',
+      'https://github.elemecdn.com/uglifyjs!YanagiEiichi/jinkela/1.2.9/directives/jkl.js',
+      'https://github.elemecdn.com/uglifyjs!YanagiEiichi/jinkela/1.2.9/plugins/nesting.js',
+    ],
+    [ // Components
+      'https://github.elemecdn.com/YanagiEiichi/jinkela-datepicker/1.1.4/datepicker.js',
+      `utils/dialog.js`,
+    ],
+    [ // Entry
+      `utils/depot.js`
+    ]
+  ];
+  const loadScript = src => new Promise(resolve => {
+    let script = document.createElement('script');
+    script.setAttribute('src', src);
+    script.addEventListener('load', resolve);
+    document.head.appendChild(script);
+  });
+  let task = dependencies.reduce((task, group) => {
+    return task.then(() => Promise.all(group.map(loadScript)));
+  }, Promise.resolve());
 }
