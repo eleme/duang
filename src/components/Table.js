@@ -1,21 +1,31 @@
 def((TableRow, TableHead, TableCaption) => class extends Jinkela {
   get tagName() { return 'table'; }
-  init() {
+  get caption() {
     let { depot = window.depot } = this;
     let { scheme } = depot;
-    let { caption, captionType = 'table', key } = scheme;
-    if (captionType === 'table' && scheme.caption) new TableCaption().to(this);
-    new TableHead({ depot }).to(this);
-    if (!scheme.key) return alert('require key');
+    let { caption, captionType = 'table' } = scheme;
+    let value;
+    if (captionType === 'table' && scheme.caption) {
+      value = new TableCaption({ depot }).to(this);
+    }
+    Object.defineProperty(this, 'caption', { value, configurable: true });
+    return value;
+  }
+  get head() {
+    let { depot = window.depot } = this;
+    let value = new TableHead({ depot }).to(this);
+    Object.defineProperty(this, 'head', { value, configurable: true });
+    return value;
   }
   render(list) {
     let { depot = window.depot } = this;
     let { scheme } = depot;
-    if (!(list instanceof Array)) {
-      return console.error('Resumt must be a list');
-    }
-    list.forEach(fieldMap  => {
-      new TableRow({ fieldMap, depot }).to(this);
+    if (!(list instanceof Array)) return console.error('Resumt must be a list');
+    let rows = list.map(fieldMap => new TableRow({ fieldMap, depot }));
+    Promise.all(rows.map(row => row.$promise)).then(rows => {
+      void this.caption;
+      void this.head;
+      rows.forEach(row => row.to(this));
     });
   }
   get styleSheet() {

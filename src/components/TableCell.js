@@ -1,12 +1,26 @@
 def((Output, Item, TableRowActions) => class extends Item {
   get tagName() { return `td`; }
+  get $promise() {
+    let resolve, reject;
+    let value = new Promise((...args) => [ resolve, reject ] = args);
+    value.resolve = resolve;
+    value.reject = reject;
+    Object.defineProperty(this, '$promise', { value, configurable: true });
+    return value;
+  }
   init() {
     let { align, value, component, args, actions, scheme, fieldMap } = this;
     if (align) this.element.align = align;
     switch (true) {
-      case !!component: return new Output({ component, args, value, fieldMap }).to(this);
-      case !!actions: return new TableRowActions({ actions, scheme, fieldMap }).to(this);
-      default: this.element.innerHTML = value;
+      case !!component:
+        let output = new Output({ component, args, value, fieldMap }).to(this);
+        return output.$promise.then(() => this.$promise.resolve(this));
+      case !!actions:
+        new TableRowActions({ actions, scheme, fieldMap }).to(this);
+        return this.$promise.resolve(this);
+      default:
+        this.element.innerHTML = value;
+        this.$promise.resolve(this);
     }
   }
   get styleSheet() {

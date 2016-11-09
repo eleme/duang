@@ -31,8 +31,8 @@ def((Item) => class extends Item {
     });
   }
   get $promise() {
-    let resolve;
-    let value = new Promise($resolve => resolve = $resolve);
+    let resolve, reject;
+    let value = new Promise((...args) => [ resolve, reject ] = args);
     value.then(() => {
       if ('$value' in this) {
         this.value = this.$value;
