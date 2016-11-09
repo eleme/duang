@@ -15,7 +15,7 @@ def((FrameAsideMenuItem) => class extends Jinkela {
       if (!scheme.require) return true;
       return scheme.require.some((dep => ~permissions.indexOf(dep)));
     });
-    FrameAsideMenuItem.cast(schemes, { currentKey: key }).renderTo(this);
+    FrameAsideMenuItem.cast(schemes, { currentKey: key }).to(this);
   }
   get template() { return `<ul></ul>`; }
   get styleSheet() {

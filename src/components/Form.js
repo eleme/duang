@@ -12,8 +12,8 @@ def((FormSubmit, FormItem) => class extends Jinkela {
         item.args.readonly = true;
       }
     });
-    this.list = FormItem.cast(inputs, { depot }).renderTo(this);
-    new FormSubmit({ depot, form: this }).renderTo(this);
+    this.list = FormItem.cast(inputs, { depot }).to(this);
+    new FormSubmit({ depot, form: this }).to(this);
   }
   get styleSheet() {
     return `

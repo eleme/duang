@@ -22,7 +22,7 @@ def((FormItem, FormItemWithDiv) => class extends Jinkela {
       }
     });
     let Item = this.tagName === 'table' ? FormItem : FormItemWithDiv;
-    this.inputs = Item.cast(group).renderTo(this);
+    this.inputs = Item.cast(group).to(this);
     if (this.horizontal) this.element.setAttribute('data-horizontal', this.horizontal);
   }
   get tagName() { return 'table'; }

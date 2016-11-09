@@ -49,9 +49,9 @@ def((Button) => {
     init() {
       if (!this.text) this.text = 'Select File';
       this.element.firstChild.addEventListener('change', event => this.change(event));
-      this.button = new SpanButton({ text: this.text }).renderTo(this.label);
-      this.fileInfo = new FileInfo().renderTo(this);
-      this.cancelButton = new CancelButton({ onClick: () => this.value = null }).renderTo(this);
+      this.button = new SpanButton({ text: this.text }).to(this.label);
+      this.fileInfo = new FileInfo().to(this);
+      this.cancelButton = new CancelButton({ onClick: () => this.value = null }).to(this);
     }
     change(event) {
       let { target } = event;

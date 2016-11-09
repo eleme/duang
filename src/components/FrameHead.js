@@ -1,8 +1,8 @@
 def((FrameHeadLogo, FrameHeadUser, FrameHeaderMenu) => class extends Jinkela {
   init() {
-    new FrameHeadLogo().renderTo(this);
-    new FrameHeaderMenu().renderTo(this);
-    new FrameHeadUser().renderTo(this);
+    new FrameHeadLogo().to(this);
+    new FrameHeaderMenu().to(this);
+    new FrameHeadUser().to(this);
   }
   get styleSheet() {
     let height = 48;

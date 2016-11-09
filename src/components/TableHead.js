@@ -7,7 +7,7 @@ def((TableHeadCell) => class extends Jinkela {
     if (scheme.actions && scheme.actions.length) {
       fields.push({ title: depot.getConst('Actions'), align: 'right' });
     }
-    TableHeadCell.cast(fields).renderTo(this.tr);
+    TableHeadCell.cast(fields).to(this.tr);
   }
   get styleSheet() {
     return `

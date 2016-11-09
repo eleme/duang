@@ -10,7 +10,7 @@ def((ListControlFilters, ListControlCaption) => class extends Jinkela {
   init() {
     let { scheme } = depot;
     let { caption, captionType } = scheme;
-    if (captionType === 'control' && caption) new ListControlCaption().renderTo(this);
-    new ListControlFilters().renderTo(this);
+    if (captionType === 'control' && caption) new ListControlCaption().to(this);
+    new ListControlFilters().to(this);
   }
 });

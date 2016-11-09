@@ -11,7 +11,7 @@ def((ListControlItem) => class extends Jinkela {
   init() {
     let { scheme } = depot;
     let { operations = [] } = scheme;
-    ListControlItem.cast(operations).renderTo(this);
+    ListControlItem.cast(operations).to(this);
     if (!operations.length) this.element.style.display = 'none';
   }
 });

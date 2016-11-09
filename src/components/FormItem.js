@@ -17,7 +17,7 @@ def((Item, Input) => class extends Item {
   init() {
     this.element.dataset.component = this.component;
     this.ctrl.depot = this.depot;
-    this.input = this.createInput().renderTo(this.ctrl);
+    this.input = this.createInput().to(this.ctrl);
     if ('title' in this) {
       this.text.textContent = this.title;
     } else {

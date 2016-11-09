@@ -4,9 +4,9 @@ def((Button) => class extends Jinkela {
     let canPrev = page > 1;
     let canNext = this.list.length === depot.scheme.pageSize;
     if (!canPrev && !canNext) return this.element.style.display = 'none';
-    if (canPrev) new Button({ text: 'Prev', onClick: () => this.prev() }).renderTo(this);
-    new Jinkela({ init() { this.element.textContent = page; } }).renderTo(this);
-    if (canNext) new Button({ text: 'Next', onClick: () => this.next() }).renderTo(this);
+    if (canPrev) new Button({ text: 'Prev', onClick: () => this.prev() }).to(this);
+    new Jinkela({ init() { this.element.textContent = page; } }).to(this);
+    if (canNext) new Button({ text: 'Next', onClick: () => this.next() }).to(this);
   }
   next() {
     let params = new UParams();

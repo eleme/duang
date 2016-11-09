@@ -1,6 +1,6 @@
 def((FrameAside) => class extends Jinkela {
   init() {
-    new FrameAside().renderTo(this);
+    new FrameAside().to(this);
   }
   get template() {
     return `

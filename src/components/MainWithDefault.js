@@ -10,7 +10,7 @@ def((MainWithDefaultItem) => class extends Jinkela {
       if (!scheme.require) return true;
       return scheme.require.some((dep => ~permissions.indexOf(dep)));
     });
-    MainWithDefaultItem.cast(schemes, { currentKey: key }).renderTo(this);
+    MainWithDefaultItem.cast(schemes, { currentKey: key }).to(this);
   }
   get template() { return `<div></div>`; }
   get styleSheet() {

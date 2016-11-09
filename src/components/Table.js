@@ -4,8 +4,8 @@ def((TableRow, TableHead, TableCaption) => class extends Jinkela {
     let { depot = window.depot } = this;
     let { scheme } = depot;
     let { caption, captionType = 'table', key } = scheme;
-    if (captionType === 'table' && scheme.caption) new TableCaption().renderTo(this);
-    new TableHead({ depot }).renderTo(this);
+    if (captionType === 'table' && scheme.caption) new TableCaption().to(this);
+    new TableHead({ depot }).to(this);
     if (!scheme.key) return alert('require key');
   }
   render(list) {
@@ -15,7 +15,7 @@ def((TableRow, TableHead, TableCaption) => class extends Jinkela {
       return console.error('Resumt must be a list');
     }
     list.forEach(fieldMap  => {
-      new TableRow({ fieldMap, depot }).renderTo(this);
+      new TableRow({ fieldMap, depot }).to(this);
     });
   }
   get styleSheet() {

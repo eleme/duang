@@ -5,8 +5,8 @@ def((FrameHead, FrameBody) => class extends Jinkela {
     return value;
   }
   init() {
-    this.constructor.header.renderTo(this);
-    new FrameBody({ parent: this }).renderTo(this);
+    this.constructor.header.to(this);
+    new FrameBody({ parent: this }).to(this);
   }
   get Main() {
     return class extends Jinkela {

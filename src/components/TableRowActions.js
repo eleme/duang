@@ -1,6 +1,6 @@
 def((TableRowActionsItem) => class extends Jinkela {
   init() {
-    TableRowActionsItem.cast(this.actions, this).renderTo(this);
+    TableRowActionsItem.cast(this.actions, this).to(this);
   }
   get template() { return '<ul></ul>'; }
   get styleSheet() {

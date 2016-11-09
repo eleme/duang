@@ -4,7 +4,7 @@ def((XPut) => class extends XPut {
     return req('Input' + component).catch(() => {
       throw new Error(`Unknown component "${component}"`);
     }).then(Component => {
-      this.result = new Component(args, { depot }).renderTo(this);
+      this.result = new Component(args, { depot }).to(this);
       this.$promise.resolve();
     }, error => {
       this.element.textContent = error.message;

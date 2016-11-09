@@ -40,7 +40,7 @@ def((Item, Value) => {
       let list = Object.keys(options).map(key => {
         return { value: key, text: options[key] };
       });
-      this.list = InputCheckboxItem.cast(list, { readonly }).renderTo(this);
+      this.list = InputCheckboxItem.cast(list, { readonly }).to(this);
     }
     set value(value) {
       let set = new Set(value);

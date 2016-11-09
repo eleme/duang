@@ -4,8 +4,8 @@ def((Output, Item, TableRowActions) => class extends Item {
     let { align, value, component, args, actions, scheme, fieldMap } = this;
     if (align) this.element.align = align;
     switch (true) {
-      case !!component: return new Output({ component, args, value, fieldMap }).renderTo(this);
-      case !!actions: return new TableRowActions({ actions, scheme, fieldMap }).renderTo(this);
+      case !!component: return new Output({ component, args, value, fieldMap }).to(this);
+      case !!actions: return new TableRowActions({ actions, scheme, fieldMap }).to(this);
       default: this.element.innerHTML = value;
     }
   }

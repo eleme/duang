@@ -1,7 +1,7 @@
 def((Input, Item, Button) => class extends Item {
   init() {
-    this.input = new Input(this, { onReady: () => this.ready() }).renderTo(this);
-    new Button({ text: depot.getConst('Apply'), onClick: () => this.apply() }).renderTo(this);
+    this.input = new Input(this, { onReady: () => this.ready() }).to(this);
+    new Button({ text: depot.getConst('Apply'), onClick: () => this.apply() }).to(this);
     this.element.setAttribute('data-filter-component', this.component);
     this.element.setAttribute('data-floating', !!this.floating);
     this.element.addEventListener('keydown', event => this.keydown(event));
@@ -20,7 +20,7 @@ def((Input, Item, Button) => class extends Item {
       this.value = where[key];
     }
     this.defaultValue = this.value;
-    new Button({ text: depot.getConst('Clear'), onClick: () => this.clear(), color: '#D3DCE6' }).renderTo(this);
+    new Button({ text: depot.getConst('Clear'), onClick: () => this.clear(), color: '#D3DCE6' }).to(this);
   }
   apply() {
     let { uParams, where } = depot;

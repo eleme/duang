@@ -8,7 +8,7 @@ def((Output) => class extends Jinkela {
       params.offset = scheme.pageSize * (page - 1 || 0);
     }
     if (where) params.where = where;
-    Output.cast(scheme.caption, { params }).renderTo(this);
+    Output.cast(scheme.caption, { params }).to(this);
   }
   get styleSheet() {
     return `

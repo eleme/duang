@@ -2,7 +2,7 @@ def((Input, InputSelect, SubGroupMap) => class extends Jinkela {
   init() {
     let { options, readonly } = this;
     const onChange = event => this.selectChange(event);
-    this.select = new InputSelect({ options, readonly, onChange }).renderTo(this);
+    this.select = new InputSelect({ options, readonly, onChange }).to(this);
     this.selectChange();
   }
   selectChange() {
@@ -10,7 +10,7 @@ def((Input, InputSelect, SubGroupMap) => class extends Jinkela {
     let group = this.subGroupMap[this.select.value] || [];
     if (group.length) {
       let table = new SubGroupMap({ group, horizontal, depot });
-      this.table = this.table ? table.renderWith(this.table) : table.renderTo(this);
+      this.table = this.table ? table.renderWith(this.table) : table.to(this);
     } else {
       if (this.table) this.element.removeChild(this.table.element);
       this.table = null;

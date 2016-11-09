@@ -6,7 +6,7 @@ const dialog = new class extends Jinkela {
     this.close.addEventListener('click', event => this.cancel());
     this.stack = [];
   }
-  render() { this.renderTo(document.body); }
+  render() { this.to(document.body); }
   popup(content) {
     if (content && this.content) this.stack.push(this.content);
     while (!content && this.stack.length) content = this.stack.pop();
@@ -14,7 +14,7 @@ const dialog = new class extends Jinkela {
       this.content = content;
       this.title.innerHTML = content.title || '&nbsp;';
       this.dd.innerHTML = '';
-      content.renderTo(this.dd);
+      content.to(this.dd);
       this.element.className = 'active';
     } else {
       this.content = null;

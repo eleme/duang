@@ -1,7 +1,7 @@
 def((ListControlAside, ListControlMain) => class extends Jinkela {
   init() {
-    new ListControlMain().renderTo(this);
-    new ListControlAside().renderTo(this);
+    new ListControlMain().to(this);
+    new ListControlAside().to(this);
   }
   get styleSheet() {
     return `

@@ -7,8 +7,8 @@ def((Button, FormItem) => class extends FormItem {
     let back = this.backComponent = new Button({ text: '返回', onClick: event => this.back(), color: '#D3DCE6' });
     return new class extends Jinkela {
       init() {
-        submit.renderTo(this);
-        back.renderTo(this);
+        submit.to(this);
+        back.to(this);
       }
       get styleSheet() {
         return ':scope > * { margin-right: 1em; }'

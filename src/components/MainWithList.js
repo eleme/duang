@@ -6,15 +6,15 @@ def((ListControl, Table, TableTip, Pager) => class extends Jinkela {
   }
   init() {
     let { scheme } = depot;
-    new ListControl().renderTo(this);
-    let table = new Table().renderTo(this);
+    new ListControl().to(this);
+    let table = new Table().to(this);
     let { pageSize, fields = [] } = scheme;
     if (!fields.length) return; // Load data if "fields" exists
-    let tip = new TableTip().renderTo(this);
+    let tip = new TableTip().to(this);
     this.load().then(list => {
       table.render(list);
       tip.render(list);
-      if (pageSize) new Pager({ list }).renderTo(this);
+      if (pageSize) new Pager({ list }).to(this);
     }, error => {
       tip.render(error);
     });

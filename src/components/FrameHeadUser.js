@@ -8,7 +8,7 @@ def((Output) => class extends Jinkela {
       component = 'HTML';
       args = { html: '{value}' };
     }
-    let output = new Output({ component, args, value }).renderTo(this);
+    let output = new Output({ component, args, value }).to(this);
   }
   get styleSheet() {
     return `

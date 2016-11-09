@@ -15,7 +15,7 @@ def((ListControlFiltersItem) => class extends Jinkela {
     let { scheme } = depot;
     if (!scheme) return location.hash = '';
     let { filters = [] } = scheme;
-    ListControlFiltersItem.cast(filters).renderTo(this);
+    ListControlFiltersItem.cast(filters).to(this);
     if (!filters.length) this.element.style.display = 'none';
   }
 });

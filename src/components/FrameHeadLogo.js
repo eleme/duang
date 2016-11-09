@@ -2,7 +2,7 @@ def((FrameHeadLogo, Output) => class extends Jinkela {
   init() {
     let { logo = 'Duang' } = config;
     if (typeof logo === 'string') logo = { component: 'HTML', args: { html: logo } };
-    new Output(logo).renderTo(this);
+    new Output(logo).to(this);
     this.element.addEventListener('click', () => location.hash = '');
   }
   get styleSheet() {

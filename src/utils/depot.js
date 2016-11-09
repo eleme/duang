@@ -6,7 +6,7 @@ var depot = new class {
   onRouteChange() {
     require([ 'modules/' + (depot.module || 'default') + '.js' ], Module => {
       if (this.moduleComponent) document.body.removeChild(this.moduleComponent.element);
-      this.moduleComponent = new Module().renderTo(document.body);
+      this.moduleComponent = new Module().to(document.body);
     });
   }
   hashchange() {

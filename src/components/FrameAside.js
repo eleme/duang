@@ -1,6 +1,6 @@
 def((FrameAsideMenu) => class extends Jinkela {
   init() {
-    new FrameAsideMenu().renderTo(this);
+    new FrameAsideMenu().to(this);
   }
   get styleSheet() {
     return `

@@ -7,7 +7,7 @@ def((Form, FormSubmit) => class extends Jinkela {
   init() {
     let depot = this.depot || window.depot;
     this.load().then(value => {
-      let form = new Form({ depot }).renderTo(this);
+      let form = new Form({ depot }).to(this);
       form.value = value;
     });
   }

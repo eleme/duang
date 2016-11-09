@@ -1,6 +1,6 @@
 def((FrameMain) => class extends Jinkela {
   init() {
-    new FrameMain({ parent: this }).renderTo(this);
+    new FrameMain({ parent: this }).to(this);
   }
   get styleSheet() {
     return `

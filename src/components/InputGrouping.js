@@ -4,7 +4,7 @@ def((Input, InputSelect, SubGroupMap) => class extends Jinkela {
     let group = this.inputs || [];
     if (group.length) {
       let list = new SubGroupMap({ group, depot, tagName: groupingMode });
-      this.list = this.list ? list.renderWith(this.list) : list.renderTo(this);
+      this.list = this.list ? list.renderWith(this.list) : list.to(this);
     } else {
       if (this.list) this.element.removeChild(this.list.element);
       this.list = null;
