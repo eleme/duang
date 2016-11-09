@@ -2,6 +2,13 @@ def((Button) => {
 
   class SpanButton extends Button {
     get tag() { return 'span'; }
+    get styleSheet() {
+      return `
+        :scope {
+          display: inline-block;
+        }
+      `;
+    }
   }
 
   class FileInfo extends Jinkela {
