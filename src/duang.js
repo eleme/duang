@@ -3,6 +3,25 @@
   let base = document.createElement('base');
   base.setAttribute('href', path);
   document.head.appendChild(base);
+  let style = document.createElement('style');
+  style.innerHTML = `
+    body:empty::before {
+      position: fixed;
+      font-size: 32px;
+      height: 200px;
+      line-height: 200px;
+      width: 100%;
+      text-align: center;
+      color: #999;
+      margin: auto;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      top: 0;
+      content: 'Loading ...';
+    }
+  `;
+  document.head.appendChild(style);
   let dependencies = [
     [ // Basic
       'https://github.elemecdn.com/uglifyjs!YanagiEiichi/jinkela/1.2.9/jinkela.js',
