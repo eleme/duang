@@ -40,7 +40,7 @@
     ],
     [ // Components
       'https://github.elemecdn.com/YanagiEiichi/jinkela-datepicker/1.1.4/datepicker.js',
-      `utils/dialog.js`,
+      'https://github.elemecdn.com/YanagiEiichi/jinkela-dialog/0.1.5/dialog.js',
     ],
     [ // Entry
       `utils/depot.js`
