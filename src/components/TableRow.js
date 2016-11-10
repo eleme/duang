@@ -15,7 +15,7 @@ def((Item, TableCell) => class extends Item {
     let cells = fields.map(field => new TableCell(field, { value: fieldMap[field.key] }, this));
     Promise.all(cells.map(cell => cell.$promise)).then(cells => {
       cells.forEach(cell => cell.to(this));
-      if (actions.length) new TableCell({ actions, align: 'right' }, this).to(this);
+      if (actions.length) new TableCell({ actions, nowrap: true, width: 1 }, this).to(this);
       this.$promise.resolve(this);
     });
   }

@@ -4,27 +4,38 @@
   base.setAttribute('href', path);
   document.head.appendChild(base);
   let style = document.createElement('style');
+  let loading = '拼命加载中';
   style.innerHTML = `
+    @keyFrames body-busy {
+      0% { content: '${loading} ·'; }
+      25% { content: '${loading} ··'; }
+      50% { content: '${loading} ···'; }
+      75% { content: '${loading} ····'; }
+      100% { content: '${loading} ·'; }
+    }
     body:empty::before {
       position: fixed;
+      font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
       font-size: 32px;
       height: 200px;
       line-height: 200px;
-      width: 100%;
-      text-align: center;
-      color: #999;
+      width: 250px;
+      whilte-space: nowrap;
+      color: #20a0ff;
+      opacity: .5;
       margin: auto;
       left: 0;
       right: 0;
       bottom: 0;
       top: 0;
-      content: 'Loading ...';
+      content: '';
+      animation: body-busy 1s linear infinite;
     }
   `;
   document.head.appendChild(style);
   let dependencies = [
     [ // Basic
-      'https://github.elemecdn.com/uglifyjs!YanagiEiichi/jinkela/1.2.9/jinkela.js',
+      'https://github.elemecdn.com/uglifyjs!YanagiEiichi/jinkela/1.2.14/jinkela.js',
       'https://github.elemecdn.com/YanagiEiichi/uparams/1.3.0/uparams.min.js',
       'https://github.elemecdn.com/uglifyjs!s3u/JSONPath/v0.15.0/lib/jsonpath.js',
       `utils/api.js`,
@@ -34,13 +45,15 @@
     ],
     [ // Plugins
       'https://github.elemecdn.com/uglifyjs!requirejs/requirejs/2.2.0/require.js',
-      'https://github.elemecdn.com/uglifyjs!YanagiEiichi/jinkela/1.2.9/directives/ref.js',
-      'https://github.elemecdn.com/uglifyjs!YanagiEiichi/jinkela/1.2.9/directives/jkl.js',
-      'https://github.elemecdn.com/uglifyjs!YanagiEiichi/jinkela/1.2.9/plugins/nesting.js',
+      'https://github.elemecdn.com/uglifyjs!YanagiEiichi/jinkela/1.2.14/directives/ref.js',
+      'https://github.elemecdn.com/uglifyjs!YanagiEiichi/jinkela/1.2.14/directives/if.js',
+      'https://github.elemecdn.com/uglifyjs!YanagiEiichi/jinkela/1.2.14/directives/on.js',
+      'https://github.elemecdn.com/uglifyjs!YanagiEiichi/jinkela/1.2.14/directives/jkl.js',
+      'https://github.elemecdn.com/uglifyjs!YanagiEiichi/jinkela/1.2.14/plugins/nesting.js',
     ],
     [ // Components
       'https://github.elemecdn.com/YanagiEiichi/jinkela-datepicker/1.1.4/datepicker.js',
-      'https://github.elemecdn.com/YanagiEiichi/jinkela-dialog/0.1.5/dialog.js',
+      'https://github.elemecdn.com/YanagiEiichi/jinkela-dialog/0.1.6/dialog.js',
     ],
     [ // Entry
       `utils/depot.js`

@@ -19,7 +19,7 @@ def((ListItem) => class extends ListItem {
     return `
       :scope {
         line-height: 40px;
-        font-size: 13px;
+        font-size: 14px;
         list-style: none;
         white-space: nowrap;
         > a {

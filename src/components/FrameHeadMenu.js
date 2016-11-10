@@ -12,10 +12,20 @@ def((FrameAside) => class extends Jinkela {
   get styleSheet() {
     return `
       :scope {
+        &::before {
+          content: '';
+          display: inline-block;
+          height: 50%;
+          width: 0px;
+        }
         > a {
           border: 1px solid #fff;
-          padding: .5em 1em;
-          border-radius: 40px;
+          padding: 7px 9px;
+          border-radius: 28px;
+          line-height: 1;
+          display: inline-block;
+          vertical-align: middle;
+          font-size: 12px;
         }
         &:hover {
           > div {

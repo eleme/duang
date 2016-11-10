@@ -21,7 +21,7 @@ def(() => class extends Jinkela {
         border: 1px solid #C0CCDA;
         border-radius: 5px;
         padding: .5em;
-        font-size: 13px;
+        font-size: 14px;
         outline: none;
       }
     `;

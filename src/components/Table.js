@@ -17,7 +17,8 @@ def((TableRow, TableHead, TableCaption) => class extends Jinkela {
     Object.defineProperty(this, 'head', { value, configurable: true });
     return value;
   }
-  render(list) {
+  set data(list) {
+    if (!list) return;
     let { depot = window.depot } = this;
     let { scheme } = depot;
     if (!(list instanceof Array)) return console.error('Resumt must be a list');
@@ -32,8 +33,8 @@ def((TableRow, TableHead, TableCaption) => class extends Jinkela {
     return `
       :scope {
         color: #666;
-        border: 1px solid #EFF2F7;
-        font-size: 13px;
+        border: 1px solid #e0e6ed;
+        font-size: 14px;
         line-height: 40px;
         margin: 1em;
         background: #fff;

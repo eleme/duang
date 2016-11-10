@@ -58,7 +58,7 @@ def((Button) => class extends Jinkela {
           font-weight: normal;
         }
         button {
-          font-size: 13px;
+          font-size: 14px;
           margin: 0 1em;
         }
         padding: 1em;

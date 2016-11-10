@@ -1,16 +1,20 @@
 def((Output, Item, TableRowActions) => class extends Item {
   get tagName() { return 'td'; }
   init() {
-    if (this.align) this.element.align = this.align;
+    let { width, nowrap } = this;
+    if (width) this.element.style.width = width + 'px';
+    if (nowrap) this.element.style.whiteSpace = 'nowrap';
     this.element.innerHTML = this.title;
   }
   get styleSheet() {
     return `
       :scope {
-        border: solid #EFF2F7;
-        border-width: 1px 0;
-        padding: .1em 1.2em;
+        padding: 0 18px;
+        line-height: 24px;
+        height: 40px;
         white-space: nowrap;
+        font-weight: bold;
+        color: #1f2d3d;
       }
     `;
   }

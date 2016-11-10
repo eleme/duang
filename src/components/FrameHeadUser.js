@@ -17,7 +17,7 @@ def((Output) => class extends Jinkela {
         text-align: right;
         width: 100px;
         padding-right: 1em;
-        font-size: 13px;
+        font-size: 14px;
       }
     `;
   }

@@ -1,11 +1,12 @@
 def((Item) => class extends Item {
   init() {
-    this.element.style.backgroundColor = this.color || '#20A0FF';
+    if (this.children && this.children.length) this.text = this.children[0].data;
+  }
+  set text(value) {
+    this.element.setAttribute('text', value || '一个神奇的按钮');
   }
   get tag() { return 'button'; }
-  get template() {
-    return `<${this.tag} text="{text}"></${this.tag}>`;
-  }
+  get tagName() { return this.tag; }
   get busy() {
     return this.element.classList.contains('busy');
   }
@@ -20,14 +21,19 @@ def((Item) => class extends Item {
     return `
       :scope {
         border: 0;
-        border-radius: 1px;
-        padding: 0 .8em;
-        line-height: 28px;
-        font-size: 13px;
+        border-radius: 4px;
+        padding: 7px 9px;
+        font-size: 12px;
+        font-family: inherit;
+        border: 1px solid;
+        background-color: #20a0ff;
+        border-color: #20a0ff;
+        line-height: 1;
         cursor: pointer;
         color: #fff;
         position: relative;
         text-align: center;
+        &:hover { opacity: .8; }
         &:before {
           content: attr(text);
         }
@@ -38,6 +44,10 @@ def((Item) => class extends Item {
           top: .4em;
           bottom: .4em;
         }
+        &.busy {
+          cursor: wait;
+          opacity: .5;
+        }
         &.busy:before {
           visibility: hidden;
         }
@@ -45,29 +55,14 @@ def((Item) => class extends Item {
           content: '';
           animation: button-busy 1000ms infinite;
         }
-        &:hover {
-          opacity: 0.8;
-        }
-        &:focus {
-          outline: none;
-        }
+        &:focus { outline: none; }
       }
       @keyframes button-busy {
-        0% {
-          content: '·';
-        }
-        25% {
-          content: '··';
-        }
-        50% {
-          content: '···';
-        }
-        75% {
-          content: '····';
-        }
-        100% {
-          content: '·';
-        }
+        0% { content: '·'; }
+        25% { content: '··'; }
+        50% { content: '···'; }
+        75% { content: '····'; }
+        100% { content: '·'; }
       }
     `;
   }

@@ -30,13 +30,14 @@ def((Item) => class extends Item {
     return `
       :scope {
         position: relative;
-        border: 1px solid #EFF2F7;
+        border: 1px solid #e0e6ed;
         width: calc(33.33% - 2em);
+        border-radius: 6px;
         display: inline-block;
         box-sizing: border-box;
         margin: 1em;
         line-height: 20px;
-        font-size: 13px;
+        font-size: 14px;
         list-style: none;
         white-space: nowrap;
         padding: ${padding}px;

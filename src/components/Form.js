@@ -18,13 +18,13 @@ def((FormSubmit, FormItem) => class extends Jinkela {
   get styleSheet() {
     return `
       :scope {
-        font-size: 13px;
+        font-size: 14px;
         margin: 1em;
         width: calc(100% - 2em);
         border-collapse: collapse;
 
         table {
-          border-left: 1px solid #EFF2F7;
+          border-left: 1px solid #e0e6ed;
           padding-left: 8px;
           display: block;
           padding-left: 16px;

@@ -24,7 +24,7 @@ def(() => class extends Jinkela {
         padding: .5em;
         min-width: 120px;
         height: 28px;
-        font-size: 13px;
+        font-size: 14px;
       }
     `;
   }

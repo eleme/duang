@@ -9,8 +9,9 @@ def((Output, Item, TableRowActions) => class extends Item {
     return value;
   }
   init() {
-    let { align, value, component, args, actions, scheme, fieldMap } = this;
-    if (align) this.element.align = align;
+    let { width, nowrap, value, component, args, actions, scheme, fieldMap } = this;
+    if (width) this.element.style.width = width + 'px';
+    if (nowrap) this.element.style.whiteSpace = 'nowrap';
     switch (true) {
       case !!component:
         let output = new Output({ component, args, value, fieldMap }).to(this);
@@ -26,9 +27,11 @@ def((Output, Item, TableRowActions) => class extends Item {
   get styleSheet() {
     return `
       :scope {
-        border: solid #EFF2F7;
+        border: solid #e0e6ed;
         border-width: 1px 0;
-        padding: .1em 1.2em;
+        padding: 0 18px;
+        line-height: 24px;
+        height: 40px;
       }
     `;
   }

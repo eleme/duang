@@ -17,10 +17,11 @@ def((FrameHead, FrameBody) => class extends Jinkela {
   }
   get styleSheet() {
     return `
-      html, body {
+      body {
         margin: 0;
-        font-size: 13px;
-        font-family: Lato, 'Helvetica Neue', Arial, Helvetica, sans-serif;
+        font-size: 14px;
+        font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
       }
       a {
         text-decoration: none;
@@ -31,11 +32,6 @@ def((FrameHead, FrameBody) => class extends Jinkela {
       }
       input {
         outline: none;
-      }
-      :scope {
-        display: flex;
-        flex-direction: column;
-        height: 100vh;
       }
     `;
   }

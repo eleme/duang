@@ -42,9 +42,10 @@ def((ListItem, Confirm) => class extends ListItem {
   get styleSheet() {
     return `
       :scope {
-        margin-left: .5em;
+        margin-right: .5em;
         display: inline-block;
         color: #20A0FF;
+        font-size: 12px;
         &:hover {
           color: #1D8CE0;
         }

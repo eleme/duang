@@ -1,7 +1,7 @@
-def((FrameHeadLogo, FrameHeadUser, FrameHeaderMenu) => class extends Jinkela {
+def((FrameHeadLogo, FrameHeadUser, FrameHeadMenu) => class extends Jinkela {
   init() {
     new FrameHeadLogo().to(this);
-    new FrameHeaderMenu().to(this);
+    new FrameHeadMenu().to(this);
     new FrameHeadUser().to(this);
   }
   get styleSheet() {

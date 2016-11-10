@@ -4,6 +4,11 @@ def(() => class extends Jinkela {
       this.element.addEventListener('click', event => this.click(event));
     }
   }
+  set onclick(handler) {
+    if (this.onClick) return;
+    this.onClick = handler;
+    this.element.addEventListener('click', event => this.click(event));
+  }
   static cast(list, ...args) {
     list = list.map(item => new this(item, ...args));
     list.to = target => {

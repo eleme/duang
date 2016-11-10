@@ -32,7 +32,7 @@ def((Item) => {
           background-color: transparent;
           border-radius: 5px;
           padding: .5em;
-          font-size: 13px;
+          font-size: 14px;
           min-width: 120px;
           height: 28px;
         }

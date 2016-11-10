@@ -14,7 +14,7 @@ def((Form, FormSubmit) => class extends Jinkela {
   get styleSheet() {
     return `
       :scope {
-        border-left: 1px solid #EFF2F7;
+        border-left: 1px solid #e0e6ed;
       }
     `;
   }
