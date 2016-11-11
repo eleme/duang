@@ -38,6 +38,8 @@
       'https://github.elemecdn.com/uglifyjs!YanagiEiichi/jinkela/1.2.14/jinkela.js',
       'https://github.elemecdn.com/YanagiEiichi/uparams/1.3.0/uparams.min.js',
       'https://github.elemecdn.com/uglifyjs!s3u/JSONPath/v0.15.0/lib/jsonpath.js',
+      `https://github.elemecdn.com/YanagiEiichi/fceptor/0.2.9/fceptor.js`,
+      `https://github.elemecdn.com/ElemeFE/pocket-noodles/1.0.2/index.js`,
       `utils/api.js`,
       `utils/doAction.js`,
       `utils/refactor.js`,
