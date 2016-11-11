@@ -17,14 +17,22 @@ def(() => class extends Jinkela {
   get styleSheet() {
     return `
       :scope {
-        &[readonly] { background: #f7f7f7; }
+        &:hover { border-color: #8492a6; }
+        &:focus { border-color: #20a0ff; }
+        &[readonly] {
+          background-color: #eff2f7;
+          border-color: #d3dce6;
+          color: #bbb;
+          cursor: not-allowed;
+        }
+        transition: border-color .2s cubic-bezier(.645,.045,.355,1);
         width: 6em;
         border: 1px solid #C0CCDA;
         border-radius: 5px;
         padding: .5em;
         min-width: 120px;
         height: 28px;
-        font-size: 14px;
+        font-size: 12px;
       }
     `;
   }

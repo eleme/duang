@@ -25,14 +25,21 @@ def((Item) => {
     get styleSheet() {
       return `
         :scope {
-          &:focus { border-color: #20A0FF; }
+          &:hover { border-color: #8492a6; }
+          &:focus { border-color: #20a0ff; }
+          &[disabled] {
+            background-color: #eff2f7;
+            border-color: #d3dce6;
+            color: #bbb;
+            cursor: not-allowed;
+          }
           transition: border-color .2s cubic-bezier(.645,.045,.355,1);
           vertical-align: middle;
           border: 1px solid #C0CCDA;
           background-color: transparent;
           border-radius: 5px;
           padding: .5em;
-          font-size: 14px;
+          font-size: 12px;
           min-width: 120px;
           height: 28px;
         }
