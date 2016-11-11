@@ -7,6 +7,16 @@ def((Item) => class extends Item {
   }
   get tag() { return 'button'; }
   get tagName() { return this.tag; }
+  set disabled(value) {
+    if (value) {
+      this.element.setAttribute('disabled', 'disabled');
+    } else {
+      this.element.removeAttribute('disabled');
+    }
+  }
+  get disabled() {
+    return this.element.hasAttribute('disabled');
+  }
   get busy() {
     return this.element.classList.contains('busy');
   }
@@ -56,6 +66,14 @@ def((Item) => class extends Item {
           animation: button-busy 1000ms infinite;
         }
         &:focus { outline: none; }
+        &[disabled] {
+          color: #c0ccda;
+          cursor: not-allowed;
+          background-image: none;
+          background-color: #eff2f7;
+          border-color: #d3dce6;
+          &:hover { opacity: 1; }
+        }
       }
       @keyframes button-busy {
         0% { content: '·'; }

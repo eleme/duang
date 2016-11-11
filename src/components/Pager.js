@@ -1,20 +1,18 @@
-def((Button) => class extends Jinkela {
-  get Button() { return Button; }
+def((ButtonHollow) => class extends Jinkela {
+  get Button() { return ButtonHollow; }
   get template() {
     return `
       <div>
-        <jkl-button if="{canPrev}" onclick="{prev}">上一页</jkl-button>
+        <jkl-button disabled="{disablePrev}" onclick="{prev}">&lt;</jkl-button>
         <span>{currentPage}</span>
-        <jkl-button if="{canNext}" onclick="{next}">下一页</jkl-button>
+        <jkl-button disabled="{disableNext}" onclick="{next}">&gt;</jkl-button>
       </div>
     `;
   }
-  set data(list) {
-    if (!list) return;
+  set data(list = []) {
     let page = this.page = +depot.uParams.page || 1;
-    this.canPrev = page > 1;
-    this.canNext = list.length === depot.scheme.pageSize;
-    if (!this.canPrev && !this.canNext) return this.element.style.visibility = 'hidden';
+    this.disablePrev = page <= 1;
+    this.disableNext = list.length < depot.scheme.pageSize;
     this.currentPage = page;
   }
   set pagesize(size) {
@@ -42,15 +40,10 @@ def((Button) => class extends Jinkela {
         text-align: right;
         margin: 1em;
         > span {
-          border: 1px solid #20a0ff;
-          background: #20a0ff;
-          color: #fff;
-          border-radius: 4px;
-          line-height: 26px;
+          line-height: 28px;
           vertical-align: middle;
           display: inline-block;
-          padding: 0 .6em;
-          margin: 0 -.6em;
+          margin: 0 .5em;
         }
       }
     `;

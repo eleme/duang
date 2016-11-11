@@ -13,6 +13,7 @@ def((FrameHead, FrameBody) => class extends Jinkela {
     return `
       body {
         margin: 0;
+        color: #5e6d82;
         font-size: 14px;
         font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
         -webkit-font-smoothing: antialiased;

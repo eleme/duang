@@ -8,7 +8,7 @@ def((Button) => class extends Button {
         background-color: transparent;
         border-color: #c0ccda;
         color: #1f2d3d;
-        &:hover {
+        &:not([disabled]):hover {
           color: #20a0ff;
           border-color: #20a0ff;
         }
