@@ -1,6 +1,6 @@
 def(() => class extends Jinkela {
   init() {
-    new this.parent.parent.Main().to(this);
+    this.$promise = new this.Main().to(this).$promise;
   }
   get styleSheet() {
     return `

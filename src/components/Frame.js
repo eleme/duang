@@ -6,14 +6,8 @@ def((FrameHead, FrameBody) => class extends Jinkela {
   }
   init() {
     this.constructor.header.to(this);
-    new FrameBody({ parent: this }).to(this);
-  }
-  get Main() {
-    return class extends Jinkela {
-      init() {
-        this.element.textContent = 'main';
-      }
-    };
+    let { Main } = this;
+    new FrameBody({ Main }).to(this);
   }
   get styleSheet() {
     return `

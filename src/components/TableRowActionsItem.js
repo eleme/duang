@@ -18,7 +18,8 @@ def((ListItem, Confirm) => class extends ListItem {
       case 'dialog':
         return require([ 'modules/' + (module || 'default') + '.js' ], Module => {
           let { Main } = Module.prototype;
-          dialog.popup(new Main({ depot: depot.fork(uParams), title }));
+          let main = new Main({ depot: depot.fork(uParams), title });
+          return Promise.resolve(main.$promise).then(() => dialog.popup(main));
         });
       default:
         return location.hash = '#' + uParams;

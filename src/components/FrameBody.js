@@ -1,6 +1,7 @@
 def((FrameMain) => class extends Jinkela {
   init() {
-    new FrameMain({ parent: this }).to(this);
+    let { Main } = this;
+    this.$promise = new FrameMain({ Main }).to(this).$promise;
   }
   get styleSheet() {
     return `

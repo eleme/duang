@@ -12,8 +12,11 @@ def((FormSubmit, FormItem) => class extends Jinkela {
         item.args.readonly = true;
       }
     });
-    this.list = FormItem.cast(inputs, { depot }).to(this);
-    new FormSubmit({ depot, form: this }).to(this);
+    this.list = FormItem.cast(inputs, { depot });
+    this.$promise = Promise.all(this.list.map(item => item.$promise)).then(() => {
+      this.list.forEach(item => item.to(this));
+      new FormSubmit({ depot, form: this }).to(this);
+    });
   }
   get styleSheet() {
     return `
