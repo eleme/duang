@@ -88,7 +88,7 @@ def((Button) => {
         </div>
       `;
     }
-    clear() { this.value = null; }
+    clear() { this.value = void 0; }
     init() {
       if (!this.text) this.text = '请选择文件';
       this.input.addEventListener('change', event => this.change(event));
@@ -106,7 +106,7 @@ def((Button) => {
     get styleSheet() {
       return `
         :scope {
-          &[token=null] a { visibility: hidden; }
+          &[token=undefined] a { visibility: hidden; }
         }
       `;
     }
