@@ -1,22 +1,21 @@
-def((Button, ButtonHollow, FormItem) => {
+def((Button, ButtonHollow) => {
 
-  class ButtonGroup extends Jinkela {
-    get template() { return `<div><meta ref="children"></div>`; }
-    get styleSheet() { return ':scope > * { margin-right: 1em; }' }
-  }
-
-  return class extends FormItem {
-    init() { this.title = ''; }
-    createInput() {
-      let submit = new Button({ text: '提交', onClick: event => this.submit() });
-      let back = this.backComponent = new ButtonHollow({ text: '返回', onClick: event => this.back() });
-      return new ButtonGroup({ children: [ submit, back ] });
+  return class extends Jinkela {
+    get Button() { return Button; }
+    get ButtonHollow() { return ButtonHollow; }
+    get template() {
+      return `
+        <div>
+          <jkl-button onclick="{submit}">提交</jkl-button>
+          <jkl-button-hollow ref="backComponent" onclick="{back}">返回</jkl-button-hollow>
+        </div>
+      `;
     }
     back() {
-      if (depot.module === 'editor') {
-        history.back();
-      } else {
+      if (dialog.element.contains(this.element)) {
         dialog.cancel();
+      } else {
+        history.back();
       }
     }
     submit() {
@@ -40,17 +39,16 @@ def((Button, ButtonHollow, FormItem) => {
       }, error => {
         if (error) alert(error.message || error);
       }).then(() => {
-        // finally
         this.backComponent.busy = false;
       });
     }
     get styleSheet() {
       return `
         :scope {
-          td {
-            position: relative;
-            padding-top: calc(2em + 5px);
-          }
+          border-top: 1px solid #e0e6ed;
+          margin-top: 1em;
+          padding-top: 1em;
+          :first-child { margin-right: 10px; }
         }
       `;
     }

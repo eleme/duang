@@ -1,9 +1,19 @@
 def((FormSubmit, FormItem) => class extends Jinkela {
-  get tagName() { return 'table'; }
+  get FormSubmit() { return FormSubmit; }
+  get template() {
+    return `
+      <div>
+        <div ref="columns">
+          <table ref="table"></table>
+        </div>
+        <jkl-form-submit depot="{depot}" form="{form}"></jkl-form-submit>
+      </div>
+    `;
+  }
   init() {
     let { depot } = this;
     let { id, scheme, params } = depot;
-    let { inputs = [] } = scheme;
+    let { inputs = [], columns } = scheme;
     let action = id ? 'edit' : 'create';
     inputs = JSON.parse(JSON.stringify(inputs)).filter(item => item[action] !== 'none');
     inputs.forEach((item) => {
@@ -13,27 +23,14 @@ def((FormSubmit, FormItem) => class extends Jinkela {
       }
     });
     this.list = FormItem.cast(inputs, { depot });
+    this.form = this;
     this.$promise = Promise.all(this.list.map(item => item.$promise)).then(() => {
-      this.list.forEach(item => item.to(this));
-      new FormSubmit({ depot, form: this }).to(this);
+      this.list.forEach(item => item.to(this.table));
     });
-  }
-  get styleSheet() {
-    return `
-      :scope {
-        font-size: 14px;
-        margin: 1em;
-        width: calc(100% - 2em);
-        border-collapse: collapse;
-
-        table {
-          border-left: 1px solid #e0e6ed;
-          padding-left: 8px;
-          display: block;
-          padding-left: 16px;
-        }
-      }
-    `;
+    if (columns > 1) {
+      this.columns.dataset.columns = columns;
+      this.columns.style.columns = columns;
+    }
   }
   set value(data) {
     if (!data) return;
@@ -60,5 +57,19 @@ def((FormSubmit, FormItem) => class extends Jinkela {
       }
       return result;
     }, Object.create(null));
+  }
+  get styleSheet() {
+    return `
+      :scope {
+        padding: 2em;
+        > [ref=columns] {
+          > table {
+            border-spacing: 1em;
+            margin: -1em 0;
+            font-size: inherit;
+          }
+        }
+      }
+    `;
   }
 });

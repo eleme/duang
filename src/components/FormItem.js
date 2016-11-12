@@ -17,7 +17,6 @@ def((Item, Input) => {
       `;
     }
     init() {
-      this.element.dataset.component = this.component;
       this.ctrl.depot = this.depot;
       this.input = this.createInput().to(this.ctrl);
       this.$promise = this.input.$promise;
@@ -34,9 +33,7 @@ def((Item, Input) => {
     get styleSheet() {
       return `
         :scope {
-          > * {
-            padding: .5em;
-          }
+          break-inside: avoid-column;
           td {
             vertical-align: top;
             line-height: 28px;
@@ -44,7 +41,6 @@ def((Item, Input) => {
           > td:first-child:not([colspan]) {
             width: 80px;
             white-space: nowrap;
-            color: #475669;
           }
         }
       `;

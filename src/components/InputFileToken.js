@@ -107,6 +107,7 @@ def((Button) => {
       return `
         :scope {
           &[token=undefined] a { visibility: hidden; }
+          &[token=""] a { visibility: hidden; }
         }
       `;
     }

@@ -3,7 +3,6 @@ def((Input, Item, Button, ButtonHollow) => class extends Item {
     this.input = new Input(this, { onReady: () => this.ready() }).to(this);
     new Button({ text: depot.getConst('筛选'), onClick: () => this.apply() }).to(this);
     this.element.setAttribute('data-filter-component', this.component);
-    this.element.setAttribute('data-floating', !!this.floating);
     this.element.addEventListener('keydown', event => this.keydown(event));
     if ('title' in this) this.element.setAttribute('data-filter-title', this.title);
   }
@@ -59,13 +58,7 @@ def((Input, Item, Button, ButtonHollow) => class extends Item {
         display: block;
         margin-top: 1em;
         white-space: nowrap;
-        &[data-floating=true] {
-          float: left;
-          margin-right: 1em;
-          & + * {
-            margin-top: 0;
-          }
-        }
+        line-height: 28px;
         &::before {
           content: attr(data-filter-title);
           display: inline-block;
@@ -73,7 +66,7 @@ def((Input, Item, Button, ButtonHollow) => class extends Item {
         }
         > * {
           display: inline-block;
-          vertical-align: middle;
+          vertical-align: top;
         }
         > button {
           margin-left: 1em;

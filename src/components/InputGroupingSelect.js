@@ -1,15 +1,24 @@
 def((Input, InputSelect, SubGroupMap) => class extends Jinkela {
+  get InputSelect() { return InputSelect; }
+  get template() {
+    return `
+      <div>
+        <jkl-input-select
+          ref="select"
+          options="{options}"
+          readonly="{readonly}"
+          onchange="{selectChange}"></jkl-input-select>
+      </div>
+    `;
+  }
   init() {
-    let { options, readonly } = this;
-    const onChange = event => this.selectChange(event);
-    this.select = new InputSelect({ options, readonly, onChange }).to(this);
     this.selectChange();
   }
   selectChange() {
-    let { depot, horizontal } = this;
+    let { depot } = this;
     let group = this.subGroupMap[this.select.value] || [];
     if (group.length) {
-      let table = new SubGroupMap({ group, horizontal, depot });
+      let table = new SubGroupMap({ group, depot });
       this.table = this.table ? table.renderWith(this.table) : table.to(this);
     } else {
       if (this.table) this.element.removeChild(this.table.element);

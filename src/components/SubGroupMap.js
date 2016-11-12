@@ -23,23 +23,15 @@ def((FormItem, FormItemWithDiv) => class extends Jinkela {
     });
     let Item = this.tagName === 'table' ? FormItem : FormItemWithDiv;
     this.inputs = Item.cast(group).to(this);
-    if (this.horizontal) this.element.setAttribute('data-horizontal', this.horizontal);
   }
   get tagName() { return 'table'; }
   get styleSheet() {
     return `
-      div:scope {
-        white-space: nowrap;
-      }
       :scope {
-        font-size: 14px;
-        margin-top: 1em;
-        border-collapse: collapse;
-        &[data-horizontal] {
-          margin-top: 0;
-          display: inline-table;
-          vertical-align: middle;
-        }
+        break-inside: avoid-column;
+        border-spacing: 1em;
+        margin: 0 -1em  -1em -1em;
+        font-size: inherit;
       }
     `;
   }

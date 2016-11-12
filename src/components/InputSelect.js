@@ -11,13 +11,16 @@ def((Item) => {
   return class extends Jinkela {
     get tagName() { return `select`; }
     init() {
-      let { options } = this;
+      this.element.addEventListener('change', event => this.change(event));
+      if (this.readonly) this.element.setAttribute('disabled', 'dsabled');
+    }
+    set options(options) {
+      while (this.element.firstChild) this.element.firstChild.remove();
+      if (!options) return;
       if (!(options instanceof Array)) {
         options = Object.keys(options).map(key => ({ text: options[key], value: key }));
       }
       InputSelectItem.cast(options).to(this);
-      this.element.addEventListener('change', event => this.change(event));
-      if (this.readonly) this.element.setAttribute('disabled', 'dsabled');
     }
     change() {
       if (typeof this.onChange === 'function') this.onChange(event);
