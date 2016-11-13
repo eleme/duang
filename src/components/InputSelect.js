@@ -12,7 +12,14 @@ def((Item) => {
     get tagName() { return `select`; }
     init() {
       this.element.addEventListener('change', event => this.change(event));
-      if (this.readonly) this.element.setAttribute('disabled', 'dsabled');
+    }
+    get readonly() { return this.element.hasAttribute('disabled'); }
+    set readonly(value) {
+      if (value) {
+        this.element.setAttribute('disabled', 'dsabled');
+      } else {
+        this.element.removeAttribute('disabled');
+      }
     }
     set options(options) {
       while (this.element.firstChild) this.element.firstChild.remove();
@@ -24,6 +31,7 @@ def((Item) => {
     }
     change() {
       if (typeof this.onChange === 'function') this.onChange(event);
+      if (typeof this.onchange === 'function') this.onchange(event);
     }
     get styleSheet() {
       return `
