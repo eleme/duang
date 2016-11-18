@@ -8,7 +8,7 @@ def(() => class extends Jinkela {
     this.element.innerHTML = error.message || error.name || JSON.stringify(error);
   }
   set data(list) {
-    if (!list) return;
+    if (!(list instanceof Array)) list = [];
     if (list.length) {
       this.element.style.display = 'none';
     } else {
