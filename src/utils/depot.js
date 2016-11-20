@@ -39,7 +39,12 @@ var depot = new class {
     if (!config.session) return window.session = {};
     return api(config.session.authorize, { method: config.session.method || 'post' }).then(
       value => Object.defineProperty(this, 'session', { configurable: true, value }),
-      reason => location.href = api.resolvePath(new Function('return `' + config.session.signin + '`')())
+      reason => {
+        Object.defineProperty(this, 'session', { configurable: true, value: {} });
+        if (reason.name === 'UNAUTHORIZED') {
+          location.href = api.resolvePath(new Function('return `' + config.session.signin + '`')());
+        }
+      }
     );
   }
   get module() { return this.uParams.module; }
