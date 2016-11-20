@@ -39,4 +39,11 @@ def((Input, InputSelect, SubGroupMap) => class extends Jinkela {
     this.selectChange();
     if (this.table) this.table.value = value;
   }
+  get styleSheet() {
+    return `
+      :scope {
+        text-align: left;
+      }
+    `;
+  }
 });

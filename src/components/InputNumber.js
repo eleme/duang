@@ -27,12 +27,14 @@ def(() => class extends Jinkela {
         }
         transition: border-color .2s cubic-bezier(.645,.045,.355,1);
         width: 6em;
+        box-sizing: border-box;
         border: 1px solid #C0CCDA;
         border-radius: 5px;
-        padding: .5em;
+        padding: .4em .5em;
         min-width: 120px;
         height: 28px;
         font-size: 12px;
+        line-height: 28px;
       }
     `;
   }
