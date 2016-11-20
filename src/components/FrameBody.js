@@ -1,11 +1,12 @@
-def((FrameMain) => class extends Jinkela {
+def((FrameMain, FrameAside) => class extends Jinkela {
   init() {
-    let { Main } = this;
-    this.$promise = new FrameMain({ Main }).to(this).$promise;
+    new FrameAside().to(this);
+    this.$promise = new FrameMain({ Main: this.Main }).to(this).$promise;
   }
   get styleSheet() {
     return `
       :scope {
+        height: 100%;
         display: flex;
         flex: 1;
       }

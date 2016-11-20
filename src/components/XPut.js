@@ -25,7 +25,7 @@ def((Item) => class extends Item {
           }
         }
       });
-      return Promise.all(tasks).then(() => base);
+      return Promise.all(tasks).then(() => {});
     }(this).catch(error => {
       throw new Error(`Component "${component}" args loading error with "${error.message}"`);
     });

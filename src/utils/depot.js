@@ -4,9 +4,13 @@ var depot = new class {
     addEventListener('hashchange', () => this.hashchange());
   }
   onRouteChange() {
-    require([ 'modules/' + (depot.module || 'default') + '.js' ], Module => {
-      if (this.moduleComponent) document.body.removeChild(this.moduleComponent.element);
-      this.moduleComponent = new Module().to(document.body);
+    let moduleName = String(this.module || 'default');
+    let tasks = Promise.all([ req('Frame'), req('MainWith' + moduleName.replace(/./, $0 => $0.toUpperCase())) ]);
+    tasks.then(([ Frame, Main ]) => {
+      if (!this.moduleComponent) this.moduleComponent = new Frame().to(document.body);
+      this.moduleComponent.main = new Main();
+    }, error => {
+      console.log(error);
     });
   }
   hashchange() {

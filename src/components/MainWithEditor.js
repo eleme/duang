@@ -15,11 +15,4 @@ def((Form, FormSubmit, PanelFailure) => class extends Jinkela {
       PanelFailure.popup({ text });
     });
   }
-  get styleSheet() {
-    return `
-      :scope {
-        border-left: 1px solid #e0e6ed;
-      }
-    `;
-  }
 });
