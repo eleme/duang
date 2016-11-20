@@ -15,7 +15,7 @@
         if (item && base[base.length - 1] !== '/') base += '/';
         return base + item;
       });
-    };
+    }
     extendOptions(options) {
       options = Object.assign({ credentials: 'include' }, options);
       if (options.body) {

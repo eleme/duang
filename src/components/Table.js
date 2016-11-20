@@ -21,7 +21,7 @@ def((TableRow, TableHead, TableCaption) => class extends Jinkela {
     if (!list) return;
     let { depot = window.depot } = this;
     let { scheme } = depot;
-    if (!(list instanceof Array)) return console.error('Resumt must be a list');
+    if (!(list instanceof Array)) return console.error('Resumt must be a list'); // eslint-disable-line
     let rows = list.map(fieldMap => new TableRow({ fieldMap, depot }));
     Promise.all(rows.map(row => row.$promise)).then(rows => {
       void this.caption;

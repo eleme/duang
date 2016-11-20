@@ -10,7 +10,7 @@ var depot = new class {
       if (!this.moduleComponent) this.moduleComponent = new Frame().to(document.body);
       this.moduleComponent.main = new Main();
     }, error => {
-      console.log(error);
+      console.log(error); // eslint-disable-line
     });
   }
   hashchange() {
@@ -24,7 +24,7 @@ var depot = new class {
     if (name in cache) return cache[name];
     return cache[name] = resolver();
   }
-  parseJSON(json) { try { return JSON.parse(json); } catch (error) {} }
+  parseJSON(json) { try { return JSON.parse(json); } catch (error) { /* pass */ } }
   getConst(name) {
     let { config, scheme } = this;
     return (scheme && scheme.const && scheme.const[name]) || (config.const && config.const[name]) || name;
@@ -43,12 +43,12 @@ var depot = new class {
     );
   }
   get module() { return this.uParams.module; }
-  get id() { return this.params.id;  }
-  get key() { return this.uParams.key;  }
-  get resolvedKey() {  return String(this.key).replace(/:([^/]+)/g, ($0, $1) => this.params[$1]); }
+  get id() { return this.params.id; }
+  get key() { return this.uParams.key; }
+  get resolvedKey() { return String(this.key).replace(/:([^/]+)/g, ($0, $1) => this.params[$1]); }
   get scheme() { return this.getSchemeByKey(this.key); }
-  get where() { return this.cache('where', () => this.parseJSON(this.uParams.where) || {});  }
-  get params() { return this.cache('params', () => this.parseJSON(this.uParams.params) || {});  }
+  get where() { return this.cache('where', () => this.parseJSON(this.uParams.where) || {}); }
+  get params() { return this.cache('params', () => this.parseJSON(this.uParams.params) || {}); }
   get uParams() { return this.cache('uParams', () => new UParams()); }
   get schemeMap() {
     let value = Object.create(null);

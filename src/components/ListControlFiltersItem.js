@@ -12,7 +12,7 @@ def((Input, Item) => class extends Item {
     this.checked = key in where;
     if (!this.checked) return;
     if (squash === 'direct') {
-      this.value = Object.assign({ '': where[key] }, where)
+      this.value = Object.assign({ '': where[key] }, where);
     } else {
       this.value = where[key];
     }

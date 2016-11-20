@@ -43,7 +43,7 @@
       `utils/api.js`,
       `utils/doAction.js`,
       `utils/refactor.js`,
-      `utils/amdx.js`,
+      `utils/amdx.js`
     ],
     [ // Plugins
       'https://github.elemecdn.com/uglifyjs!requirejs/requirejs/2.2.0/require.js',
@@ -51,11 +51,11 @@
       'https://github.elemecdn.com/uglifyjs!YanagiEiichi/jinkela/1.2.14/directives/if.js',
       'https://github.elemecdn.com/uglifyjs!YanagiEiichi/jinkela/1.2.14/directives/on.js',
       'https://github.elemecdn.com/uglifyjs!YanagiEiichi/jinkela/1.2.14/directives/jkl.js',
-      'https://github.elemecdn.com/uglifyjs!YanagiEiichi/jinkela/1.2.14/plugins/nesting.js',
+      'https://github.elemecdn.com/uglifyjs!YanagiEiichi/jinkela/1.2.14/plugins/nesting.js'
     ],
     [ // Components
       'https://github.elemecdn.com/YanagiEiichi/jinkela-datepicker/1.1.4/datepicker.js',
-      'https://github.elemecdn.com/YanagiEiichi/jinkela-dialog/0.1.6/dialog.js',
+      'https://github.elemecdn.com/YanagiEiichi/jinkela-dialog/0.1.6/dialog.js'
     ],
     [ // Entry
       `utils/depot.js`
