@@ -16,10 +16,11 @@ def((ListItem, Confirm) => class extends ListItem {
       case '_blank':
         return open(location.href.replace(/(#.*)?$/, '#' + uParams));
       case 'dialog':
-        return require([ 'modules/' + (module || 'default') + '.js' ], Module => {
-          let { Main } = Module.prototype;
+        return req('MainWith' + String(module || 'default').replace(/./, $0 => $0.toUpperCase())).then(Main => {
           let main = new Main({ depot: depot.fork(uParams), title });
           return Promise.resolve(main.$promise).then(() => dialog.popup(main));
+        }, error => {
+          console.log(error); // eslint-disable-line
         });
       default:
         return location.hash = '#' + uParams;
