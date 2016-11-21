@@ -20,8 +20,7 @@ def((Table) => {
       let newDepot = depot.fork(uParams);
       let scheme = { fields: this.fields, key: depot.key, module: 'list' };
       Object.defineProperty(newDepot, 'scheme', { value: scheme, configurable: true });
-      let table = new OTable({ depot: newDepot }).to(this);
-      table.render(this.value);
+      new OTable({ depot: newDepot, data: this.value }).to(this);
     }
   };
 
