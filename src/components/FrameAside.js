@@ -36,6 +36,7 @@ def((FrameAsideMenu) => {
           background: #1f2d3d;
           padding: 12px;
           margin: 0;
+          margin-bottom: 10px;
         }
       `;
     }
