@@ -1,10 +1,11 @@
 def((Item) => class extends Item {
   get tagName() { return `span`; }
+  get depot() { return this.parent.depot || window.depot; }
   didMount() {
     this.resolveAt().then(() => this.buildComponent());
   }
   resolveAt() {
-    let depot = this.depot = this.parent.depot || window.depot;
+    let { depot } = this;
     let path = [];
     if (depot.scheme) path.push(depot.resolvedKey);
     let { query } = this;
