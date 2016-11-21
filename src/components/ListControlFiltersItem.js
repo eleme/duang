@@ -7,7 +7,7 @@ def((Input, Item) => class extends Item {
     if (target.tagName !== 'TEXTAREA' && keyCode === 13) this.apply();
   }
   ready() {
-    let { where } = depot;
+    let { where } = this.depot;
     let { key, squash } = this;
     this.checked = key in where;
     if (!this.checked) return;

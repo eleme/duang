@@ -6,7 +6,7 @@ def((ListControl, Table, TableTip, Pager) => class extends Jinkela {
   get template() {
     return `
       <div>
-        <jkl-list-control></jkl-list-control>
+        <jkl-list-control depot="{depot}"></jkl-list-control>
         <jkl-table depot="{depot}" data="{list}"></jkl-table>
         <jkl-table-tip data="{list}" error="{error}"></jkl-table-tip>
         <jkl-pager depot="{depot}" data="{list}" pagesize="{pageSize}"></jkl-pager>

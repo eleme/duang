@@ -1,5 +1,6 @@
 def((Item) => class extends Item {
   get tagName() { return `span`; }
+  set depot(ignore) {}
   get depot() { return this.parent.depot || window.depot; }
   didMount() {
     this.resolveAt().then(() => this.buildComponent());

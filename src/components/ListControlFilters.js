@@ -28,12 +28,13 @@ def((ListControlFiltersItem, Button, ButtonHollow) => {
   return class extends Jinkela {
     get ListControlFiltersButtonGroup() { return ListControlFiltersButtonGroup; }
     init() {
+      let { depot } = this;
       let { scheme } = depot;
       if (!scheme) return location.hash = '';
       let { filters = [] } = scheme;
       let $promise;
       if (filters.length) {
-        this.list = ListControlFiltersItem.cast(filters);
+        this.list = ListControlFiltersItem.cast(filters, { depot });
         $promise = Promise.all(this.list.map(item => item.$promise));
       } else {
         this.element.style.display = 'none';
@@ -42,9 +43,8 @@ def((ListControlFiltersItem, Button, ButtonHollow) => {
       Object.defineProperty(this, '$promise', { value: $promise, configurable: true });
     }
     apply() {
-      let { uParams, where } = depot;
-
-      this.list.forEach(({ optional, checked, defaultVaule, value, key, squash }) => {
+      let { uParams, where } = this.depot;
+      this.list.forEach(({ optional, checked, defaultValue, value, key, squash }) => {
         if (optional && !checked) {
           delete where[key];
         } else {
@@ -62,8 +62,8 @@ def((ListControlFiltersItem, Button, ButtonHollow) => {
       location.hash = new UParams(uParams);
     }
     reset() {
-      let { uParams } = depot;
-      let { where = {} } = depot.scheme;
+      let { uParams, scheme } = this.depot;
+      let { where = {} } = scheme;
       uParams.where = JSON.stringify(where);
       location.hash = new UParams(uParams);
     }

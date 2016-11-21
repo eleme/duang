@@ -9,9 +9,10 @@ def((ListControlItem) => class extends Jinkela {
     `;
   }
   init() {
+    let { depot } = this;
     let { scheme } = depot;
     let { operations = [] } = scheme;
-    ListControlItem.cast(operations).to(this);
+    ListControlItem.cast(operations, { depot }).to(this);
     if (!operations.length) this.element.style.display = 'none';
   }
 });
