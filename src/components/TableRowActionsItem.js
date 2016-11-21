@@ -7,7 +7,7 @@ def((ListItem, Confirm) => class extends ListItem {
   }
   get exec() { return this[this.method + 'Action'] || this.defaultAction; }
   goAction() {
-    let { module, key, params, _blank, target, title, where } = this;
+    let { module, key, params, _blank, target, title, where, depot } = this;
     params = JSON.stringify(refactor(params || {}, this.fieldMap));
     where = JSON.stringify(refactor(where || {}, this.fieldMap));
     let uParams = new UParams({ module, key, params, where });
@@ -27,12 +27,14 @@ def((ListItem, Confirm) => class extends ListItem {
     }
   }
   editAction() {
+    let { depot } = this;
     this.module = 'editor';
     this.params = Object.assign({ '@id': '$.id' }, depot.params);
     this.key = depot.key;
     this.goAction();
   }
   defaultAction() {
+    let { depot } = this;
     let path = [ depot.resolvedKey, this.fieldMap.id ];
     if ('api' in this) path.push(this.api);
     api(path, { method: this.method || 'POST' }).then(result => {

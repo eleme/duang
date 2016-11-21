@@ -9,7 +9,7 @@ def((Output, Item, TableRowActions) => class extends Item {
     return value;
   }
   init() {
-    let { width, nowrap, value, component, args, actions, scheme, fieldMap } = this;
+    let { width, nowrap, value, component, args, actions, scheme, fieldMap, depot } = this;
     if (width) this.element.style.width = width + 'px';
     if (nowrap) this.element.style.whiteSpace = 'nowrap';
     switch (true) {
@@ -17,7 +17,7 @@ def((Output, Item, TableRowActions) => class extends Item {
         let output = new Output({ component, args, value, fieldMap }).to(this);
         return output.$promise.then(() => this.$promise.resolve(this));
       case !!actions:
-        new TableRowActions({ actions, scheme, fieldMap }).to(this);
+        new TableRowActions({ depot, actions, scheme, fieldMap }).to(this);
         return this.$promise.resolve(this);
       default:
         this.element.innerHTML = value;

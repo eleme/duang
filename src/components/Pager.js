@@ -11,6 +11,7 @@ def((ButtonHollow) => class extends Jinkela {
   }
   set data(list) {
     if (!(list instanceof Array)) list = [];
+    let depot = this.depot;
     let page = this.page = +depot.uParams.page || 1;
     this.disablePrev = page <= 1;
     this.disableNext = list.length < depot.scheme.pageSize;

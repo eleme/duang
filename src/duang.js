@@ -35,7 +35,7 @@
   document.head.appendChild(style);
   let dependencies = [
     [ // Basic
-      'https://github.elemecdn.com/uglifyjs!YanagiEiichi/jinkela/1.2.14/jinkela.js',
+      'https://github.elemecdn.com/uglifyjs!YanagiEiichi/jinkela/1.2.15/jinkela.js',
       'https://github.elemecdn.com/YanagiEiichi/uparams/1.3.0/uparams.min.js',
       'https://github.elemecdn.com/uglifyjs!s3u/JSONPath/v0.15.0/lib/jsonpath.js',
       `https://github.elemecdn.com/YanagiEiichi/fceptor/0.2.9/fceptor.js`,
@@ -47,11 +47,11 @@
     ],
     [ // Plugins
       'https://github.elemecdn.com/uglifyjs!requirejs/requirejs/2.2.0/require.js',
-      'https://github.elemecdn.com/uglifyjs!YanagiEiichi/jinkela/1.2.14/directives/ref.js',
-      'https://github.elemecdn.com/uglifyjs!YanagiEiichi/jinkela/1.2.14/directives/if.js',
-      'https://github.elemecdn.com/uglifyjs!YanagiEiichi/jinkela/1.2.14/directives/on.js',
-      'https://github.elemecdn.com/uglifyjs!YanagiEiichi/jinkela/1.2.14/directives/jkl.js',
-      'https://github.elemecdn.com/uglifyjs!YanagiEiichi/jinkela/1.2.14/plugins/nesting.js'
+      'https://github.elemecdn.com/uglifyjs!YanagiEiichi/jinkela/1.2.15/directives/ref.js',
+      'https://github.elemecdn.com/uglifyjs!YanagiEiichi/jinkela/1.2.15/directives/if.js',
+      'https://github.elemecdn.com/uglifyjs!YanagiEiichi/jinkela/1.2.15/directives/on.js',
+      'https://github.elemecdn.com/uglifyjs!YanagiEiichi/jinkela/1.2.15/directives/jkl.js',
+      'https://github.elemecdn.com/uglifyjs!YanagiEiichi/jinkela/1.2.15/plugins/nesting.js'
     ],
     [ // Components
       'https://github.elemecdn.com/YanagiEiichi/jinkela-datepicker/1.1.4/datepicker.js',

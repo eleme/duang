@@ -1,4 +1,4 @@
-def((Output, Item, TableRowActions) => class extends Item {
+def((Output, Item) => class extends Item {
   get tagName() { return 'td'; }
   init() {
     let { width, nowrap } = this;

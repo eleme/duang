@@ -7,19 +7,20 @@ def((ListControl, Table, TableTip, Pager) => class extends Jinkela {
     return `
       <div>
         <jkl-list-control></jkl-list-control>
-        <jkl-table data="{list}"></jkl-table>
+        <jkl-table depot="{depot}" data="{list}"></jkl-table>
         <jkl-table-tip data="{list}" error="{error}"></jkl-table-tip>
-        <jkl-pager data="{list}" pagesize="{pageSize}"></jkl-pager>
+        <jkl-pager depot="{depot}" data="{list}" pagesize="{pageSize}"></jkl-pager>
       </div>
     `;
   }
   load() {
-    let { queryParams, scheme, resolvedKey } = depot;
+    let { queryParams, scheme, resolvedKey } = this.depot;
     if (!scheme) return location.hash = '';
     return api(resolvedKey + '?' + queryParams);
   }
-  init() {
-    let { scheme } = depot;
+  beforeParse(params) {
+    this.depot = params.depot || depot;
+    let { scheme } = this.depot;
     let { pageSize, fields = [] } = scheme;
     this.pageSize = pageSize;
     if (!fields.length) return; // Load data if "fields" exists
