@@ -1,5 +1,5 @@
 def((Item) => class extends Item {
-  get tagName() { return `span`; }
+  get tagName() { return 'span'; }
   set depot(ignore) {}
   get depot() { return this.parent.depot || window.depot; }
   didMount() {
@@ -29,7 +29,7 @@ def((Item) => class extends Item {
       });
       return Promise.all(tasks).then(() => {});
     }(this).catch(error => {
-      throw new Error(`Component "${component}" args loading error with "${error.message}"`);
+      throw new Error(`组件参数读取失败：'${error.message || JSON.stringify(error)}'`);
     });
   }
   get $promise() {

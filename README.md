@@ -49,39 +49,3 @@ duang 这个工具就是提供一套方案，把配置文件转换成一个可�
 ### 3. [解决方案](docs/solutions.md)
 
 ### 4. [部署说明](docs/deploy-manual.md)
-
-### 5. 开发方案
-
-项目根路径创建 `index.html`:
-
-```html
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-</head>
-<body>
-  <script src="./src/duang.js" config="http://sakura.alpha.elenet.me/sakura/duang.json"></script>
-</body>
-</html>
-```
-
-设置调试域名的 DNS 解析：
-
-```
-127.0.0.1 api.sakura.alpha.elenet.me
-```
-
-配置好 Nginx:
-
-```nginx
-server {
-  listen 80;
-  server_name api.sakura.alpha.elenet.me;
-  root /Users/chen/repo/eleme-js/duang/; # 改成你自己的路径
-  autoindex on;
-  index index.html;
-}
-```
-
-打开域名刷新页面调试.
