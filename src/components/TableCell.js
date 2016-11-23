@@ -1,5 +1,5 @@
 def((Output, Item, TableRowActions) => class extends Item {
-  get tagName() { return `td`; }
+  get tagName() { return 'td'; }
   get $promise() {
     let resolve, reject;
     let value = new Promise((...args) => [ resolve, reject ] = args);
@@ -13,9 +13,10 @@ def((Output, Item, TableRowActions) => class extends Item {
     if (width) this.element.style.width = width + 'px';
     if (nowrap) this.element.style.whiteSpace = 'nowrap';
     switch (true) {
-      case !!component:
-        let output = new Output({ component, args, value, fieldMap }).to(this);
+      case !!component: {
+        let output = new Output({ component, args, value }).to(this);
         return output.$promise.then(() => this.$promise.resolve(this));
+      }
       case !!actions:
         new TableRowActions({ depot, actions, scheme, fieldMap }).to(this);
         return this.$promise.resolve(this);

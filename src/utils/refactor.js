@@ -2,10 +2,10 @@ const refactor = (tmpl, data) => {
   if (typeof tmpl !== 'object') return tmpl;
   return Object.keys(tmpl).reduce((result, key) => {
     let value = tmpl[key];
-    if (key[0] === '@') {
+    if (/^(@|#)/.test(key)) {
       key = key.slice(1);
       value = JSONPath(value, data);
-      if (key[0] === '@') {
+      if (/^(@|#)/.test(key)) {
         key = key.slice(1);
       } else {
         value = value[0];
