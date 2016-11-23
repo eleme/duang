@@ -26,7 +26,7 @@ def((Input, Item) => class extends Item {
     return `
       <div on-keydown="{keydown}">
         <label>
-          <span>{title}</span>
+          <span if="{title}">{title}</span>
           <input type="checkbox" ref="checkbox" if="{optional}" />
         </label>
       </div>
