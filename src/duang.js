@@ -15,7 +15,7 @@
     }
     body:empty::before {
       position: fixed;
-      font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+      font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
       font-size: 32px;
       height: 200px;
       line-height: 200px;
@@ -33,6 +33,16 @@
     }
   `;
   document.head.appendChild(style);
+  let styleSheets = [
+    'https://github.elemecdn.com/codemirror/CodeMirror/5.19.0/lib/codemirror.css',
+    'https://github.elemecdn.com/codemirror/CodeMirror/5.19.0/theme/neo.css'
+  ];
+  styleSheets.forEach(href => {
+    let link = document.createElement('link');
+    link.setAttribute('href', href);
+    link.setAttribute('rel', 'stylesheet');
+    document.head.appendChild(link);
+  });
   let dependencies = [
     [ // Basic
       'https://github.elemecdn.com/uglifyjs!YanagiEiichi/jinkela/1.2.15/jinkela.js',
@@ -43,7 +53,11 @@
       `utils/api.js`,
       `utils/doAction.js`,
       `utils/refactor.js`,
-      `utils/amdx.js`
+      `utils/amdx.js`,
+      'https://github.elemecdn.com/uglifyjs!codemirror/CodeMirror/5.19.0/lib/codemirror.js'
+    ],
+    [
+      'https://github.elemecdn.com/uglifyjs!codemirror/CodeMirror/5.19.0/mode/javascript/javascript.js'
     ],
     [ // Plugins
       'https://github.elemecdn.com/uglifyjs!requirejs/requirejs/2.2.0/require.js',
