@@ -37,6 +37,7 @@ def((Item, Input) => {
           td {
             vertical-align: top;
             line-height: 28px;
+            text-align: left;
           }
           > td:first-child:not([colspan]) {
             width: 80px;

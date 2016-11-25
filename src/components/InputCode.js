@@ -3,6 +3,7 @@ def(() => class extends Jinkela {
     this.editor = CodeMirror(this.element, this.config);
     this.editor.on('focus', () => this.element.classList.add('focus'));
     this.editor.on('blur', () => this.element.classList.remove('focus'));
+    this.editor.setSize(this.width || null, this.height || 70);
   }
   enable() {
     this.editor.setOption('readOnly', false);
@@ -42,8 +43,6 @@ def(() => class extends Jinkela {
     return `
       :scope {
         > .CodeMirror {
-          max-height: 150px;
-          max-width: 288px;
           border: 1px solid #c0ccda;
           border-radius: 5px;
           text-align: left;
