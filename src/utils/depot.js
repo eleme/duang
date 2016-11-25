@@ -9,6 +9,8 @@ var depot = new class {
     tasks.then(([ Frame, Main ]) => {
       if (!this.moduleComponent) this.moduleComponent = new Frame().to(document.body);
       this.moduleComponent.main = new Main();
+      let { autoRefresh } = this.scheme;
+      if (autoRefresh && !isNaN(+autoRefresh)) setTimeout(this.refresh.bind(this), autoRefresh * 1000);
     }, error => {
       console.log(error); // eslint-disable-line
     });
