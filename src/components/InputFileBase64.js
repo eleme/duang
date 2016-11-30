@@ -47,7 +47,7 @@ def((Button) => {
     }
     get template() { return `<div><label ref="label"><input ref="input" type="file" /></label></div>`; }
     init() {
-      if (!this.text) this.text = 'Select File';
+      if (!this.text) this.text = '选择文件';
       this.element.firstChild.addEventListener('change', event => this.change(event));
       this.button = new SpanButton({ text: this.text }).to(this.label);
       this.fileInfo = new FileInfo().to(this);
