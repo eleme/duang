@@ -6,7 +6,8 @@ def((FormSubmit, FormItem) => class extends Jinkela {
         <div ref="columns">
           <table ref="table"></table>
         </div>
-        <jkl-form-submit depot="{depot}" form="{form}"></jkl-form-submit>
+        <jkl-form-submit if="{listLength}" depot="{depot}" form="{form}"></jkl-form-submit>
+        <h3 if-not="{listLength}">并没有什么东西可以编辑</h3>
       </div>
     `;
   }
@@ -14,6 +15,7 @@ def((FormSubmit, FormItem) => class extends Jinkela {
     let { depot } = this;
     let { id, scheme, params } = depot;
     let { inputs = [], columns } = scheme;
+    this.listLength = inputs.length;
     let action = id ? 'edit' : 'create';
     inputs = JSON.parse(JSON.stringify(inputs)).filter(item => item[action] !== 'none');
     inputs.forEach((item) => {

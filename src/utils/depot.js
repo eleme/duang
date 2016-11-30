@@ -31,7 +31,7 @@ var depot = new class {
     let { config, scheme } = this;
     return (scheme && scheme.const && scheme.const[name]) || (config.const && config.const[name]) || name;
   }
-  getSchemeByKey(key) { return this.schemeMap[key]; }
+  getSchemeByKey(key) { return this.schemeMap[key] || {}; }
   get config() {
     const configElement = document.querySelector('script[config]');
     const config = configElement && configElement.getAttribute('config') || '';
