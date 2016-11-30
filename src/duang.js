@@ -57,7 +57,7 @@
       'https://github.elemecdn.com/uglifyjs!codemirror/CodeMirror/5.19.0/lib/codemirror.js'
     ],
     [
-      'https://github.elemecdn.com/uglifyjs!codemirror/CodeMirror/5.19.0/mode/javascript/javascript.js'
+      'https://github.elemecdn.com/uglifyjs!codemirror/CodeMirror/5.19.0/mode/yaml/yaml.js'
     ],
     [ // Plugins
       'https://github.elemecdn.com/uglifyjs!requirejs/requirejs/2.2.0/require.js',
