@@ -6,11 +6,20 @@ var depot = new class {
   onRouteChange() {
     let moduleName = String(this.module || 'default');
     let tasks = Promise.all([ req('Frame'), req('MainWith' + moduleName.replace(/./, $0 => $0.toUpperCase())) ]);
+    if (this._autoRefreshTimer) {
+      clearTimeout(this._autoRefreshTimer);
+      delete this._autoRefreshTimer;
+    }
     tasks.then(([ Frame, Main ]) => {
       if (!this.moduleComponent) this.moduleComponent = new Frame().to(document.body);
       this.moduleComponent.main = new Main();
       let { autoRefresh } = this.scheme;
-      if (autoRefresh && !isNaN(+autoRefresh)) setTimeout(this.refresh.bind(this), autoRefresh * 1000);
+      if (+autoRefresh) {
+        this._autoRefreshTimer = setTimeout(() => {
+          this.refresh();
+          delete this._autoRefreshTimer;
+        }, autoRefresh * 1000);
+      }
     }, error => {
       console.log(error); // eslint-disable-line
     });
