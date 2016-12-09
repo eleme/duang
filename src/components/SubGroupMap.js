@@ -1,14 +1,29 @@
 def((FormItem, FormItemWithDiv) => class extends Jinkela {
-  get value() {
-    return this.inputs.reduce((base, item) => {
-      base[item.key] = item.value;
-      return base;
-    }, {});
-  }
-  set value(value) {
+  set value(data) {
+    if (!data) return;
     this.inputs.forEach(item => {
-      item.value = value[item.key];
+      switch (item.squash) {
+        case 'direct':
+          item.value = Object.assign({ '': data[item.key] }, data);
+          break;
+        default:
+          item.value = data[item.key];
+      }
     });
+  }
+  get value() {
+    return this.inputs.reduce((result, item) => {
+      let { value } = item;
+      switch (item.squash) {
+        case 'direct':
+          result[item.key] = value[''];
+          Object.keys(value).filter(key => key).forEach(key => result[key] = value[key]);
+          break;
+        default:
+          result[item.key] = value;
+      }
+      return result;
+    }, Object.create(null));
   }
   init() {
     let { group, depot } = this;
