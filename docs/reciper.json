@@ -1,0 +1,15 @@
+{
+  "name": "Duang",
+  "home": "/duang/",
+  "description": "基于配置自动生成 CMS",
+  "logoUrl": "//fuss10.elemecdn.com/b/5d/33c0f75e1772c0c6f6a31de18bb5fjpeg.jpeg",
+  "languages": ["javascript", "json"],
+  "items": [
+    { "text": "简介", "href": "/duang/intro/" },
+    { "text": "部署", "href": "/duang/deploy/" },
+    { "text": "指南", "href": "/duang/getting-start/" },
+    { "text": "API 文档", "href": "/duang/api/" },
+    { "text": "模块", "href": "/duang/module/" },
+    { "text": "组件", "href": "/duang/components/" }
+  ]
+}

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="zh-cn-Hans">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+  <meta name="renderer" content="webkit" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, maximum-scale=1.0, minimum-scale=1.0" />
+  <title>Duang</title>
+  <script src="//yanagieiichi.github.io/reciper/index.js"></script>
+  <script>
+    if (!window.Promise) document.write('<script src="//github.elemecdn.com/jakearchibald/es6-promise/v3.0.2/dist/es6-promise.min.js"><\/script>');
+    if (!window.fetch) document.write('<script src="//github.elemecdn.com/uglifyjs!github/fetch/v0.11.0/fetch.js"><\/script>');
+  </script>
+  <script>
+    fetch('/duang/reciper.json')
+      .then(function(response) { return response.json(); })
+      .then(reciper);
+  </script>
+</head>
+<body>
+</body>
+</html>
