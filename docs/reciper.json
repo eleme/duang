@@ -9,10 +9,8 @@
   "languages": ["javascript", "json"],
   "items": [
     { "text": "简介", "href": "/duang/intro/" },
-    { "text": "部署", "href": "/duang/deploy/" },
-    { "text": "指南", "href": "/duang/getting-start/" },
-    { "text": "API 文档", "href": "/duang/api/" },
-    { "text": "模块", "href": "/duang/module/" },
-    { "text": "组件", "href": "/duang/components/" }
+    { "text": "API 设计规范", "href": "/duang/api/" },
+    { "text": "配置文档", "href": "/duang/config/" },
+    { "text": "组件文档", "href": "/duang/components/" }
   ]
 }
