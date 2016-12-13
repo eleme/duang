@@ -1,4 +1,5 @@
 def((Item) => class extends Item {
+  beforeParse() { Object.defineProperty(this, '$value', { configurable: true, writable: true }); }
   get tagName() { return 'span'; }
   set depot(ignore) {}
   get depot() { return this.parent.depot || window.depot; }
