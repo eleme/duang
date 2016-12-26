@@ -2,7 +2,10 @@
   "name": "Duang",
   "home": "/duang/",
   "description": "基于配置自动生成 CMS",
-  "logoUrl": "//fuss10.elemecdn.com/b/5d/33c0f75e1772c0c6f6a31de18bb5fjpeg.jpeg",
+  "darkColor": "#A7762A",
+  "normalColor": "#655",
+  "primaryColor": "#483E3D",
+  "logoUrl": "//fuss10.elemecdn.com/c/65/aef8472a3833e05720ab109ed5956jpeg.jpeg",
   "languages": ["javascript", "json"],
   "items": [
     { "text": "简介", "href": "/duang/intro/" },
