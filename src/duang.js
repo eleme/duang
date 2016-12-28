@@ -53,6 +53,7 @@
       `utils/api.js`,
       `utils/doAction.js`,
       `utils/refactor.js`,
+      'utils/debounce.js',
       'utils/condition.js',
       `utils/amdx.js`,
       'https://github.elemecdn.com/uglifyjs!codemirror/CodeMirror/5.19.0/lib/codemirror.js'
