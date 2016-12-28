@@ -62,7 +62,7 @@
       'https://github.elemecdn.com/uglifyjs!codemirror/CodeMirror/5.19.0/mode/yaml/yaml.js'
     ],
     [ // Plugins
-      'https://github.elemecdn.com/uglifyjs!requirejs/requirejs/2.2.0/require.js',
+      'https://github.elemecdn.com/uglifyjs!requirejs/requirejs/2.2.0/require.js'
     ],
     [ // Components
       'https://github.elemecdn.com/YanagiEiichi/jinkela-datepicker/1.1.4/datepicker.js',

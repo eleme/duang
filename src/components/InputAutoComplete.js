@@ -65,13 +65,13 @@ def((InputString, Item) => {
       if ($current) {
         $current.classList.remove('active');
         if (step > 0) {
-          while(step--) {
+          while (step--) {
             $current = $current.nextElementSibling ?
               $current.nextElementSibling :
               this.list.firstElementChild;
           }
         } else {
-          while(step++) {
+          while (step++) {
             $current = $current.previousElementSibling ?
               $current.previousElementSibling :
               this.list.lastElementChild;
@@ -83,7 +83,7 @@ def((InputString, Item) => {
       this.ensureVisible();
     }
     onKeydown(e) {
-      switch(e.keyCode) {
+      switch (e.keyCode) {
         case 40: return this.move(1);
         case 38: return this.move(-1);
         case 13: return this.enter(e);

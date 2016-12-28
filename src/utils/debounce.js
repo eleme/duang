@@ -1,13 +1,13 @@
 const debounce = (func, delay, isImmediate) => {
   let timeout;
   let result;
-  function later(context, args) {
+  const later = (context, args) => {
     return setTimeout(() => {
       timeout = null;
       result = func.apply(context, args);
     }, delay);
-  }
-  function debounced(...args) {
+  };
+  const debounced = function(...args) {
     let context = this;
     if (timeout) clearTimeout(timeout);
     if (isImmediate) {
@@ -22,7 +22,7 @@ const debounce = (func, delay, isImmediate) => {
       timeout = later(context, ...args);
     }
     return result;
-  }
+  };
   debounced.cancel = () => {
     if (timeout) {
       clearTimeout(timeout);

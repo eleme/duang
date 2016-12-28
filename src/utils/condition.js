@@ -1,5 +1,13 @@
 const condition = (conditions, fieldMap) => {
   if (!(conditions instanceof Array)) return true;
+  const parseExpression = (expr, fieldMap) => {
+    if (expr[0] === '$') return JSONPath(expr, fieldMap)[0];
+    try {
+      return JSON.parse(expr);
+    } catch (e) {
+      return expr;
+    }
+  };
   return conditions.every(condition => {
     let matches = condition.match(/\S+/g);
     if (!matches) return false;
@@ -9,7 +17,7 @@ const condition = (conditions, fieldMap) => {
       return new RegExp(matches[2]).test(left);
     }
     let right = parseExpression(matches[2], fieldMap);
-    switch(operator) {
+    switch (operator) {
       case void 0: return !!left;
       case '=': return left == right; // eslint-disable-line
       case '!=': return left != right; // eslint-disable-line
@@ -21,13 +29,5 @@ const condition = (conditions, fieldMap) => {
         throw new Error(`未知的操作符: ${operator}`);
     }
   });
-  function parseExpression(expr, fieldMap) {
-    if (expr[0] === '$') return JSONPath(expr, fieldMap)[0];
-    try {
-      return JSON.parse(expr);
-    } catch(e) {
-      return expr;
-    }
-  }
 };
 
