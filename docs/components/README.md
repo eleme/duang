@@ -2,8 +2,8 @@
 
 Input 用于接受用户的输入，然后提交给后端 API 的一类组件，在 Duang 中用于:
 
-- [Schemes::inputs](../api/#Scheme::inputs)
-- [Schemes::filters](../api/#Scheme::filters)
+- [Schemes::inputs](../config/#Scheme::inputs)
+- [Schemes::filters](../config/#Scheme::filters)
 
 ### Input::String
 
@@ -388,9 +388,9 @@ Input 用于接受用户的输入，然后提交给后端 API 的一类组件，
 
 `Output` 是用来输出展示数据的一类组件，在 `Duang` 中用于：
 
-- [Duang::logo](../api/#Duang::logo)
-- [Scheme::caption](../api/#Duang::schemes)
-- [Scheme::fields](../api/Scheme::fields)
+- [Duang::logo](../config/#Duang::logo)
+- [Scheme::caption](../config/#Duang::schemes)
+- [Scheme::fields](../config/Scheme::fields)
 
 ### Output::HTML
 
