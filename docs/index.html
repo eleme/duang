@@ -12,9 +12,23 @@
     if (!window.fetch) document.write('<script src="//github.elemecdn.com/uglifyjs!github/fetch/v0.11.0/fetch.js"><\/script>');
   </script>
   <script>
-    fetch('/duang/reciper.json')
-      .then(function(response) { return response.json(); })
-      .then(reciper);
+   reciper({
+      name: 'Duang',
+      home: '/duang/',
+      description: '基于配置自动生成 CMS',
+      darkColor: '#A7762A',
+      normalColor: '#655',
+      primaryColor: '#483E3D',
+      logoUrl: '//fuss10.elemecdn.com/c/65/aef8472a3833e05720ab109ed5956jpeg.jpeg',
+      logoHref: '/duang/intro',
+      languages: [ 'javascript', 'json', 'bash', 'xml' ],
+      items: [
+        { text: '简介', href: '/duang/intro/' },
+        { text: '配置文档', href: '/duang/config/' },
+        { text: '组件文档', href: '/duang/components/' },
+        { text: 'API 设计规范', href: '/duang/api/' }
+      ]
+    });
   </script>
 </head>
 <body>

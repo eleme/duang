@@ -1,4 +1,4 @@
-## API document
+## Duang
 
 ### Duang::logo
 
@@ -86,6 +86,8 @@
   ]
 }
 ```
+
+## Scheme
 
 ### Scheme::operations
 
@@ -308,7 +310,7 @@
 | yes | 对话框确认按钮配置 |
 | cancel | 对话框取消按钮配置 |
 
-#### Action 示例配置
+Action 示例配置
 
 ```javascript
 {
