@@ -1,6 +1,9 @@
 def((TableRowActionsItem) => class extends Jinkela {
   init() {
-    TableRowActionsItem.cast(this.actions, this).to(this);
+    let { fieldMap } = this;
+    TableRowActionsItem.cast(this.actions.filter(action => {
+      return condition(action.conditions, fieldMap);
+    }), this).to(this);
   }
   get tagName() { return 'ul'; }
   get styleSheet() {
