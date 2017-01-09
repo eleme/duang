@@ -61,7 +61,7 @@ var depot = new class {
   get module() { return this.uParams.module; }
   get id() { return this.params.id; }
   get key() { return this.uParams.key; }
-  get resolvedKey() { return String(this.key).replace(/:([^/]+)/g, ($0, $1) => this.params[$1]); }
+  get resolvedKey() { return String(this.key).replace(/:(?=\D)([^/]+)/g, ($0, $1) => this.params[$1]); }
   get scheme() { return this.getSchemeByKey(this.key); }
   get where() { return this.cache('where', () => this.parseJSON(this.uParams.where) || {}); }
   get params() { return this.cache('params', () => this.parseJSON(this.uParams.params) || {}); }
