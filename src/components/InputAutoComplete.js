@@ -42,13 +42,14 @@ def((InputString, Item) => {
       this.noResult = false;
       this.element.addEventListener('item:select', e => {
         this.input.value = e.detail.value;
+        this.value = e.detail.key;
         this.onBlur();
       });
       this.onInput = debounce(() => {
         this.list.innerHTML = '';
         this.noResult = false;
         let { resolvedKey } = depot;
-        api([resolvedKey, this.api]).then(raw => {
+        api([resolvedKey, this.api], { query: { q: this.input.value } }).then(raw => {
           if (!(raw instanceof Array)) throw new Error(`返回必须是数组：${raw}`);
           if (!raw.length) {
             this.noResult = true;
