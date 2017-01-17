@@ -384,6 +384,29 @@ Input 用于接受用户的输入，然后提交给后端 API 的一类组件，
 
 查看 [在线演示](http://codepen.io/pen/?editors=0010#0)
 
+### Input::AutoComplete
+
+参数描述
+
+| 名字 | 类型 | 描述 |
+| ---- | ---- | ---- |
+| api | `String` | 获取关键词接口相对路径 |
+
+示例配置
+
+```javascript
+{
+  key: "food",
+  title: "菜品",
+  component: "AutoComplete",
+  args: {
+    api: '/suggestion'
+  }
+}
+```
+
+查看 [在线演示](http://codepen.io/shijn/pen/egzpJW?editors=0010#0)
+
 ## Output
 
 `Output` 是用来输出展示数据的一类组件，在 `Duang` 中用于：
