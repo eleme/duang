@@ -74,12 +74,13 @@ var depot = new class {
   }
   get queryParams() {
     let params = {};
-    let { page, where } = this.uParams;
+    let { page, where, orderBy } = this.uParams;
     if (this.scheme.pageSize) {
       params.limit = this.scheme.pageSize;
       params.offset = this.scheme.pageSize * (page - 1 || 0);
     }
     if (where) params.where = where;
+    if (orderBy) params.orderBy = orderBy;
     return new UParams(params);
   }
   refresh() { this.onRouteChange(); }
