@@ -126,6 +126,7 @@
 | key | String | 字段名 |
 | title | String | 字段展示名称 |
 | component | String | 指定 `Output` 组件（默认为 `html`）|
+| sortable | Boolean | 是否可以根据此字段排序（前端）|
 
 示例配置
 
@@ -134,7 +135,8 @@
   fields: [
     {
       key: 'title',
-      title: '名称'
+      title: '名称',
+      sortable: true
     },
     {
       key: 'price',
