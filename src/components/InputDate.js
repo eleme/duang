@@ -1,5 +1,17 @@
 def(() => {
+
+  class DatePickerWithDuang extends DatePicker {
+    get styleSheet() {
+      return `
+        :scope {
+          input { height: 28px; }
+        }
+      `;
+    }
+  }
+
   return function(...args) {
-    return new DatePicker(...args, { starting: new Date().getFullYear() - 8 });
+    return new DatePickerWithDuang(...args);
   };
+
 });

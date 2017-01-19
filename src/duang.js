@@ -65,7 +65,7 @@
       'https://github.elemecdn.com/uglifyjs!requirejs/requirejs/2.2.0/require.js'
     ],
     [ // Components
-      'https://github.elemecdn.com/YanagiEiichi/jinkela-datepicker/1.1.4/datepicker.js',
+      'https://github.elemecdn.com/YanagiEiichi/jinkela-datepicker/1.2.3/datepicker.js',
       'https://github.elemecdn.com/YanagiEiichi/jinkela-dialog/0.1.6/dialog.js'
     ],
     [ // Entry
