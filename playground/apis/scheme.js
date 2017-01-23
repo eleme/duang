@@ -21,7 +21,7 @@
     MOCK_DATA.schemes.find(scheme => {
       if (scheme.key === key) {
         ctx.request.json().then(raw => {
-          scheme[action].data.push(Object.assign(raw, { id: this.id }));
+          scheme[action].data.push(Object.assign(raw, { id: _duang.id }));
         });
       }
     });

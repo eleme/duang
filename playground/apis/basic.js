@@ -14,10 +14,12 @@
           if ('schemes' in data) {
             data.schemes.forEach(scheme => {
               scheme.id = _duang.id;
-              scheme[action].data.forEach(item => item.id = _duang.id);
+              ['actions', 'fields', 'operations', 'inputs'].forEach(action => {
+                scheme[action].data.forEach(item => item.id = _duang.id);
+              });
               _duang._schemes.forEach(action => {
                 scheme[action] = {
-                  data: scheme[action] || [],
+                  data: scheme[action].data || [],
                   title: '查看',
                   key: scheme.key
                 };
