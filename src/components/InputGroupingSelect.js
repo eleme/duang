@@ -30,12 +30,12 @@ def((Input, InputSelect, SubGroupMap) => class extends Jinkela {
     return value;
   }
   get value() {
-    let base = this.hideKey ? {} : { '': this.select.value };
+    let base = this.hideKey ? {} : { [this.aliasKey || '']: this.select.value };
     return Object.assign(base, this.table ? this.table.value : {});
   }
   set value(value) {
     if (value === void 0) return;
-    this.select.value = value[''];
+    this.select.value = value[this.aliasKey || ''];
     this.selectChange();
     if (this.table) this.table.value = value;
   }
