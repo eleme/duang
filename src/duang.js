@@ -66,6 +66,7 @@
     ],
     [ // Components
       'https://github.elemecdn.com/YanagiEiichi/jinkela-datepicker/1.2.3/datepicker.js',
+      'https://github.elemecdn.com/YanagiEiichi/jinkela-timepicker/1.0.0/timepicker.js',
       'https://github.elemecdn.com/YanagiEiichi/jinkela-dialog/0.1.6/dialog.js'
     ],
     [ // Entry
