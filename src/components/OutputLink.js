@@ -27,7 +27,7 @@ def(() => class extends Jinkela {
   }
   set value(value) {
     this.$value = value;
-    if (value) this.title = value.title || '';
+    if (value) this.title = value.title || value;
   }
   get value() { return this.$value; }
   get styleSheet() {
