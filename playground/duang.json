@@ -346,6 +346,10 @@
           "title": "名称"
         },
         {
+          "key": "key",
+          "title": "字段"
+        },
+        {
           "key": "component",
           "title": "组件"
         },
@@ -407,6 +411,10 @@
         {
           "key": "component",
           "title": "组件"
+        },
+        {
+          "key": "key",
+          "title": "字段"
         },
         {
           "key": "args",
