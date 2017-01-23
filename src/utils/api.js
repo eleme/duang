@@ -69,11 +69,14 @@
             default:
               key = 'blob';
           }
-          if (response.status < 400) {
-            return response[key]();
-          } else {
-            return response[key]().then(result => { throw result; });
-          }
+          return response[key]().then(result => {
+            if (result) result[Symbol.for('response')] = response;
+            if (response.status < 400) {
+              return result;
+            } else {
+              throw result;
+            }
+          });
         });
         return this.cache(path, options, resolver);
       };

@@ -13,7 +13,7 @@ var depot = new class {
     tasks.then(([ Frame, Main ]) => {
       if (!this.moduleComponent) this.moduleComponent = new Frame().to(document.body);
       this.moduleComponent.main = new Main();
-      let { autoRefresh } = this.scheme;
+      let { autoRefresh } = this.scheme || {};
       if (+autoRefresh) {
         this._autoRefreshTimer = setTimeout(() => {
           this.refresh();
@@ -49,10 +49,12 @@ var depot = new class {
   get session() {
     if (!config.session) return window.session = {};
     return api(config.session.authorize, { method: config.session.method || 'post' }).then(
-      value => Object.defineProperty(this, 'session', { configurable: true, value }),
-      reason => {
+      value => {
+        Object.defineProperty(this, 'session', { configurable: true, value });
+      }, reason => {
         Object.defineProperty(this, 'session', { configurable: true, value: {} });
-        if (reason.name === 'UNAUTHORIZED') {
+        let response = reason && reason[Symbol.for('response')] || {};
+        if (response.status === 401 || reason.name === 'UNAUTHORIZED') {
           location.href = api.resolvePath(new Function('return `' + config.session.signin + '`')());
         }
       }
