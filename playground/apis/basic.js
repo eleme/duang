@@ -1,12 +1,13 @@
 {
   let { headers } = _duang;
   ['logo', 'session', 'config'].forEach(scheme => {
-    FCeptor.get(new RegExp(`${location.origin}/${scheme}`), ctx => {
+    let basePattern = location.origin + location.pathname + scheme;
+    FCeptor.get(new RegExp(basePattern), ctx => {
       ctx.response = new Response(
         JSON.stringify(_duang.get(scheme, ctx.request.url)), { headers });
       return false;
     });
-    FCeptor.put(new RegExp(`${location.origin}/${scheme}`), ctx => {
+    FCeptor.put(new RegExp(basePattern), ctx => {
       ctx.request.json().then(raw => {
         if (scheme === 'config' && raw.upload) {
           let data = jsyaml.safeLoad(Base64.decode(raw.upload));
