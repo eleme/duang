@@ -1,6 +1,6 @@
 {
   let { headers } = _duang;
-  let basePattern = `${location.origin}/schemes\/(.*)\/(operations\|inputs\|fields\|filters\|actions)`;
+  let basePattern = `${location.origin}${location.pathname}schemes\/(.*)\/(operations\|inputs\|fields\|filters\|actions)`;
   FCeptor.get(new RegExp(`${basePattern}\\?`), ctx => {
     let pattern = new RegExp(basePattern);
     let [origin, key, action] = ctx.request.url.match(pattern);

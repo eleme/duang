@@ -1,7 +1,7 @@
 {
   let { headers } = _duang;
-  let basePattern = `${location.origin}/schemes`;
-  FCeptor.get(new RegExp(`${location.origin}/schemes\\?`), ctx => {
+  let basePattern = location.origin + location.pathname + 'schemes';
+  FCeptor.get(new RegExp(`${basePattern}\\?`), ctx => {
     ctx.response = new Response(
       JSON.stringify(_duang.get('schemes', ctx.request.url)), { headers });
     return false;

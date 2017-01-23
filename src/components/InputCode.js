@@ -32,7 +32,7 @@ def(() => class extends Jinkela {
     return this.editor.getValue();
   }
   set value(value) {
-    if (value === null || value === '') return;
+    if (value == null || value === '') return; // eslint-disable-line eqeqeq
     if (value instanceof Object) {
       value = JSON.stringify(value);
     }
