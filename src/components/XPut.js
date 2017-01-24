@@ -43,6 +43,7 @@ def((Item) => class extends Item {
       if (this.$hasValue) {
         this.value = this.$value;
         delete this.$value;
+        delete this.$hasValue;
       }
       if (typeof this.onReady === 'function') this.onReady();
     });
