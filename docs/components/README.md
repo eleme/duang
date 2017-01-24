@@ -321,7 +321,20 @@ Input 用于接受用户的输入，然后提交给后端 API 的一类组件，
 
 | 名字 | 类型 | 描述 |
 | ---- | ---- | ---- |
+| defaultValue | `Number` 或者 `String` | 时间戳 |
 | offset | `Number` | 日期偏移量（支持负数）|
+
+`defaultValue` 内置的日期标记有以下几个：
+
+- today
+- nextDay
+- lastDay
+- nextWeek
+- lastWeek
+- nextMonth
+- lastMonth
+- nextYear
+- lastYear
 
 示例配置
 
@@ -330,7 +343,9 @@ Input 用于接受用户的输入，然后提交给后端 API 的一类组件，
   key: "config",
   title: "结束日期",
   component: "Date",
-  args: { offset: 864E5 }
+  args: {
+    defaultValue: 'today'
+  }
 }
 ```
 

@@ -1,5 +1,8 @@
 def((Item) => class extends Item {
-  beforeParse() { Object.defineProperty(this, '$value', { configurable: true, writable: true }); }
+  beforeParse() {
+    Object.defineProperty(this, '$value', { configurable: true, writable: true });
+    Object.defineProperty(this, '$hasValue', { configurable: true, writable: true, value: false });
+  }
   get tagName() { return 'span'; }
   set depot(ignore) {}
   get depot() { return this.parent.depot || window.depot; }
@@ -37,9 +40,10 @@ def((Item) => class extends Item {
     let resolve, reject;
     let value = new Promise((...args) => [ resolve, reject ] = args);
     value.then(() => {
-      if ('$value' in this) {
+      if (this.$hasValue) {
         this.value = this.$value;
         delete this.$value;
+        delete this.$hasValue;
       }
       if (typeof this.onReady === 'function') this.onReady();
     });
@@ -49,7 +53,10 @@ def((Item) => class extends Item {
   }
   get value() { return '$value' in this ? this.$value : this.result && this.result.value; }
   set value(value) {
-    if (!this.result) return this.$value = value;
+    if (!this.result) {
+      this.$hasValue = true;
+      return this.$value = value;
+    }
     this.result.value = value;
   }
 });
