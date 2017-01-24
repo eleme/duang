@@ -70,7 +70,7 @@
               key = 'blob';
           }
           return response[key]().then(result => {
-            if (typeof result === 'object') result[Symbol.for('response')] = response;
+            if (result && typeof result === 'object') result[Symbol.for('response')] = response;
             if (response.status < 400) {
               return result;
             } else {
