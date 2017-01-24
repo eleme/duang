@@ -1,6 +1,10 @@
 var depot = new class {
   constructor() {
-    addEventListener('load', () => this.hashchange());
+    if (document.readyState === 'complete') {
+      setTimeout(() => this.hashchange());
+    } else {
+      addEventListener('load', () => this.hashchange());
+    }
     addEventListener('hashchange', () => this.hashchange());
   }
   onRouteChange() {
