@@ -43,7 +43,6 @@ def((Item) => class extends Item {
       if (this.$hasValue) {
         this.value = this.$value;
         delete this.$value;
-        delete this.$hasValue;
       }
       if (typeof this.onReady === 'function') this.onReady();
     });
@@ -51,7 +50,7 @@ def((Item) => class extends Item {
     Object.defineProperty(this, '$promise', { value });
     return value;
   }
-  get value() { return '$value' in this ? this.$value : this.result && this.result.value; }
+  get value() { return this.$hasValue ? this.$value : this.result && this.result.value; }
   set value(value) {
     if (!this.result) {
       this.$hasValue = true;
