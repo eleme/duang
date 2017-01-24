@@ -52,17 +52,15 @@ var depot = new class {
   }
   get session() {
     if (!config.session) return window.session = {};
-    return api(config.session.authorize, { method: config.session.method || 'post' }).then(
-      value => {
-        Object.defineProperty(this, 'session', { configurable: true, value });
-      }, reason => {
-        Object.defineProperty(this, 'session', { configurable: true, value: {} });
-        let response = reason && reason[Symbol.for('response')] || {};
-        if (response.status === 401 || reason.name === 'UNAUTHORIZED') {
-          location.href = api.resolvePath(new Function('return `' + config.session.signin + '`')());
-        }
+    return api(config.session.authorize, { method: config.session.method || 'post' }).then(value => {
+      Object.defineProperty(this, 'session', { configurable: true, value });
+    }, reason => {
+      Object.defineProperty(this, 'session', { configurable: true, value: {} });
+      let response = reason && reason[Symbol.for('response')] || {};
+      if (response.status === 401 || reason.name === 'UNAUTHORIZED') {
+        location.href = api.resolvePath(new Function('return `' + config.session.signin + '`')());
       }
-    );
+    });
   }
   get module() { return this.uParams.module; }
   get id() { return this.params.id; }
