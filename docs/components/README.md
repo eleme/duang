@@ -157,6 +157,33 @@ Input 用于接受用户的输入，然后提交给后端 API 的一类组件，
 
 查看 [在线演示](http://codepen.io/shijn/pen/vyMmNj?editors=0010#0)
 
+### Input::List
+
+参数描述
+
+| 名字 | 类型 | 描述 |
+| ---- | ---- | ---- |
+| component | `String` | 每项的控件类型 |
+| args | `Object` | 每项的控件参数 |
+| max | `Number` | 项数量上限 |
+
+示例配置
+
+```javascript
+{
+  key: "images",
+  component: "Grouping",
+  args: {
+    component: "String",
+    args: {},
+    max: 10
+  }
+}
+```
+
+查看 [在线演示](http://codepen.io/shijn/pen/ZLJXep?editors=0010)
+
+
 ### Input::Checkbox
 
 参数描述
