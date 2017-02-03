@@ -26,8 +26,16 @@ def((Item, Value) => {
     }
   }
 
+  class ToggleItem extends InputCheckboxItem {
+    init() {
+      this.text = '全选';
+      this.input.setAttribute('toggle', true);
+    }
+  }
+
   return class extends Value {
-    get template() { return `<form></form>`; }
+    get ToggleItem() { return ToggleItem; }
+    get template() { return `<form><jkl-toggle-item ref="toggleItem"></jkl-toggle-item></form>`; }
     get styleSheet() {
       return `
         :scope {
@@ -41,6 +49,17 @@ def((Item, Value) => {
         return { value: key, text: options[key] };
       });
       this.list = InputCheckboxItem.cast(list, { readonly }).to(this);
+      this.element.addEventListener('change', e => {
+        e.stopPropagation();
+        if (e.target.getAttribute('toggle')) {
+          this.toggleAll(e.target.checked);
+        } else {
+          this.toggleItem.checked = this.list.every(item => item.checked);
+        }
+      });
+    }
+    toggleAll(isChecked) {
+      this.list.forEach(item => item.checked = isChecked);
     }
     set value(value) {
       let set = new Set(value);
