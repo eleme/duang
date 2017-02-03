@@ -1,8 +1,10 @@
-def((FormSubmit, FormItem) => class extends Jinkela {
+def((FormSubmit, FormItem, Alert) => class extends Jinkela {
   get FormSubmit() { return FormSubmit; }
+  get Alert() { return Alert; }
   get template() {
     return `
       <div>
+        <div ref="notice"></div>
         <div ref="columns">
           <table ref="table"></table>
         </div>
@@ -32,6 +34,12 @@ def((FormSubmit, FormItem) => class extends Jinkela {
     if (columns > 1) {
       this.columns.dataset.columns = columns;
       this.columns.style.columns = columns;
+    }
+    let { alert } = depot.scheme;
+    if (alert) {
+      this.$promise.then(() => {
+        new Alert(Object.assign(alert, { form: this })).to(this.notice);
+      });
     }
   }
   set value(data) {
