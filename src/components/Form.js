@@ -35,10 +35,9 @@ def((FormSubmit, FormItem, Alert) => class extends Jinkela {
       this.columns.dataset.columns = columns;
       this.columns.style.columns = columns;
     }
-    let { alert } = depot.scheme;
-    if (alert) {
+    if (depot.scheme.alert) {
       this.$promise.then(() => {
-        new Alert(Object.assign(alert, { form: this })).to(this.notice);
+        new Alert(Object.assign({ form: this }, depot.scheme.alert)).to(this.notice);
       });
     }
   }
