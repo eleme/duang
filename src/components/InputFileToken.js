@@ -27,14 +27,17 @@ def((Button) => {
   }
 
   class Preview extends Jinkela {
-    get template() { return `<a target="_blank" href="JavaScript:"><img/></a>`; }
+    get template() { return `<a target="_blank" href="JavaScript:"><img ref="img"/></a>`; }
     set token(token) {
       if (token) {
         api([ this.api, token ]).then(result => {
           let url = URL.createObjectURL(result);
           this.element.style.display = 'inline-block';
           this.element.href = url;
-          this.element.firstChild.src = url;
+          this.img.onload = () => {
+            this.info = { width: this.img.width, height: this.img.height };
+          };
+          this.img.src = url;
         });
       } else {
         // this.element.style.display = 'none';
@@ -71,6 +74,7 @@ def((Button) => {
     get SpanButton() { return SpanButton; }
     get Preview() { return Preview; }
     get ClearButton() { return ClearButton; }
+    get info() { return this.preview.info || {}; }
     get value() { return this.$value; }
     set value(value) {
       this.$value = value;
@@ -83,7 +87,7 @@ def((Button) => {
             <input ref="input" type="file" style="display: none;" />
             <jkl-span-button ref="button" text="{text}"></jkl-span-button>
           </label>
-          <jkl-preview api="{api}" token="{token}"></jkl-preview>
+          <jkl-preview ref="preview" api="{api}" token="{token}"></jkl-preview>
           <jkl-clear-button on-click="{clear}"></jkl-clear-button>
         </div>
       `;
