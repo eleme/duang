@@ -34,7 +34,7 @@ def((Input, InputSelect, SubGroupMap) => class extends Jinkela {
     return Object.assign(base, this.table ? this.table.value : {});
   }
   set value(value) {
-    if (value === void 0) return;
+    if (value == void 0) return; // eslint-disable-line eqeqeq
     this.select.value = value[this.aliasKey || ''];
     this.selectChange();
     if (this.table) this.table.value = value;
