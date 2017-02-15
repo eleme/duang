@@ -9,9 +9,10 @@ def((Output, Item, TableRowActions) => class extends Item {
     return value;
   }
   init() {
-    let { width, nowrap, value, component, args, actions, scheme, fieldMap, depot } = this;
+    let { breakWord, width, nowrap, value, component, args, actions, scheme, fieldMap, depot } = this;
     if (width) this.element.style.width = width + 'px';
     if (nowrap) this.element.style.whiteSpace = 'nowrap';
+    if (breakWord) this.element.style.wordBreak = 'break-all';
     switch (true) {
       case !!component: {
         let output = new Output({ component, args, value }).to(this);
