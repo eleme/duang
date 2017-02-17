@@ -416,7 +416,7 @@ Input 用于接受用户的输入，然后提交给后端 API 的一类组件，
   key: "avatar",
   title: "头像",
   component: "FileToken",
-  value: { token: '9038e42' }
+  value: '9038e42',
   args: {
     text: '上传文件',
     api: '/avatar'
@@ -424,7 +424,41 @@ Input 用于接受用户的输入，然后提交给后端 API 的一类组件，
 }
 ```
 
-查看 [在线演示](http://codepen.io/pen/?editors=0010#0)
+查看 [在线演示](http://codepen.io/shijn/pen/LxyKBG)
+
+### Input::FileTokenWithInfo
+
+功能同 (InputFileToken)[http://eleme.github.io/duang/docs/components/#Input%3A%3AFileToken] 上传时额外多发送图片相关信息：`width` 和 `height`。
+
+参数描述
+
+| 名字 | 类型 | 描述 |
+| ---- | ---- | ---- |
+| value | `Object` | 必须包含 token 字段用于获取图片 |
+| text | `String` | 选择文件按钮文案 |
+| api | `String` | 图片上传接口相对路径 |
+
+示例配置
+
+```javascript
+{
+  key: "avatar",
+  title: "头像",
+  component: "FileTokenWithInfo",
+  value: {
+    token: '9038e42',
+    width: 400,
+    height: 300
+  },
+  args: {
+    text: '上传文件',
+    api: '/avatar'
+  }
+}
+```
+
+查看 [在线演示](http://codepen.io/shijn/pen/LxyKBG)
+
 
 ### Input::AutoComplete
 
