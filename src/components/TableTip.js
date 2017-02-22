@@ -8,12 +8,16 @@ def(() => class extends Jinkela {
     this.element.innerHTML = error.message || error.name || JSON.stringify(error);
   }
   set data(list) {
+    if (list === 'EMPTY_FIELDS') return this.hide();
     if (!(list instanceof Array)) list = [];
     if (list.length) {
-      this.element.style.display = 'none';
+      this.hide();
     } else {
       this.element.textContent = '没有数据';
     }
+  }
+  hide() {
+    this.element.style.display = 'none';
   }
   get styleSheet() {
     return `

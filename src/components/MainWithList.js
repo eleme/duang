@@ -23,11 +23,16 @@ def((ListControl, Table, TableTip, Pager) => class extends Jinkela {
     let { scheme } = this.depot;
     let { pageSize, fields = [] } = scheme;
     this.pageSize = pageSize;
-    // if (!fields.length) return; // Load data if "fields" exists
-    this.load().then(list => {
-      this.list = list;
-    }, error => {
-      this.error = error;
-    });
+    if (fields.length) {
+      this.load().then(list => {
+        this.list = list;
+      }, error => {
+        this.error = error;
+      });
+    } else {
+      setTimeout(() => {
+        this.list = 'EMPTY_FIELDS';
+      });
+    }
   }
 });

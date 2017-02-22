@@ -19,6 +19,7 @@ def((TableRow, TableHead, TableCaption) => class extends Jinkela {
   }
   set data(list) {
     if (!list) return;
+    if (list === 'EMPTY_FIELDS') return this.touch();
     let { depot = window.depot } = this;
     let { scheme } = depot;
     let { orderBy } = depot.uParams;
@@ -38,10 +39,13 @@ def((TableRow, TableHead, TableCaption) => class extends Jinkela {
     }
     let rows = list.map(fieldMap => new TableRow({ fieldMap, depot }));
     Promise.all(rows.map(row => row.$promise)).then(rows => {
-      void this.caption;
-      void this.head;
+      this.touch();
       rows.forEach(row => row.to(this));
     });
+  }
+  touch() {
+    void this.caption;
+    void this.head;
   }
   get styleSheet() {
     return `
