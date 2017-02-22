@@ -56,7 +56,7 @@ def((Button) => class extends Button {
         margin-left: 1em;
         min-width: 64px;
         min-height: 32px;
-        &:last-child {
+        &:first-child {
           margin-left: 0;
         }
       }
