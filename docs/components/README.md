@@ -483,6 +483,31 @@ Input 用于接受用户的输入，然后提交给后端 API 的一类组件，
 
 查看 [在线演示](http://codepen.io/shijn/pen/egzpJW?editors=0010#0)
 
+### Input::City
+
+参数描述
+
+| 名字 | 类型 | 描述 |
+| ---- | ---- | ---- |
+| api | `String` | 获取城市数据接口相对路径 |
+| defaultText | `String` | 默认提示文案 |
+| defaultGroupName | `String` | 未分组元素的默认组名 |
+
+示例配置
+
+```javascript
+{
+  key: "city",
+  title: "城市",
+  component: "City",
+  args: {
+    api: '/cities',
+    defaultText: '请选择城市',
+    defaultGroupName: '其他'
+  }
+}
+```
+
 ## Output
 
 `Output` 是用来输出展示数据的一类组件，在 `Duang` 中用于：
