@@ -35,7 +35,7 @@ def((Button) => {
           this.element.style.display = 'inline-block';
           this.element.href = url;
           this.img.onload = () => {
-            this.info = { width: this.img.width, height: this.img.height };
+            this.info = { width: this.img.naturalWidth, height: this.img.naturalHeight };
           };
           this.img.src = url;
         });
