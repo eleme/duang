@@ -3,7 +3,7 @@ def((InputFileToken) => {
     init(...args) {
       this.$cache = {};
       this.input = new InputFileToken(...args).to(this);
-      this.element.addEventListener('change', () => this.change.bind(this));
+      this.element.addEventListener('change', this.change.bind(this));
     }
     change() { this.$cache = {}; }
     set value(value) {
