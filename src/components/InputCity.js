@@ -238,14 +238,21 @@ def(() => {
     }
     get template() {
       return `
-        <span on-click="{onClick}">
+        <span on-click="{onClick}" on-mouseenter="{mouseenter}">
           <a href="JavaScript:" ref="btn">{text}</a>
-          <dl>
+          <dl ref="dl">
             <dt ref="dt"></dt>
             <dd ref="dd"></dd>
           </dl>
         </span>
       `;
+    }
+    mouseenter(event) {
+      if (event.clientY > document.documentElement.clientHeight / 2) {
+        this.dl.style.bottom = '100%';
+      } else {
+        this.dl.style.top = '100%';
+      }
     }
     get styleSheet() {
       return `
@@ -277,8 +284,11 @@ def(() => {
             border: 1px solid #1da4fc;
             padding: 24px;
             font-size: 14px;
+            z-index: 10;
             position: absolute;
-            top: 100%;
+            min-width: 500px;
+            max-height: 300px;
+            overflow: auto;
             left: 0;
             display: none;
             background: #fff;
