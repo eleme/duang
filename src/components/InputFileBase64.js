@@ -11,6 +11,25 @@ def((Button) => {
     }
   }
 
+  class DownloadLink extends Jinkela {
+    init() {
+      this.downloadText = this.downloadText || '下载';
+      this.link = `data:application/octet-stream,${this.value}`;
+      if (!this.value) this.element.style.display = 'none';
+    }
+    get template() { return '<a href="{link}" download>{downloadText}</a>'; }
+    get styleSheet() {
+      return `
+        :scope {
+          display: inline-block;
+          margin-left: 15px;
+          text-decoration: underline;
+          color: #20A0FF;
+        }
+      `;
+    }
+  }
+
   class FileInfo extends Jinkela {
     get tagName() { return 'span'; }
     get styleSheet() {
@@ -50,6 +69,7 @@ def((Button) => {
       if (!this.text) this.text = 'Select File';
       this.element.firstChild.addEventListener('change', event => this.change(event));
       this.button = new SpanButton({ text: this.text }).to(this.label);
+      new DownloadLink({ value: this.value, downloadText: this.downloadText }).to(this.label);
       this.fileInfo = new FileInfo().to(this);
       this.cancelButton = new CancelButton({ onClick: () => this.value = null }).to(this);
     }
