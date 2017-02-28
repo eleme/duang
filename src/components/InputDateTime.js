@@ -37,7 +37,7 @@ def(() => {
       if (typeof value === 'string') value = new Date(value);
       if (!(value instanceof Date)) return;
       this.dp.value = value;
-      this.tp = [ value.getHours(), value.getMinutes(), value.getSeconds() ].join(':');
+      this.tp.value = [ value.getHours(), value.getMinutes(), value.getSeconds() ].join(':');
     }
   }
 
