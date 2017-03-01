@@ -40,7 +40,7 @@ def(() => {
       `;
     }
     get template() {
-      return `<li class="{className}"><a href="{href}" on-click="{onClick}" title="{title}">{title}</a></li>`;
+      return '<li class="{className}"><a href="{href}" on-click="{onClick}" title="{title}">{title}</a></li>';
     }
   }
 
@@ -147,7 +147,7 @@ def(() => {
       if (active) active.className = '';
       this.target.element.className = 'active';
     }
-    get template() { return `<a href="JavaScript:;" on-click="{onClick}"></a>`; }
+    get template() { return '<a href="JavaScript:;" on-click="{onClick}"></a>'; }
     get styleSheet() {
       return `
         :scope {
@@ -182,7 +182,7 @@ def(() => {
           if (this.element === target || this.element.contains(target)) return;
           this.element.className = '';
         });
-        this.value.forEach(id => this.updateClass(`[data-key='${id}']`, 'active'));
+        this.value = this.value;
       });
     }
     getGroups() {
@@ -190,6 +190,7 @@ def(() => {
         if (!~['Array', 'Object'].indexOf(Object.prototype.toString.call(raw).slice(8, -1))) {
           throw new Error('接口返回必须是数组或键值对');
         }
+        this.$cache = raw;
         return new Groups(raw, this.defaultGroupName);
       });
     }
@@ -199,6 +200,7 @@ def(() => {
     }
     get value() { return this.$value; }
     set value(value) {
+      if (this.$cache == null) return; // eslint-disable-line eqeqeq
       if (value instanceof Array) return value.forEach(item => this.value = item);
       value = String(value);
       const index = this.$value.indexOf(value);
@@ -209,15 +211,12 @@ def(() => {
         this.updateClass(`[data-key='${value}']`, 'active');
         this.$value.push(value);
       }
-      api(this.api).then(raw => {
-        if (!~['Array', 'Object'].indexOf(Object.prototype.toString.call(raw).slice(8, -1))) {
-          throw new Error('接口返回必须是数组或键值对');
-        }
-        const cities = raw instanceof Array
-          ? raw.filter(item => ~this.$value.indexOf(String(item.id)))
-          : Object.keys(raw).filter(key => raw[key] && ~this.$value.indexOf(String(raw[key].id)));
-        this.text = cities.length ? cities.map(city => city.name).join(', ') : this.defaultText;
-      });
+      const cities = this.$cache instanceof Array
+        ? this.$cache.filter(item => ~this.$value.indexOf(String(item.id)))
+        : Object.keys(this.$cache).filter(key => {
+          return this.$cache[key] && ~this.$value.indexOf(String(this.$cache[key].id));
+        });
+      this.text = cities.length ? cities.map(city => city.name).join(', ') : this.defaultText;
     }
     createTabs() {
       return this.getGroups().then(groups => {
