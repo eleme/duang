@@ -148,6 +148,6 @@ def((ButtonHollow, SvgIcon) => {
         }
       `;
     }
-  }
+  };
 
 });

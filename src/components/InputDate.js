@@ -1,6 +1,6 @@
 def(() => {
 
-  function dateFormat(defaultValue) {
+  let dateFormat = defaultValue => {
     let now = new Date();
     switch (defaultValue) {
       case 'today': return now.valueOf();
@@ -14,7 +14,7 @@ def(() => {
       case 'lastYear': return now.setYear(now.getFullYear() - 1);
       default: return defaultValue || '';
     }
-  }
+  };
 
   class DatePickerWithDuang extends DatePicker {
     init() { this.value = dateFormat(this.defaultValue); }
