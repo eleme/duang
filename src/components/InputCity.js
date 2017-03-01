@@ -169,8 +169,10 @@ def(() => {
 
   return class CitySelector extends Jinkela {
     init() {
+      this.defaultText = this.defaultText || '请选择城市';
       this.text = this.defaultText;
       this.defaultGroupName = this.defaultGroupName || '其他';
+      this.$value = [];
       this.createTabs().then(() => {
         this.dt.firstChild.click();
         this.btn.addEventListener('click', () => {
@@ -180,7 +182,7 @@ def(() => {
           if (this.element === target || this.element.contains(target)) return;
           this.element.className = '';
         });
-        this.value = this.value;
+        this.value.forEach(id => this.updateClass(`[data-key='${id}']`, 'active'));
       });
     }
     getGroups() {
@@ -191,22 +193,31 @@ def(() => {
         return new Groups(raw, this.defaultGroupName);
       });
     }
+    updateClass(query, className) {
+      Array.from(this.element.querySelectorAll(query))
+        .forEach(item => item.className = className);
+    }
     get value() { return this.$value; }
     set value(value) {
-      let actives = this.element.querySelectorAll('[data-key].active');
-      for (let i = 0; i < actives.length; i++) actives[i].className = '';
-      let matches = this.element.querySelectorAll('[data-key="' + value + '"]');
-      for (let i = 0; i < matches.length; i++) matches[i].className = 'active';
+      if (value instanceof Array) return value.forEach(item => this.value = item);
+      value = String(value);
+      const index = this.$value.indexOf(value);
+      if (index > -1) {
+        this.updateClass(`[data-key='${value}']`, '');
+        this.$value.splice(index, 1);
+      } else {
+        this.updateClass(`[data-key='${value}']`, 'active');
+        this.$value.push(value);
+      }
       api(this.api).then(raw => {
         if (!~['Array', 'Object'].indexOf(Object.prototype.toString.call(raw).slice(8, -1))) {
           throw new Error('接口返回必须是数组或键值对');
         }
-        const city = raw instanceof Array
-          ? raw.find(item => String(item.id) === value)
-          : Object.keys(raw).find(key => raw[key] && String(raw[key].id) === value);
-        this.text = city ? city.name : this.defaultText;
+        const cities = raw instanceof Array
+          ? raw.filter(item => ~this.$value.indexOf(String(item.id)))
+          : Object.keys(raw).filter(key => raw[key] && ~this.$value.indexOf(String(raw[key].id)));
+        this.text = cities.length ? cities.map(city => city.name).join(', ') : this.defaultText;
       });
-      this.$value = value;
     }
     createTabs() {
       return this.getGroups().then(groups => {
