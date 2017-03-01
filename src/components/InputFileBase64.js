@@ -14,10 +14,15 @@ def((Button) => {
   class DownloadLink extends Jinkela {
     init() {
       this.downloadText = this.downloadText || '下载';
-      this.link = `data:application/octet-stream,${this.value}`;
       if (!this.value) this.element.style.display = 'none';
     }
-    get template() { return '<a href="{link}" download>{downloadText}</a>'; }
+    set value(value) {
+      this.$value = value;
+      this.visible = !!value;
+      this.link = `data:application/octet-stream,${value}`;
+    }
+    get value() { return this.$value; }
+    get template() { return '<a if="{visible}" href="{link}" download>{downloadText}</a>'; }
     get styleSheet() {
       return `
         :scope {
