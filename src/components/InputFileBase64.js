@@ -12,10 +12,7 @@ def((Button) => {
   }
 
   class DownloadLink extends Jinkela {
-    init() {
-      this.downloadText = this.downloadText || '下载';
-      if (!this.value) this.element.style.display = 'none';
-    }
+    init() { this.downloadText = this.downloadText || '下载'; }
     set value(value) {
       this.$value = value;
       this.visible = !!value;
@@ -64,17 +61,27 @@ def((Button) => {
   }
 
   return class extends Jinkela {
+    get SpanButton() { return SpanButton; }
+    get DownloadLink() { return DownloadLink; }
     get value() { return this.$value; }
     set value(value) {
       this.$value = value;
       this.label.setAttribute('notEmpty', !!value);
     }
-    get template() { return `<div><label ref="label"><input ref="input" type="file" /></label></div>`; }
+    get template() {
+      return `
+        <div>
+          <label ref="label">
+            <input ref="input" type="file" />
+            <jkl-span-button ref="button" text={text}></jkl-span-button>
+            <jkl-download-link value={value} downloadText={downloadText}></jkl-download-link>
+          </label>
+        </div>
+      `;
+    }
     init() {
       if (!this.text) this.text = 'Select File';
       this.element.firstChild.addEventListener('change', event => this.change(event));
-      this.button = new SpanButton({ text: this.text }).to(this.label);
-      new DownloadLink({ value: this.value, downloadText: this.downloadText }).to(this.label);
       this.fileInfo = new FileInfo().to(this);
       this.cancelButton = new CancelButton({ onClick: () => this.value = null }).to(this);
     }
