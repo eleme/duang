@@ -42,7 +42,7 @@ def((ListControl, Table, TableTip, Pagination) => class extends Jinkela {
     if (fields.length) {
       Promise.all([ this.loadData(), this.loadCount() ]).then(([ data, count ]) => {
         this.list = data;
-        this.count = count;
+        this.count = typeof count === 'number' ? count : count.count;
         this.ready();
       }).then(error => {
         this.error = error;
