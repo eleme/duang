@@ -8,6 +8,7 @@ def(() => class extends Jinkela {
     this.element.innerHTML = error.message || error.name || JSON.stringify(error);
   }
   set data(list) {
+    if (!list) return;
     if (list === 'EMPTY_FIELDS') return this.hide();
     if (!(list instanceof Array)) list = [];
     if (list.length) {
