@@ -117,6 +117,7 @@ def((ButtonHollow, SvgIcon) => {
     }
     init() {
       let { list, count, pageSize } = this;
+      count *= 1;
       if (!(list instanceof Array)) list = [];
       let depot = this.depot;
       let currentIndex = +depot.uParams.page || 1;
