@@ -124,6 +124,7 @@ def((ButtonHollow, SvgIcon) => {
       let items = [];
       const { max, min, ceil } = Math;
       let pageCount = count === count ? ceil(count / pageSize) : currentIndex + (list.length === pageSize);
+      if (pageCount < 1) pageCount = 1;
       if (currentIndex > pageCount) PageItem.goto(pageCount);
       let [ first, last ] = [ 1, pageCount ];
       let [ from, to ] = [ max(currentIndex - 3, first + 1), min(currentIndex + 3, last - 1) ];
