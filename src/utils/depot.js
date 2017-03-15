@@ -76,12 +76,16 @@ var depot = new class {
     Object.defineProperty(this, 'schemeMap', { value });
     return value;
   }
+  get pageSize() {
+    let pageSize = this.uParams.pageSize || this.scheme.pageSize;
+    return pageSize instanceof Array ? pageSize[0] : pageSize;
+  }
   get queryParams() {
     let params = {};
     let { page, where, orderBy } = this.uParams;
-    if (this.scheme.pageSize) {
-      params.limit = this.scheme.pageSize;
-      params.offset = this.scheme.pageSize * (page - 1 || 0);
+    if (this.pageSize) {
+      params.limit = this.pageSize;
+      params.offset = this.pageSize * (page - 1 || 0);
     }
     if (where) params.where = where;
     if (orderBy) params.orderBy = orderBy;

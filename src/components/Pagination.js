@@ -1,4 +1,4 @@
-def((ButtonHollow, SvgIcon) => {
+def((ButtonHollow, SvgIcon, Input) => {
 
   class Svg1024 extends SvgIcon {
     get viewBox() { return '0 0 1024 1024'; }
@@ -107,19 +107,69 @@ def((ButtonHollow, SvgIcon) => {
     }
   }
 
-  return class extends Jinkela {
-    get template() {
+  class Select extends Input {
+    get component() { return 'Select'; }
+    beforeParse({ depot }) {
+      let { pageSize } = depot.scheme;
+      if (pageSize instanceof Array) {
+        this.value = depot.pageSize;
+        this.args = {
+          options: pageSize.map(value => ({ text: `每页 ${value} 条`, value }))
+        };
+        this.element.style.display = 'inline-block';
+      }
+    }
+    get styleSheet() {
       return `
-        <div if="{visible}">
-          <meta ref="items" />
-        </div>
+        :scope {
+          display: none;
+          select {
+            min-width: auto;
+          }
+        }
       `;
     }
     init() {
-      let { list, count, pageSize } = this;
+      this.element.addEventListener('change', () => {
+        let { uParams } = this.depot;
+        uParams.pageSize = this.value;
+        location.hash = uParams;
+      });
+    }
+  }
+
+  class Count extends Jinkela {
+    get template() {
+      return `
+        <span if="{count}">
+          共 <span>{count}</span> 条
+        </span>
+      `;
+    }
+    get styleSheet() {
+      return `
+        :scope {
+          margin-right: 8px;
+        }
+      `;
+    }
+  }
+
+  return class extends Jinkela {
+    get template() {
+      return `
+        <div if="{visible}"></div>
+      `;
+    }
+    init() {
+      let { list, count, depot } = this;
+      let { pageSize, scheme } = depot;
+      let { countable } = scheme;
       count *= 1;
+      new Count({ count, depot }).to(this);
+      new Select({ depot }).to(this);
+      let near = countable || 3;
       if (!(list instanceof Array)) list = [];
-      let depot = this.depot;
       let currentIndex = +depot.uParams.page || 1;
       let items = [];
       const { max, min, ceil } = Math;
@@ -127,7 +177,7 @@ def((ButtonHollow, SvgIcon) => {
       if (pageCount < 1) pageCount = 1;
       if (currentIndex > pageCount) PageItem.goto(pageCount);
       let [ first, last ] = [ 1, pageCount ];
-      let [ from, to ] = [ max(currentIndex - 3, first + 1), min(currentIndex + 3, last - 1) ];
+      let [ from, to ] = [ max(currentIndex - near, first + 1), min(currentIndex + near, last - 1) ];
       let [ ellipsisLeft, ellipsisRight ] = [ from - first > 1, last - to > 1 ];
       if (ellipsisLeft) from++;
       if (ellipsisRight) to--;
@@ -138,7 +188,7 @@ def((ButtonHollow, SvgIcon) => {
       if (ellipsisRight) items.push(new LastPage({ value: pageCount, currentIndex }));
       if (first !== last) items.push(new NthPage({ value: pageCount, currentIndex }));
       items.push(new NextPage({ value: min(currentIndex + 1, last), currentIndex }));
-      this.items = items;
+      items.forEach(item => item.to(this));
       this.visible = pageSize;
     }
     get pageSize() { return this.depot.scheme.pageSize; }
