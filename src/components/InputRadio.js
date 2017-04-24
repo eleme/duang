@@ -41,12 +41,14 @@ def((Item, Value) => {
         return { value: key, text: options[key] };
       });
       this.list = InputRadioItem.cast(list, { readonly }).to(this);
+      this.value = this.value;
     }
     set value(value = this.defaultValue) {
       this.list.forEach(item => (item.checked = item.value === value));
     }
     get value() {
-      return this.list.filter(item => item.checked).map(item => item.input.value) + '';
+      let found = this.list.find(item => item.checked);
+      return found && found.input.value;
     }
   };
 

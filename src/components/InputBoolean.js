@@ -15,7 +15,7 @@ def(() => class extends Jinkela {
       get: () => this.value,
       set: value => (this.value = value)
     });
-    this.value = !!this.$value;
+    this.value = this.value;
     if (this.readonly) {
       if (this.readonly) this.element.setAttribute('readonly', 'readonly');
     } else {

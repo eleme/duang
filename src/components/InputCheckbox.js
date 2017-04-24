@@ -57,11 +57,13 @@ def((Item, Value) => {
           this.toggleItem.checked = this.list.every(item => item.checked);
         }
       });
+      this.value = this.$value || this.defaultValue;
     }
     toggleAll(isChecked) {
       this.list.forEach(item => (item.checked = isChecked));
     }
-    set value(value) {
+    set value(value = this.defaultValue || []) {
+      this.$value = value;
       let set = new Set(value);
       this.list.forEach(item => (item.checked = set.has(item.value)));
     }
