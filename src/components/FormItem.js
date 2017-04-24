@@ -2,7 +2,7 @@ def((Item, Input) => {
 
   return class extends Item {
     set value(value) {
-      if (!this.input) return setTimeout(() => this.value = value);
+      if (!this.input) return setTimeout(() => (this.value = value));
       this.input.value = value;
     }
     get value() {

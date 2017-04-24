@@ -1,4 +1,4 @@
-def((Button) => class extends Button {
+def((Button, Confirm) => class extends Button {
   init() {
     this.text = this.title;
   }
@@ -23,7 +23,8 @@ def((Button) => class extends Button {
           console.log(error); // eslint-disable-line
         });
       default:
-        return location.hash = '#' + uParams;
+        location.hash = '#' + uParams;
+        return;
     }
   }
   createAction() {
@@ -43,7 +44,7 @@ def((Button) => class extends Button {
     let { depot } = this;
     let path = [ depot.resolvedKey ];
     if ('api' in this) path.push(this.api);
-    api(path, { method: this.method || 'POST' }).then(result => {
+    api(path, { method: this.method || 'POST' }).then(() => {
       depot.refresh();
     }, error => {
       alert(error.message);

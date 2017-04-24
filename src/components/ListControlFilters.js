@@ -30,7 +30,7 @@ def((ListControlFiltersItem, Button, ButtonHollow) => {
     init() {
       let { depot } = this;
       let { scheme } = depot;
-      if (!scheme) return location.hash = '';
+      if (!scheme) return (location.hash = '');
       let { filters = [] } = scheme;
       let $promise;
       if (filters.length) {

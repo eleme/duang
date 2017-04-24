@@ -17,7 +17,8 @@ def(() => class extends Jinkela {
           console.log(error); // eslint-disable-line
         });
       default:
-        return location.hash = '#' + uParams;
+        location.hash = '#' + uParams;
+        return;
     }
   }
   get template() {

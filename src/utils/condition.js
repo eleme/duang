@@ -1,4 +1,4 @@
-const condition = (conditions, fieldMap) => {
+const condition = (conditions, fieldMap) => { // eslint-disable-line no-unused-vars
   if (!(conditions instanceof Array)) return true;
   const parseExpression = (expr, fieldMap) => {
     if (expr[0] === '$') return JSONPath(expr, fieldMap)[0];

@@ -27,7 +27,7 @@ def((Button) => {
   }
 
   class Preview extends Jinkela {
-    get template() { return `<a target="_blank" href="JavaScript:"><img ref="img"/></a>`; }
+    get template() { return '<a target="_blank" href="JavaScript:"><img ref="img"/></a>'; }
     set token(token) {
       if (token) {
         api([ this.api, token ]).then(result => {

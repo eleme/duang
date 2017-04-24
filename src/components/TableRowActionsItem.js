@@ -23,7 +23,8 @@ def((ListItem, Confirm) => class extends ListItem {
           console.log(error); // eslint-disable-line
         });
       default:
-        return location.hash = '#' + uParams;
+        location.hash = '#' + uParams;
+        return;
     }
   }
   editAction() {
@@ -37,7 +38,7 @@ def((ListItem, Confirm) => class extends ListItem {
     let { depot } = this;
     let path = [ depot.resolvedKey, this.fieldMap.id ];
     if ('api' in this) path.push(this.api);
-    api(path, { method: this.method || 'POST' }).then(result => {
+    api(path, { method: this.method || 'POST' }).then(() => {
       depot.refresh();
     }, error => {
       alert(error.message);

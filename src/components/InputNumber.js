@@ -9,8 +9,8 @@ def(() => class extends Jinkela {
   }
   get value() { return +this.element.value; }
   set value(value) { this.element.value = value; }
-  get template() { return `<input type="number" />`; }
-  blur(event) {
+  get template() { return '<input type="number" />'; }
+  blur() {
     if (this.min !== void 0 && this.value < this.min) this.value = this.min;
     if (this.max !== void 0 && this.value > this.max) this.value = this.max;
   }

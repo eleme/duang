@@ -1,5 +1,5 @@
 def((TableHeadCell) => class extends Jinkela {
-  get template() { return `<thead><tr ref="tr"></tr></thead>`; }
+  get template() { return '<thead><tr ref="tr"></tr></thead>'; }
   init() {
     let { depot = window.depot } = this;
     let { scheme, uParams } = depot;

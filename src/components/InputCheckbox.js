@@ -35,7 +35,7 @@ def((Item, Value) => {
 
   return class extends Value {
     get ToggleItem() { return ToggleItem; }
-    get template() { return `<form><jkl-toggle-item ref="toggleItem"></jkl-toggle-item></form>`; }
+    get template() { return '<form><jkl-toggle-item ref="toggleItem"></jkl-toggle-item></form>'; }
     get styleSheet() {
       return `
         :scope {
@@ -59,11 +59,11 @@ def((Item, Value) => {
       });
     }
     toggleAll(isChecked) {
-      this.list.forEach(item => item.checked = isChecked);
+      this.list.forEach(item => (item.checked = isChecked));
     }
     set value(value) {
       let set = new Set(value);
-      this.list.forEach(item => item.checked = set.has(item.value));
+      this.list.forEach(item => (item.checked = set.has(item.value)));
     }
     get value() {
       return this.list.filter(item => item.checked).map(item => item.input.value);

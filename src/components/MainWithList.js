@@ -20,7 +20,7 @@ def((ListControl, Table, TableTip, Pagination) => class extends Jinkela {
   get count() { return this.$count; }
   init() {
     let { scheme } = this.depot;
-    if (!scheme) return location.hash = '';
+    if (!scheme) return (location.hash = '');
   }
   loadData() {
     let { queryParams, resolvedKey } = this.depot;

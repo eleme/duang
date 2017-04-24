@@ -13,13 +13,13 @@ def(() => class extends Jinkela {
   init() {
     Object.defineProperty(this.element, 'value', {
       get: () => this.value,
-      set: value => this.value = value
+      set: value => (this.value = value)
     });
     this.value = !!this.$value;
     if (this.readonly) {
       if (this.readonly) this.element.setAttribute('readonly', 'readonly');
     } else {
-      this.element.addEventListener('click', () => this.value = !this.$value);
+      this.element.addEventListener('click', () => (this.value = !this.$value));
     }
     let { text = {} } = this;
     this.element.setAttribute('data-text-true', text.true || 'true');

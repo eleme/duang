@@ -33,7 +33,7 @@ def((ButtonHollow, SvgIcon, Input) => {
       this.active = this.value === this.currentIndex;
       this.href = this.active ? 'JavaScript:' : this.constructor.goto(this.value, false);
     }
-    get template() { return `<a href="{href}"></a>`; }
+    get template() { return '<a href="{href}"></a>' ; }
     set active(value) { this.element.classList[value ? 'add' : 'remove']('active'); }
     get active() { return this.element.classList.contains('active'); }
     get styleSheet() {

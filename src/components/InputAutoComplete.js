@@ -5,16 +5,14 @@ def((InputString, Item) => {
       this.element.addEventListener('mouseup', e => this.onMouseup(e));
     }
     onMousedown(e) { e.preventDefault(); }
-    onMouseup(e) {
+    onMouseup() {
       this.element.dispatchEvent(new CustomEvent('item:select', {
         bubbles: true,
         detail: this
       }));
     }
     get template() {
-      return `
-        <li>{value}</li>
-      `;
+      return '<li>{value}</li>';
     }
   }
 
@@ -67,15 +65,15 @@ def((InputString, Item) => {
         $current.classList.remove('active');
         if (step > 0) {
           while (step--) {
-            $current = $current.nextElementSibling ?
-              $current.nextElementSibling :
-              this.list.firstElementChild;
+            $current = $current.nextElementSibling
+              ? $current.nextElementSibling
+              : this.list.firstElementChild;
           }
         } else {
           while (step++) {
-            $current = $current.previousElementSibling ?
-              $current.previousElementSibling :
-              this.list.lastElementChild;
+            $current = $current.previousElementSibling
+              ? $current.previousElementSibling
+              : this.list.lastElementChild;
           }
         }
       }
