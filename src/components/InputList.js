@@ -3,7 +3,8 @@ def((Input, Button) => {
   class InternalListItem extends Jinkela {
     get tagName() { return 'li'; }
     beforeParse(params) {
-      let { component, args } = params;
+      let { component, args, readonly } = params;
+      args = Object.assign({ readonly }, args);
       this.input = new Input({ component, args, onReady: () => this.ready() });
     }
     ready() {
@@ -11,7 +12,7 @@ def((Input, Button) => {
     }
     init() {
       this.input.to(this);
-      new Button({ text: '-', onClick: () => this.dispatchRemoveEvent() }).to(this);
+      if (!this.noDelete) new Button({ text: '-', onClick: () => this.dispatchRemoveEvent() }).to(this);
     }
     dispatchRemoveEvent() {
       this.element.dispatchEvent(new CustomEvent('remove', { detail: this, bubbles: true }));
@@ -63,6 +64,13 @@ def((Input, Button) => {
     get styleSheet() {
       return `
         :scope {
+          &:empty {
+            &::before {
+              content: '无数据';
+              display: inline-block;
+              margin-right: .5em;
+            }
+          }
           display: inline-block;
           margin: 0;
           padding: 0;
@@ -81,12 +89,12 @@ def((Input, Button) => {
   class InputList extends Jinkela {
     init() {
       this.list = new InternalList(this).to(this);
-      this.button = new Button({ text: '+', onClick: () => this.add() }).to(this);
+      if (!this.noAdd) this.button = new Button({ text: '+', onClick: () => this.add() }).to(this);
       this.element.addEventListener('countchange', event => this.countChange(event));
     }
     countChange(event) {
       event.stopPropagation();
-      this.button.element.style.display = event.detail >= this.max ? 'none' : 'inline-block';
+      if (this.button) this.button.element.style.display = event.detail >= this.max ? 'none' : 'inline-block';
     }
     add() { this.list.add(); }
     get value() { return this.list.value; }
