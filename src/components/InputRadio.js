@@ -42,9 +42,8 @@ def((Item, Value) => {
       });
       this.list = InputRadioItem.cast(list, { readonly }).to(this);
     }
-    set value(value) {
-      let set = new Set(value);
-      this.list.forEach(item => (item.checked = set.has(item.value)));
+    set value(value = this.defaultValue) {
+      this.list.forEach(item => (item.checked = item.value === value));
     }
     get value() {
       return this.list.filter(item => item.checked).map(item => item.input.value) + '';
