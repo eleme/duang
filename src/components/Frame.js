@@ -30,9 +30,11 @@ def((FrameLogo, FrameNav, FrameAside, FrameMain) => class extends Jinkela {
     `;
   }
   init() {
-    this.frameLogo = this.constructor.frameLogo;
-    this.frameNav = this.constructor.frameNav;
-    this.frameAside = this.constructor.frameAside;
+    if (!depot.config.noFrame) {
+      this.frameLogo = this.constructor.frameLogo;
+      this.frameNav = this.constructor.frameNav;
+      this.frameAside = this.constructor.frameAside;
+    }
   }
   get main() { return this.$value; }
   set main(value) {
