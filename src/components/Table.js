@@ -3,7 +3,7 @@ def((TableRow, TableHead, TableCaption) => class extends Jinkela {
   get caption() {
     let { depot = window.depot } = this;
     let { scheme } = depot;
-    let { caption, captionType = 'table' } = scheme;
+    let { captionType = 'table' } = scheme;
     let value;
     if (captionType === 'table' && scheme.caption) {
       value = new TableCaption({ depot }).to(this);
@@ -21,7 +21,6 @@ def((TableRow, TableHead, TableCaption) => class extends Jinkela {
     if (!list) return;
     if (list === 'EMPTY_FIELDS') return this.touch();
     let { depot = window.depot } = this;
-    let { scheme } = depot;
     let { orderBy } = depot.uParams;
     if (!(list instanceof Array)) return console.error(`返回结果必须是数组, ${ JSON.stringify(list) }`); // eslint-disable-line
     if (orderBy) {

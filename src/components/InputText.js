@@ -1,7 +1,7 @@
 def(() => class extends Jinkela {
   get value() { return this.element.value; }
   set value(value) { this.element.value = value === void 0 ? '' : value; }
-  get tagName() { return `textarea`; }
+  get tagName() { return 'textarea'; }
   init() {
     this.value = this.default || '';
     if (this.width !== void 0) this.element.style.width = this.width;

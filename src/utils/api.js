@@ -81,6 +81,6 @@
         return this.cache(path, options, resolver);
       };
     }
-  };
+  }();
 
 }

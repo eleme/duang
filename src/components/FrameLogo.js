@@ -3,7 +3,7 @@ def((Output) => class extends Jinkela {
     let { logo = 'Duang' } = config;
     if (typeof logo === 'string') logo = { component: 'HTML', args: { html: logo } };
     new Output(logo).to(this);
-    this.element.addEventListener('click', () => location.hash = '');
+    this.element.addEventListener('click', () => (location.hash = ''));
   }
   get styleSheet() {
     return `

@@ -14,7 +14,7 @@ def((Item) => class extends Item {
     let path = [];
     if (depot.scheme) path.push(depot.resolvedKey);
     let { query } = this;
-    return function callee(base) {
+    return (function callee(base) {
       let tasks = [];
       Object.keys(base).forEach(i => {
         let item = base[i];
@@ -32,13 +32,14 @@ def((Item) => class extends Item {
         }
       });
       return Promise.all(tasks).then(() => {});
-    }(this).catch(error => {
+    }(this)).catch(error => {
       throw new Error(`组件参数读取失败：'${error.message || JSON.stringify(error)}'`);
     });
   }
   get $promise() {
     let resolve, reject;
-    let value = new Promise((...args) => [ resolve, reject ] = args);
+    let value = new Promise((...args) => ([ resolve, reject ] = args));
+    void reject;
     value.then(() => {
       if (this.$hasValue) {
         this.value = this.$value;
@@ -55,7 +56,7 @@ def((Item) => class extends Item {
   set value(value) {
     if (!this.result) {
       this.$hasValue = true;
-      return this.$value = value;
+      return (this.$value = value);
     }
     this.result.value = value;
   }

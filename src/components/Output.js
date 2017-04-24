@@ -1,6 +1,8 @@
 def((XPut) => class extends XPut {
   buildComponent() {
     let { component, args = {}, params, query, depot, value } = this;
+    void params;
+    void query;
     return req('Output' + component).catch(() => {
       throw new Error(`Unknown component "${component}"`);
     }).then(Component => {

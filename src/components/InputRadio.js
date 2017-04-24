@@ -27,7 +27,7 @@ def((Item, Value) => {
   }
 
   return class extends Value {
-    get template() { return `<form></form>`; }
+    get template() { return '<form></form>'; }
     get styleSheet() {
       return `
         :scope {
@@ -44,7 +44,7 @@ def((Item, Value) => {
     }
     set value(value) {
       let set = new Set(value);
-      this.list.forEach(item => item.checked = set.has(item.value));
+      this.list.forEach(item => (item.checked = set.has(item.value)));
     }
     get value() {
       return this.list.filter(item => item.checked).map(item => item.input.value) + '';

@@ -1,4 +1,4 @@
-var depot = new class {
+var depot = new class { // eslint-disable-line no-unused-vars
   constructor() {
     if (document.readyState === 'complete') {
       setTimeout(() => this.hashchange());
@@ -37,7 +37,7 @@ var depot = new class {
   cache(name, resolver) {
     let cache = this['@@cache'];
     if (name in cache) return cache[name];
-    return cache[name] = resolver();
+    return (cache[name] = resolver());
   }
   parseJSON(json) { try { return JSON.parse(json); } catch (error) { /* pass */ } }
   getConst(name) {
@@ -48,10 +48,10 @@ var depot = new class {
   get config() {
     const configElement = document.querySelector('script[config]');
     const config = configElement && configElement.getAttribute('config') || '';
-    return window.config ? window.config : api(config).then(result => window.config = result);
+    return (window.config ? window.config : api(config).then(result => (window.config = result)));
   }
   get session() {
-    if (!config.session) return window.session = {};
+    if (!config.session) return (window.session = {});
     return api(config.session.authorize, { method: config.session.method || 'post' }).then(value => {
       Object.defineProperty(this, 'session', { configurable: true, value });
     }, reason => {
@@ -72,7 +72,7 @@ var depot = new class {
   get uParams() { return this.cache('uParams', () => new UParams()); }
   get schemeMap() {
     let value = Object.create(null);
-    this.config.schemes.forEach(scheme => value[scheme.key] = scheme);
+    this.config.schemes.forEach(scheme => (value[scheme.key] = scheme));
     Object.defineProperty(this, 'schemeMap', { value });
     return value;
   }
@@ -98,4 +98,4 @@ var depot = new class {
       '@@cache': { configurable: true, value: {} }
     });
   }
-};
+}();

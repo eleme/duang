@@ -32,7 +32,7 @@ def((Button, ButtonHollow) => {
       } else {
         $result = api(resolvedKey, { method: 'POST', body: value });
       }
-      return $result.then(doAction).then(result => {
+      return $result.then(doAction).then(() => {
         if (window.depot.module === 'editor') {
           history.back();
         } else {

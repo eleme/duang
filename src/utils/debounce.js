@@ -1,4 +1,4 @@
-const debounce = (func, delay, isImmediate) => {
+const debounce = (func, delay, isImmediate) => { // eslint-disable-line no-unused-vars
   let timeout;
   let result;
   const later = (context, args) => {
@@ -14,7 +14,7 @@ const debounce = (func, delay, isImmediate) => {
       let callNow = !timeout;
       if (callNow) {
         result = func.apply(context, ...args);
-        timeout = setTimeout(() => timeout = null, delay);
+        timeout = setTimeout(() => (timeout = null), delay);
       } else {
         timeout = later(context, ...args);
       }

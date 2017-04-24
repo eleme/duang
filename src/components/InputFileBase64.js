@@ -83,7 +83,7 @@ def((Button) => {
       if (!this.text) this.text = 'Select File';
       this.input.addEventListener('change', event => this.change(event));
       this.fileInfo = new FileInfo().to(this);
-      this.cancelButton = new CancelButton({ onClick: () => this.value = null }).to(this);
+      this.cancelButton = new CancelButton({ onClick: () => (this.value = null) }).to(this);
     }
     change(event) {
       let { target } = event;
@@ -92,7 +92,7 @@ def((Button) => {
       this.fileInfo.element.textContent = file.size.toLocaleString() + ' Bytes';
       let fr = new FileReader();
       this.button.element.classList.add('busy');
-      fr.addEventListener('load', event => {
+      fr.addEventListener('load', () => {
         let { result } = fr;
         let base64 = result.slice(result.indexOf(',') + 1);
         this.value = base64;

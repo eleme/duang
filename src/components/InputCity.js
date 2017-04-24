@@ -40,7 +40,7 @@ def(() => {
       `;
     }
     get template() {
-      return `<li class="{className}"><a href="{href}" on-click="{onClick}" title="{title}">{title}</a></li>`;
+      return '<li class="{className}"><a href="{href}" on-click="{onClick}" title="{title}">{title}</a></li>';
     }
   }
 
@@ -147,7 +147,7 @@ def(() => {
       if (active) active.className = '';
       this.target.element.className = 'active';
     }
-    get template() { return `<a href="JavaScript:;" on-click="{onClick}"></a>`; }
+    get template() { return '<a href="JavaScript:;" on-click="{onClick}"></a>'; }
     get styleSheet() {
       return `
         :scope {
@@ -195,11 +195,11 @@ def(() => {
     }
     updateClass(query, className) {
       Array.from(this.element.querySelectorAll(query))
-        .forEach(item => item.className = className);
+        .forEach(item => (item.className = className));
     }
     get value() { return this.$value; }
     set value(value) {
-      if (value instanceof Array) return value.forEach(item => this.value = item);
+      if (value instanceof Array) return value.forEach(item => (this.value = item));
       value = String(value);
       const index = this.$value.indexOf(value);
       if (index > -1) {
@@ -227,7 +227,7 @@ def(() => {
           groupsKeys.push(groupsKeys[gIndex]);
           groupsKeys.splice(gIndex, 1);
         }
-        groupsKeys.forEach((name, index) => {
+        groupsKeys.forEach((name) => {
           let group = groups[name];
           let target;
           if (group instanceof Array) {

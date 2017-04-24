@@ -2,7 +2,7 @@ def((Output, Item, TableRowActions) => class extends Item {
   get tagName() { return 'td'; }
   get $promise() {
     let resolve, reject;
-    let value = new Promise((...args) => [ resolve, reject ] = args);
+    let value = new Promise((...args) => ([ resolve, reject ] = args));
     value.resolve = resolve;
     value.reject = reject;
     Object.defineProperty(this, '$promise', { value, configurable: true });

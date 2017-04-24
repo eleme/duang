@@ -4,7 +4,7 @@ def(() => class extends Jinkela {
   }
   get value() { return this.element.value; }
   set value(value) { this.element.value = value === void 0 ? '' : value; }
-  get template() { return `<input type="password"/>`; }
+  get template() { return '<input type="password" />'; }
   get styleSheet() {
     return `
       :scope {

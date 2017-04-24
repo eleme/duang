@@ -15,8 +15,8 @@ def((Item) => class extends Item {
   onClick() {
     let { module = 'list', key, where = {}, params = {} } = this;
     let tasks = [];
-    if (this['@where']) tasks.push(api([ this.key, this['@where'] ]).then(result => where = result));
-    if (this['@params']) tasks.push(api([ this.key, this['@params'] ]).then(result => params = result));
+    if (this['@where']) tasks.push(api([ this.key, this['@where'] ]).then(result => (where = result)));
+    if (this['@params']) tasks.push(api([ this.key, this['@params'] ]).then(result => (params = result)));
     const done = () => {
       where = JSON.stringify(where);
       params = JSON.stringify(params);

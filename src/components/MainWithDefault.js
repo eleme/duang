@@ -12,7 +12,6 @@ def((MainWithDefaultItem) => class extends Jinkela {
     });
     MainWithDefaultItem.cast(schemes, { currentKey: key }).to(this);
   }
-  get template() { return `<div></div>`; }
   get styleSheet() {
     return `
       :scope {

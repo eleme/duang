@@ -9,7 +9,7 @@ def((Item) => {
   }
 
   return class extends Jinkela {
-    get tagName() { return `select`; }
+    get tagName() { return 'select'; }
     init() {
       this.element.addEventListener('change', event => this.change(event));
     }

@@ -17,7 +17,7 @@ def((FormItem, FormItemWithDiv) => class extends Jinkela {
       switch (item.squash) {
         case 'direct':
           result[item.key] = value[''];
-          Object.keys(value).filter(key => key).forEach(key => result[key] = value[key]);
+          Object.keys(value).filter(key => key).forEach(key => (result[key] = value[key]));
           break;
         default:
           result[item.key] = value;

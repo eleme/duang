@@ -1,7 +1,7 @@
-def((Input, Button, SubGroupMap) => {
+def((Input, Button) => {
 
   class InternalListItem extends Jinkela {
-    get tagName() { return `li`; }
+    get tagName() { return 'li'; }
     beforeParse(params) {
       let { component, args } = params;
       this.input = new Input({ component, args, onReady: () => this.ready() });
@@ -49,7 +49,6 @@ def((Input, Button, SubGroupMap) => {
       this.countChange();
     }
     add(value) {
-      let { component, args } = this;
       let params = {};
       if (value !== void 0) params.value = value;
       this.items.push(new InternalListItem(this, params).to(this));
