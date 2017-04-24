@@ -1,6 +1,6 @@
 def(() => class extends Jinkela {
   get value() { return this.$value; }
-  set value(value) {
+  set value(value = this.defaultValue) {
     if (typeof value === 'string') {
       try {
         value = JSON.parse(value);
@@ -22,8 +22,8 @@ def(() => class extends Jinkela {
       this.element.addEventListener('click', () => (this.value = !this.$value));
     }
     let { text = {} } = this;
-    this.element.setAttribute('data-text-true', text.true || 'true');
-    this.element.setAttribute('data-text-false', text.false || 'false');
+    this.element.setAttribute('data-text-true', text.true || '开');
+    this.element.setAttribute('data-text-false', text.false || '关');
     if (this.fontSize) this.element.style.fontSize = this.fontSize + 'px';
   }
   get styleSheet() {
