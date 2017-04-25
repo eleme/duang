@@ -16,16 +16,19 @@ def((Input) => {
 
   return class extends Jinkela {
     init() {
-      let { valueInput, readonly, keyFieldAlign, keyFieldWidth, staticKey } = this;
+      let { readonly, staticKey, keyField, keyFieldAlign, keyFieldWidth, valueField } = this;
       if (staticKey) {
         this.keyInputObject = new StaticKey({ value: '', keyFieldAlign, keyFieldWidth }).to(this);
       } else {
-        this.keyInputObject = new Input({ component: 'String', args: { width: 120, readonly } }).to(this);
+        if (!keyField || typeof keyField !== 'object') keyField = { component: 'String', args: { width: 120 } };
+        keyField = Object.assign({}, keyField);
+        keyField.args = Object.assign({ readonly }, keyField.args);
+        this.keyInputObject = new Input(keyField).to(this);
       }
-      if (!valueInput || typeof valueInput !== 'object') valueInput = { component: 'String', args: { width: 200 } };
-      valueInput = Object.assign({}, valueInput);
-      valueInput.args = Object.assign({ readonly }, valueInput.args);
-      this.valueInputObject = new Input(valueInput).to(this);
+      if (!valueField || typeof valueField !== 'object') valueField = { component: 'String', args: { width: 200 } };
+      valueField = Object.assign({}, valueField);
+      valueField.args = Object.assign({ readonly }, valueField.args);
+      this.valueInputObject = new Input(valueField).to(this);
     }
     get value() {
       return {
