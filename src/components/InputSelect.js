@@ -12,6 +12,7 @@ def((Item) => {
     get tagName() { return 'select'; }
     init() {
       this.element.addEventListener('change', event => this.change(event));
+      this.initOptions();
     }
     get readonly() { return this.element.hasAttribute('disabled'); }
     set readonly(value) {
@@ -21,13 +22,15 @@ def((Item) => {
         this.element.removeAttribute('disabled');
       }
     }
-    set options(options) {
+    initOptions() {
+      let { options, defaultValue } = this;
       while (this.element.firstChild) this.element.firstChild.remove();
       if (!options) return;
       if (!(options instanceof Array)) {
         options = Object.keys(options).map(key => ({ text: options[key], value: key }));
       }
       InputSelectItem.cast(options).to(this);
+      this.value = this.$value;
     }
     change() {
       if (typeof this.onChange === 'function') this.onChange(event);
@@ -57,7 +60,7 @@ def((Item) => {
       `;
     }
     get value() { return this.element.value; }
-    set value(value) { this.element.value = value; }
+    set value(value = this.defaultValue) { this.$value = this.element.value = value; }
   };
 
 });
