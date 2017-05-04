@@ -1,4 +1,8 @@
 def((Input, InputSelect, SubGroupMap) => class extends Jinkela {
+  beforeParse(params) {
+    this.options = params.options;
+    this.readonly = params.readonly;
+  }
   get InputSelect() { return InputSelect; }
   get template() {
     return `
