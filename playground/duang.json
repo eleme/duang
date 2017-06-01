@@ -28,6 +28,8 @@
           "title": "参数配置",
           "component": "Code",
           "args": {
+            "width": 300,
+            "height": 200,
             "mode": "yaml"
           }
         }
@@ -527,6 +529,24 @@
           "component": "Custom",
           "args": {
             "html": "<a data-action=\"download\" href=\"Javascript:;\" download=\"duang.json\">点击下载</a>"
+          }
+        }
+      ]
+    },
+    {
+      "key": "doc",
+      "title": "文档编辑",
+      "module": "Editor",
+      "inputs": [
+        {
+          "key": "text",
+          "title": "文档编辑",
+          "component": "Code",
+          "args": {
+            "width": 800,
+            "height": 500,
+            "mode": "markdown",
+            "lineNumbers": true
           }
         }
       ]
