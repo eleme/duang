@@ -7,7 +7,7 @@ def((ListControl, Table, TableTip, Pagination) => class extends Jinkela {
     return `
       <div>
         <jkl-list-control depot="{depot}"></jkl-list-control>
-        <jkl-table depot="{depot}" data="{list}"></jkl-table>
+        <jkl-table if="{list}" depot="{depot}" data="{list}"></jkl-table>
         <jkl-table-tip data="{list}" error="{error}"></jkl-table-tip>
         <meta ref="pagination" />
       </div>
@@ -37,20 +37,21 @@ def((ListControl, Table, TableTip, Pagination) => class extends Jinkela {
   }
   beforeParse(params) {
     this.depot = params.depot || depot;
+  }
+  async init() {
     let { scheme } = this.depot;
-    let { fields } = scheme;
+    let { fields = [] } = scheme;
     if (fields.length) {
-      Promise.all([ this.loadData(), this.loadCount() ]).then(([ data, count ]) => {
+      try {
+        let [ data, count ] = await Promise.all([ this.loadData(), this.loadCount() ]);
         this.list = data;
         this.count = typeof count === 'number' ? count : count.count;
         this.ready();
-      }).then(error => {
+      } catch (error) {
         this.error = error;
-      });
+      }
     } else {
-      setTimeout(() => {
-        this.list = 'EMPTY_FIELDS';
-      });
+      this.list = 'EMPTY_FIELDS';
     }
   }
 });

@@ -1,4 +1,4 @@
-def((Form, FormSubmit, PanelFailure) => class extends Jinkela {
+def((Form, FormSubmit, PanelFailure, ErrorDisplay) => class extends Jinkela {
   load() {
     let { id, resolvedKey } = this.depot || depot;
     if (!id) return Promise.resolve();
@@ -11,8 +11,7 @@ def((Form, FormSubmit, PanelFailure) => class extends Jinkela {
       form.value = value;
       return form.$promise;
     }, error => {
-      let text = error.message || error.name;
-      PanelFailure.popup({ text });
+      new ErrorDisplay({ error }).to(this);
     });
   }
 });
