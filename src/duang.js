@@ -35,8 +35,8 @@
   document.head.appendChild(style);
   let styleSheets = [
     'https://github.elemecdn.com/codemirror/CodeMirror/5.19.0/lib/codemirror.css',
-    'https://github.elemecdn.com/sindresorhus/github-markdown-css/gh-pages/github-markdown.css',
-    'https://github.elemecdn.com/codemirror/CodeMirror/5.19.0/theme/neo.css'
+    'https://github.elemecdn.com/codemirror/CodeMirror/5.19.0/theme/neo.css',
+    'https://github.elemecdn.com/sindresorhus/github-markdown-css/gh-pages/github-markdown.css'
   ];
   styleSheets.forEach(href => {
     let link = document.createElement('link');
@@ -64,6 +64,7 @@
     ],
     [
       'https://github.elemecdn.com/uglifyjs!codemirror/CodeMirror/5.19.0/mode/yaml/yaml.js',
+      'https://github.elemecdn.com/uglifyjs!codemirror/CodeMirror/5.19.0/mode/markdown/markdown.js',
       'https://github.elemecdn.com/chjj/marked/v0.3.6/marked.min.js'
     ],
     [ // Plugins
