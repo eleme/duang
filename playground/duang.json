@@ -532,24 +532,6 @@
           }
         }
       ]
-    },
-    {
-      "key": "doc",
-      "title": "文档编辑",
-      "module": "Editor",
-      "inputs": [
-        {
-          "key": "text",
-          "title": "文档编辑",
-          "component": "Code",
-          "args": {
-            "width": 800,
-            "height": 500,
-            "mode": "markdown",
-            "lineNumbers": true
-          }
-        }
-      ]
     }
   ]
 }

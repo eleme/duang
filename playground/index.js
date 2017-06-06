@@ -12,9 +12,9 @@
     schemes: []
   };
   let dependencies = [
-    '/playground/apis/basic.js',
-    '/playground/apis/scheme.js',
-    '/playground/apis/schemes.js'
+    '/duang/playground/apis/basic.js',
+    '/duang/playground/apis/scheme.js',
+    '/duang/playground/apis/schemes.js'
   ];
   addEventListener('click', ({target}) => {
     if (target.getAttribute('data-action') !== 'download') return;

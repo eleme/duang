@@ -11,10 +11,7 @@ def(() => class extends Jinkela {
     const modelib = this.modelib ? this.modelib : this.mode;
     this.$editor = null;
 
-    this.editor = new Promise((resolve, reject) => {
-      if (this.$editor) {
-        return resolve(this.$editor);
-      }
+    this.task = new Promise((resolve, reject) => {
       require([
         `codemirror/lib/codemirror`,
         `codemirror/mode/${modelib}/${modelib}`
@@ -31,40 +28,40 @@ def(() => class extends Jinkela {
     });
   }
   enable() {
-    return this.editor.then(editor => {
+    return this.task.then(editor => {
       editor.setOption('readOnly', false);
       this.element.classList.remove('readonly');
     });
   }
   disable() {
-    return this.editor.then(editor => {
+    return this.task.then(editor => {
       editor.setOption('readOnly', true);
       this.element.classList.add('readony');
     });
   }
   on(...args) {
-    return this.editor.then(editor => editor.on(...args));
+    return this.task.then(editor => editor.on(...args));
   }
   execCommand(...args) {
-    return this.editor.then(editor => editor.execCommand(...args));
+    return this.task.then(editor => editor.execCommand(...args));
   }
   focus() {
-    return this.editor.then(editor => editor.focus());
+    return this.task.then(editor => editor.focus());
   }
   refresh() {
-    this.editor.then(editor => {
-      setTimeout(() => editor.refresh(), 0);
+    return this.task.then(editor => {
+      editor.refresh()
     });
   }
   get value() {
     return this.$editor ? this.$editor.getValue() : '';
   }
   set value(value) {
-    if (value == null || value === '') return; // eslint-disable-line
+    if (value == null || value === '') return; // eslint-disable-line eqeqeq
     if (value instanceof Object) {
       value = JSON.stringify(value);
     }
-    return this.editor.then(editor => {
+    return this.task.then(editor => {
       editor.setValue(value);
       this.refresh();
     });

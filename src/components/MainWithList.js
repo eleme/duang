@@ -41,7 +41,7 @@ def((ListControl, Table, TableTip, Pagination) => class extends Jinkela {
   async init() {
     let { scheme } = this.depot;
     let { fields = [] } = scheme;
-    if (fields.length) {
+    if (fields && fields.length) {
       try {
         let [ data, count ] = await Promise.all([ this.loadData(), this.loadCount() ]);
         this.list = data;
