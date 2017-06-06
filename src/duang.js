@@ -35,6 +35,7 @@
   document.head.appendChild(style);
   let styleSheets = [
     'https://github.elemecdn.com/codemirror/CodeMirror/5.19.0/lib/codemirror.css',
+    'https://github.elemecdn.com/sindresorhus/github-markdown-css/gh-pages/github-markdown.css',
     'https://github.elemecdn.com/codemirror/CodeMirror/5.19.0/theme/neo.css'
   ];
   styleSheets.forEach(href => {
@@ -62,7 +63,8 @@
       'https://github.elemecdn.com/uglifyjs!codemirror/CodeMirror/5.19.0/lib/codemirror.js'
     ],
     [
-      'https://github.elemecdn.com/uglifyjs!codemirror/CodeMirror/5.19.0/mode/yaml/yaml.js'
+      'https://github.elemecdn.com/uglifyjs!codemirror/CodeMirror/5.19.0/mode/yaml/yaml.js',
+      'https://github.elemecdn.com/chjj/marked/v0.3.6/marked.min.js'
     ],
     [ // Plugins
       'https://github.elemecdn.com/uglifyjs!requirejs/requirejs/2.2.0/require.js'
@@ -70,7 +72,7 @@
     [ // Components
       'https://github.elemecdn.com/YanagiEiichi/jinkela-datepicker/1.2.3/datepicker.js',
       'https://github.elemecdn.com/YanagiEiichi/jinkela-timepicker/1.0.0/timepicker.js',
-      'https://github.elemecdn.com/YanagiEiichi/jinkela-dialog/0.1.6/dialog.js'
+      'https://github.elemecdn.com/YanagiEiichi/jinkela-dialog/0.1.6/dialog.js',
     ],
     [ // Entry
       'utils/depot.js'
