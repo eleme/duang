@@ -321,6 +321,7 @@ Input 用于接受用户的输入，然后提交给后端 API 的一类组件，
 | ---- | ---- | ---- |
 | width | `Number` or `String` | 宽度（px） |
 | height | `Number` or `Height` | 高度（px） |
+| modelib | `String` | 支持 `mode` 的 js 文件名, 默认使用 `mode` 参数寻找文件。 |
 
 示例配置
 

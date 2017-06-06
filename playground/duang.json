@@ -28,6 +28,8 @@
           "title": "参数配置",
           "component": "Code",
           "args": {
+            "width": 300,
+            "height": 200,
             "mode": "yaml"
           }
         }
