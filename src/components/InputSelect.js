@@ -30,7 +30,7 @@ def((Item) => {
         options = Object.keys(options).map(key => ({ text: options[key], value: key }));
       }
       InputSelectItem.cast(options).to(this);
-      this.value = this.$value;
+      if (this.$value !== void 0) this.value = this.$value;
     }
     change() {
       if (typeof this.onChange === 'function') this.onChange(event);
