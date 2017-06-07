@@ -28,6 +28,7 @@ def((Button, Output) => {
       } else {
         this.enable();
       }
+      this.element.addEventListener('click', () => this.focus());
     }
     initPreviewButton() {
       new Preview({ onClick: () => this.preview() }).to(this);
@@ -75,9 +76,8 @@ def((Button, Output) => {
       return this.editor.getValue();
     }
     set value(value) {
-      if (value == null || value === '') return; // eslint-disable-line eqeqeq
       if (value instanceof Object) value = JSON.stringify(value);
-      this.editor.setValue(value);
+      this.editor.setValue(value || '');
       this.refresh();
     }
     get styleSheet() {
