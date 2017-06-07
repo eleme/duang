@@ -49,6 +49,7 @@ def((Button) => {
         scrollPastEnd: true,
         showMatchesOnScrollbar: true
       }, this.config));
+      this.refresh();
       this.editor.on('focus', () => this.element.classList.add('focus'));
       this.editor.on('blur', () => this.element.classList.remove('focus'));
     }
