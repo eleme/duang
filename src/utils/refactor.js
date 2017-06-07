@@ -22,5 +22,5 @@ const refactor = (tmpl, data) => {
     }
     result[key] = value;
     return result;
-  }, {});
+  }, tmpl instanceof Array ? [] : {});
 };
