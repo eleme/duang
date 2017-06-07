@@ -8,7 +8,7 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "eslint ."
+    "test": "eslint . --fix"
   },
   "repository": {
     "type": "git",
@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/eleme/duang#readme",
   "devDependencies": {
-    "eslint": "^3.19.0",
+    "babel-eslint": "^7.2.3",
     "eslint-config-elemefe": "^0.3.0"
   }
 }

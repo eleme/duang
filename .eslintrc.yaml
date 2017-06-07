@@ -1,0 +1,27 @@
+---
+  env:
+    es6: true
+    browser: true
+  parserOptions:
+    ecmaVersion: 2017
+  globals:
+    CodeMirror: false
+    UParams: false
+    Jinkela: false
+    JSONPath: false
+    TimePicker: false
+    DatePicker: false
+    debounce: false
+    define: false
+    doAction: false
+    refactor: false
+    condition: false
+    dialog: false
+    depot: false
+    req: false
+    api: false
+    config: false
+    def: false
+    excavate: false
+    marked: false
+  extends: elemefe

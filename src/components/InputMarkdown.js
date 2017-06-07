@@ -1,8 +1,8 @@
-def((Button, Output) => {
+def((Button) => {
 
   class Preview extends Button {
     beforeParse() {
-      this.text = '预览'
+      this.text = '预览';
     }
     init() {
 

@@ -50,6 +50,7 @@
     ].filter(Boolean),
     [ // Basic
       'https://npm.elemecdn.com/uglifyjs!jinkela@1.2.19/umd.js',
+      'https://npm.elemecdn.com/excavator@0.2.1/bundle.js',
       'https://github.elemecdn.com/YanagiEiichi/uparams/1.3.0/uparams.min.js',
       'https://github.elemecdn.com/uglifyjs!s3u/JSONPath/v0.15.0/lib/jsonpath.js',
       'https://github.elemecdn.com/YanagiEiichi/fceptor/0.2.11/fceptor.js',
@@ -73,7 +74,7 @@
     [ // Components
       'https://github.elemecdn.com/YanagiEiichi/jinkela-datepicker/1.2.3/datepicker.js',
       'https://github.elemecdn.com/YanagiEiichi/jinkela-timepicker/1.0.0/timepicker.js',
-      'https://github.elemecdn.com/YanagiEiichi/jinkela-dialog/0.1.6/dialog.js',
+      'https://github.elemecdn.com/YanagiEiichi/jinkela-dialog/0.1.6/dialog.js'
     ],
     [ // Entry
       'utils/depot.js'

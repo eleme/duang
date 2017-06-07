@@ -23,7 +23,7 @@ def((Item) => {
       }
     }
     initOptions() {
-      let { options, defaultValue } = this;
+      let { options } = this;
       while (this.element.firstChild) this.element.firstChild.remove();
       if (!options) return;
       if (!(options instanceof Array)) {

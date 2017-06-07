@@ -1,5 +1,6 @@
 var depot = new class { // eslint-disable-line no-unused-vars
   constructor() {
+    Object.defineProperty(this, 'moduleComponent', { writable: true, configurable: true });
     if (document.readyState === 'complete') {
       setTimeout(() => this.hashchange());
     } else {

@@ -2,7 +2,7 @@ def(() => class extends Jinkela {
   init() {
     require.config({
       paths: {
-        'codemirror': 'https://github.elemecdn.com/uglifyjs!/codemirror/CodeMirror/5.19.0',
+        'codemirror': 'https://github.elemecdn.com/uglifyjs!/codemirror/CodeMirror/5.19.0'
       }
     });
     if (!this.mode) {
@@ -11,14 +11,14 @@ def(() => class extends Jinkela {
     const modelib = this.modelib ? this.modelib : this.mode;
     this.$editor = null;
 
-    this.task = new Promise((resolve, reject) => {
+    this.task = new Promise((resolve) => {
       require([
-        `codemirror/lib/codemirror`,
+        'codemirror/lib/codemirror',
         `codemirror/mode/${modelib}/${modelib}`
       ], CodeMirror => {
         this.$editor = CodeMirror(this.element, Object.assign({
           tabSize: 2,
-          theme: 'neo',
+          theme: 'neo'
         }, this));
         this.$editor.on('focus', () => this.element.classList.add('focus'));
         this.$editor.on('blur', () => this.element.classList.remove('focus'));
@@ -50,7 +50,7 @@ def(() => class extends Jinkela {
   }
   refresh() {
     return this.task.then(editor => {
-      editor.refresh()
+      editor.refresh();
     });
   }
   get value() {

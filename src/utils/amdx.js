@@ -7,5 +7,9 @@ const def = factory => { // eslint-disable-line no-unused-vars
 };
 
 const req = dep => new Promise((resolve, reject) => { // eslint-disable-line no-unused-vars
-  require([ 'components/' + dep.replace(/\$/g, '/') + '.js' ], resolve, reject);
+  let name = dep.replace(/\$/g, '/');
+  require([ `components/${name}.js` ], resolve, error => {
+    console.error(error);
+    throw new Error(`Unknown component <${name}>`);
+  });
 });
