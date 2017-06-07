@@ -44,6 +44,7 @@ def((ListControl, Table, TableTip, Pagination) => class extends Jinkela {
     if (fields && fields.length) {
       try {
         let [ data, count ] = await Promise.all([ this.loadData(), this.loadCount() ]);
+        if (!(data instanceof Array)) throw new Error('返回结果必须是数组');
         this.list = data;
         this.count = typeof count === 'number' ? count : count.count;
         this.ready();
