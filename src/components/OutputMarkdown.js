@@ -15,6 +15,12 @@ def(() => class extends Jinkela {
   get styleSheet() {
     return `
       :scope {
+        font-size: inherit;
+        color: inherit;
+        &::before { display: none; }
+        table {
+          font-size: inherit;
+        }
       }
     `;
   }

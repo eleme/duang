@@ -72,7 +72,7 @@ def((Button) => {
       return this.editor.focus();
     }
     refresh() {
-      if (!document.body.contains(this.element)) return this.timer = setTimeout(() => this.refresh(), 16);
+      if (!document.body.contains(this.element)) return setTimeout(() => this.refresh(), 16);
       this.editor.refresh();
     }
     get value() {
