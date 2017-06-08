@@ -1,13 +1,16 @@
 def(() => class extends Jinkela {
+  get value() { return this.element.value; }
+  set value(value = this.defaultValue) {
+    this.$hasValue = true;
+    this.element.value = value === void 0 ? '' : value;
+  }
   init() {
-    this.value = this.default || '';
     if (this.width !== void 0) this.element.style.width = this.width;
     if (this.readonly) this.element.setAttribute('readonly', 'readonly');
     if ('placeholder' in this) this.element.setAttribute('placeholder', this.placeholder);
+    if (!this.$hasValue) this.value = this.default; // default 已废弃，暂时保持兼容，请使用 defaultValue
   }
-  get value() { return this.element.value; }
-  set value(value) { this.element.value = value === void 0 ? '' : value; }
-  get template() { return '<input/>'; }
+  get template() { return '<input type="text" />'; }
   get styleSheet() {
     return `
       :scope {

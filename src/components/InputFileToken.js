@@ -76,7 +76,8 @@ def((Button) => {
     get ClearButton() { return ClearButton; }
     get info() { return this.preview.info || {}; }
     get value() { return this.$value; }
-    set value(value) {
+    set value(value = this.defaultValue) {
+      this.$hasValue = true;
       this.$value = value;
       this.token = value;
     }
@@ -96,6 +97,7 @@ def((Button) => {
     init() {
       if (!this.text) this.text = '请选择文件';
       this.input.addEventListener('change', event => this.change(event));
+      if (!this.$hasValue) this.value = void 0;
     }
     change(event) {
       let { target } = event;

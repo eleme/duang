@@ -1,14 +1,15 @@
 def(() => class extends Jinkela {
   init() {
     this.element.addEventListener('blur', event => this.blur(event));
-    this.value = this.default || this.min;
     if (this.min !== void 0) this.element.min = this.min;
     if (this.max !== void 0) this.element.max = this.max;
     if (this.width !== void 0) this.element.style.width = this.width;
     if (this.readonly) this.element.setAttribute('readonly', 'readonly');
+    if (!('defaultValue' in this)) this.defaultValue = this.min;
+    this.value = this.default; // default 已废弃，暂时保持兼容，请使用 defaultValue
   }
   get value() { return +this.element.value; }
-  set value(value) { this.element.value = value; }
+  set value(value = this.defaultValue) { this.element.value = value; }
   get template() { return '<input type="number" />'; }
   blur() {
     if (this.min !== void 0 && this.value < this.min) this.value = this.min;

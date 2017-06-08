@@ -91,6 +91,7 @@ def((Input, Button) => {
       this.list = new InternalList(this).to(this);
       if (!this.noAdd) this.button = new Button({ text: '+', onClick: () => this.add() }).to(this);
       this.element.addEventListener('countchange', event => this.countChange(event));
+      if (!this.$hasValue) this.value = void 0;
     }
     countChange(event) {
       event.stopPropagation();
@@ -98,7 +99,10 @@ def((Input, Button) => {
     }
     add() { this.list.add(); }
     get value() { return this.list.value; }
-    set value(value) { this.list.value = value; }
+    set value(value = this.defaultValue) {
+      this.$hasValue = true;
+      this.list.value = value;
+    }
   }
 
   return InputList;

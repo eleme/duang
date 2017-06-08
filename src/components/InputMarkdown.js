@@ -1,11 +1,8 @@
-def((Button) => {
+def((ButtonHollow) => {
 
-  class Preview extends Button {
+  class Preview extends ButtonHollow {
     beforeParse() {
       this.text = '预览';
-    }
-    init() {
-
     }
     get styleSheet() {
       return `
@@ -29,6 +26,7 @@ def((Button) => {
         this.enable();
       }
       this.element.addEventListener('click', () => this.focus());
+      if (!this.$hasValue) this.value = void 0;
     }
     initPreviewButton() {
       new Preview({ onClick: () => this.preview() }).to(this);
@@ -78,9 +76,10 @@ def((Button) => {
     get value() {
       return this.editor.getValue();
     }
-    set value(value) {
-      if (value instanceof Object) value = JSON.stringify(value);
-      this.editor.setValue(value || '');
+    set value(value = this.defaultValue) {
+      this.$hasValue = true;
+      if (value instanceof Object) value = JSON.stringify(value, 0, 2);
+      this.editor.setValue(value === void 0 ? '' : String(value));
       this.refresh();
     }
     get styleSheet() {

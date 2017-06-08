@@ -1,9 +1,15 @@
 def(() => class extends Jinkela {
+  get value() { return this.element.value; }
+  set value(value = this.defaultValue) {
+    this.$hasValue = true;
+    this.element.value = value === void 0 ? '' : value;
+  }
   init() {
     if (this.width !== void 0) this.element.style.width = this.width;
+    if (this.readonly) this.element.setAttribute('readonly', 'readonly');
+    if ('placeholder' in this) this.element.setAttribute('placeholder', this.placeholder);
+    if (!this.$hasValue) this.value = void 0;
   }
-  get value() { return this.element.value; }
-  set value(value) { this.element.value = value === void 0 ? '' : value; }
   get template() { return '<input type="password" />'; }
   get styleSheet() {
     return `

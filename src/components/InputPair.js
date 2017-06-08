@@ -29,6 +29,7 @@ def((Input) => {
       valueField = Object.assign({}, valueField);
       valueField.args = Object.assign({ readonly }, valueField.args);
       this.valueInputObject = new Input(valueField).to(this);
+      if (!this.$hasValue) this.value = void 0;
     }
     get value() {
       return {
@@ -36,7 +37,8 @@ def((Input) => {
         [this.valueFieldName || 'value']: this.valueInputObject.value
       };
     }
-    set value(pair) {
+    set value(pair = this.defaultValue) {
+      this.$hasValue = true;
       pair = Object(pair);
       this.keyInputObject.value = pair[this.keyFieldName || 'key'];
       this.valueInputObject.value = pair[this.valueFieldName || 'value'];

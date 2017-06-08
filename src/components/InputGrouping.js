@@ -1,7 +1,7 @@
 def((Input, InputSelect, SubGroupMap) => class extends Jinkela {
   init() {
-    let { depot } = this;
-    let group = this.inputs || [];
+    let { depot, inputs } = this;
+    let group = inputs || [];
     if (group.length) {
       let list = new SubGroupMap({ group, depot });
       this.list = this.list ? list.renderWith(this.list) : list.to(this);
@@ -13,11 +13,13 @@ def((Input, InputSelect, SubGroupMap) => class extends Jinkela {
       this.element.dataset.columns = this.columns;
       this.element.style.columns = this.columns;
     }
+    if (!this.$hasValue) this.value = void 0;
   }
   get value() {
     return Object.assign({}, this.list ? this.list.value : {});
   }
-  set value(value) {
+  set value(value = this.defaultValue) {
+    this.$hasValue = true;
     if (value === void 0) return;
     if (this.list) this.list.value = value;
   }

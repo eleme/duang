@@ -16,7 +16,7 @@ def((Input, InputSelect, SubGroupMap) => class extends Jinkela {
     `;
   }
   init() {
-    this.selectChange();
+    if (!this.$hasValue) this.value = void 0;
   }
   get selectChange() {
     let value = () => {
@@ -37,9 +37,9 @@ def((Input, InputSelect, SubGroupMap) => class extends Jinkela {
     let base = this.hideKey ? {} : { [this.aliasKey || '']: this.select.value };
     return Object.assign(base, this.table ? this.table.value : {});
   }
-  set value(value) {
-    if (value == void 0) return; // eslint-disable-line eqeqeq
-    this.select.value = value[this.aliasKey || ''];
+  set value(value = this.defaultValue) {
+    this.$hasValue = true;
+    if (value) this.select.value = value[this.aliasKey || ''];
     this.selectChange();
     if (this.table) this.table.value = value;
   }

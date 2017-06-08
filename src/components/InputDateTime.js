@@ -4,6 +4,7 @@ def(() => {
     init() {
       this.dp = new DatePicker().to(this);
       this.tp = new TimePicker().to(this);
+      if (!this.$hasValue) this.value = void 0;
     }
     get styleSheet() {
       return `
@@ -33,7 +34,8 @@ def(() => {
       if (seconds) date.setSeconds(seconds);
       return date;
     }
-    set value(value) {
+    set value(value = this.defaultValue) {
+      this.$hasValue = true;
       if (typeof value === 'string') value = new Date(value);
       if (!(value instanceof Date)) return;
       this.dp.value = value;

@@ -16,7 +16,7 @@ def((Button) => {
     set value(value) {
       this.$value = value;
       this.visible = !!value;
-      this.link = `data:application/octet-stream,${value}`;
+      this.link = `data:application/octet-stream;base64,${value}`;
     }
     get value() { return this.$value; }
     get template() { return '<a if="{visible}" href="{link}" download>{downloadText}</a>'; }
@@ -64,8 +64,10 @@ def((Button) => {
     get SpanButton() { return SpanButton; }
     get DownloadLink() { return DownloadLink; }
     get value() { return this.$value; }
-    set value(value) {
+    set value(value = this.defaultValue) {
+      this.$hasValue = true;
       this.$value = value;
+      this.base64 = value;
       this.label.setAttribute('notEmpty', !!value);
     }
     get template() {
@@ -74,7 +76,7 @@ def((Button) => {
           <label ref="label">
             <input ref="input" type="file" />
             <jkl-span-button ref="button" text={text}></jkl-span-button>
-            <jkl-download-link value={value} downloadText={downloadText}></jkl-download-link>
+            <jkl-download-link value="{base64}" downloadText="{downloadText}"></jkl-download-link>
           </label>
         </div>
       `;
@@ -84,6 +86,7 @@ def((Button) => {
       this.input.addEventListener('change', event => this.change(event));
       this.fileInfo = new FileInfo().to(this);
       this.cancelButton = new CancelButton({ onClick: () => (this.value = null) }).to(this);
+      if (!this.$hasValue) this.value = void 0;
     }
     change(event) {
       let { target } = event;
