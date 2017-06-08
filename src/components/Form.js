@@ -25,6 +25,7 @@ def((FormSubmit, FormItem, Alert) => class extends Jinkela {
         if (!item.args) item.args = {};
         item.args.readonly = true;
       }
+      if (item[action] === 'hidden') item.hidden = true;
     });
     this.list = FormItem.cast(inputs, { depot });
     this.form = this;

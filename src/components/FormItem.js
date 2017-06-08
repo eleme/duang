@@ -18,6 +18,7 @@ def((Item, Input) => {
     }
     init() {
       this.ctrl.depot = this.depot;
+      if (this.hidden) this.element.style.display = 'none';
       this.input = this.createInput().to(this.ctrl);
       this.$promise = this.input.$promise;
       if ('title' in this) {
