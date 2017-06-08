@@ -47,7 +47,8 @@ def((Button) => {
         mode: 'markdown',
         tabSize: 2,
         scrollPastEnd: true,
-        showMatchesOnScrollbar: true
+        showMatchesOnScrollbar: true,
+        autoRefresh: true
       }, this.config));
       this.refresh();
       this.editor.on('focus', () => this.element.classList.add('focus'));

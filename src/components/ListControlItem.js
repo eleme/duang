@@ -3,29 +3,15 @@ def((Button, Confirm) => class extends Button {
     this.text = this.title;
   }
   onClick() {
-    this.confirm ? Confirm.popup(this.confirm).then(result => result && this.exec()) : this.exec();
+    this.confirm ? Confirm.popup(this.confirm, this.depot).then(result => result && this.exec()) : this.exec();
   }
   get exec() { return this[this.method + 'Action'] || this.defaultAction; }
   goAction() {
     let { module, key, params, _blank, target, title, depot } = this;
     let { scheme, where } = depot;
-    params = JSON.stringify(refactor(params, { params: depot.params, scheme, where }));
-    let uParams = new UParams({ module, key, params });
+    params = refactor(params, { params: depot.params, scheme, where });
     if (_blank) target = '_blank';
-    switch (target) {
-      case '_blank':
-        return open(location.href.replace(/(#.*)?$/, '#' + uParams));
-      case 'dialog':
-        return req('MainWith' + String(module || 'default').replace(/./, $0 => $0.toUpperCase())).then(Main => {
-          let main = new Main({ depot: depot.fork(uParams), title });
-          return Promise.resolve(main.$promise).then(() => dialog.popup(main));
-        }, error => {
-          console.log(error); // eslint-disable-line
-        });
-      default:
-        location.hash = '#' + uParams;
-        return;
-    }
+    return depot.go({ args: { module, key, params }, target, title });
   }
   createAction() {
     let { depot } = this;

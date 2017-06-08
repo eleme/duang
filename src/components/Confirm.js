@@ -1,7 +1,7 @@
 def((Button) => class extends Jinkela {
-  static popup(config) {
+  static popup(config, depot) {
     if (typeof config === 'string') config = { text: config };
-    let ins = new this(config);
+    let ins = new this(config, { depot });
     if (config.autoCancel !== false) ins.then(dialog.cancel, dialog.cancel);
     dialog.popup(ins);
     return Promise.resolve(ins);
@@ -10,8 +10,8 @@ def((Button) => class extends Jinkela {
     this.title = this.title || 'Confirm';
     this.text = this.text || 'Are you sure?';
 
-    if (this.onYes.action) this.onYes = doAction.bind(null, this.onYes);
-    if (this.onCancel.action) this.onCancel = doAction.bind(null, this.onCancel);
+    if (this.onYes.action) this.onYes = doAction.bind(null, this.onYes, this.depot);
+    if (this.onCancel.action) this.onCancel = doAction.bind(null, this.onCancel, this.depot);
     let onYes = () => this.resolve(Promise.resolve().then(this.onYes));
     let onCancel = () => this.resolve(Promise.resolve().then(this.onCancel));
 

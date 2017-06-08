@@ -1,4 +1,5 @@
 var depot = new class { // eslint-disable-line no-unused-vars
+
   constructor() {
     Object.defineProperty(this, 'moduleComponent', { writable: true, configurable: true });
     if (document.readyState === 'complete') {
@@ -8,6 +9,7 @@ var depot = new class { // eslint-disable-line no-unused-vars
     }
     addEventListener('hashchange', () => this.hashchange());
   }
+
   onRouteChange() {
     let moduleName = String(this.module || 'default');
     let tasks = Promise.all([ req('Frame'), req('MainWith' + moduleName.replace(/./, $0 => $0.toUpperCase())) ]);
@@ -92,11 +94,39 @@ var depot = new class { // eslint-disable-line no-unused-vars
     if (orderBy) params.orderBy = orderBy;
     return new UParams(params);
   }
+
   refresh() { this.onRouteChange(); }
+
+  async go({ args, target, title }) {
+    args = Object.assign({}, args);
+    if (args.where && typeof args.where === 'object') args.where = JSON.stringify(args.where);
+    if (args.params && typeof args.params === 'object') args.params = JSON.stringify(args.params);
+    let uParams = new UParams(args);
+    switch (target) {
+      case '_blank':
+        return open(location.href.replace(/(#.*)?$/, '#!' + uParams));
+      case 'dialog':
+        try {
+          let name = String(args.module || 'default').replace(/./, $0 => $0.toUpperCase());
+          let Main = await req(`MainWith${name}`);
+          let main = new Main({ depot: this.fork(uParams), title });
+          return Promise.resolve(main.$promise).then(() => dialog.popup(main));
+        } catch (error) {
+          return console.error(error); // eslint-disable-line
+        }
+      case 'replace':
+        return location.replace(location.href.replace(/(#.*)?$/, '#!' + uParams));
+      default:
+        location.hash = '#!' + uParams;
+        return;
+    }
+  }
+
   fork(uParams) {
     return Object.create(Object.getPrototypeOf(this), {
       uParams: { configurable: true, value: uParams },
       '@@cache': { configurable: true, value: {} }
     });
   }
+
 }();

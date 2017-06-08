@@ -51,7 +51,7 @@
     [ // Basic
       'https://npm.elemecdn.com/uglifyjs!jinkela@1.2.19/umd.js',
       'https://npm.elemecdn.com/excavator@0.2.1/bundle.js',
-      'https://github.elemecdn.com/YanagiEiichi/uparams/1.3.0/uparams.min.js',
+      'https://github.elemecdn.com/YanagiEiichi/uparams/1.4.0/UParams.min.js',
       'https://github.elemecdn.com/uglifyjs!s3u/JSONPath/v0.15.0/lib/jsonpath.js',
       'https://github.elemecdn.com/YanagiEiichi/fceptor/0.2.11/fceptor.js',
       'https://github.elemecdn.com/ElemeFE/pocket-noodles/1.0.2/index.js',

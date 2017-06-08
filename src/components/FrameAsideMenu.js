@@ -79,7 +79,7 @@ def((Item) => {
       const done = () => {
         where = JSON.stringify(where);
         params = JSON.stringify(params);
-        location.hash = '#' + new UParams({ module, key, where, params });
+        location.hash = '#!' + new UParams({ module, key, where, params });
       };
       tasks.length ? Promise.all(tasks).then(done) : done();
     }

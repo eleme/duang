@@ -3,30 +3,18 @@ def((ListItem, Confirm) => class extends ListItem {
     this.text = this.title || this.method;
   }
   onClick() {
-    this.confirm ? Confirm.popup(this.confirm).then(result => result && this.exec()) : this.exec();
+    this.confirm ? Confirm.popup(this.confirm, this.depot).then(result => result && this.exec()) : this.exec();
   }
   get exec() { return this[this.method + 'Action'] || this.defaultAction; }
+
   goAction() {
     let { module, key, params, _blank, target, title, where, depot } = this;
-    params = JSON.stringify(refactor(params || {}, this.fieldMap));
-    where = JSON.stringify(refactor(where || {}, this.fieldMap));
-    let uParams = new UParams({ module, key, params, where });
+    params = refactor(params || {}, this.fieldMap);
+    where = refactor(where || {}, this.fieldMap);
     if (_blank) target = '_blank';
-    switch (target) {
-      case '_blank':
-        return open(location.href.replace(/(#.*)?$/, '#' + uParams));
-      case 'dialog':
-        return req('MainWith' + String(module || 'default').replace(/./, $0 => $0.toUpperCase())).then(Main => {
-          let main = new Main({ depot: depot.fork(uParams), title });
-          return Promise.resolve(main.$promise).then(() => dialog.popup(main));
-        }, error => {
-          console.log(error); // eslint-disable-line
-        });
-      default:
-        location.hash = '#' + uParams;
-        return;
-    }
+    return depot.go({ args: { module, key, params, where }, target, title });
   }
+
   editAction() {
     let { depot } = this;
     this.module = 'editor';

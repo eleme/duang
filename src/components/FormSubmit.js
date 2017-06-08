@@ -32,9 +32,14 @@ def((Button, ButtonHollow) => {
       } else {
         $result = api(resolvedKey, { method: 'POST', body: value });
       }
-      return $result.then(doAction).then(() => {
+      return $result.then(result => doAction(result, depot)).then(() => {
         if (window.depot.module === 'editor') {
-          history.back();
+          if (history.length > 1) {
+            history.back();
+          } else {
+            if (opener) opener.depot.refresh();
+            close();
+          }
         } else {
           dialog.cancel();
           window.depot.refresh();
