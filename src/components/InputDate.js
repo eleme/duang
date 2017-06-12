@@ -24,6 +24,9 @@ def(() => {
       this.$hasValue = true;
       super.value = format(value);
     }
+    get value() {
+      return super.value;
+    }
     get styleSheet() {
       return `
         :scope {
