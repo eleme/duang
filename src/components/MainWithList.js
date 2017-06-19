@@ -13,6 +13,13 @@ def((ListControl, Table, TableTip, Pagination) => class extends Jinkela {
       </div>
     `;
   }
+  get styleSheet() {
+    return `
+      :scope {
+        width: 100%;
+      }
+    `;
+  }
   set count(value) {
     this.$count = value;
     this.visible = value === value;

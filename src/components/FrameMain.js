@@ -4,6 +4,7 @@ def(() => class extends Jinkela {
       :scope {
         box-sizing: border-box;
         height: 100%;
+        width: 100%;
         flex: 1;
         overflow: auto;
       }

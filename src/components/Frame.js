@@ -63,6 +63,7 @@ def((FrameLogo, FrameNav, FrameAside, FrameMain) => class extends Jinkela {
         display: flex;
         > section {
           display: flex;
+          overflow: hidden;
           flex-direction: column;
         }
         height: 100%;

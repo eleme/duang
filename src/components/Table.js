@@ -1,19 +1,25 @@
 def((TableRow, TableHead, TableCaption) => class extends Jinkela {
-  get tagName() { return 'table'; }
+  get template() {
+    return `
+      <div>
+        <table ref="table"></table>
+      </div>
+    `;
+  }
   get caption() {
     let { depot = window.depot } = this;
     let { scheme } = depot;
     let { captionType = 'table' } = scheme;
     let value;
     if (captionType === 'table' && scheme.caption) {
-      value = new TableCaption({ depot }).to(this);
+      value = new TableCaption({ depot }).to(this.table);
     }
     Object.defineProperty(this, 'caption', { value, configurable: true });
     return value;
   }
   get head() {
     let { depot = window.depot } = this;
-    let value = new TableHead({ depot }).to(this);
+    let value = new TableHead({ depot }).to(this.table);
     Object.defineProperty(this, 'head', { value, configurable: true });
     return value;
   }
@@ -39,7 +45,7 @@ def((TableRow, TableHead, TableCaption) => class extends Jinkela {
     let rows = list.map(fieldMap => new TableRow({ fieldMap, depot }));
     Promise.all(rows.map(row => row.$promise)).then(rows => {
       this.touch();
-      rows.forEach(row => row.to(this));
+      rows.forEach(row => row.to(this.table));
     });
   }
   touch() {
@@ -49,14 +55,20 @@ def((TableRow, TableHead, TableCaption) => class extends Jinkela {
   get styleSheet() {
     return `
       :scope {
-        color: #666;
-        border: 1px solid #e0e6ed;
-        font-size: 14px;
-        line-height: 40px;
         margin: 1em;
-        background: #fff;
         width: calc(100% - 2em);
-        border-collapse: collapse;
+        overflow: auto;
+        border: 1px solid #e0e6ed;
+        box-sizing: border-box;
+        > table {
+          margin-bottom: -1px;
+          color: #666;
+          font-size: 14px;
+          line-height: 40px;
+          width: 100%;
+          background: #fff;
+          border-collapse: collapse;
+        }
       }
     `;
   }
