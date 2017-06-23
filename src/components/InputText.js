@@ -9,6 +9,7 @@ def(() => class extends Jinkela {
     if (this.height !== void 0) this.element.style.height = this.height;
     if (this.readonly) this.element.setAttribute('readonly', 'readonly');
     if ('placeholder' in this) this.element.setAttribute('placeholder', this.placeholder);
+    if ('maxlength' in this) this.element.setAttribute('maxlength', this.maxlength);
     if (!this.$hasValue) this.value = this.default; // default 已废弃，暂时保持兼容，请使用 defaultValue
   }
   get tagName() { return 'textarea'; }
