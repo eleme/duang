@@ -1,4 +1,4 @@
-def((Item, Input) => {
+def((Item, Input, Output) => {
 
   return class extends Item {
     set value(value) {
@@ -13,6 +13,7 @@ def((Item, Input) => {
         <tr>
           <td ref="text"></td>
           <td ref="ctrl"></td>
+          <td ref="desc"></td>
         </tr>
       `;
     }
@@ -26,6 +27,11 @@ def((Item, Input) => {
       } else {
         this.element.removeChild(this.text);
         this.element.firstElementChild.colSpan = 2;
+      }
+      if (typeof this.description === 'string') {
+        new Output({ component: 'HTML', value: this.description }).to(this.desc);
+      } else if (typeof this.description === 'object') {
+        new Output(this.description).to(this.desc);
       }
     }
     createInput() {
