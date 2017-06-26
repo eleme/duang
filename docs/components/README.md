@@ -379,6 +379,52 @@ Input 用于接受用户的输入，然后提交给后端 API 的一类组件，
 
 查看 [在线演示](http://codepen.io/shijn/pen/bBJPEE?editors=0010)
 
+### Input::Time
+
+一个时间选择器，底层使用的是 [jinkela-timepicker](https://github.com/YanagiEiichi/jinkela-timepicker)，`args` 中的参数都会传到 `jinkela-timepicker` 的初始化配置中
+
+参数描述
+
+| 名字 | 类型 | 描述 |
+| ---- | ---- | ---- |
+| defaultValue | `String` | 以冒号分隔的时、分、秒，如`"23:59:59"` |
+
+示例配置
+
+```javascript
+{
+  key: "job",
+  title: "上班时间",
+  component: "Time",
+  args: {
+    defaultValue: "23:59:59"
+  }
+}
+```
+
+### Input::DateTime
+
+日期选择器和时间选择器的组合。
+
+参数描述
+
+| 名字 | 类型 | 描述 |
+| ---- | ---- | ---- |
+| defaultValue | `String` | 描述日期的字符串，参考[dateString](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date#Parameters) |
+
+示例配置
+
+```javascript
+{
+  key: "birth",
+  title: "生辰八字",
+  component: "DateTime",
+  args: {
+    defaultValue: "2017/6/26 23:59:59"
+  }
+}
+```
+
 ### Input::FileBase64
 
 参数描述
@@ -507,6 +553,28 @@ Input 用于接受用户的输入，然后提交给后端 API 的一类组件，
     defaultGroupName: '其他'
   }
 }
+```
+
+### Input::OutputMarkdown
+
+一个纯 HTML 组件，用于对输入表单进行分组。
+
+参数描述
+
+| 名字 | 类型 | 描述 |
+| ---- | ---- | ---- |
+| defaultValue | `String` | Markdown 格式的文本内容 |
+
+示例配置
+
+```javascript
+  {
+    key: "caption1",
+    component: "OutputMarkdown",
+    args: {
+      defaultValue: "## 基本信息"
+    }
+  }
 ```
 
 ## Output
