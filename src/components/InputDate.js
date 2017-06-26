@@ -17,6 +17,10 @@ def(() => {
   };
 
   class DatePickerWithDuang extends DatePicker {
+    beforeParse(params) {
+      if (!('value' in params)) params.value = params.defaultValue;
+      super.beforeParse(params);
+    }
     init() {
       if (!this.$hasValue) this.value = void 0;
     }
