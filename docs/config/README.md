@@ -57,6 +57,7 @@
 | where | dict | 进入这张表的默认查询条件 |
 | caption | list | 一个 `Output` 类型的数组，配置列表页的表头 |
 | pageSize | number | 配置列表页每页显示的条数，默认显示所有 |
+| countable | Boolean | 配置为 true 后会调用接口获取结果集总数用于渲染分页导航，接口地址为 `key + "/count"`，需返回一个数字 |
 | require | Array | scheme 出现在首页需要的权限 |
 | hidden | Boolean | scheme 是否在首页展示 |
 
