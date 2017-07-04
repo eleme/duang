@@ -282,6 +282,7 @@
 | target | `String` | 交互方式 |
 | _blank | `Boolean` | 是否打开新页面 |
 | confirm | `Dict` | 额外提示确认操作 |
+| require | `String` | 依赖当前行的某个字段值为真时才可启用该动作 |
 
 #### Action::method
 
