@@ -18,7 +18,8 @@ def(() => {
     }
     set value(value = this.defaultValue) {
       this.$hasValue = true;
-      super.value = format(value);
+      let date = new Date(format(value));
+      super.value = date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
     }
     get value() {
       return super.value;
