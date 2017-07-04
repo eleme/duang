@@ -1,7 +1,15 @@
 def((ListItem, Confirm) => class extends ListItem {
   init() {
     this.text = this.title || this.method;
-    if (this.require && !this.fieldMap[this.require]) this.element.style.display = 'none';
+    this.checkPermissions();
+  }
+  checkPermissions() {
+    if (!this.require) return;
+    let { session } = this.depot;
+    let { permissions } = session;
+    if (permissions instanceof Array && ~permissions.indexOf(this.require)) return;
+    if (this.fieldMap[this.require]) return;
+    this.element.style.display = 'none';
   }
   onClick() {
     this.confirm ? Confirm.popup(this.confirm, this.depot).then(result => result && this.exec()) : this.exec();
