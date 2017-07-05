@@ -101,6 +101,7 @@
 | title | String | 操作显示名称 |
 | method | String | 操作类型 |
 | target | String | 交互方式 |
+| require | Array 或 String | 依赖 [Session::authorize](#Session::authorize) 的权限列表中存在这个字符串时才可启用该动作 |
 
 示例配置
 
@@ -277,12 +278,15 @@
 
 | 名字 | 类型 | 描述 |
 | ---- | ---- | ---- |
-| title | `String` | 名称 |
-| method | `String` | 方法名 |
-| target | `String` | 交互方式 |
-| _blank | `Boolean` | 是否打开新页面 |
-| confirm | `Dict` | 额外提示确认操作 |
-| require | `String` | 依赖当前行的某个字段值为真或 [Session::authorize](#Session::authorize) 的权限列表中存在这个字符串时才可启用该动作 |
+| title | String | 名称 |
+| method | String | 方法名 |
+| target | String | 交互方式 |
+| _blank | Boolean | 是否打开新页面 |
+| confirm | Dict | 额外提示确认操作 |
+| require | Array 或 String | 依赖 [Session::authorize](#Session::authorize) 的权限列表中存在这个字符串时才可启用该动作 |
+| requireField | Array 或 String | 依赖当前行的某个字段值为真才可启用该动作 |
+
+注意：如果同时设置了 require 和 requireField 就必须同时满足这两项条件。
 
 #### Action::method
 

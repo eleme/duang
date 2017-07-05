@@ -81,7 +81,6 @@ def((ListControlFiltersItem, Button, ButtonHollow) => {
           text-align: left;
           margin-bottom: 1em;
           padding: 16px;
-          margin-right: 16px;
           border: 1px solid #e0e6ed;
           border-radius: 4px;
         }
