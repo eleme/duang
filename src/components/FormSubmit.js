@@ -1,7 +1,7 @@
 def((Button, ButtonHollow) => {
 
   return class extends Jinkela {
-    beforeParse() {
+    beforeParse(params) {
       this.submit = this.submit.bind(this);
     }
     get Button() { return Button; }
@@ -9,7 +9,7 @@ def((Button, ButtonHollow) => {
     get template() {
       return `
         <div>
-          <jkl-button onclick="{submit}">提交</jkl-button>
+          <jkl-button onclick="{submit}" if-not="{nosubmit}">提交</jkl-button>
           <jkl-button-hollow ref="backComponent" onclick="{back}">返回</jkl-button-hollow>
         </div>
       `;

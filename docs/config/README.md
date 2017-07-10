@@ -60,6 +60,7 @@
 | countable | Boolean | 配置为 true 后会调用接口获取结果集总数用于渲染分页导航，接口地址为 `key + "/count"`，需返回一个数字 |
 | require | Array | scheme 出现在首页需要的权限 |
 | hidden | Boolean | scheme 是否在首页展示 |
+| noSubmit | Boolean | 在编辑页隐藏提交按钮 |
 
 示例配置
 

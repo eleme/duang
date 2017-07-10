@@ -1,23 +1,19 @@
 def((FormSubmit, FormItem, Alert) => class extends Jinkela {
+
   get FormSubmit() { return FormSubmit; }
+
   get Alert() { return Alert; }
-  get template() {
-    return `
-      <div>
-        <div ref="notice"></div>
-        <div ref="columns">
-          <table ref="table"></table>
-        </div>
-        <jkl-form-submit if="{listLength}" depot="{depot}" form="{form}"></jkl-form-submit>
-        <h3 if-not="{listLength}">并没有什么东西可以编辑</h3>
-      </div>
-    `;
-  }
-  init() {
-    let { depot } = this;
+
+  beforeParse(params) {
+    // 获取变量
+    let { depot } = params;
     let { id, scheme } = depot;
-    let { inputs = [], columns } = scheme;
+    let { inputs = [], columns, noSubmit } = scheme;
+    // 设置属性
     this.listLength = inputs.length;
+    this.noSubmit = noSubmit;
+    this.form = this;
+    // 构建 this.list
     let action = id ? 'edit' : 'create';
     inputs = JSON.parse(JSON.stringify(inputs)).filter(item => item[action] !== 'none');
     inputs.forEach((item) => {
@@ -28,20 +24,31 @@ def((FormSubmit, FormItem, Alert) => class extends Jinkela {
       if (item[action] === 'hidden') item.hidden = true;
     });
     this.list = FormItem.cast(inputs, { depot });
-    this.form = this;
-    this.$promise = Promise.all(this.list.map(item => item.$promise)).then(() => {
+    // 将 this.list 包成 Promise
+    this.$promise = Promise.all(this.list.map(item => item.$promise));
+  }
+
+  init() {
+    let { depot } = this;
+    let { id, scheme } = depot;
+    let { inputs = [], columns, noSubmit } = scheme;
+    // 渲染列表
+    this.$promise.then(() => {
       this.list.forEach(item => item.to(this.table));
     });
+    // 处理多列样式
     if (columns > 1) {
       this.columns.dataset.columns = columns;
       this.columns.style.columns = columns;
     }
+    // 这里 Alert（什么鬼）？？？
     if (depot.scheme.alert) {
       this.$promise.then(() => {
         new Alert(Object.assign({ form: this }, depot.scheme.alert)).to(this.notice);
       });
     }
   }
+
   set value(data) {
     if (!data) return;
     this.list.forEach(item => {
@@ -54,6 +61,7 @@ def((FormSubmit, FormItem, Alert) => class extends Jinkela {
       }
     });
   }
+
   get value() {
     return this.list.reduce((result, item) => {
       let { value } = item;
@@ -68,6 +76,7 @@ def((FormSubmit, FormItem, Alert) => class extends Jinkela {
       return result;
     }, Object.create(null));
   }
+
   get styleSheet() {
     return `
       :scope {
@@ -82,4 +91,18 @@ def((FormSubmit, FormItem, Alert) => class extends Jinkela {
       }
     `;
   }
+
+  get template() {
+    return `
+      <div>
+        <div ref="notice"></div>
+        <div ref="columns">
+          <table ref="table"></table>
+        </div>
+        <h3 if-not="{listLength}">并没有什么东西可以编辑</h3>
+        <jkl-form-submit nosubmit="{noSubmit}" depot="{depot}" form="{form}"></jkl-form-submit>
+      </div>
+    `;
+  }
+
 });
