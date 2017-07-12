@@ -18,8 +18,13 @@ def(() => {
     }
     set value(value = this.defaultValue) {
       this.$hasValue = true;
-      let date = new Date(format(value));
-      super.value = date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+      value = format(value);
+      let date = new Date(value);
+      if (+date === +date) {
+        super.value = date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+      } else {
+        super.value = String(value).match(/\d+/g).concat([ 0, 0, 0 ]).slice(0, 3);
+      }
     }
     get value() {
       return super.value;
