@@ -100,8 +100,10 @@
 | 名字 | 类型 | 描述 |
 | ---- | ---- | ---- |
 | title | String | 操作显示名称 |
-| method | String | 操作类型 |
-| target | String | 交互方式 |
+| method | String | 操作类型，取值为 create 表示进入标准创建页，取值为 open 表示打开一个 url，其它取值表示 http 方法 |
+| target | String | 交互方式，取值为 dialog 时以对话框的形式打开页面，其它情况与 html 中 A 标签的 target 属性一致 |
+| href | String | 只有 method 为 open 时才有意义，表示打开的目标 URL |
+| api | String | 只有 method 为 http 方法时才有意义，表示请求的目标接口 |
 | require | Array 或 String | 依赖 [Session::authorize](#Session::authorize) 的权限列表中存在这个字符串时才可启用该动作 |
 
 示例配置
