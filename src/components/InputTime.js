@@ -23,7 +23,7 @@ def(() => {
       if (+date === +date) {
         super.value = date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
       } else {
-        super.value = String(value).match(/\d+/g).concat([ 0, 0, 0 ]).slice(0, 3);
+        super.value = (String(value).match(/\d+/g) || []).concat([ 0, 0, 0 ]).slice(0, 3);
       }
     }
     get value() {
