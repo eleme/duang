@@ -10,35 +10,34 @@ var depot = new class { // eslint-disable-line no-unused-vars
     addEventListener('hashchange', () => this.hashchange());
   }
 
-  onRouteChange() {
+  async onRouteChange() {
     let moduleName = String(this.module || 'default');
     let tasks = Promise.all([ req('Frame'), req('MainWith' + moduleName.replace(/./, $0 => $0.toUpperCase())) ]);
     if (this._autoRefreshTimer) {
       clearTimeout(this._autoRefreshTimer);
       delete this._autoRefreshTimer;
     }
-    tasks.then(([ Frame, Main ]) => {
-      if (!this.moduleComponent) this.moduleComponent = new Frame().to(document.body);
-      this.moduleComponent.main = new Main();
-      let { autoRefresh } = this.scheme || {};
-      if (+autoRefresh) {
-        this._autoRefreshTimer = setTimeout(() => {
-          this.refresh();
-          delete this._autoRefreshTimer;
-        }, autoRefresh * 1000);
-      }
-    }, error => {
-      console.log(error); // eslint-disable-line
-    });
+    let [ Frame, Main ] = await tasks;
+    if (!this.moduleComponent) this.moduleComponent = new Frame().to(document.body);
+    this.moduleComponent.main = new Main();
+    let { autoRefresh } = this.scheme || {};
+    if (+autoRefresh) {
+      this._autoRefreshTimer = setTimeout(() => {
+        this.refresh();
+        delete this._autoRefreshTimer;
+      }, autoRefresh * 1000);
+    }
   }
-  hashchange() {
-    if (this.config.then) return this.config.then(() => this.hashchange()); // Await until config loaded
-    if (this.session.then) return this.session.then(() => this.hashchange()); // Await until session loaded
-    Object.defineProperty(this, '@@cache', { configurable: true, value: {} });
+
+  async hashchange() {
+    let config = await this.config;
+    let session = await this.session;
+    Object.defineProperty(this, Symbol.for('cache'), { configurable: true, value: {} });
     this.onRouteChange();
   }
+
   cache(name, resolver) {
-    let cache = this['@@cache'];
+    let cache = this[Symbol.for('cache')];
     if (name in cache) return cache[name];
     return (cache[name] = resolver());
   }
@@ -55,7 +54,9 @@ var depot = new class { // eslint-disable-line no-unused-vars
   }
   get session() {
     if (!config.session) return (window.session = {});
-    return api(config.session.authorize, { method: config.session.method || 'post' }).then(value => {
+    let task = api(config.session.authorize, { method: config.session.method || 'post' });
+    Object.defineProperty(this, 'session', { configurable: true, value: task });
+    task.then(value => {
       Object.defineProperty(this, 'session', { configurable: true, value });
     }, reason => {
       Object.defineProperty(this, 'session', { configurable: true, value: {} });
@@ -125,7 +126,7 @@ var depot = new class { // eslint-disable-line no-unused-vars
   fork(uParams) {
     return Object.create(Object.getPrototypeOf(this), {
       uParams: { configurable: true, value: uParams },
-      '@@cache': { configurable: true, value: {} }
+      [Symbol.for('cache')]: { configurable: true, value: {} }
     });
   }
 
