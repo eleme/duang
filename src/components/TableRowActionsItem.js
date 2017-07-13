@@ -44,6 +44,15 @@ def((ListItem, Confirm) => class extends ListItem {
     this.key = depot.key;
     this.goAction();
   }
+
+  readAction() {
+    let { depot } = this;
+    this.module = 'editor';
+    this.params = Object.assign({ '@id': '$.id' }, depot.params, { readonly: true });
+    this.key = depot.key;
+    this.goAction();
+  }
+
   defaultAction() {
     let { depot } = this;
     let path = [ depot.resolvedKey, this.fieldMap.id ];

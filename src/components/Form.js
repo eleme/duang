@@ -11,13 +11,13 @@ def((FormSubmit, FormItem, Alert) => class extends Jinkela {
     let { inputs = [], columns, noSubmit } = scheme;
     // 设置属性
     this.listLength = inputs.length;
-    this.noSubmit = noSubmit;
+    this.noSubmit = noSubmit || depot.params.readonly;
     this.form = this;
     // 构建 this.list
     let action = id ? 'edit' : 'create';
     inputs = JSON.parse(JSON.stringify(inputs)).filter(item => item[action] !== 'none');
     inputs.forEach((item) => {
-      if (item[action] === 'readonly') {
+      if (item[action] === 'readonly' || depot.params.readonly) {
         if (!item.args) item.args = {};
         item.args.readonly = true;
       }
