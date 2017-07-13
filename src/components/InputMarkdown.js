@@ -94,17 +94,24 @@ def((ButtonHollow) => {
           --width: 600px;
           --height: auth;
           .CodeMirror {
+            border-radius: 5px;
             font-family: var(--monospace);
             font-size: 12px;
             width: var(--width);
             height: var(--height);
             height: auto;
             min-height: 200px;
-            &.readonly {
-              .CodeMirror-cursor {
-                display: none;
-              }
+          }
+          &.readonly {
+            .CodeMirror-cursor {
+              display: none;
             }
+            .CodeMirror {
+              background-color: #eff2f7;
+            } 
+            border-color: #d3dce6;
+            color: #bbb;
+            cursor: not-allowed;
           }
           .CodeMirror-linenumber {
             padding-left: 10px;

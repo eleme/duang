@@ -1,9 +1,9 @@
 def((Input, InputSelect, SubGroupMap) => class extends Jinkela {
   init() {
-    let { depot, inputs } = this;
+    let { depot, inputs, readonly } = this;
     let group = inputs || [];
     if (group.length) {
-      let list = new SubGroupMap({ group, depot });
+      let list = new SubGroupMap({ group, depot, readonly });
       this.list = this.list ? list.renderWith(this.list) : list.to(this);
     } else {
       if (this.list) this.element.removeChild(this.list.element);

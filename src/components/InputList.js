@@ -12,7 +12,7 @@ def((Input, Button) => {
     }
     init() {
       this.input.to(this);
-      if (!this.noDelete) new Button({ text: '-', onClick: () => this.dispatchRemoveEvent() }).to(this);
+      if (!this.noDelete && !this.readonly) new Button({ text: '-', onClick: () => this.dispatchRemoveEvent() }).to(this);
     }
     dispatchRemoveEvent() {
       this.element.dispatchEvent(new CustomEvent('remove', { detail: this, bubbles: true }));
@@ -50,7 +50,7 @@ def((Input, Button) => {
       this.countChange();
     }
     add(value) {
-      let params = {};
+      let params = { readonly: this.readonly };
       if (value !== void 0) params.value = value;
       this.items.push(new InternalListItem(this, params).to(this));
       this.countChange();
@@ -89,7 +89,7 @@ def((Input, Button) => {
   class InputList extends Jinkela {
     init() {
       this.list = new InternalList(this).to(this);
-      if (!this.noAdd) this.button = new Button({ text: '+', onClick: () => this.add() }).to(this);
+      if (!this.noAdd && !this.readonly) this.button = new Button({ text: '+', onClick: () => this.add() }).to(this);
       this.element.addEventListener('countchange', event => this.countChange(event));
       if (!this.$hasValue) this.value = void 0;
     }

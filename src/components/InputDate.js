@@ -16,25 +16,41 @@ def(() => {
     }
   };
 
-  class DatePickerWithDuang extends DatePicker {
+  class DatePickerWithDuang extends Jinkela {
     beforeParse(params) {
       if (!('value' in params)) params.value = params.defaultValue;
-      super.beforeParse(params);
+      this.dp = new DatePicker();
     }
     init() {
+      this.dp.to(this);
       if (!this.$hasValue) this.value = void 0;
+      if (this.readonly) {
+        this.element.classList.add('readonly');
+        this.element.addEventListener('mousedown', event => {
+          event.preventDefault();
+          event.stopPropagation();
+        }, true);
+      }
     }
     set value(value = this.defaultValue) {
       this.$hasValue = true;
-      super.value = format(value);
+      this.dp.value = format(value);
     }
     get value() {
-      return super.value;
+      return this.dp.value;
     }
     get styleSheet() {
       return `
         :scope {
           input { height: 28px; }
+          &.readonly {
+            input {
+              background-color: #eff2f7;
+              border-color: #d3dce6;
+              color: #bbb;
+              cursor: not-allowed;
+            }
+          }
         }
       `;
     }

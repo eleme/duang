@@ -8,31 +8,47 @@ def(() => {
     }
   };
 
-  class TimePickerWithDuang extends TimePicker {
+  class TimePickerWithDuang extends Jinkela {
     beforeParse(params) {
       if (!('value' in params)) params.value = params.defaultValue;
-      super.beforeParse(params);
+      this.tp = new TimePicker();
     }
     init() {
+      this.tp.to(this);
       if (!this.$hasValue) this.value = void 0;
+      if (this.readonly) {
+        this.element.classList.add('readonly');
+        this.element.addEventListener('mousedown', event => {
+          event.preventDefault();
+          event.stopPropagation();
+        }, true);
+      }
     }
     set value(value = this.defaultValue) {
       this.$hasValue = true;
       value = format(value);
       let date = new Date(value);
       if (+date === +date) {
-        super.value = date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+        this.tp.value = date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
       } else {
-        super.value = (String(value).match(/\d+/g) || []).concat([ 0, 0, 0 ]).slice(0, 3);
+        this.tp.value = (String(value).match(/\d+/g) || []).concat([ 0, 0, 0 ]).slice(0, 3);
       }
     }
     get value() {
-      return super.value;
+      return this.tp.value;
     }
     get styleSheet() {
       return `
         :scope {
           input { height: 28px; }
+          &.readonly {
+            input {
+              background-color: #eff2f7;
+              border-color: #d3dce6;
+              color: #bbb;
+              cursor: not-allowed;
+            }
+          }
         }
       `;
     }

@@ -5,6 +5,13 @@ def(() => {
       this.dp = new DatePicker().to(this);
       this.tp = new TimePicker().to(this);
       if (!this.$hasValue) this.value = void 0;
+      if (this.readonly) {
+        this.element.classList.add('readonly');
+        this.element.addEventListener('focus', event => {
+          event.preventDefault();
+          event.stopPropagation();
+        }, true);
+      }
     }
     get styleSheet() {
       return `
@@ -21,6 +28,14 @@ def(() => {
             > div {
               width: 222px;
               left: -119px;
+            }
+          }
+          &.readonly {
+            input {
+              background-color: #eff2f7;
+              border-color: #d3dce6;
+              color: #bbb;
+              cursor: not-allowed;
             }
           }
         }

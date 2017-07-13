@@ -26,16 +26,8 @@ def((Item, Value) => {
     }
   }
 
-  class ToggleItem extends InputCheckboxItem {
-    init() {
-      this.text = '全选';
-      this.input.setAttribute('toggle', true);
-    }
-  }
-
   return class extends Value {
-    get ToggleItem() { return ToggleItem; }
-    get template() { return '<form><jkl-toggle-item ref="toggleItem"></jkl-toggle-item></form>'; }
+    get template() { return '<form></form>'; }
     get styleSheet() {
       return `
         :scope {
@@ -45,13 +37,11 @@ def((Item, Value) => {
     }
     init() {
       let { options, readonly } = this;
-      let list = Object.keys(options).map(key => {
-        return { value: key, text: options[key] };
-      });
+      let list = Object.keys(options).map(key => ({ value: key, text: options[key] }));
+      if (list.length > 1 && !readonly) this.toggleItem = new InputCheckboxItem({ readonly, text: '全选' });
       this.list = InputCheckboxItem.cast(list, { readonly }).to(this);
-      this.element.addEventListener('change', e => {
-        e.stopPropagation();
-        if (e.target.getAttribute('toggle')) {
+      this.element.addEventListener('change', event => {
+        if (this.toggleItem && event.target === this.toggleItem.element) {
           this.toggleAll(e.target.checked);
         } else {
           this.toggleItem.checked = this.list.every(item => item.checked);
