@@ -30,8 +30,8 @@ var depot = new class { // eslint-disable-line no-unused-vars
   }
 
   async hashchange() {
-    let config = await this.config;
-    let session = await this.session;
+    await this.config;
+    await this.session;
     Object.defineProperty(this, Symbol.for('cache'), { configurable: true, value: {} });
     this.onRouteChange();
   }

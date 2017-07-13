@@ -38,11 +38,11 @@ def((Item, Value) => {
     init() {
       let { options, readonly } = this;
       let list = Object.keys(options).map(key => ({ value: key, text: options[key] }));
-      if (list.length > 1 && !readonly) this.toggleItem = new InputCheckboxItem({ readonly, text: '全选' });
+      if (list.length > 1 && !readonly) this.toggleItem = new InputCheckboxItem({ readonly, text: '全选' }).to(this);
       this.list = InputCheckboxItem.cast(list, { readonly }).to(this);
       this.element.addEventListener('change', event => {
         if (this.toggleItem && event.target === this.toggleItem.element) {
-          this.toggleAll(e.target.checked);
+          this.toggleAll(event.target.checked);
         } else {
           this.toggleItem.checked = this.list.every(item => item.checked);
         }

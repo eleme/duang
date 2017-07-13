@@ -8,7 +8,7 @@ def((FormSubmit, FormItem, Alert) => class extends Jinkela {
     // 获取变量
     let { depot } = params;
     let { id, scheme } = depot;
-    let { inputs = [], columns, noSubmit } = scheme;
+    let { inputs = [], noSubmit } = scheme;
     // 设置属性
     this.listLength = inputs.length;
     this.noSubmit = noSubmit || depot.params.readonly;
@@ -30,8 +30,8 @@ def((FormSubmit, FormItem, Alert) => class extends Jinkela {
 
   init() {
     let { depot } = this;
-    let { id, scheme } = depot;
-    let { inputs = [], columns, noSubmit } = scheme;
+    let { scheme } = depot;
+    let { columns } = scheme;
     // 渲染列表
     this.$promise.then(() => {
       this.list.forEach(item => item.to(this.table));

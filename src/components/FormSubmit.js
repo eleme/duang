@@ -1,7 +1,7 @@
 def((Button, ButtonHollow) => {
 
   return class extends Jinkela {
-    beforeParse(params) {
+    beforeParse() {
       this.submit = this.submit.bind(this);
     }
     get Button() { return Button; }
