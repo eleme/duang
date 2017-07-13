@@ -53,6 +53,14 @@ def((ListItem, Confirm) => class extends ListItem {
     this.goAction();
   }
 
+  copyAction() {
+    let { depot } = this;
+    this.module = 'editor';
+    this.params = Object.assign({}, depot.params, { '@copy': '$.id' });
+    this.key = depot.key;
+    this.goAction();
+  }
+
   defaultAction() {
     let { depot } = this;
     let path = [ depot.resolvedKey, this.fieldMap.id ];

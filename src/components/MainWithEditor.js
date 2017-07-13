@@ -1,6 +1,7 @@
 def((Form, FormSubmit, PanelFailure, ErrorDisplay) => class extends Jinkela {
   load() {
-    let { id, resolvedKey } = this.depot || depot;
+    let { id, resolvedKey, params } = this.depot || depot;
+    id = id || params.copy;
     if (!id) return Promise.resolve();
     return api([resolvedKey, id]);
   }
