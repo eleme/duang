@@ -16,6 +16,12 @@ def(() => class extends Jinkela {
       :scope {
         &:hover { border-color: #8492a6; }
         &:focus { border-color: #20a0ff; }
+        &[readonly] {
+          background-color: #eff2f7;
+          border-color: #d3dce6;
+          color: #bbb;
+          cursor: not-allowed;
+        }
         transition: border-color .2s cubic-bezier(.645,.045,.355,1);
         vertical-align: middle;
         box-sizing: border-box;

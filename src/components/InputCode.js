@@ -1,10 +1,11 @@
+require.config({
+  paths: {
+    'codemirror': 'https://github.elemecdn.com/uglifyjs!/codemirror/CodeMirror/5.19.0'
+  }
+});
+
 def(() => class extends Jinkela {
   init() {
-    require.config({
-      paths: {
-        'codemirror': 'https://github.elemecdn.com/uglifyjs!/codemirror/CodeMirror/5.19.0'
-      }
-    });
     if (!this.mode) {
       this.mode = 'markdown';
     }
@@ -17,15 +18,28 @@ def(() => class extends Jinkela {
         `codemirror/mode/${modelib}/${modelib}`
       ], CodeMirror => {
         this.$editor = CodeMirror(this.element, Object.assign({
+          theme: 'neo',
+          lineNumbers: true,
           tabSize: 2,
-          theme: 'neo'
+          scrollPastEnd: true,
+          showMatchesOnScrollbar: true,
+          autoRefresh: true
         }, this));
+        this.refresh();
         this.$editor.on('focus', () => this.element.classList.add('focus'));
         this.$editor.on('blur', () => this.element.classList.remove('focus'));
-        this.$editor.setSize(this.width || null, this.height || 70);
         resolve(this.$editor);
       });
     });
+
+    if (this.readonly) {
+      this.disable();
+    } else {
+      this.enable();
+    }
+
+    this.element.addEventListener('click', () => this.focus());
+    if (!this.$hasValue) this.value = void 0;
   }
   enable() {
     return this.task.then(editor => {
@@ -36,7 +50,7 @@ def(() => class extends Jinkela {
   disable() {
     return this.task.then(editor => {
       editor.setOption('readOnly', true);
-      this.element.classList.add('readony');
+      this.element.classList.add('readonly');
     });
   }
   on(...args) {
@@ -48,15 +62,14 @@ def(() => class extends Jinkela {
   focus() {
     return this.task.then(editor => editor.focus());
   }
-  refresh() {
-    return this.task.then(editor => {
-      editor.refresh();
-    });
+  async refresh() {
+    if (!document.body.contains(this.element)) return setTimeout(() => this.refresh(), 16);
+    (await this.task).refresh();
   }
   get value() {
     return this.$editor ? this.$editor.getValue() : '';
   }
-  set value(value) {
+  set value(value = this.defaultValue) {
     if (value == null || value === '') return; // eslint-disable-line eqeqeq
     if (value instanceof Object) {
       value = JSON.stringify(value);
@@ -69,20 +82,51 @@ def(() => class extends Jinkela {
   get styleSheet() {
     return `
       :scope {
-        > .CodeMirror {
-          border: 1px solid #c0ccda;
-          border-radius: 3px;
-          text-align: left;
-          &:hover { border-color: #8492a6; }
-          &.readonly {
-            .CodeMirror-cursor {
-              display: none;
-            }
-          }
+        position: relative;
+        border: 1px solid #c0ccda;
+        border-radius: 5px;
+        overflow: hidden;
+        &:hover { border-color: #8492a6; }
+        &.focus { border-color: #20a0ff; }
+        --width: 600px;
+        --height: auto;
+        .CodeMirror {
+          border-radius: 5px;
+          font-family: var(--monospace);
+          font-size: 12px;
+          width: var(--width);
+          height: var(--height);
+          min-height: 200px;
         }
-
-        &.focus {
-          .CodeMirror { border-color: #20a0ff;  }
+        &.readonly {
+          .CodeMirror-cursor {
+            display: none;
+          }
+          .CodeMirror-lines {
+            cursor: not-allowed;
+          }
+          .CodeMirror {
+            background-color: #eff2f7;
+          } 
+          border-color: #d3dce6;
+          color: #bbb;
+          cursor: not-allowed;
+        }
+        .CodeMirror-linenumber {
+          padding-left: 10px;
+          padding-right: 10px;
+        }
+        .CodeMirror-cursor {
+          border-left: 1px solid black;
+          border-right: none;
+          width: 0;
+        }
+        .CodeMirror-search-match {
+          background: gold;
+          border-top: 1px solid orange;
+          border-bottom: 1px solid orange;
+          box-sizing: border-box;
+          opacity: .5;
         }
       }
     `;
