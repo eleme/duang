@@ -44,7 +44,8 @@ def((Item, Value) => {
       this.value = this.value;
     }
     set value(value = this.defaultValue) {
-      this.list.forEach(item => (item.checked = item.value === value));
+      if (this.list.length === 0) return;
+      if (!this.list.some(item => (item.checked = item.value === value))) this.list[0].checked = true;
     }
     get value() {
       let found = this.list.find(item => item.checked);

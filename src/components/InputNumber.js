@@ -9,11 +9,16 @@ def(() => class extends Jinkela {
     this.value = this.default; // default 已废弃，暂时保持兼容，请使用 defaultValue
   }
   get value() { return +this.element.value; }
-  set value(value = this.defaultValue) { this.element.value = value; }
+  set value(value) {
+    if (+value !== +value) value = this.defaultValue;
+    if (+value !== +value) value = 0;
+    this.element.value = value;
+  }
   get template() { return '<input type="number" />'; }
   blur() {
     if (this.min !== void 0 && this.value < this.min) this.value = this.min;
     if (this.max !== void 0 && this.value > this.max) this.value = this.max;
+    this.value = this.value;
   }
   get styleSheet() {
     return `

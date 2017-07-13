@@ -13,6 +13,7 @@ def((Item) => {
     init() {
       this.element.addEventListener('change', event => this.change(event));
       this.initOptions();
+      this.value = this.$hasValue ? this.$value : void 0;
     }
     get readonly() { return this.element.hasAttribute('disabled'); }
     set readonly(value) {
@@ -30,7 +31,6 @@ def((Item) => {
         options = Object.keys(options).map(key => ({ text: options[key], value: key }));
       }
       InputSelectItem.cast(options).to(this);
-      if (this.$value !== void 0) this.value = this.$value;
     }
     change() {
       if (typeof this.onChange === 'function') this.onChange(event);
@@ -60,7 +60,10 @@ def((Item) => {
       `;
     }
     get value() { return this.element.value; }
-    set value(value = this.defaultValue) { this.$value = this.element.value = value; }
+    set value(value = this.defaultValue) {
+      this.$hasValue = true;
+      if (value !== void 0) this.$value = this.element.value = value;
+    }
   };
 
 });
