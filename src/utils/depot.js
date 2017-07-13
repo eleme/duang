@@ -56,7 +56,7 @@ var depot = new class { // eslint-disable-line no-unused-vars
     if (!config.session) return (window.session = {});
     let task = api(config.session.authorize, { method: config.session.method || 'post' });
     Object.defineProperty(this, 'session', { configurable: true, value: task });
-    task.then(value => {
+    return task.then(value => {
       Object.defineProperty(this, 'session', { configurable: true, value });
     }, reason => {
       Object.defineProperty(this, 'session', { configurable: true, value: {} });
