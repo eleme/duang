@@ -92,14 +92,13 @@ def((ButtonHollow) => {
           &:hover { border-color: #8492a6; }
           &.focus { border-color: #20a0ff; }
           --width: 600px;
-          --height: auth;
+          --height: auto;
           .CodeMirror {
             border-radius: 5px;
             font-family: var(--monospace);
             font-size: 12px;
             width: var(--width);
             height: var(--height);
-            height: auto;
             min-height: 200px;
           }
           &.readonly {
