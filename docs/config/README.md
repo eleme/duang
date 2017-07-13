@@ -299,6 +299,8 @@
 | ---- | ---- |
 | go | 页面跳转，新模版由 `module` 定义，默认为 `Page::Default` |
 | edit | 页面跳转，新页面为 `Page::Editor` |
+| read | 页面跳转，新页面为 `Page::Editor`，所有控件置为 readonly 状态 |
+| copy | 页面跳转，新页面为 `Page::Editor`，加载当前记录除 id 外的的完整数据作为初始数据，提交时创建新记录 |
 | default | 点击后根据 method 发送请求 |
 
 #### Action::target
