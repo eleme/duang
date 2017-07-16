@@ -41,21 +41,22 @@ def((Item, Value) => {
       if (list.length > 1 && !readonly) this.toggleItem = new InputCheckboxItem({ readonly, text: '全选' }).to(this);
       this.list = InputCheckboxItem.cast(list, { readonly }).to(this);
       this.element.addEventListener('change', event => {
-        if (this.toggleItem && event.target === this.toggleItem.element) {
-          this.toggleAll(event.target.checked);
+        if (this.toggleItem &&  this.toggleItem.element.contains(event.target)) {
+          this.list.forEach(item => (item.checked = event.target.checked));
         } else {
-          this.toggleItem.checked = this.list.every(item => item.checked);
+          this.updateTheAll();
         }
       });
       this.value = this.$value || this.defaultValue;
     }
-    toggleAll(isChecked) {
-      this.list.forEach(item => (item.checked = isChecked));
+    updateTheAll() {
+      this.toggleItem.checked = this.list.every(item => item.checked);
     }
     set value(value = this.defaultValue || []) {
       this.$value = value;
       let set = new Set(value);
       this.list.forEach(item => (item.checked = set.has(item.value)));
+      this.updateTheAll();
     }
     get value() {
       return this.list.filter(item => item.checked).map(item => item.input.value);
