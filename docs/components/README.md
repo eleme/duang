@@ -555,6 +555,49 @@ Input 用于接受用户的输入，然后提交给后端 API 的一类组件，
 }
 ```
 
+### Input::Cascader
+
+级联选择器
+
+这个控件的数据类型是一个数组，每一项表示对应级联项的值。
+
+参数描述
+
+| 名字 | 类型 | 描述 |
+| ---- | ---- | ---- |
+| options | `Array` | 选项 |
+| defaultValue | `String` | 默认值 |
+| placeholder | `String` | 提示文字 |
+
+options 项的结构：
+
+| 名字 | 类型 | 描述 |
+| ---- | ---- | ---- |
+| options | `Array` | 子选项 |
+| text | `String` | 提示文字，默认为 value |
+| value | `Any` | 值，默认为 text |
+
+示例配置
+
+```javascript
+{
+  key: "city",
+  title: "城市",
+  component: "Cascader",
+  args: {
+    options: [
+      {
+        value: 1, text: 'item 1',
+        options: [
+          { value: 2, text: 'item 1.1' }
+        ]
+      }
+    ],
+    defaultText: [ 1, 2 ]
+  }
+}
+```
+
 ### Input::OutputMarkdown
 
 一个纯 HTML 组件，用于对输入表单进行分组。
