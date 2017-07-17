@@ -50,7 +50,7 @@ def((Item, Value) => {
       this.value = this.$value || this.defaultValue;
     }
     updateTheAll() {
-      this.toggleItem.checked = this.list.every(item => item.checked);
+      if (this.toggleItem) this.toggleItem.checked = this.list.every(item => item.checked);
     }
     set value(value = this.defaultValue || []) {
       this.$value = value;
