@@ -1,151 +1,146 @@
 ## Input
 
-Input 用于接受用户的输入，然后提交给后端 API 的一类组件，在 Duang 中用于:
+Input 用于接受用户的输入的组件，在 Duang 中用于:
 
 - [Schemes::inputs](../config/#Scheme::inputs)
 - [Schemes::filters](../config/#Scheme::filters)
 
+所有的 Input 控件都有两个公共参数：
+
+| 名字         | 类型                    | 默认值                   | 描述           |
+| ------------ | ----------------------- | ------------------------ | -------------- |
+| defaultValue | 与控件的 value 类型相同 | 不同控件具有不同的默认值 | 控件的默认值   |
+| readonly     | `Boolean`               | false                    | 是否只读       |
+
 ### Input::String
 
-参数描述
+单行文本
 
-| 名字 | 类型 | 描述 |
-| ---- | ---- | ---- |
-| default | `String` | 默认值 |
-| placeholder | `String` | 占位符 |
-| width | `String` | 宽度（px） |
-| readonly | `Boolean` | 是否只读 |
+参数：
 
-示例配置
+| 名字         | 类型                    | 默认值                   | 描述           |
+| ------------ | ----------------------- | ------------------------ | -------------- |
+| placeholder  | `String`                | 空字符串                 | 占位文字       |
+| width        | `String`                | 300                      | 宽度           |
+| maxlength    | `Number`                | 不限制                   | 最大字符个数   |
+
+示例：
 
 ```javascript
 {
-  title: "名称",
-  key: "name",
-  "default": "eleme",
-  component: "String",
-  args: {
-    width: "180px",
-    placeholder: "请输入名称",
-    readonly: true
+  "component": "String",
+  "args": {
+    "width": "180px",
+    "placeholder": "请输入名称",
+    "maxlength": 32
   }
 }
 ```
-
-查看 [在线演示](http://codepen.io/shijn/pen/MbRpBN?editors=0010#0)
 
 ### Input::Text
 
 参数描述
 
-| 名字 | 类型 | 描述 |
-| ---- | ---- | ---- |
-| default | `String` | 默认值 |
-| placeholder | `String` | 占位符 |
-| width | `String` | 宽度（px） |
-| height | `String` | 高度（px）|
-| readonly | `Boolean` | 是否只读 |
+多行文本
 
-示例配置
+参数：
+
+| 名字         | 类型                    | 默认值                   | 描述           |
+| ------------ | ----------------------- | ------------------------ | -------------- |
+| placeholder  | `String`                | 空字符串                 | 占位文字       |
+| width        | `String`                | 300                      | 宽度           |
+| height       | `String`                | 60                       | 高度           |
+| maxlength    | `Number`                | 不限制                   | 最大字符个数   |
+
+示例：
 
 ```javascript
 {
-  title: "名称",
-  key: "name",
-  "default": "eleme",
-  component: "Text",
-  args: {
-    width: "180px",
-    height: "300px",
-    placeholder: "请输入名称",
-    readonly: true
+  "component": "Text",
+  "args": {
+    "width": "180px",
+    "height": "300px",
+    "placeholder": "请输入名称",
+    "maxlength": 1024
   }
 }
 ```
-
-查看 [在线演示](http://codepen.io/shijn/pen/Pbgprd?editors=0010#0)
 
 ### Input::Number
 
-参数描述
+数值输入
 
-| 名字 | 类型 | 描述 |
-| ---- | ---- | ---- |
-| default | `Number` or `String` | 默认值 |
-| min | `Number` | 值下限 |
-| max | `Number` | 值上限 |
-| width | `String` | 宽度（px） |
-| readonly | `Boolean` | 是否只读 |
+参数：
 
-示例配置
+| 名字         | 类型                    | 默认值                   | 描述           |
+| ------------ | ----------------------- | ------------------------ | -------------- |
+| max          | `Number`                | 不限制                   | 最大值         |
+| min          | `Number`                | 不限制                   | 最小值         |
+| width        | `String`                | 6em                      | 宽度           |
+
+示例：
 
 ```javascript
 {
-  title: "年龄",
-  key: "age",
-  "default": 50,
-  component: "Number",
-  args: {
-    width: "180px",
-    min: 20,
-    max: 100,
-    readonly: false
+  "component": "Number",
+  "args": {
+    "width": "180px",
+    "min": 20,
+    "max": 100
   }
 }
 ```
-
-查看 [在线演示](http://codepen.io/shijn/pen/YpMVze?editors=0010#0)
 
 ### Input::Boolean
 
-参数描述
+参数：
 
-| 名字 | 类型 | 描述 |
-| ---- | ---- | ---- |
-| value | `Boolean` | 字段的布尔值 |
-| text | `Dict` | 状态文案 |
-| readonly | `Boolean` | 是否只读 |
-| fontSize | `Number` or `String` | 字体大小 |
+| 名字         | 类型                    | 默认值                   | 描述           |
+| ------------ | ----------------------- | ------------------------ | -------------- |
+| text         | `Object`                | Input::Boolean::text     | 默认文本       |
 
-示例配置
+Input::Boolean::text
+
+| 名字         | 类型                    | 默认值                   | 描述            |
+| ------------ | ----------------------- | ------------------------ | --------------- |
+| true         | `String`                | "开"                     | true 状态文本   |
+| false        | `String`                | "关"                     | false 状态文本  |
+
+示例：
 
 ```javascript
 {
-  key: "active",
-  component: "Boolean",
-  value: true,
-  args: {
-    text: {
+  "component": "Boolean",
+  "args": {
+    "text": {
       "true": "有效",
       "false": "无效"
-    },
-    fontSize: 13
-    readonly: false
+    }
   }
 }
 ```
 
-查看 [在线演示](http://codepen.io/shijn/pen/ENJmaZ?editors=0010#0)
-
 ### Input::Grouping
 
-参数描述
+组合控件
 
-| 名字 | 类型 | 描述 |
-| ---- | ---- | ---- |
-| inputs | `List<Input>` | 输入字段 |
-| mode | `String` | 显示模式，取值 line 或 table，默认为 table |
-| readonly | `Boolean` | 只读，默认 false |
-| defaultValue | `Any` | 显示模式，取值 line 或 table，默认为 table |
+参数：
+
+| 名字         | 类型                    | 默认值                   | 描述           |
+| ------------ | ----------------------- | ------------------------ | -------------- |
+| inputs       | `Array<Input>`          | 必选参数                 | 默认文本       |
+| mode         | `String`                | "table"                  | 显示模式       |
+
+mode 目前支持两种取值，"line" 和 "table"，分别表示单行显示和表格显示。
 
 示例配置
 
 ```javascript
 {
-  key: "test",
-  component: "Grouping",
-  args: {
-    inputs: [
+  "component": "Grouping",
+  "args": {
+    "mode": "line",
+    "inputs": [
       { component: "String", key: "name", title: "名称" },
       { component: "String", key: "title", title: "标题" }
     ]
@@ -155,266 +150,202 @@ Input 用于接受用户的输入，然后提交给后端 API 的一类组件，
 
 ### Input::List
 
-参数描述
+列表控件
 
-| 名字 | 类型 | 描述 |
-| ---- | ---- | ---- |
-| component | `String` | 每项的控件类型 |
-| args | `Object` | 每项的控件参数 |
-| max | `Number` | 项数量上限 |
+参数：
+
+| 名字         | 类型                    | 默认值                   | 描述           |
+| ------------ | ----------------------- | ------------------------ | -------------- |
+| component    | `String`                | "String"                 | 每项的控件类型 |
+| args         | `Object`                | 空对象                   | 每项的控件参数 |
+| max          | `Number`                | 不限制                   | 项数量上限     |
 
 示例配置
 
 ```javascript
 {
-  key: "images",
-  component: "Grouping",
-  args: {
-    component: "String",
-    args: {},
-    max: 10
+  "component": "List",
+  "args": {
+    "component": "String",
+    "args": {},
+    "max": 10
   }
 }
 ```
-
-查看 [在线演示](http://codepen.io/shijn/pen/ZLJXep?editors=0010)
-
 
 ### Input::Checkbox
 
-参数描述
+复选框
 
-| 名字 | 类型 | 描述 |
-| ---- | ---- | ---- |
-| Options | `List` | 可选项 |
-| readonly | `Boolean` | 是否只读 |
+参数：
 
-示例配置
+| 名字         | 类型                    | 默认值                   | 描述           |
+| ------------ | ----------------------- | ------------------------ | -------------- |
+| options      | `Object`                | 必选参数                 | 备选项         |
+
+options 是一个对象，其键名对应复选框的 value，其值对应复选框显示的文本。
+
+示例：
 
 ```javascript
 {
-  key: "search",
-  title: "搜索",
-  component: "Checkbox",
-  readonly: false,
-  args: {
-    options: {
-      male: '男',
-      female: '女'
+  "component": "Checkbox",
+  "args": {
+    "options": {
+      "pen": "笔",
+      "apple": "苹果",
+      "pineapple": "凤梨"
     }
   }
 }
 ```
-
-查看 [在线演示](http://codepen.io/shijn/pen/rWbwRo?editors=0010#0)
 
 ### Input::Radio
 
-参数描述
+单选框
 
-| 名字 | 类型 | 描述 |
-| ---- | ---- | ---- |
-| Options | `List` | 可选项 |
-| readonly | `Boolean` | 是否只读 |
+参数：
+
+| 名字         | 类型                    | 默认值                   | 描述           |
+| ------------ | ----------------------- | ------------------------ | -------------- |
+| options      | `Object`                | 必选参数                 | 备选项         |
+
+options 是一个对象，其键名对应单选框的 value，其值对应单选框显示的文本。
 
 示例配置
 
 ```javascript
 {
-  key: "search",
-  title: "搜索",
-  component: "Radio",
-  readonly: false,
-  args: {
-    options: {
-      male: '男',
-      female: '女'
+  "component": "Radio",
+  "args": {
+    "options": {
+      "0": "受",
+      "1": "攻"
     }
   }
 }
 ```
-
-查看 [在线演示](http://codepen.io/shijn/pen/woZeVr?editors=0010)
 
 ### Input::Select
 
-参数描述
+参数：
 
-| 名字 | 类型 | 描述 |
-| ---- | ---- | ---- |
-| Options | `List` | 可选项 |
-| readonly | `Boolean` | 是否只读 |
+| 名字         | 类型                    | 默认值                   | 描述           |
+| ------------ | ----------------------- | ------------------------ | -------------- |
+| options      | `Object`                | 必选参数                 | 备选项         |
 
-示例配置
+示例：
 
 ```javascript
 {
-  key: "status",
-  title: "状态",
-  component: "Select",
-  readonly: false,
-  args: {
-    options: {
-      active: '启用',
-      inactive: '禁用'
+  "component": "Select",
+  "args": {
+    "options": {
+      "active": "启用",
+      "inactive": "禁用"
     }
   }
 }
 ```
-
-查看 [在线演示](http://codepen.io/shijn/pen/QGPgem?editors=0010#0)
 
 ### Input::GroupingSelect
 
-参数描述
+参数：
 
-| 名字 | 类型 | 描述 |
-| ---- | ---- | ---- |
-| Options | `List` | 可选项 |
-| subGroupMap | `Dict` | 子选项 |
-| readonly | `Boolean` | 是否只读 |
-| hideKey | `Boolean` | 是否过滤字段 |
+| 名字         | 类型                    | 默认值                   | 描述           |
+| ------------ | ----------------------- | ------------------------ | -------------- |
+| options      | `Object`                | 必选参数                 | 备选项         |
+| subGroupMap  | `Object<Array<Input>>`  | 空对象                   | 匹配组         |
+| hideKey      | `Boolean`               | false                    | 是否过滤字段   |
 
-示例配置
+当选择某个选项时，通过选中的值在 subGroupMap 中找到对应的数组，作为 Grouping 的 inputs 渲染。
+
+示例：
 
 ```javascript
 {
-  key: "type",
-  title: "类型",
-  component: "GroupingSelect",
-  readonly: false,
-  args: {
-    options: {
-      hongbao: "红包",
-      point: "积分"
+  "component": "GroupingSelect",
+  "args": {
+    "options": {
+      "hongbao": "红包",
+      "point": "积分"
     },
-    subGroupMap: {
-      hongbao: [{
-        key: "hongbao_amount",
-        component: "Number",
-        title: "红包金额",
-        args: { fixed: 2 }
-      }],
-      point: [{
-        key: "point",
-        component: "Number",
-        title: "积分"
-      }]
+    "subGroupMap": {
+      "hongbao": [
+        { key: "hongbao_amount", component: "Number", title: "红包金额" }
+      ],
+      "point": [
+        { key: "point", component: "Number", title: "积分" }
+      ]
     }
   }
 }
 ```
 
-查看 [在线演示](http://codepen.io/shijn/pen/QGPgem?editors=0010#0)
-
-### Input::Code
-
-一个代码输入框，底层使用的是 [CodeMirror](https://codemirror.net/doc/manual.html)，`args` 中的参数都会传到 `CodeMirror` 初始化配置中
-
-参数描述
-
-| 名字 | 类型 | 描述 |
-| ---- | ---- | ---- |
-| width | `Number` or `String` | 宽度（px） |
-| height | `Number` or `Height` | 高度（px） |
-| modelib | `String` | 支持 `mode` 的 js 文件名, 默认使用 `mode` 参数寻找文件。 |
-
-示例配置
-
-```javascript
-{
-  key: "config",
-  title: "配置",
-  component: "Code",
-  args: {
-    width: 100,
-    height: 100,
-    mode: "yaml",
-    lineNumbers: true
-  }
-}
-```
-
-查看 [在线演示](http://codepen.io/shijn/pen/MbRvKZ?editors=0010)
-
 ### Input::Date
 
-一个日期选择器，底层使用的是 [jinkela-datepicker](https://github.com/YanagiEiichi/jinkela-datepicker)，`args` 中的参数都会传到 `jinkela-datepicker` 的初始化配置中
+一个日期选择器，基于 [jinkela-datepicker](https://github.com/jinkelajs/jinkela-datepicker)，`args` 中的参数都会传到 `jinkela-datepicker` 的初始化配置中
 
-参数描述
+值的标准格式为 ISO 8601 字符串，时间部分为 0，设置 offset 参数会影响时间部分。
 
-| 名字 | 类型 | 描述 |
-| ---- | ---- | ---- |
-| defaultValue | `Number` 或者 `String` | 时间戳 |
-| offset | `Number` | 日期偏移量（支持负数）|
+支持以下特殊的取值：
 
-`defaultValue` 内置的日期标记有以下几个：
+**today**, **nextDay**, **lastDay**, **nextWeek**, **lastWeek**, **nextMonth**, **lastMonth**, **nextYear**, **lastYear**
 
-- today
-- nextDay
-- lastDay
-- nextWeek
-- lastWeek
-- nextMonth
-- lastMonth
-- nextYear
-- lastYear
+参数：
 
-示例配置
+| 名字         | 类型                    | 默认值                   | 描述              |
+| ------------ | ----------------------- | ------------------------ | ----------------- |
+| offset       | `Number`                | 0                        | 日期偏移量        |
+| ...          | ...                     | ...                      | 透传              |
+
+示例：
 
 ```javascript
 {
-  key: "config",
-  title: "结束日期",
-  component: "Date",
-  args: {
-    defaultValue: 'today'
+  "component": "Date",
+  "args": {
+    "defaultValue": "today"
   }
 }
 ```
-
-查看 [在线演示](http://codepen.io/shijn/pen/bBJPEE?editors=0010)
 
 ### Input::Time
 
-一个时间选择器，底层使用的是 [jinkela-timepicker](https://github.com/YanagiEiichi/jinkela-timepicker)，`args` 中的参数都会传到 `jinkela-timepicker` 的初始化配置中
+一个时间选择器，基于 [jinkela-timepicker](https://github.com/jinkelajs/jinkela-timepicker)，`args` 中的参数都会传到 `jinkela-timepicker` 的初始化配置中。
 
-参数描述
+值的标准格式为 HH:MM:SS 字符串。
 
-| 名字 | 类型 | 描述 |
-| ---- | ---- | ---- |
-| defaultValue | `String` | 以冒号分隔的时、分、秒，如`"23:59:59"` |
+支持以下特殊的取值：
 
-示例配置
+**now**
+
+参数：
+
+| 名字         | 类型                    | 默认值                   | 描述              |
+| ------------ | ----------------------- | ------------------------ | ----------------- |
+| ...          | ...                     | ...                      | 透传              |
+
+示例：
 
 ```javascript
 {
-  key: "job",
-  title: "上班时间",
-  component: "Time",
-  args: {
-    defaultValue: "23:59:59"
+  "component": "Time",
+  "args": {
+    "defaultValue": "now"
   }
 }
 ```
 
 ### Input::DateTime
 
-日期选择器和时间选择器的组合。
+值的标准格式为 Date 类型的对象。
 
-参数描述
-
-| 名字 | 类型 | 描述 |
-| ---- | ---- | ---- |
-| defaultValue | `String` | 描述日期的字符串，参考[dateString](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date#Parameters) |
-
-示例配置
+示例：
 
 ```javascript
 {
-  key: "birth",
-  title: "生辰八字",
-  component: "DateTime",
+  "component": "DateTime",
   args: {
     defaultValue: "2017/6/26 23:59:59"
   }
@@ -423,130 +354,104 @@ Input 用于接受用户的输入，然后提交给后端 API 的一类组件，
 
 ### Input::FileBase64
 
-参数描述
+文件上传（Base64 方式）
 
-| 名字 | 类型 | 描述 |
-| ---- | ---- | ---- |
-| text | `String` | 选择文件按钮文案 |
+参数：
+
+| 名字         | 类型                    | 默认值                   | 描述              |
+| ------------ | ----------------------- | ------------------------ | ----------------- |
+| text         | `String`                | "请选择文件"             | 选择文件按钮文案  |
+| downloadText | `String`                | "下载"                   | 下载按钮文案      |
 
 示例配置
 
 ```javascript
 {
-  key: "file",
-  title: "文件",
-  component: "FileBase64",
-  args: { text: '上传文件' }
+  "component": "FileBase64",
+  "args": { "text": "上传文件" }
 }
 ```
-
-查看 [在线演示](http://codepen.io/shijn/pen/jVRjry?editors=0010#0)
 
 ### Input::FileToken
 
-参数描述
+文件上传（Token 方式）
 
-| 名字 | 类型 | 描述 |
-| ---- | ---- | ---- |
-| value | `String` | api token |
-| text | `String` | 选择文件按钮文案 |
-| api | `String` | 图片上传接口相对路径 |
+参数：
 
-示例配置
+| 名字         | 类型                    | 默认值                   | 描述                 |
+| ------------ | ----------------------- | ------------------------ | -------------------- |
+| text         | `String`                | "请选择文件"             | 选择文件按钮文案     |
+| downloadText | `String`                | "下载"                   | 下载按钮文案         |
+| api          | `String`                | 必选参数                 | 图片上传接口相对路径 |
+
+提供的 api 应该支持 `POST api` 上传文件（文件所在的字段名叫 file），以及 `GET api/:token` 下载某个 token（用于预览）。
+
+配置：
 
 ```javascript
 {
-  key: "avatar",
-  title: "头像",
-  component: "FileToken",
-  value: '9038e42',
-  args: {
-    text: '上传文件',
-    api: '/avatar'
+  "component": "FileToken",
+  "args": {
+    "text": "上传文件",
+    "api": "/avatar"
   }
 }
 ```
-
-查看 [在线演示](http://codepen.io/shijn/pen/LxyKBG)
 
 ### Input::FileTokenWithInfo
 
-功能同 (InputFileToken)[http://eleme.github.io/duang/docs/components/#Input%3A%3AFileToken] 上传时额外多发送图片相关信息：`width` 和 `height`。
+功能同 (InputFileToken)[/duang/docs/components/#Input%3A%3AFileToken] 上传时额外多发送图片相关信息：`width` 和 `height`。
 
-参数描述
+文件上传（Token 方式）
 
-| 名字 | 类型 | 描述 |
-| ---- | ---- | ---- |
-| value | `Object` | 必须包含 token 字段用于获取图片 |
-| text | `String` | 选择文件按钮文案 |
-| api | `String` | 图片上传接口相对路径 |
+参数：
 
-示例配置
+| 名字         | 类型                    | 默认值                   | 描述                 |
+| ------------ | ----------------------- | ------------------------ | -------------------- |
+| text         | `String`                | "请选择文件"             | 选择文件按钮文案     |
+| downloadText | `String`                | "下载"                   | 下载按钮文案         |
+| api          | `String`                | 必选参数                 | 图片上传接口相对路径 |
 
-```javascript
-{
-  key: "avatar",
-  title: "头像",
-  component: "FileTokenWithInfo",
-  value: {
-    token: '9038e42',
-    width: 400,
-    height: 300
-  },
-  args: {
-    text: '上传文件',
-    api: '/avatar'
-  }
-}
-```
-
-查看 [在线演示](http://codepen.io/shijn/pen/LxyKBG)
-
+提供的 api 应该支持 `POST api` 上传文件（文件所在的字段名叫 file），以及 `GET api/:token` 下载某个 token（用于预览）。
 
 ### Input::AutoComplete
 
-参数描述
+参数：
 
-| 名字 | 类型 | 描述 |
-| ---- | ---- | ---- |
-| api | `String` | 获取关键词接口相对路径 |
+| 名字         | 类型                    | 默认值                   | 描述                   |
+| ------------ | ----------------------- | ------------------------ | ---------------------- |
+| api          | `String`                | 必选参数                 | 获取关键词接口相对路径 |
 
-示例配置
+示例：
 
 ```javascript
 {
-  key: "food",
-  title: "菜品",
-  component: "AutoComplete",
-  args: {
-    api: '/suggestion'
+  "component": "AutoComplete",
+  "args": {
+    "api": "/suggestion"
   }
 }
 ```
 
-查看 [在线演示](http://codepen.io/shijn/pen/egzpJW?editors=0010#0)
-
 ### Input::City
 
-参数描述
+参数：
 
-| 名字 | 类型 | 描述 |
-| ---- | ---- | ---- |
-| api | `String` | 获取城市数据接口相对路径 |
-| defaultText | `String` | 默认提示文案 |
-| defaultGroupName | `String` | 未分组元素的默认组名 |
+| 名字             | 类型                    | 默认值                   | 描述                     |
+| ---------------- | ----------------------- | ------------------------ | ------------------------ |
+| api              | `String`                | 必选参数                 | 获取城市数据接口相对路径 |
+| defaultText      | `String`                | "请选择城市"             | 默认提示文案             |
+| defaultGroupName | `String`                | "其它"                   | 未分组元素的默认组名     |
 
-示例配置
+配置：
 
 ```javascript
 {
-  key: "city",
-  title: "城市",
-  component: "City",
-  args: {
-    api: '/cities',
-    defaultText: '请选择城市',
-    defaultGroupName: '其他'
+  "component": "City",
+  "args": {
+    "api": "/cities",
+    "defaultText": "请选择城市",
+    "defaultGroupName": "其他"
   }
 }
 ```
@@ -557,64 +462,76 @@ Input 用于接受用户的输入，然后提交给后端 API 的一类组件，
 
 这个控件的数据类型是一个数组，每一项表示对应级联项的值。
 
-参数描述
+参数：
 
-| 名字 | 类型 | 描述 |
-| ---- | ---- | ---- |
-| options | `Array` | 选项 |
-| defaultValue | `String` | 默认值 |
-| placeholder | `String` | 提示文字 |
+| 名字             | 类型                             | 默认值                   | 描述                     |
+| ---------------- | -------------------------------- | ------------------------ | ------------------------ |
+| options          | `List<Input::Cascader::Options>` | 必选参数                 | 备选项                   |
+| placeholder      | `String`                         | "请选择"                 | 占位文字                 |
 
-options 项的结构：
+Input::Cascader::Options:
 
-| 名字 | 类型 | 描述 |
-| ---- | ---- | ---- |
-| options | `Array` | 子选项 |
-| text | `String` | 提示文字，默认为 value |
-| value | `Any` | 值，默认为 text |
+| 名字             | 类型                             | 默认值                   | 描述                     |
+| ---------------- | -------------------------------- | ------------------------ | ------------------------ |
+| options          | `List<Input::Cascader::Options>` | 必选参数                 | 备选项                   |
+| text             | `String`                         | 取 value                 | 提示文字                 |
+| value            | `Any`                            | 取 text                  | 值                       |
 
-示例配置
+示例：
 
 ```javascript
 {
-  key: "city",
-  title: "城市",
-  component: "Cascader",
-  args: {
-    options: [
+  "component": "Cascader",
+  "args": {
+    "options": [
       {
-        value: 1, text: 'item 1',
-        options: [
-          { value: 2, text: 'item 1.1' }
+        "value": 1, text: 'item 1',
+        "options": [
+          { "value": 2, "text": 'item 1.1' }
         ]
       }
     ],
-    defaultText: [ 1, 2 ]
+    "defaultText": [ 1, 2 ]
   }
 }
 ```
 
-### Input::OutputMarkdown
+### Input::Code
 
-一个纯 HTML 组件，用于对输入表单进行分组。
+一个代码输入框，底层使用的是 [CodeMirror](https://codemirror.net/doc/manual.html)，`args` 中的参数都会传到 `CodeMirror` 初始化配置中
 
-参数描述
+参数：
 
-| 名字 | 类型 | 描述 |
-| ---- | ---- | ---- |
-| defaultValue | `String` | Markdown 格式的文本内容 |
+| 名字         | 类型                    | 默认值                   | 描述              |
+| ------------ | ----------------------- | ------------------------ | ----------------- |
+| width        | `String`                | 600                      | 宽度              |
+| height       | `String`                | 最小 200，自适应增长     | 高度              |
+| ...          | ...                     | ...                      | 透传给 CodeMirror |
 
-示例配置
+示例：
 
 ```javascript
-  {
-    key: "caption1",
-    component: "OutputMarkdown",
-    args: {
-      defaultValue: "## 基本信息"
-    }
+{
+  "component": "Code",
+  "args": {
+    "width": 100,
+    "height": 100,
+    "mode": "yaml",
+    "lineNumbers": true
   }
+}
 ```
+
+### Input::Markdown
+
+Markdown 输入控件，提供预览功能
+
+参数：
+
+| 名字         | 类型                    | 默认值                   | 描述              |
+| ------------ | ----------------------- | ------------------------ | ----------------- |
+| width        | `String`                | 600                      | 宽度              |
+| height       | `String`                | 最小 200，自适应增长     | 高度              |
 
 ## Output
 
