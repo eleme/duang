@@ -82,7 +82,7 @@ def((Button) => {
       `;
     }
     init() {
-      if (!this.text) this.text = 'Select File';
+      if (!this.text) this.text = '请选择文件';
       this.input.addEventListener('change', event => this.change(event));
       this.fileInfo = new FileInfo().to(this);
       this.cancelButton = new CancelButton({ onClick: () => (this.value = null) }).to(this);
