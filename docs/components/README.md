@@ -141,8 +141,8 @@ mode 目前支持两种取值，"line" 和 "table"，分别表示单行显示和
   "args": {
     "mode": "line",
     "inputs": [
-      { component: "String", key: "name", title: "名称" },
-      { component: "String", key: "title", title: "标题" }
+      { "component": "String", "key": "name", "title": "名称" },
+      { "component": "String", "key": "title", "title": "标题" }
     ]
   }
 }
@@ -272,10 +272,10 @@ options 是一个对象，其键名对应单选框的 value，其值对应单选
     },
     "subGroupMap": {
       "hongbao": [
-        { key: "hongbao_amount", component: "Number", title: "红包金额" }
+        { "key": "hongbao_amount", "component": "Number", "title": "红包金额" }
       ],
       "point": [
-        { key: "point", component: "Number", title: "积分" }
+        { "key": "point", "component": "Number", "title": "积分" }
       ]
     }
   }
@@ -346,8 +346,8 @@ options 是一个对象，其键名对应单选框的 value，其值对应单选
 ```javascript
 {
   "component": "DateTime",
-  args: {
-    defaultValue: "2017/6/26 23:59:59"
+  "args": {
+    "defaultValue": "2017/6/26 23:59:59"
   }
 }
 ```
@@ -485,9 +485,9 @@ Input::Cascader::Options:
   "args": {
     "options": [
       {
-        "value": 1, text: 'item 1',
+        "value": 1, "text": "item 1",
         "options": [
-          { "value": 2, "text": 'item 1.1' }
+          { "value": 2, "text": "item 1.1" }
         ]
       }
     ],
