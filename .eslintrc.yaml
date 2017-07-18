@@ -11,6 +11,7 @@
     JSONPath: false
     TimePicker: false
     DatePicker: false
+    Cascader: false
     debounce: false
     define: false
     doAction: false

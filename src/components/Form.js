@@ -1,4 +1,4 @@
-def((FormSubmit, FormItem, Alert) => class extends Jinkela {
+def((FormSubmit, FormItemWithTable, Alert) => class extends Jinkela {
 
   get FormSubmit() { return FormSubmit; }
 
@@ -23,7 +23,7 @@ def((FormSubmit, FormItem, Alert) => class extends Jinkela {
       }
       if (item[action] === 'hidden') item.hidden = true;
     });
-    this.list = FormItem.cast(inputs, { depot });
+    this.list = FormItemWithTable.cast(inputs, { depot });
     // 将 this.list 包成 Promise
     this.$promise = Promise.all(this.list.map(item => item.$promise));
   }
@@ -82,7 +82,7 @@ def((FormSubmit, FormItem, Alert) => class extends Jinkela {
       :scope {
         padding: 2em;
         > [ref=columns] {
-          > table {
+          > .table {
             border-spacing: 1em;
             margin: -1em 0;
             font-size: inherit;
@@ -97,7 +97,7 @@ def((FormSubmit, FormItem, Alert) => class extends Jinkela {
       <div>
         <div ref="notice"></div>
         <div ref="columns">
-          <table ref="table"></table>
+          <div ref="table" class="table"></div>
         </div>
         <h3 if-not="{listLength}">并没有什么东西可以编辑</h3>
         <jkl-form-submit nosubmit="{noSubmit}" depot="{depot}" form="{form}"></jkl-form-submit>

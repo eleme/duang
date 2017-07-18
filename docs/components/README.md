@@ -133,29 +133,25 @@ Input 用于接受用户的输入，然后提交给后端 API 的一类组件，
 
 | 名字 | 类型 | 描述 |
 | ---- | ---- | ---- |
-| Inputs | `List<Input>` | 输入字段 |
+| inputs | `List<Input>` | 输入字段 |
+| mode | `String` | 显示模式，取值 line 或 table，默认为 table |
+| readonly | `Boolean` | 只读，默认 false |
+| defaultValue | `Any` | 显示模式，取值 line 或 table，默认为 table |
 
 示例配置
 
 ```javascript
 {
-  key: "images",
+  key: "test",
   component: "Grouping",
   args: {
-    inputs: [{
-      component: "String",
-      key: "name",
-      title: "名称"
-    }, {
-      component: "String",
-      key: "title",
-      title: "标题"
-    }]
+    inputs: [
+      { component: "String", key: "name", title: "名称" },
+      { component: "String", key: "title", title: "标题" }
+    ]
   }
 }
 ```
-
-查看 [在线演示](http://codepen.io/shijn/pen/vyMmNj?editors=0010#0)
 
 ### Input::List
 

@@ -1,22 +1,26 @@
 def((Item, Input, Output) => {
 
   return class extends Item {
+
+    get template() {
+      return `
+        <div>
+          <span ref="text"></span>
+          <span ref="ctrl"></span>
+          <span ref="desc"></span>
+        </div>
+      `;
+    }
+
     set value(value) {
       if (!this.input) return setTimeout(() => (this.value = value));
       this.input.value = value;
     }
+
     get value() {
       return this.input.value;
     }
-    get template() {
-      return `
-        <tr>
-          <td ref="text"></td>
-          <td ref="ctrl"></td>
-          <td ref="desc"></td>
-        </tr>
-      `;
-    }
+
     init() {
       this.ctrl.depot = this.depot;
       if (this.hidden) this.element.style.display = 'none';
@@ -37,22 +41,7 @@ def((Item, Input, Output) => {
     createInput() {
       return new Input(this);
     }
-    get styleSheet() {
-      return `
-        :scope {
-          break-inside: avoid-column;
-          td {
-            vertical-align: top;
-            line-height: 28px;
-            text-align: left;
-          }
-          > td:first-child:not([colspan]) {
-            width: 80px;
-            white-space: nowrap;
-          }
-        }
-      `;
-    }
+
   };
 
 });

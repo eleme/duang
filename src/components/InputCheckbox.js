@@ -41,7 +41,7 @@ def((Item, Value) => {
       if (list.length > 1 && !readonly) this.toggleItem = new InputCheckboxItem({ readonly, text: '全选' }).to(this);
       this.list = InputCheckboxItem.cast(list, { readonly }).to(this);
       this.element.addEventListener('change', event => {
-        if (this.toggleItem &&  this.toggleItem.element.contains(event.target)) {
+        if (this.toggleItem && this.toggleItem.element.contains(event.target)) {
           this.list.forEach(item => (item.checked = event.target.checked));
         } else {
           this.updateTheAll();
