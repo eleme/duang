@@ -1,0 +1,156 @@
+{
+  "schemes": [
+    {
+      "key": "一个神奇的列表",
+      "title": "一个神奇的列表",
+      "module": "list",
+      "operations": [
+        { "method": "go", "title": "日期时间相关控件测试（只读）", "module": "editor", "key": "日期时间相关控件测试", "params": { "readonly": "true" } },
+        { "method": "go", "title": "键盘输入类控件测试（只读）", "module": "editor", "key": "键盘输入类控件测试", "params": { "readonly": "true" } },
+        { "method": "go", "title": "点选类控件测试（只读）", "module": "editor", "key": "点选类控件测试", "params": { "readonly": "true" } },
+        { "method": "go", "title": "Grouping 控件测试（只读）", "module": "editor", "key": "Grouping 控件测试", "params": { "readonly": "true" } }
+      ]
+    },
+    {
+      "key": "日期时间相关控件测试",
+      "title": "日期时间相关控件测试",
+      "module": "editor",
+      "inputs": [
+        { "key": "datetime1", "component": "DateTime", "title": "日期时间" },
+        { "key": "datetime2", "component": "DateTime", "title": "日期时间", "args": { "defaultValue": 1499157139261 } },
+        { "key": "datetime3", "component": "DateTime", "title": "日期时间", "args": { "defaultValue": "2017-07-13T03:27:44.856Z" } },
+        { "key": "datetime4", "component": "DateTime", "title": "日期时间", "args": { "defaultValue": "now" } },
+
+        { "key": "date1", "component": "Date", "title": "日期" },
+        { "key": "date1", "component": "Date", "title": "日期", "args": { "defaultValue": 1499157139261 } },
+        { "key": "date2", "component": "Date", "title": "日期", "args": { "defaultValue": "2017-07-13T03:27:44.856Z" } },
+        { "key": "date3", "component": "Date", "title": "日期", "args": { "defaultValue": "today" } },
+
+        { "key": "time5", "component": "Time", "title": "时间" },
+        { "key": "time1", "component": "Time", "title": "时间", "args": { "defaultValue": 1499157139261 } },
+        { "key": "time2", "component": "Time", "title": "时间", "args": { "defaultValue": "23:59:59" } },
+        { "key": "time3", "component": "Time", "title": "时间", "args": { "defaultValue": "23:59" } },
+        { "key": "time4", "component": "Time", "title": "时间", "args": { "defaultValue": "now" } }
+      ]
+    },
+    {
+      "key": "键盘输入类控件测试",
+      "title": "键盘输入类控件测试",
+      "module": "editor",
+      "inputs": [
+        { "key": "string1", "component": "String", "title": "单行文本" },
+        { "key": "string2", "component": "String", "title": "单行文本", "args": { "defaultValue": "hehe" } },
+        { "key": "text1", "component": "Text", "title": "多行文本" },
+        { "key": "text1", "component": "Text", "title": "多行文本", "args": { "defaultValue": "hehe\nhehe" } },
+        { "key": "number1", "component": "Number", "title": "数值" },
+        { "key": "number2", "component": "Number", "title": "数值", "args": { "defaultValue": "123.456" } },
+        { "key": "number3", "component": "Number", "title": "数值", "args": { "defaultValue": "a" } },
+        { "key": "password1", "component": "Password", "title": "密码" },
+        { "key": "password2", "component": "Password", "title": "密码", "args": { "defaultValue": "hehe" } },
+        { "key": "md1", "component": "Markdown", "title": "MD" },
+        { "key": "md2", "component": "Markdown", "title": "MD", "args": { "defaultValue": "# hehe" } },
+        { "key": "code1", "component": "Code", "title": "代码" },
+        { "key": "code2", "component": "Code", "title": "代码", "args": { "defaultValue": "console.log('hehe');", "mode": "javascript" } }
+      ]
+    },
+    {
+      "key": "点选类控件测试",
+      "title": "点选类控件测试",
+      "module": "editor",
+      "inputs": [
+        { "key": "select1", "component": "Select", "title": "下拉", "args": { "options": { "1": "one", "2": "two" } } },
+        { "key": "select2", "component": "Select", "title": "下拉", "args": { "options": { "1": "one", "2": "two" }, "defaultValue": "2" } },
+        { "key": "radio1", "component": "Radio", "title": "单选", "args": { "options": { "1": "one", "2": "two" } } },
+        { "key": "radio2", "component": "Radio", "title": "单选", "args": { "options": { "1": "one", "2": "two" }, "defaultValue": "2" } },
+        { "key": "checkbox1", "component": "Checkbox", "title": "多选", "args": { "options": { "1": "one", "2": "two" } } },
+        { "key": "checkbox2", "component": "Checkbox", "title": "多选", "args": { "options": { "1": "one", "2": "two" }, "defaultValue": "2" } },
+        { "key": "checkbox3", "component": "Checkbox", "title": "多选", "args": { "options": { "1": "one", "2": "two" }, "defaultValue": [ "1", "2" ] } },
+        { "key": "bool1", "component": "Boolean", "title": "布尔" },
+        { "key": "bool2", "component": "Boolean", "title": "布尔", "args": { "defaultValue": true } },
+        { "key": "cascader1", "component": "Cascader", "title": "级联", "args": { "options": [ { "value": "item 1" } ] } },
+        { "key": "cascader2", "component": "Cascader", "title": "级联", "args": { "options": [ { "value": "item 1" } ], "defaultValue": [ "item 1" ] } }
+      ]
+    },
+    {
+      "key": "Grouping 控件测试",
+      "title": "Grouping 控件测试",
+      "module": "editor",
+      "inputs": [
+        {
+          "key": "grouping1", "title": "Grouping", "component": "Grouping",
+          "args": {
+            "inputs": [
+              { "title": "hehe1", "args": { "width": 100 } },
+              { "title": "hehe1", "args": { "width": 100 } },
+              { "title": "hehe1", "args": { "width": 100 } }
+            ]
+          }
+        },
+        {
+          "key": "grouping1", "title": "Grouping", "component": "Grouping",
+          "args": {
+            "mode": "line",
+            "inputs": [
+              { "title": "hehe1", "args": { "width": 100 } },
+              { "title": "hehe1", "args": { "width": 100 } },
+              { "title": "hehe1", "args": { "width": 100 } }
+            ]
+          }
+        },
+        {
+          "key": "grouping1", "title": "Grouping", "component": "Grouping",
+          "args": {
+            "mode": "table",
+            "defaultValue": { "a": 1, "b": 2, "c": 3 },
+            "inputs": [
+              { "title": "hehe1", "key": "a", "args": { "width": 100 } },
+              { "title": "hehe1", "key": "b", "args": { "width": 100 } },
+              { "title": "hehe1", "key": "c", "args": { "width": 100 } }
+            ]
+          }
+        },
+        {
+          "key": "grouping1", "title": "Grouping", "component": "Grouping",
+          "args": {
+            "mode": "line",
+            "defaultValue": { "a": 1, "b": 2, "c": 3 },
+            "inputs": [
+              { "title": "hehe1", "key": "a", "args": { "width": 100 } },
+              { "title": "hehe1", "key": "b", "args": { "width": 100 } },
+              { "title": "hehe1", "key": "c", "args": { "width": 100 } }
+            ]
+          }
+        },
+        {
+          "key": "grouping1", "title": "Grouping", "component": "Grouping",
+          "args": {
+            "mode": "table",
+            "defaultValue": { "a": 1, "b": 2, "c": 3 },
+            "inputs": [
+              { "key": "a", "args": { "width": 100 } },
+              { "key": "b", "args": { "width": 100 } },
+              { "key": "c", "args": { "width": 100 } }
+            ]
+          }
+        },
+        {
+          "key": "grouping1", "title": "grouping", "component": "Grouping",
+          "args": {
+            "mode": "line",
+            "defaultValue": { "a": 1, "b": 2, "c": 3 },
+            "inputs": [
+              { "key": "a", "args": { "width": 100 } },
+              { "key": "b", "args": { "width": 100 } },
+              { "key": "c", "args": { "width": 100 } }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "logo": "Duang Demo",
+  "session": {
+    "authorize": "authorize.json",
+    "method": "get"
+  }
+}
