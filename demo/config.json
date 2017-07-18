@@ -5,15 +5,15 @@
       "title": "一个神奇的列表",
       "module": "list",
       "operations": [
-        { "method": "go", "title": "日期时间相关控件测试（只读）", "module": "editor", "key": "日期时间相关控件测试", "params": { "readonly": "true" } },
-        { "method": "go", "title": "键盘输入类控件测试（只读）", "module": "editor", "key": "键盘输入类控件测试", "params": { "readonly": "true" } },
-        { "method": "go", "title": "点选类控件测试（只读）", "module": "editor", "key": "点选类控件测试", "params": { "readonly": "true" } },
-        { "method": "go", "title": "Grouping 控件测试（只读）", "module": "editor", "key": "Grouping 控件测试", "params": { "readonly": "true" } }
+        { "method": "go", "title": "日期时间相关控件（只读）", "module": "editor", "key": "日期时间相关控件", "params": { "readonly": "true" } },
+        { "method": "go", "title": "键盘输入类控件（只读）", "module": "editor", "key": "键盘输入类控件", "params": { "readonly": "true" } },
+        { "method": "go", "title": "点选类控件（只读）", "module": "editor", "key": "点选类控件", "params": { "readonly": "true" } },
+        { "method": "go", "title": "Grouping 控件（只读）", "module": "editor", "key": "Grouping 控件", "params": { "readonly": "true" } }
       ]
     },
     {
-      "key": "日期时间相关控件测试",
-      "title": "日期时间相关控件测试",
+      "key": "日期时间相关控件",
+      "title": "日期时间相关控件",
       "module": "editor",
       "inputs": [
         { "key": "datetime1", "component": "DateTime", "title": "日期时间" },
@@ -34,8 +34,8 @@
       ]
     },
     {
-      "key": "键盘输入类控件测试",
-      "title": "键盘输入类控件测试",
+      "key": "键盘输入类控件",
+      "title": "键盘输入类控件",
       "module": "editor",
       "inputs": [
         { "key": "string1", "component": "String", "title": "单行文本" },
@@ -54,8 +54,8 @@
       ]
     },
     {
-      "key": "点选类控件测试",
-      "title": "点选类控件测试",
+      "key": "点选类控件",
+      "title": "点选类控件",
       "module": "editor",
       "inputs": [
         { "key": "select1", "component": "Select", "title": "下拉", "args": { "options": { "1": "one", "2": "two" } } },
@@ -72,8 +72,8 @@
       ]
     },
     {
-      "key": "Grouping 控件测试",
-      "title": "Grouping 控件测试",
+      "key": "Grouping 控件",
+      "title": "Grouping 控件",
       "module": "editor",
       "inputs": [
         {
