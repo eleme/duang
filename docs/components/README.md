@@ -257,8 +257,11 @@ options 是一个对象，其键名对应单选框的 value，其值对应单选
 | options      | `Object`                | 必选参数                 | 备选项         |
 | subGroupMap  | `Object<Array<Input>>`  | 空对象                   | 匹配组         |
 | hideKey      | `Boolean`               | false                    | 是否过滤字段   |
+| mode         | `String`                | "normal"                 | 排列模式       |
 
 当选择某个选项时，通过选中的值在 subGroupMap 中找到对应的数组，作为 Grouping 的 inputs 渲染。
+
+mode 目前支持两种取值，"line" 和 "normal"，分别表示单行显示和分行显示。
 
 示例：
 

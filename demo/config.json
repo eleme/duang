@@ -146,6 +146,50 @@
           }
         }
       ]
+    },
+    {
+      "key": "GroupingSelect 控件",
+      "title": "GroupingSelect 控件",
+      "module": "editor",
+      "inputs": [
+        {
+          "key": "grouping1", "title": "Grouping", "component": "GroupingSelect",
+          "args": {
+            "options": { "a": "first", "b": "second" },
+            "mode": "line",
+            "subGroupMap": {
+              "a": [ { "args": { "placeholder": "a", "width": 100 } } ],
+              "b": [ { "args": { "placeholder": "b", "width": 100 } } ]
+            }
+          }
+        },
+        {
+          "key": "grouping2", "title": "Grouping", "component": "GroupingSelect",
+          "args": {
+            "options": { "a": "first", "b": "second" },
+            "subGroupMap": {
+              "a": [ { "args": { "placeholder": "a", "width": 100 } } ],
+              "b": [ { "args": { "placeholder": "b", "width": 100 } } ]
+            }
+          }
+        },
+        {
+          "key": "grouping2", "title": "Grouping", "component": "GroupingSelect",
+          "args": {
+            "options": { "a": "first", "b": "second" },
+            "subGroupMap": {
+              "a": [ { "args": { "placeholder": "a", "width": 100 } } ]
+            }
+          }
+        },
+        {
+          "key": "grouping4", "title": "Grouping", "component": "GroupingSelect",
+          "args": {
+            "options": { "a": "first", "b": "second" },
+            "subGroupMap": {}
+          }
+        }
+      ]
     }
   ],
   "logo": "Duang Demo",

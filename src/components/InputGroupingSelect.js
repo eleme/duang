@@ -12,11 +12,13 @@ def((Input, InputSelect, SubGroupMap) => class extends Jinkela {
           options="{options}"
           readonly="{readonly}"
           onchange="{selectChange}"></jkl-input-select>
+        <div ref="container" class="container"></div>
       </div>
     `;
   }
   init() {
     if (!this.$hasValue) this.value = void 0;
+    if (this.mode) this.container.classList.add(this.mode);
   }
   get selectChange() {
     let value = () => {
@@ -24,9 +26,9 @@ def((Input, InputSelect, SubGroupMap) => class extends Jinkela {
       let group = this.subGroupMap[this.select.value] || [];
       if (group.length) {
         let table = new SubGroupMap({ group, depot });
-        this.table = this.table ? table.renderWith(this.table) : table.to(this);
+        this.table = this.table ? table.renderWith(this.table) : table.to(this.container);
       } else {
-        if (this.table) this.element.removeChild(this.table.element);
+        if (this.table) this.table.element.remove();
         this.table = null;
       }
     };
@@ -47,6 +49,15 @@ def((Input, InputSelect, SubGroupMap) => class extends Jinkela {
     return `
       :scope {
         text-align: left;
+        > .container {
+          margin-top: 1em;
+          &:empty { display: none; }
+          &.line {
+            margin: 0 0 0 1em;
+            display: inline-block;
+            vertical-align: top;
+          }
+        }
       }
     `;
   }
