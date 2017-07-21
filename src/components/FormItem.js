@@ -29,8 +29,14 @@ def((Item, Input, Output) => {
       if ('title' in this) {
         this.text.textContent = this.title;
       } else {
-        this.element.removeChild(this.text);
-        this.element.firstElementChild.colSpan = 2;
+        this.text.style.display = 'none';
+        // 伪 td 不支持 col-span，于是创建一个真实的 td 来替代伪 td
+        let td = document.createElement('td');
+        td.colSpan = 2;
+        while (this.ctrl.firstChild) td.appendChild(this.ctrl.firstChild);
+        this.element.insertBefore(td, this.ctrl);
+        this.ctrl.remove();
+        this.ctrl = td;
       }
       if (typeof this.description === 'string') {
         new Output({ component: 'HTML', value: this.description }).to(this.desc);

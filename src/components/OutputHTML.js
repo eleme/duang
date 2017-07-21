@@ -21,4 +21,11 @@ def(() => class extends Jinkela {
       this.element.innerHTML = this.value;
     }
   }
+  get styleSheet() {
+    return `
+      :scope {
+        overflow: hidden;
+      }
+    `;
+  }
 });
