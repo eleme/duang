@@ -153,7 +153,7 @@
       "module": "editor",
       "inputs": [
         {
-          "key": "grouping1", "title": "Grouping", "component": "GroupingSelect",
+          "key": "grouping1", "title": "GroupingSelect", "component": "GroupingSelect",
           "args": {
             "options": { "a": "first", "b": "second" },
             "mode": "line",
@@ -164,7 +164,7 @@
           }
         },
         {
-          "key": "grouping2", "title": "Grouping", "component": "GroupingSelect",
+          "key": "grouping2", "title": "GroupingSelect", "component": "GroupingSelect",
           "args": {
             "options": { "a": "first", "b": "second" },
             "subGroupMap": {
@@ -174,7 +174,7 @@
           }
         },
         {
-          "key": "grouping2", "title": "Grouping", "component": "GroupingSelect",
+          "key": "grouping2", "title": "GroupingSelect", "component": "GroupingSelect",
           "args": {
             "options": { "a": "first", "b": "second" },
             "subGroupMap": {
@@ -183,10 +183,29 @@
           }
         },
         {
-          "key": "grouping4", "title": "Grouping", "component": "GroupingSelect",
+          "key": "grouping4", "title": "GroupingSelect", "component": "GroupingSelect",
           "args": {
             "options": { "a": "first", "b": "second" },
             "subGroupMap": {}
+          }
+        },
+        {
+          "key": "grouping5", "title": "GroupingSelect", "component": "GroupingSelect",
+          "args": {
+            "options": { "a": "first", "b": "second" },
+            "subGroupMap": {
+              "a": [
+                {
+                  "key": "grouping2", "title": "GroupingSelect", "component": "GroupingSelect",
+                  "args": {
+                    "options": { "a": "first", "b": "second" },
+                    "subGroupMap": {
+                      "a": [ { "args": { "placeholder": "a", "width": 100 } } ]
+                    }
+                  }
+                }
+              ]
+            }
           }
         }
       ]
