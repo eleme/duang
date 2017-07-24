@@ -7,14 +7,24 @@ def((Item) => {
     get styleSheet() {
       return `
         :scope {
+          position: relative;
           font-size: 12px;
           letter-spacing: 0.02em;
           border-left: 3px solid transparent;
+          padding-left: 47px;
           list-style: none;
           white-space: nowrap;
           transition: background 200ms ease, border-left-color 200ms ease;
           color: #c0ccda;
           cursor: pointer;
+          &::before {
+            position: absolute;
+            left: -3px;
+            right: calc(100% - 47px);
+            top: 0;
+            bottom: 0;
+            margin: auto;
+          }
         }
       `;
     }
@@ -30,6 +40,7 @@ def((Item) => {
       return `
         :scope {
           margin: 0;
+          position: relative;
           &::before {
             content: '';
             width: 0;
@@ -39,9 +50,6 @@ def((Item) => {
             border-top-color: transparent;
             border-right-color: transparent;
             border-bottom-color: transparent;
-            display: inline-block;
-            vertical-align: middle;
-            margin: 0 10px 0 13px;
           }
           &:hover {
             opacity: .6;
@@ -97,7 +105,6 @@ def((Item) => {
             border-radius: 100%;
             display: inline-block;
             vertical-align: middle;
-            margin: 1px 11px;
           }
           opacity: .8;
           &:hover {
@@ -126,7 +133,6 @@ def((Item) => {
             border-radius: 100%;
             display: inline-block;
             vertical-align: middle;
-            margin: 0 10px;
           }
           &:hover {
             opacity: .6;

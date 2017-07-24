@@ -7,8 +7,14 @@ def((Output) => class extends Jinkela {
   }
   get styleSheet() {
     return `
-      .folded :scope { width: 50px; }
+      .folded :scope {
+        width: 50px;
+        > * {
+          transform: scale(0);
+        }
+      }
       :scope {
+        white-space: nowrap;
         overflow: hidden;
         transition: width 200ms ease;
         height: 50px;
@@ -19,6 +25,10 @@ def((Output) => class extends Jinkela {
         color: #fff;
         font-weight: 500;
         cursor: pointer;
+        > * {
+          display: inline-block;
+          transition: transform 200ms ease;
+        }
         &:hover {
           opacity: .95;
         }
