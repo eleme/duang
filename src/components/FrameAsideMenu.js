@@ -1,6 +1,9 @@
 def((Item) => {
 
   class Proto extends Item {
+    init() {
+      if (this.icon) this.element.style.setProperty('--icon', 'url("' + this.icon + '")');
+    }
     set active(value) {
       this.element.classList[value ? 'add' : 'remove']('active');
     }
@@ -9,21 +12,25 @@ def((Item) => {
         :scope {
           position: relative;
           font-size: 12px;
+          line-height: 44px;
           letter-spacing: 0.02em;
           border-left: 3px solid transparent;
-          padding-left: 47px;
           list-style: none;
           white-space: nowrap;
           transition: background 200ms ease, border-left-color 200ms ease;
           color: #c0ccda;
           cursor: pointer;
           &::before {
-            position: absolute;
-            left: -3px;
-            right: calc(100% - 47px);
-            top: 0;
-            bottom: 0;
-            margin: auto;
+            content: '';
+            display: inline-block;
+            vertical-align: middle;
+            margin-left: -3px;
+            width: 50px;
+            height: 44px;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 18px 18px;
+            background-image: var(--icon);
           }
         }
       `;
@@ -41,16 +48,7 @@ def((Item) => {
         :scope {
           margin: 0;
           position: relative;
-          &::before {
-            content: '';
-            width: 0;
-            height: 0;
-            border-style: solid;
-            border-width: 5px 0 6px 9px;
-            border-top-color: transparent;
-            border-right-color: transparent;
-            border-bottom-color: transparent;
-          }
+          --icon: url('https://fuss10.elemecdn.com/1/bf/b0d65297795c53b29ac11f285aaa6svg.svg');
           &:hover {
             opacity: .6;
             background: #1f2d3d;
@@ -97,15 +95,7 @@ def((Item) => {
     get styleSheet() {
       return `
         :scope {
-          &::before {
-            content: '';
-            width: 0;
-            height: 0;
-            border: 5px solid;
-            border-radius: 100%;
-            display: inline-block;
-            vertical-align: middle;
-          }
+          --icon: url('https://fuss10.elemecdn.com/9/12/017bdc919bb36dac8bb97014121absvg.svg');
           opacity: .8;
           &:hover {
             opacity: 1;
@@ -124,16 +114,7 @@ def((Item) => {
     get styleSheet() {
       return `
         :scope {
-          &::before {
-            content: '';
-            width: 12px;
-            height: 12px;
-            box-sizing: border-box;
-            border: 2px solid;
-            border-radius: 100%;
-            display: inline-block;
-            vertical-align: middle;
-          }
+          --icon: url('https://fuss10.elemecdn.com/1/8e/1ea628209b8e1905b9ca3ffd8e57bsvg.svg');
           &:hover {
             opacity: .6;
             background: #1f2d3d;

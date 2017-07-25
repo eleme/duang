@@ -54,6 +54,7 @@
 | ---- | ---- | ---- |
 | key | String | 表对应的接口 |
 | title | String | 表显示的名称 |
+| icon | String | 图标的 URL |
 | where | dict | 进入这张表的默认查询条件 |
 | caption | list | 一个 `Output` 类型的数组，配置列表页的表头 |
 | pageSize | number | 配置列表页每页显示的条数，默认显示所有 |
