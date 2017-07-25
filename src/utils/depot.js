@@ -8,6 +8,7 @@ var depot = new class { // eslint-disable-line no-unused-vars
       addEventListener('load', () => this.hashchange());
     }
     addEventListener('hashchange', () => this.hashchange());
+    dialog.element.firstChild.style.maxHeight = '80%';
   }
 
   async onRouteChange() {

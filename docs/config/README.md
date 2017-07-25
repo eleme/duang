@@ -54,6 +54,8 @@
 | ---- | ---- | ---- |
 | key | String | 表对应的接口 |
 | title | String | 表显示的名称 |
+| href | String | 如果设置了 href，该选项会忽略其他配置，直接变成超链接，target 也会变成超链接的打开方式 |
+| target | String | 当前菜单项的打开方式，如果设置了 href 则表示超链接的打开方式 |
 | icon | String | 图标的 URL |
 | where | dict | 进入这张表的默认查询条件 |
 | caption | list | 一个 `Output` 类型的数组，配置列表页的表头 |

@@ -77,17 +77,16 @@ def((Item) => {
       if (this.currentKey === this.key) this.element.classList.add('active');
       this.text = this.title || this.key.replace(/([^/]{2})[^/]{3,}\//g, '$1../');
     }
-    onClick() {
-      let { module = 'list', key, where = {}, params = {} } = this;
+    async onClick() {
+      let { href, target, module = 'list', key, where = {}, params = {} } = this;
       let tasks = [];
       if (this['@where']) tasks.push(api([ this.key, this['@where'] ]).then(result => (where = result)));
       if (this['@params']) tasks.push(api([ this.key, this['@params'] ]).then(result => (params = result)));
-      const done = () => {
-        where = JSON.stringify(where);
-        params = JSON.stringify(params);
-        location.hash = '#!' + new UParams({ module, key, where, params });
-      };
-      tasks.length ? Promise.all(tasks).then(done) : done();
+      await tasks;
+      where = JSON.stringify(where);
+      params = JSON.stringify(params);
+      if (href) return open(href, target);
+      return depot.go({ args: { module, key, params, where }, target });
     }
   }
 
