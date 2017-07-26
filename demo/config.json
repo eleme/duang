@@ -8,7 +8,26 @@
         { "method": "go", "title": "日期时间相关控件（只读）", "module": "editor", "key": "日期时间相关控件", "params": { "readonly": "true" } },
         { "method": "go", "title": "键盘输入类控件（只读）", "module": "editor", "key": "键盘输入类控件", "params": { "readonly": "true" } },
         { "method": "go", "title": "点选类控件（只读）", "module": "editor", "key": "点选类控件", "params": { "readonly": "true" } },
-        { "method": "go", "title": "Grouping 控件（只读）", "module": "editor", "key": "Grouping 控件", "params": { "readonly": "true" } }
+        { "method": "go", "title": "Grouping 控件（只读）", "module": "editor", "key": "Grouping 控件", "params": { "readonly": "true" } },
+        { "method": "go", "title": "GroupingSelect 控件（只读）", "module": "editor", "key": "GroupingSelect 控件", "params": { "readonly": "true" } },
+        { "method": "go", "title": "其它复杂控件（只读）", "module": "editor", "key": "其它复杂控件", "params": { "readonly": "true" } }
+      ]
+    },
+    {
+      "key": "分组",
+      "title": "分组",
+      "module": "editor",
+      "inputs": [
+        { "component": "Caption", "args": { "h1": "第零组", "h2": "一堆神奇的字段" } },
+        { "title": "a", "args": {} },
+        { "component": "Caption", "args": { "h1": "第壹组", "h2": "又堆神奇的字段" } },
+        { "title": "b", "args": {} },
+        { "component": "Caption", "args": { "h1": "第贰组", "h2": "双堆神奇的字段" } },
+        { "title": "c", "args": {} },
+        { "component": "Caption", "args": { "h1": "第叁组", "h2": "叒堆神奇的字段" } },
+        { "title": "d", "args": {} },
+        { "component": "Caption", "args": { "h1": "第肆组", "h2": "叕堆神奇的字段" } },
+        { "title": "e", "args": {} }
       ]
     },
     {
@@ -211,20 +230,27 @@
       ]
     },
     {
-      "key": "分组",
-      "title": "分组",
+      "key": "其它复杂控件",
+      "title": "其它复杂控件",
       "module": "editor",
       "inputs": [
-        { "component": "Caption", "args": { "h1": "第零组", "h2": "一堆神奇的字段" } },
-        { "title": "a", "args": {} },
-        { "component": "Caption", "args": { "h1": "第壹组", "h2": "又堆神奇的字段" } },
-        { "title": "b", "args": {} },
-        { "component": "Caption", "args": { "h1": "第贰组", "h2": "双堆神奇的字段" } },
-        { "title": "c", "args": {} },
-        { "component": "Caption", "args": { "h1": "第叁组", "h2": "叒堆神奇的字段" } },
-        { "title": "d", "args": {} },
-        { "component": "Caption", "args": { "h1": "第肆组", "h2": "叕堆神奇的字段" } },
-        { "title": "e", "args": {} }
+        {
+          "description": "必选",
+          "key": "suggestion2", "component": "Suggestion", "title": "搜索建议",
+          "args": { "api": "../value-list.json" }
+        },
+        {
+          "key": "suggestion2", "component": "Suggestion", "title": "搜索建议",
+          "args": { "api": "../value-list.json", "placeholder": "placeholder" }
+        },
+        {
+          "key": "suggestion2", "component": "Suggestion", "title": "搜索建议",
+          "args": { "api": "../value-list.json", "width": 100 }
+        },
+        {
+          "key": "suggestion2", "component": "Suggestion", "title": "搜索建议",
+          "args": { "api": "../value-list.json", "defaultValue": "hehe" }
+        }
       ]
     }
   ],

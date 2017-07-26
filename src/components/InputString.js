@@ -7,7 +7,7 @@ def(() => class extends Jinkela {
   init() {
     if (this.width !== void 0) this.element.style.width = this.width;
     if (this.readonly) this.element.setAttribute('readonly', 'readonly');
-    if ('placeholder' in this) this.element.setAttribute('placeholder', this.placeholder);
+    if (typeof this.placeholder === 'string') this.element.setAttribute('placeholder', this.placeholder);
     if ('maxlength' in this) this.element.setAttribute('maxlength', this.maxlength);
     if (!this.$hasValue) this.value = this.default; // default 已废弃，暂时保持兼容，请使用 defaultValue
   }
