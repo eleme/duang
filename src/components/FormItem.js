@@ -5,10 +5,18 @@ def((Item, Input, Output) => {
     get template() {
       return `
         <div>
-          <span ref="text"></span>
+          <span ref="text" class="text"></span>
           <span ref="ctrl"></span>
           <span ref="desc"></span>
         </div>
+      `;
+    }
+
+    get styleSheet() {
+      return `
+        :scope {
+          > .text { opacity: .6; }
+        }
       `;
     }
 
