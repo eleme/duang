@@ -163,7 +163,7 @@ def((Item) => {
             overflow: hidden;
           }
           &[data-active=true] > ul {
-            max-height: 1000px;
+            max-height: 2000px;
           }
         }
       `;
