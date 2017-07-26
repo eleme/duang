@@ -77,7 +77,9 @@ var depot = new class { // eslint-disable-line no-unused-vars
   get uParams() { return this.cache('uParams', () => new UParams()); }
   get schemeMap() {
     let value = Object.create(null);
-    this.config.schemes.forEach(scheme => (value[scheme.key] = scheme));
+    this.config.schemes.forEach(scheme => {
+      if (scheme.key !== void 0) value[scheme.key] = scheme;
+    });
     Object.defineProperty(this, 'schemeMap', { value });
     return value;
   }

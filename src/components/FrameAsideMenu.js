@@ -76,7 +76,7 @@ def((Item) => {
       `;
     }
     init() {
-      if (this.currentKey === this.key) this.element.classList.add('active');
+      if (this.currentKey !== void 0 && this.currentKey === this.key) this.element.classList.add('active');
       this.text = this.title || this.key.replace(/([^/]{2})[^/]{3,}\//g, '$1../');
     }
     async onClick() {
@@ -206,12 +206,7 @@ def((Item) => {
         item.active = !headTitle && item.title === tailTitle;
       });
     }
-    get template() {
-      return `
-        <ul>
-        </ul>
-      `;
-    }
+    get tagName() { return 'ul'; }
     get styleSheet() {
       return `
         :scope {
