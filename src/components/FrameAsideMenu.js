@@ -11,8 +11,8 @@ def((Item) => {
       return `
         :scope {
           position: relative;
-          font-size: 12px;
-          line-height: 44px;
+          font-size: 14px;
+          line-height: 50px;
           letter-spacing: 0.02em;
           border-left: 3px solid transparent;
           list-style: none;
@@ -26,7 +26,7 @@ def((Item) => {
             vertical-align: middle;
             margin-left: -3px;
             width: 50px;
-            height: 44px;
+            height: 50px;
             background-repeat: no-repeat;
             background-position: center;
             background-size: 18px 18px;
@@ -48,6 +48,8 @@ def((Item) => {
         :scope {
           margin: 0;
           position: relative;
+          font-size: 16px;
+          font-weight: normal;
           --icon: url('https://fuss10.elemecdn.com/1/bf/b0d65297795c53b29ac11f285aaa6svg.svg');
           &:hover {
             opacity: .6;
