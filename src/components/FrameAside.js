@@ -36,7 +36,6 @@ def((FrameAsideMenu) => {
           background: #1f2d3d;
           padding: 12px;
           margin: 0;
-          margin-bottom: 10px;
         }
       `;
     }
@@ -56,6 +55,7 @@ def((FrameAsideMenu) => {
         :scope {
           flex: 1;
           overflow: auto;
+          margin-top: 10px;
           line-height: 44px;
         }
       `;
@@ -80,12 +80,15 @@ def((FrameAsideMenu) => {
   }
 
   class Aside extends Jinkela {
+    beforeParse(params) {
+      this.noToggle = !depot.config.noToggle;
+    }
     get Toggle() { return Toggle; }
     get Container() { return Container; }
     get template() {
       return `
         <div>
-          <jkl-toggle></jkl-toggle>
+          <jkl-toggle if="{noToggle}"></jkl-toggle>
           <jkl-container></jkl-container>
         </div>
       `;
