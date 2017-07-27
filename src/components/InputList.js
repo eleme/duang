@@ -26,7 +26,11 @@ def((Input, Button) => {
           margin-top: 1em;
           &:first-child { margin-top: 0; }
           > * {
+            display: inline-block;
             margin-right: .5em;
+          }
+          > button {
+            vertical-align: bottom;
           }
         }
       `;
@@ -102,6 +106,15 @@ def((Input, Button) => {
     set value(value = this.defaultValue) {
       this.$hasValue = true;
       this.list.value = value;
+    }
+    get styleSheet() {
+      return `
+        :scope {
+          > button {
+            vertical-align: bottom;
+          }
+        }
+      `;
     }
   }
 

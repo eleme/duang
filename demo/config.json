@@ -100,7 +100,7 @@
           "args": {
             "inputs": [
               { "title": "hehe1", "args": { "width": 100 } },
-              { "title": "hehe1", "args": { "width": 100 } },
+              { "title": "hehe1", "component": "Suggestion", "args": { "width": 150, "api": "../value-list.json" } },
               { "title": "hehe1", "args": { "width": 100 } }
             ]
           }
@@ -177,7 +177,7 @@
             "options": { "a": "first", "b": "second" },
             "mode": "line",
             "subGroupMap": {
-              "a": [ { "args": { "placeholder": "a", "width": 100 } } ],
+              "a": [ { "title": "hehe1", "component": "Suggestion", "args": { "api": "../value-list.json" } } ],
               "b": [ { "args": { "placeholder": "b", "width": 100 } } ]
             }
           }
@@ -187,7 +187,7 @@
           "args": {
             "options": { "a": "first", "b": "second" },
             "subGroupMap": {
-              "a": [ { "args": { "placeholder": "a", "width": 100 } } ],
+              "a": [ { "title": "hehe1", "component": "Suggestion", "args": { "width": 150, "api": "../value-list.json" } } ],
               "b": [ { "args": { "placeholder": "b", "width": 100 } } ]
             }
           }
@@ -262,6 +262,70 @@
         {
           "key": "suggestion5", "component": "Suggestion", "title": "搜索建议",
           "args": { "api": "../empty-list.json", "width": 100, "emptyTip": "并没有内容" }
+        }
+      ]
+    },
+    {
+      "key": "其它神奇的控件组合",
+      "title": "其它神奇的控件组合",
+      "module": "editor",
+      "inputs": [
+        {
+          "key": "grouping1", "title": "各种神奇的组合", "component": "GroupingSelect",
+          "args": {
+            "options": {
+              "a": "两个搜索建议控件",
+              "b": "两个时期时间控件"
+            },
+            "mode": "line",
+            "subGroupMap": {
+              "a": [
+                { "title": "hehe1", "component": "Suggestion", "args": { "api": "../value-list.json" } },
+                { "title": "hehe2", "component": "Suggestion", "args": { "api": "../value-list.json" } }
+              ],
+              "b": [
+                { "component": "DateTime" },
+                { "component": "DateTime" }
+              ]
+            }
+          }
+        },
+        {
+          "title": "列表嵌搜索建议",
+          "component": "List",
+          "args": {
+            "defaultValue": [ "hehe" ],
+            "component": "Suggestion",
+            "args": {
+              "api": "../value-list.json",
+              "width": 100
+            }
+          }
+        },
+        {
+          "title": "列表嵌组合选择",
+          "component": "List",
+          "args": {
+            "defaultValue": [ "hehe" ],
+            "component": "GroupingSelect",
+            "args": {
+              "options": {
+                "a": "两个搜索建议控件",
+                "b": "两个时期时间控件"
+              },
+              "mode": "line",
+              "subGroupMap": {
+                "a": [
+                  { "title": "hehe1", "component": "Suggestion", "args": { "api": "../value-list.json" } },
+                  { "title": "hehe2", "component": "Suggestion", "args": { "api": "../value-list.json" } }
+                ],
+                "b": [
+                  { "component": "DateTime" },
+                  { "component": "DateTime" }
+                ]
+              }
+            }
+          }
         }
       ]
     }
