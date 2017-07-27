@@ -27,13 +27,17 @@ def((InputString, Item) => {
     }
 
     beforeParse(params) {
-      this.inputHandler = debounce(this.inputHandler, 1000, true);
+      this.inputHandler = debounce(this.inputHandler, 300, true);
       this.width = params.width;
-      this.placeholder = params.placeholder;
-      this.readonly = params.readonly;
+
+      this.input = new InputString(params);
+      this.input.element.addEventListener('focus', event => this.inputHandler(event));
+      this.input.element.addEventListener('blur', event => this.blur(event));
+      this.input.element.addEventListener('input', event => this.inputHandler(event));
     }
 
     init() {
+      this.element.insertBefore(this.input.element, this.element.firstChild);
       if (this.width !== void 0) this.element.style.width = this.width;
       if (this.emptyTip) this.list.dataset.tip = this.emptyTip;
       this.element.addEventListener('item:select', this.selectItem.bind(this));
@@ -44,7 +48,7 @@ def((InputString, Item) => {
       if (this.readonly) return;
       let { resolvedKey } = depot;
       let raw = await api([resolvedKey, this.api], { query: { q: this.value } });
-      if (!(raw instanceof Array)) throw new Error(`返回必须是数组：${raw}`);
+      if (!(raw instanceof Array)) throw new Error(`返回必须是数组，然而却是 ${raw}`);
       this.list.innerHTML = '';
       if (!raw.length) {
         if (this.emptyTip) {
@@ -58,8 +62,9 @@ def((InputString, Item) => {
       }
     }
 
-    get value() { return this.$value; }
+    get value() { return this.input.value; }
     set value(value = this.defaultValue) {
+      if (typeof value !== 'string') value = '';
       this.$hasValue = true;
       this.$value = value;
       if (this.input) this.input.value = value;
@@ -123,13 +128,10 @@ def((InputString, Item) => {
       }
     }
 
+    // TODO: ul 弹层挂到 body 上，防止被 overflow hidden
     get template() {
       return `
-        <div on-keydown="{onKeydown}" on-input="{inputHandler}">
-          <jkl-input-string ref="input"
-            on-focus="{inputHandler}" on-blur="{blur}"
-            placeholder="{placeholder}" width="{width}" readonly="{readonly}"
-          ></jkl-input-string>
+        <div on-keydown="{onKeydown}">
           <div>
             <ul ref="list"></ul>
           </div>

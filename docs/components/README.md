@@ -428,9 +428,20 @@ mode 目前支持两种取值，"line" 和 "normal"，分别表示单行显示�
 | width        | `String`                | 600                      | 宽度                   |
 | emptyTip     | `String`                | 无结果时不展开提示框     | 无结果时的提示文字     |
 
-* 当输入时会调用这个 api，并且将结果作为搜索建议，这个 api 应该返回如下结构的数据：
+当输入时会使用 GET 方法调用这个 api，并且在 QueryString 中带上一个名为 q 的参数（注意其是经过 json encode 的）。
+这个接口应该返回一个对象数组，其中的每一个对象都有一个 value 字段。
 
-```json
+下面是这个接口的请求实例：
+
+```text
+GET /api?q="xxx" HTTP/1.1
+Host: ...
+
+
+HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: ...
+
 [
   { "value": "搜索建议 1" },
   { "value": "搜索建议 2" }
