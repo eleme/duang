@@ -28,7 +28,7 @@ def((InputString, Item) => {
 
     beforeParse(params) {
       this.inputHandler = debounce(this.inputHandler, 300, true);
-      this.width = params.width;
+      this.width = params.width = params.width || 300;
 
       this.input = new InputString(params);
       this.input.element.addEventListener('focus', event => this.inputHandler(event));

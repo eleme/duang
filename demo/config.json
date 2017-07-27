@@ -311,17 +311,21 @@
             "args": {
               "options": {
                 "a": "两个搜索建议控件",
-                "b": "两个时期时间控件"
+                "b": "两个时期时间控件",
+                "c": "xxx"
               },
               "mode": "line",
               "subGroupMap": {
                 "a": [
                   { "title": "hehe1", "component": "Suggestion", "args": { "api": "../value-list.json" } },
-                  { "title": "hehe2", "component": "Suggestion", "args": { "api": "../value-list.json" } }
+                  { "title": "hehe2", "component": "Suggestion", "args": { "api": "../value-list.json" } },
+                  { "component": "String", "args": { "width": 500 } }
                 ],
                 "b": [
                   { "component": "DateTime" },
                   { "component": "DateTime" }
+                ],
+                "c": [
                 ]
               }
             }
