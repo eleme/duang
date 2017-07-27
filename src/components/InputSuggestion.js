@@ -15,23 +15,6 @@ def((InputString, Item) => {
 
   }
 
-  class NoResult extends Jinkela {
-    get template() {
-      return `
-        <p>没有任何搜索结果</p>
-      `;
-    }
-    get styleSheet() {
-      return `
-        :scope {
-          text-align: center;
-          padding: .4em .5em;
-          margin: 0;
-        }
-      `;
-    }
-  }
-
   return class extends Jinkela {
 
     get InputString() { return InputString; }
@@ -52,24 +35,27 @@ def((InputString, Item) => {
 
     init() {
       if (this.width !== void 0) this.element.style.width = this.width;
-      this.noResult = false;
+      if (this.emptyTip) this.list.dataset.tip = this.emptyTip;
       this.element.addEventListener('item:select', this.selectItem.bind(this));
       if (!this.$hasValue) this.value = void 0;
     }
 
     async inputHandler() {
       if (this.readonly) return;
-      this.noResult = false;
       let { resolvedKey } = depot;
       let raw = await api([resolvedKey, this.api], { query: { q: this.value } });
       if (!(raw instanceof Array)) throw new Error(`返回必须是数组：${raw}`);
       this.list.innerHTML = '';
       if (!raw.length) {
-        this.noResult = true;
+        if (this.emptyTip) {
+          this.element.setAttribute('popup', '');
+        } else {
+          this.element.removeAttribute('popup');
+        }
       } else {
         raw.forEach(item => new ListItem(item).to(this.list));
+        this.element.setAttribute('popup', '');
       }
-      this.element.setAttribute('popup', '');
     }
 
     get value() { return this.$value; }
@@ -146,7 +132,6 @@ def((InputString, Item) => {
           ></jkl-input-string>
           <div>
             <ul ref="list"></ul>
-            <jkl-no-result if="{noResult}"></jkl-no-result>
           </div>
         </div>
       `;
@@ -184,6 +169,13 @@ def((InputString, Item) => {
                 &.active {
                   background-color: rgba(25,137,250,.08);
                 }
+              }
+              &:empty::before {
+                content: attr(data-tip);
+                display: block;
+                opacity: .5;
+                text-align: center;
+                padding: .5em;
               }
             }
           }

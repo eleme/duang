@@ -426,6 +426,7 @@ mode 目前支持两种取值，"line" 和 "normal"，分别表示单行显示�
 | api          | `String`                | 必选参数                 | 获取关键词接口相对路径 |
 | placeholder  | `String`                | "请选择"                 | 占位文字               |
 | width        | `String`                | 600                      | 宽度                   |
+| emptyTip     | `String`                | 无结果时不展开提示框     | 无结果时的提示文字     |
 
 * 当输入时会调用这个 api，并且将结果作为搜索建议，这个 api 应该返回如下结构的数据：
 
