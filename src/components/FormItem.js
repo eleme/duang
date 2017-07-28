@@ -7,7 +7,7 @@ def((Item, Input, Output) => {
         <div>
           <span ref="text" class="text"></span>
           <span ref="ctrl"></span>
-          <span ref="desc"></span>
+          <span ref="desc" class="desc"></span>
         </div>
       `;
     }
@@ -16,6 +16,7 @@ def((Item, Input, Output) => {
       return `
         :scope {
           > .text { opacity: .6; }
+          > .desc { opacity: .6; }
         }
       `;
     }
@@ -35,7 +36,11 @@ def((Item, Input, Output) => {
       this.input = this.createInput().to(this.ctrl);
       this.$promise = this.input.$promise;
       if ('title' in this) {
-        this.text.textContent = this.title;
+        if (typeof this.title === 'string') {
+          new Output({ component: 'HTML', value: this.title }).to(this.text);
+        } else if (typeof this.title === 'object') {
+          new Output(this.title).to(this.text);
+        }
       } else {
         this.text.style.display = 'none';
         // 伪 td 不支持 col-span，于是创建一个真实的 td 来替代伪 td

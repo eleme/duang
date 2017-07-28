@@ -332,6 +332,59 @@
           }
         }
       ]
+    },
+    {
+      "key": "表单",
+      "title": "表单",
+      "module": "editor",
+      "inputs": [
+        {
+          "component": "String",
+          "args": { "width": 100 },
+          "title": "Input - 100",
+          "description": "描述"
+        },
+        {
+          "component": "String",
+          "args": { "width": 300 },
+          "title": { "value": "Input - 300<font color=\"red\">*</font>" },
+          "description": { "value": "描述<del>呵呵</del>" }
+        },
+        {
+          "component": "String",
+          "optional": true,
+          "args": { "width": 150 },
+          "title": "Input - 150",
+          "description": "描述"
+        }
+      ]
+    },
+    {
+      "key": "列表",
+      "title": "列表",
+      "filters": [
+        {
+          "key": "f1",
+          "component": "String",
+          "args": { "width": 100 },
+          "title": "Input - 100",
+          "description": "描述"
+        },
+        {
+          "key": "f2",
+          "component": "String",
+          "optional": true,
+          "args": { "width": 150 },
+          "title": "Input - 150",
+          "description": "描述"
+        }
+      ],
+      "fields": [
+        {
+          "component": "String",
+          "key": "x"
+        }
+      ]
     }
   ],
   "logo": "Duang Demo",
