@@ -84,7 +84,7 @@ def((Item) => {
       let tasks = [];
       if (this['@where']) tasks.push(api([ this.key, this['@where'] ]).then(result => (where = result)));
       if (this['@params']) tasks.push(api([ this.key, this['@params'] ]).then(result => (params = result)));
-      await tasks;
+      await Promise.all(tasks);
       where = JSON.stringify(where);
       params = JSON.stringify(params);
       if (href) return open(href, target);
