@@ -1,26 +1,32 @@
+// 设置 base 标签
 {
   let [ , path ] = document.currentScript.src.match(/^(.*\/)duang\.js$/);
   let base = document.createElement('base');
   base.setAttribute('href', path);
   document.head.appendChild(base);
+}
+
+// 设置 loading 效果
+{
   let style = document.createElement('style');
-  let loading = '拼命加载中';
   style.innerHTML = `
     @keyFrames body-busy {
-      0% { content: '${loading} ·'; }
-      25% { content: '${loading} ··'; }
-      50% { content: '${loading} ···'; }
-      75% { content: '${loading} ····'; }
-      100% { content: '${loading} ·'; }
+      0% { content: var(--global-message) ' ·'; }
+      25% { content: var(--global-message) ' ··'; }
+      50% { content: var(--global-message) ' ···'; }
+      75% { content: var(--global-message) ' ····'; }
+      100% { content: var(--global-message) ' ·'; }
     }
-    body:empty::before {
+    body::before {
+      content: var(--global-message);
+      animation: var(--global-message-animation) 1s linear infinite;
       position: fixed;
       font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
       font-size: 32px;
       height: 200px;
       line-height: 200px;
-      width: 250px;
-      whilte-space: nowrap;
+      white-space: nowrap;
+      text-align: center;
       color: #20a0ff;
       opacity: .5;
       margin: auto;
@@ -28,11 +34,17 @@
       right: 0;
       bottom: 0;
       top: 0;
-      content: '';
-      animation: body-busy 1s linear infinite;
+    }
+    body:empty::before {
+      --global-message: '正在加载静态资源';
+      --global-message-animation: body-busy;
     }
   `;
   document.head.appendChild(style);
+}
+
+// 加载样式库
+{
   let styleSheets = [
     'https://github.elemecdn.com/codemirror/CodeMirror/5.19.0/lib/codemirror.css',
     'https://github.elemecdn.com/codemirror/CodeMirror/5.19.0/theme/neo.css',
@@ -44,6 +56,10 @@
     link.setAttribute('rel', 'stylesheet');
     document.head.appendChild(link);
   });
+}
+
+// 加载 js（根据依赖考虑先后顺序）
+{
   let dependencies = [
     [
       window.fetch ? null : 'https://github.elemecdn.com/uglifyjs!github/fetch/v0.11.0/fetch.js'

@@ -12,6 +12,14 @@ var depot = new class { // eslint-disable-line no-unused-vars
   }
 
   async onRouteChange() {
+    try {
+      await this.config;
+      await this.session;
+    } catch (error) {
+      alert(error.message);
+      return;
+    }
+    Object.defineProperty(this, Symbol.for('cache'), { configurable: true, value: {} });
     let moduleName = String(this.module || 'default');
     let tasks = Promise.all([ req('Frame'), req('MainWith' + moduleName.replace(/./, $0 => $0.toUpperCase())) ]);
     if (this._autoRefreshTimer) {
@@ -30,10 +38,7 @@ var depot = new class { // eslint-disable-line no-unused-vars
     }
   }
 
-  async hashchange() {
-    await this.config;
-    await this.session;
-    Object.defineProperty(this, Symbol.for('cache'), { configurable: true, value: {} });
+  hashchange() {
     this.onRouteChange();
   }
 
@@ -48,25 +53,60 @@ var depot = new class { // eslint-disable-line no-unused-vars
     return (scheme && scheme.const && scheme.const[name]) || (config.const && config.const[name]) || name;
   }
   getSchemeByKey(key) { return this.schemeMap[key] || {}; }
+
+  setGlobalMessage(message, animation) {
+    if (message) {
+      document.body.style.setProperty('--global-message', JSON.stringify(message));
+      if (animation) {
+        document.body.style.setProperty('--global-message-animation', 'body-busy');
+      } else {
+        document.body.style.removeProperty('--global-message-animation');
+      }
+    } else {
+      document.body.style.removeProperty('--global-message');
+      document.body.style.removeProperty('--global-message-animation');
+    }
+  }
+
   get config() {
     const configElement = document.querySelector('script[config]');
     const config = configElement && configElement.getAttribute('config') || '';
-    return (window.config ? window.config : api(config).then(result => (window.config = result)));
+    let task = window.config ? Promise.resolve(window.config) : api(config);
+    Object.defineProperty(this, 'config', { configurable: true, value: task });
+    this.setGlobalMessage('正在加载配置', true);
+    task.then(value => {
+      this.setGlobalMessage();
+      window.config = value;
+      Object.defineProperty(this, 'config', { configurable: true, value });
+    }, error => {
+      this.setGlobalMessage();
+      throw error;
+    });
+    return task;
   }
+
   get session() {
     if (!config.session) return (window.session = {});
     let task = api(config.session.authorize, { method: config.session.method || 'post' });
     Object.defineProperty(this, 'session', { configurable: true, value: task });
-    return task.then(value => {
+    this.setGlobalMessage('正在加载用户信息', true);
+    task.then(value => {
+      this.setGlobalMessage();
+      window.session = value;
       Object.defineProperty(this, 'session', { configurable: true, value });
     }, reason => {
+      this.setGlobalMessage();
       Object.defineProperty(this, 'session', { configurable: true, value: {} });
       let response = reason && reason[Symbol.for('response')] || {};
       if (response.status === 401 || reason.name === 'UNAUTHORIZED') {
         location.href = api.resolvePath(new Function('return `' + config.session.signin + '`')());
+      } else if (response.status !== 200) {
+        throw Error('用户信息加载失败');
       }
     });
+    return task;
   }
+
   get module() { return this.uParams.module; }
   get id() { return this.params.id; }
   get key() { return this.uParams.key; }
