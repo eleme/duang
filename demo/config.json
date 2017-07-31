@@ -92,8 +92,18 @@
         {
           "key": "cascader2", "component": "Forest", "title": "树林",
           "args": {
-            "options": [ { "id": 1, "text": "item 1" }, { "id": 2, "parentId": 1, "text": "item 1" } ],
+            "options": [ { "id": 1, "text": "item 1" }, { "id": 2, "parentId": 1, "text": "item 2" } ],
             "defaultValue": [ 1 ]
+          }
+        },
+        {
+          "key": "cascader3", "component": "Forest", "title": "树林",
+          "args": {
+            "options": [ { "a": 1, "c": "item 1" }, { "a": 2, "b": 1, "c": "item 2" } ],
+            "defaultValue": [ 1 ],
+            "idAlias": "a",
+            "parentIdAlias": "b",
+            "textAlias": "c"
           }
         }
       ]

@@ -534,14 +534,17 @@ Input::Cascader::Options:
 | ---------------- | -------------------------------- | ------------------------ | ------------------------ |
 | options          | `List<Input::Forest::Options>`   | 必选参数                 | 备选项                   |
 | placeholder      | `String`                         | "请选择"                 | 占位文字                 |
+| idAlias          | `String`                         | "id"                     | id 字段别名              |
+| parentIdAlias    | `String`                         | "parentId"               | parentId 字段别名        |
+| textAlias        | `String`                         | "text"                   | text 字段别名            |
 
 Input::Cascader::Options:
 
 | 名字             | 类型                             | 默认值                   | 描述                     |
 | ---------------- | -------------------------------- | ------------------------ | ------------------------ |
-| id               | `Any`                            | 必选参数                 | 自身的唯一 id            |
-| parentId         | `Any`                            | 空，表示根节点           | 父节点 id                |
-| text             | `String`                         | 必选参数                 | 显示的文字               |
+| [idAlias]        | `Any`                            | 必选参数                 | 自身的唯一 id            |
+| [parentIdAlias]  | `Any`                            | 空，表示根节点           | 父节点 id                |
+| [textAlias]      | `String`                         | 必选参数                 | 显示的文字               |
 
 示例：
 
