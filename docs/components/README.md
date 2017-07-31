@@ -522,6 +522,42 @@ Input::Cascader::Options:
 }
 ```
 
+### Input::Forest
+
+树林选择器
+
+这个控件的数据类型是一个数组（递归表），所有根节点作为第一级选项。
+
+参数：
+
+| 名字             | 类型                             | 默认值                   | 描述                     |
+| ---------------- | -------------------------------- | ------------------------ | ------------------------ |
+| options          | `List<Input::Forest::Options>`   | 必选参数                 | 备选项                   |
+| placeholder      | `String`                         | "请选择"                 | 占位文字                 |
+
+Input::Cascader::Options:
+
+| 名字             | 类型                             | 默认值                   | 描述                     |
+| ---------------- | -------------------------------- | ------------------------ | ------------------------ |
+| id               | `Any`                            | 必选参数                 | 自身的唯一 id            |
+| parentId         | `Any`                            | 空，表示根节点           | 父节点 id                |
+| text             | `String`                         | 必选参数                 | 显示的文字               |
+
+示例：
+
+```javascript
+{
+  "component": "Forest",
+  "args": {
+    "options": [
+      { "id": 1, "text": "item 1", },
+      { "id": 2, "parentId": 1, "text": "item 1.1" }
+    ],
+    "defaultText": [ 1, 2 ]
+  }
+}
+```
+
 ### Input::Code
 
 一个代码输入框，底层使用的是 [CodeMirror](https://codemirror.net/doc/manual.html)，`args` 中的参数都会传到 `CodeMirror` 初始化配置中

@@ -87,7 +87,15 @@
         { "key": "bool1", "component": "Boolean", "title": "布尔" },
         { "key": "bool2", "component": "Boolean", "title": "布尔", "args": { "defaultValue": true } },
         { "key": "cascader1", "component": "Cascader", "title": "级联", "args": { "options": [ { "value": "item 1" } ] } },
-        { "key": "cascader2", "component": "Cascader", "title": "级联", "args": { "options": [ { "value": "item 1" } ], "defaultValue": [ "item 1" ] } }
+        { "key": "cascader2", "component": "Cascader", "title": "级联", "args": { "options": [ { "value": "item 1" } ], "defaultValue": [ "item 1" ] } },
+        { "key": "cascader1", "component": "Forest", "title": "树林", "args": { "options": [ { "id": 1, "text": "item 1" } ] } },
+        {
+          "key": "cascader2", "component": "Forest", "title": "树林",
+          "args": {
+            "options": [ { "id": 1, "text": "item 1" }, { "id": 2, "parentId": 1, "text": "item 1" } ],
+            "defaultValue": [ 1 ]
+          }
+        }
       ]
     },
     {
