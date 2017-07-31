@@ -1,10 +1,11 @@
 def((Button) => {
 
   class SpanButton extends Button {
-    get tag() { return 'span'; }
+    get tagName() { return 'span'; }
     get styleSheet() {
       return `
         :scope {
+          margin-right: 1em;
           display: inline-block;
         }
       `;
@@ -24,7 +25,7 @@ def((Button) => {
       return `
         :scope {
           display: inline-block;
-          margin-left: 15px;
+          margin-right: 15px;
           text-decoration: underline;
           color: #20A0FF;
         }
@@ -39,7 +40,6 @@ def((Button) => {
         :scope {
           color: #999;
           vertical-align: middle;
-          margin-left: 1em;
         }
       `;
     }
@@ -68,31 +68,39 @@ def((Button) => {
       this.$hasValue = true;
       this.$value = value;
       this.base64 = value;
+      if (value) {
+        this.fileInfo.element.textContent = Math.floor(String(value).replace(/=*$/, '').length * 3 / 4).toLocaleString() + ' Bytes';
+      } else {
+        this.fileInfo.element.textContent = '未选择';
+      }
       this.label.setAttribute('notEmpty', !!value);
     }
     get template() {
       return `
         <div>
           <label ref="label">
-            <input ref="input" type="file" />
-            <jkl-span-button ref="button" text={text}></jkl-span-button>
+            <input ref="input" if-not="{readonly}" type="file" />
+            <jkl-span-button if-not="{readonly}" ref="button" text="{text}"></jkl-span-button>
             <jkl-download-link value="{base64}" downloadText="{downloadText}"></jkl-download-link>
           </label>
         </div>
       `;
     }
     init() {
-      if (!this.text) this.text = '请选择文件';
-      this.input.addEventListener('change', event => this.change(event));
       this.fileInfo = new FileInfo().to(this);
-      this.cancelButton = new CancelButton({ onClick: () => (this.value = null) }).to(this);
+      if (this.readonly) {
+        this.element.classList.add('readonly');
+      } else {
+        if (!this.text) this.text = '请选择文件';
+        new CancelButton({ onClick: () => (this.value = null) }).to(this);
+        this.input.addEventListener('change', event => this.change(event));
+      }
       if (!this.$hasValue) this.value = void 0;
     }
     change(event) {
       let { target } = event;
       let file = target.files[0];
       if (!file) return;
-      this.fileInfo.element.textContent = file.size.toLocaleString() + ' Bytes';
       let fr = new FileReader();
       this.button.element.classList.add('busy');
       fr.addEventListener('load', () => {
@@ -106,8 +114,11 @@ def((Button) => {
     get styleSheet() {
       return `
         :scope {
-          label ~ * { display: none; }
-          label[notEmpty=true] ~ * { display: inline-block; }
+          label {
+            display: inline-block;
+          }
+          label ~ a { display: none; }
+          label[notEmpty=true] ~ a { display: inline-block; }
           input { display: none; }
         }
       `;

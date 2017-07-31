@@ -5,6 +5,7 @@ def((Button) => {
     get styleSheet() {
       return `
         :scope {
+          margin-right: 1em;
           display: inline-block;
         }
       `;
@@ -30,7 +31,7 @@ def((Button) => {
     get template() { return '<a target="_blank" href="JavaScript:"><img ref="img"/></a>'; }
     set token(token) {
       if (token) {
-        api([ this.api, token ]).then(result => {
+        fetch(api.resolvePath([ this.api, token ])).then(response => response.blob()).then(result => {
           let url = URL.createObjectURL(result);
           this.element.style.display = 'inline-block';
           this.element.href = url;
@@ -40,7 +41,7 @@ def((Button) => {
           this.img.src = url;
         });
       } else {
-        // this.element.style.display = 'none';
+        this.element.style.display = 'none';
       }
     }
     get styleSheet() {
@@ -49,7 +50,6 @@ def((Button) => {
           display: inline-block;
           width: 28px;
           height: 28px;
-          margin-left: .5em;
           vertical-align: top;
           text-align: center;
           &::after {
@@ -80,23 +80,29 @@ def((Button) => {
       this.$hasValue = true;
       this.$value = value;
       this.token = value;
+      this.hasClearButton = !!value && !this.readonly;
     }
     get template() {
       return `
-        <div token="{token}">
-          <label ref="label">
+        <div>
+          <label ref="label" if-not="{readonly}">
             <input ref="input" type="file" style="display: none;" />
             <jkl-span-button ref="button" text="{text}"></jkl-span-button>
           </label>
+          <span class="empty" if-not="{token}">未选择</span>
           <jkl-preview ref="preview" api="{api}" token="{token}"></jkl-preview>
-          <jkl-clear-button on-click="{clear}"></jkl-clear-button>
+          <jkl-clear-button if="{hasClearButton}" on-click="{clear}"></jkl-clear-button>
         </div>
       `;
     }
     clear() { this.value = void 0; }
     init() {
-      if (!this.text) this.text = '请选择文件';
-      this.input.addEventListener('change', event => this.change(event));
+      if (this.readonly) {
+        this.element.classList.add('readonly');
+      } else {
+        if (!this.text) this.text = '请选择文件';
+        this.input.addEventListener('change', event => this.change(event));
+      }
       if (!this.$hasValue) this.value = void 0;
     }
     change(event) {
@@ -114,6 +120,11 @@ def((Button) => {
         :scope {
           &[token=undefined] a { visibility: hidden; }
           &[token=""] a { visibility: hidden; }
+          > .empty {
+            color: #999;
+            display: inline-block;
+            vertical-align: middle;
+          }
         }
       `;
     }
