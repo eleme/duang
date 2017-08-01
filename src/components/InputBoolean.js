@@ -1,5 +1,7 @@
 def(() => class extends Jinkela {
+
   get value() { return this.$value; }
+
   set value(value = this.defaultValue) {
     if (typeof value === 'string') {
       try {
@@ -10,6 +12,7 @@ def(() => class extends Jinkela {
     }
     this.element.dataset.value = this.$value = !!value;
   }
+
   init() {
     Object.defineProperty(this.element, 'value', {
       get: () => this.value,
@@ -26,6 +29,7 @@ def(() => class extends Jinkela {
     this.element.setAttribute('data-text-false', text.false || '关');
     if (this.fontSize) this.element.style.fontSize = this.fontSize + 'px';
   }
+
   get styleSheet() {
     return `
       :scope {
@@ -37,7 +41,10 @@ def(() => class extends Jinkela {
         box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
         display: inline-block;
         cursor: pointer;
-        &[readonly] { cursor: default; }
+        &[readonly] {
+          cursor: not-allowed;
+          filter: saturate(0);
+        }
         &:before {
           content: attr(data-text-false);
           display: inline-block;
@@ -59,4 +66,5 @@ def(() => class extends Jinkela {
       }
     `;
   }
+
 });
