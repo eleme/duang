@@ -32,7 +32,7 @@
     },
     {
       "key": "日期时间相关控件",
-      "title": "日期时间相关控件",
+      "title": "各种控件 - 日期时间相关控件",
       "module": "editor",
       "inputs": [
         { "key": "datetime1", "component": "DateTime", "title": "日期时间" },
@@ -54,7 +54,7 @@
     },
     {
       "key": "键盘输入类控件",
-      "title": "键盘输入类控件",
+      "title": "各种控件 - 键盘输入类控件",
       "module": "editor",
       "inputs": [
         { "key": "string1", "component": "String", "title": "单行文本" },
@@ -74,7 +74,7 @@
     },
     {
       "key": "点选类控件",
-      "title": "点选类控件",
+      "title": "各种控件 - 点选类控件",
       "module": "editor",
       "inputs": [
         { "key": "select1", "component": "Select", "title": "下拉", "args": { "options": { "1": "one", "2": "two" } } },
@@ -116,7 +116,7 @@
     },
     {
       "key": "Grouping 控件",
-      "title": "Grouping 控件",
+      "title": "各种控件 - 容器类控件 - Grouping 控件",
       "module": "editor",
       "inputs": [
         {
@@ -192,7 +192,7 @@
     },
     {
       "key": "GroupingSelect 控件",
-      "title": "GroupingSelect 控件",
+      "title": "各种控件 - 容器类控件 - GroupingSelect 控件",
       "module": "editor",
       "inputs": [
         {
@@ -255,7 +255,7 @@
     },
     {
       "key": "其它复杂控件",
-      "title": "其它复杂控件",
+      "title": "各种控件 - 其它复杂控件",
       "module": "editor",
       "inputs": [
         {
@@ -291,7 +291,7 @@
     },
     {
       "key": "其它神奇的控件组合",
-      "title": "其它神奇的控件组合",
+      "title": "各种控件 - 其它神奇的控件组合",
       "module": "editor",
       "inputs": [
         {

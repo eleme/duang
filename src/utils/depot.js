@@ -139,7 +139,7 @@ var depot = new class { // eslint-disable-line no-unused-vars
     return new UParams(params);
   }
 
-  refresh() { this.onRouteChange(); }
+  refresh() { dispatchEvent(new Event('hashchange')); }
 
   async go({ args, target, title }) {
     args = Object.assign({}, args);
@@ -161,7 +161,12 @@ var depot = new class { // eslint-disable-line no-unused-vars
       case 'replace':
         return location.replace(location.href.replace(/(#.*)?$/, '#!' + uParams));
       default:
-        location.hash = '#!' + uParams;
+        let hash = '#!' + uParams;
+        if (location.hash === hash) {
+          depot.refresh();
+        } else {
+          location.hash = hash;
+        }
         return;
     }
   }
