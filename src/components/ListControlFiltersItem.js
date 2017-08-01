@@ -29,7 +29,7 @@ def((Input, Output, Item) => class extends Item {
     if (target.tagName !== 'TEXTAREA' && keyCode === 13) this.apply();
   }
   ready() {
-    let { key, squash, optional, depot } = this;
+    let { key, squash, depot } = this;
     let { where } = depot;
     if (squash === 'direct') {
       this.value = Object.assign({ '': where[key] }, where);

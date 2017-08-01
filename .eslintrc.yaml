@@ -12,6 +12,7 @@
     TimePicker: false
     DatePicker: false
     Cascader: false
+    Forest: false
     debounce: false
     define: false
     doAction: false

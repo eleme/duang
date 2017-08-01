@@ -80,7 +80,7 @@ def((FrameAsideMenu) => {
   }
 
   class Aside extends Jinkela {
-    beforeParse(params) {
+    beforeParse() {
       this.noToggle = !depot.config.noToggle;
     }
     get Toggle() { return Toggle; }

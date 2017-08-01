@@ -19,8 +19,6 @@ def((InputString, Item) => {
 
     get InputString() { return InputString; }
 
-    get NoResult() { return NoResult; }
-
     selectItem(event) {
       this.value = event.detail.value;
       this.input.element.blur();
@@ -69,7 +67,7 @@ def((InputString, Item) => {
       this.$value = value;
       if (this.input) this.input.value = value;
     }
-    
+
     move(step) {
       if (!step) return;
       let $current = this.list.querySelector('.active');
