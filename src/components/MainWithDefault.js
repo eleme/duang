@@ -129,6 +129,8 @@ def((Item) => {
           background: #f9f9f9;
           list-style: none;
           padding: 1em;
+          height: 100%;
+          box-sizing: border-box;
         }
       `;
     }
