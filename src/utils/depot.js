@@ -38,20 +38,21 @@ var depot = new class { // eslint-disable-line no-unused-vars
     }
   }
 
-  hashchange() {
-    this.onRouteChange();
-  }
+  hashchange() { this.onRouteChange(); }
 
   cache(name, resolver) {
     let cache = this[Symbol.for('cache')];
     if (name in cache) return cache[name];
     return (cache[name] = resolver());
   }
+
   parseJSON(json) { try { return JSON.parse(json); } catch (error) { /* pass */ } }
+
   getConst(name) {
     let { config, scheme } = this;
     return (scheme && scheme.const && scheme.const[name]) || (config.const && config.const[name]) || name;
   }
+
   getSchemeByKey(key) { return this.schemeMap[key] || {}; }
 
   setGlobalMessage(message, animation) {
@@ -69,6 +70,7 @@ var depot = new class { // eslint-disable-line no-unused-vars
   }
 
   get config() {
+    if (window.config) return window.config;
     const configElement = document.querySelector('script[config]');
     const config = configElement && configElement.getAttribute('config') || '';
     let task = window.config ? Promise.resolve(window.config) : api(config);
@@ -108,13 +110,21 @@ var depot = new class { // eslint-disable-line no-unused-vars
   }
 
   get module() { return this.uParams.module; }
+
   get id() { return this.params.id; }
+
   get key() { return this.uParams.key; }
+
   get resolvedKey() { return String(this.key).replace(/:(?=\D)([^/]+)/g, ($0, $1) => this.params[$1]); }
+
   get scheme() { return this.getSchemeByKey(this.key); }
+
   get where() { return this.cache('where', () => this.parseJSON(this.uParams.where) || {}); }
+
   get params() { return this.cache('params', () => this.parseJSON(this.uParams.params) || {}); }
+
   get uParams() { return this.cache('uParams', () => new UParams()); }
+
   get schemeMap() {
     let value = Object.create(null);
     this.config.schemes.forEach(scheme => {
@@ -123,10 +133,12 @@ var depot = new class { // eslint-disable-line no-unused-vars
     Object.defineProperty(this, 'schemeMap', { value });
     return value;
   }
+
   get pageSize() {
     let pageSize = this.uParams.pageSize || this.scheme.pageSize;
     return pageSize instanceof Array ? pageSize[0] : pageSize;
   }
+
   get queryParams() {
     let params = {};
     let { page, where, orderBy } = this.uParams;
