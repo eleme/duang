@@ -43,7 +43,7 @@ def((FrameLogo, FrameNav, FrameAside, FrameMain) => class extends Jinkela {
     this.$value = value;
   }
   get styleSheet() {
-    return `
+    let value = `
       html { height: 100%; }
       body {
         height: 100%;
@@ -69,5 +69,17 @@ def((FrameLogo, FrameNav, FrameAside, FrameMain) => class extends Jinkela {
         height: 100%;
       }
     `;
+    if (/\bWindows\b/i.test(navigator.userAgent)) {
+      value += `
+        ::selection { background-color: rgba(0,0,0,.2); }
+        ::-moz-selection { background-color: rgba(0,0,0,.2); }
+        ::-webkit-scrollbar { width:10px; height: 10px; background: rgba(0,0,0,.2); }
+        ::-webkit-scrollbar-thumb { background: rgba(0,0,0,.5); border-radius: 5px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,.8); }
+        ::-webkit-scrollbar-corner { background: rgba(0,0,0,.2); }
+        ::-webkit-color-swatch { border:none; }
+      `;
+    }
+    return value;
   }
 });
