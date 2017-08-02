@@ -9,6 +9,7 @@ var depot = new class { // eslint-disable-line no-unused-vars
     }
     addEventListener('hashchange', () => this.hashchange());
     dialog.element.firstChild.style.maxHeight = '80%';
+    dialog.element.firstChild.style.overflow = 'auto';
   }
 
   async onRouteChange() {
