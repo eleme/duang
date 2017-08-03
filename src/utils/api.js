@@ -10,8 +10,12 @@
     resolvePath(path) {
       return this.basePath.concat(path).reduce((base, item) => {
         if (item === void 0) return base;
+        item = new Function('return `' + item + '`')();
+        // 外链直接使用，不做额外处理
         if (/^(?:https?:)?\/\//.test(item)) return item;
+        // 斜杆开头的接到 base 所在域名后面作为路径
         if (/^\//.test(item)) return base.replace(/^((?:https?:)?\/\/[^/]*)?(.*)/, `$1${item}`);
+        // 其它情况是相对于当前目录的路径
         if (item && base[base.length - 1] !== '/') base += '/';
         return base + item;
       });
