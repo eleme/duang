@@ -31,7 +31,7 @@ def((Button) => {
     get template() { return '<a target="_blank" href="JavaScript:"><img ref="img"/></a>'; }
     set token(token) {
       if (token) {
-        fetch(api.resolvePath([ this.api, token ])).then(response => response.blob()).then(result => {
+        fetch(api.resolvePath([ this.api, token ]), { credentials: 'include' }).then(response => response.blob()).then(result => {
           let url = URL.createObjectURL(result);
           this.element.style.display = 'inline-block';
           this.element.href = url;
