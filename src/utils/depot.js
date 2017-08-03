@@ -38,10 +38,10 @@ var depot = new class { // eslint-disable-line no-unused-vars
     return task;
   }
 
-  static initSchemes() {
+  static async initSchemes() {
     let { config } = this.prototype;
     let schemes = JSON.parse(JSON.stringify(config && config.schemes || []));
-    return Promise.all(schemes.map(scheme => typeof scheme !== 'string' ? scheme : api(scheme)));
+    return [].concat(... await Promise.all(schemes.map(scheme => typeof scheme !== 'string' ? scheme : api(scheme))));
   }
 
   static initSession() {
