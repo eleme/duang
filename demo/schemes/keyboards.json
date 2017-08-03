@@ -1,0 +1,20 @@
+{
+  "key": "键盘输入类控件",
+  "title": "各种控件 - 键盘输入类控件",
+  "module": "editor",
+  "inputs": [
+    { "key": "string1", "component": "String", "title": "单行文本" },
+    { "key": "string2", "component": "String", "title": "单行文本", "args": { "defaultValue": "hehe" } },
+    { "key": "text1", "component": "Text", "title": "多行文本" },
+    { "key": "text1", "component": "Text", "title": "多行文本", "args": { "defaultValue": "hehe\nhehe" } },
+    { "key": "number1", "component": "Number", "title": "数值" },
+    { "key": "number2", "component": "Number", "title": "数值", "args": { "defaultValue": "123.456" } },
+    { "key": "number3", "component": "Number", "title": "数值", "args": { "defaultValue": "a" } },
+    { "key": "password1", "component": "Password", "title": "密码" },
+    { "key": "password2", "component": "Password", "title": "密码", "args": { "defaultValue": "hehe" } },
+    { "key": "md1", "component": "Markdown", "title": "MD" },
+    { "key": "md2", "component": "Markdown", "title": "MD", "args": { "defaultValue": "# hehe" } },
+    { "key": "code1", "component": "Code", "title": "代码" },
+    { "key": "code2", "component": "Code", "title": "代码", "args": { "defaultValue": "console.log('hehe');", "mode": "javascript" } }
+  ]
+}

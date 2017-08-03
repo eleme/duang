@@ -1,0 +1,36 @@
+{
+  "key": "其它复杂控件",
+  "title": "各种控件 - 其它复杂控件",
+  "module": "editor",
+  "inputs": [
+    {
+      "description": "必选",
+      "key": "suggestion1", "component": "Suggestion", "title": "搜索建议",
+      "args": { "api": "../value-list.json" }
+    },
+    {
+      "key": "suggestion2", "component": "Suggestion", "title": "搜索建议",
+      "args": { "api": "../value-list.json", "placeholder": "placeholder" }
+    },
+    {
+      "key": "suggestion3", "component": "Suggestion", "title": "搜索建议",
+      "args": { "api": "../value-list.json", "width": 100 }
+    },
+    {
+      "key": "suggestion4", "component": "Suggestion", "title": "搜索建议",
+      "args": { "api": "../value-list.json", "defaultValue": "hehe" }
+    },
+    {
+      "key": "suggestion5", "component": "Suggestion", "title": "搜索建议",
+      "args": { "api": "../empty-list.json" }
+    },
+    {
+      "key": "suggestion5", "component": "Suggestion", "title": "搜索建议",
+      "args": { "api": "../empty-list.json", "emptyTip": "并没有内容" }
+    },
+    {
+      "key": "suggestion5", "component": "Suggestion", "title": "搜索建议",
+      "args": { "api": "../empty-list.json", "width": 100, "emptyTip": "并没有内容" }
+    }
+  ]
+}

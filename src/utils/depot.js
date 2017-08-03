@@ -10,15 +10,79 @@ var depot = new class { // eslint-disable-line no-unused-vars
     addEventListener('hashchange', () => this.hashchange());
     dialog.element.firstChild.style.maxHeight = '80%';
     dialog.element.firstChild.style.overflow = 'auto';
+
+  }
+
+  static waitUntilReady() {
+    let promise = Promise.resolve().then(async () => {
+      Object.defineProperty(this.prototype, 'config', { configurable: true, value: await this.initConfig() });
+      Object.defineProperty(this.prototype, 'schemes', { configurable: true, value: await this.initSchemes() });
+      Object.defineProperty(this.prototype, 'session', { configurable: true, value: await this.initSession() });
+    });
+    Object.defineProperty(this, 'waitUntilReady', { configurable: true, value: () => promise });
+    return promise;
+  }
+
+  static initConfig() {
+    const configElement = document.querySelector('script[config]');
+    const config = configElement && configElement.getAttribute('config') || '';
+    let task = window.config ? Promise.resolve(window.config) : api(config);
+    this.setGlobalMessage('正在加载配置', true);
+    task.then(value => {
+      this.setGlobalMessage();
+      window.config = value; // 写到全局
+    }, error => {
+      this.setGlobalMessage();
+      throw error;
+    });
+    return task;
+  }
+
+  static initSchemes() {
+    let { config } = this.prototype;
+    let schemes = JSON.parse(JSON.stringify(config && config.schemes || []));
+    return Promise.all(schemes.map(scheme => typeof scheme !== 'string' ? scheme : api(scheme)));
+  }
+
+  static initSession() {
+    let { config } = this.prototype;
+    let task = config.session ? api(config.session.authorize, { method: config.session.method || 'post' }) : Promise.resolve({});
+    this.setGlobalMessage('正在加载用户信息', true);
+    task.then(value => {
+      this.setGlobalMessage();
+      window.session = value;
+    }, reason => {
+      this.setGlobalMessage();
+      let response = reason && reason[Symbol.for('response')] || {};
+      if (response.status === 401 || reason.name === 'UNAUTHORIZED') {
+        location.href = api.resolvePath(new Function('return `' + config.session.signin + '`')());
+      } else if (response.status !== 200) {
+        throw Error('用户信息加载失败');
+      }
+    });
+    return task;
+  }
+
+  static setGlobalMessage(message, animation) {
+    if (message) {
+      document.body.style.setProperty('--global-message', JSON.stringify(message));
+      if (animation) {
+        document.body.style.setProperty('--global-message-animation', 'body-busy');
+      } else {
+        document.body.style.removeProperty('--global-message-animation');
+      }
+    } else {
+      document.body.style.removeProperty('--global-message');
+      document.body.style.removeProperty('--global-message-animation');
+    }
   }
 
   async onRouteChange() {
     try {
-      await this.config;
-      await this.session;
+      await this.constructor.waitUntilReady();
     } catch (error) {
       alert(error.message);
-      return;
+      throw error;
     }
     Object.defineProperty(this, Symbol.for('cache'), { configurable: true, value: {} });
     let moduleName = String(this.module || 'default');
@@ -56,60 +120,6 @@ var depot = new class { // eslint-disable-line no-unused-vars
 
   getSchemeByKey(key) { return this.schemeMap[key] || {}; }
 
-  setGlobalMessage(message, animation) {
-    if (message) {
-      document.body.style.setProperty('--global-message', JSON.stringify(message));
-      if (animation) {
-        document.body.style.setProperty('--global-message-animation', 'body-busy');
-      } else {
-        document.body.style.removeProperty('--global-message-animation');
-      }
-    } else {
-      document.body.style.removeProperty('--global-message');
-      document.body.style.removeProperty('--global-message-animation');
-    }
-  }
-
-  get config() {
-    if (window.config) return window.config;
-    const configElement = document.querySelector('script[config]');
-    const config = configElement && configElement.getAttribute('config') || '';
-    let task = window.config ? Promise.resolve(window.config) : api(config);
-    Object.defineProperty(this, 'config', { configurable: true, value: task });
-    this.setGlobalMessage('正在加载配置', true);
-    task.then(value => {
-      this.setGlobalMessage();
-      window.config = value;
-      Object.defineProperty(this, 'config', { configurable: true, value });
-    }, error => {
-      this.setGlobalMessage();
-      throw error;
-    });
-    return task;
-  }
-
-  get session() {
-    if (!config.session) return (window.session = {});
-    let task = api(config.session.authorize, { method: config.session.method || 'post' });
-    Object.defineProperty(this, 'session', { configurable: true, value: task });
-    this.setGlobalMessage('正在加载用户信息', true);
-    task.then(value => {
-      this.setGlobalMessage();
-      window.session = value;
-      Object.defineProperty(this, 'session', { configurable: true, value });
-    }, reason => {
-      this.setGlobalMessage();
-      Object.defineProperty(this, 'session', { configurable: true, value: {} });
-      let response = reason && reason[Symbol.for('response')] || {};
-      if (response.status === 401 || reason.name === 'UNAUTHORIZED') {
-        location.href = api.resolvePath(new Function('return `' + config.session.signin + '`')());
-      } else if (response.status !== 200) {
-        throw Error('用户信息加载失败');
-      }
-    });
-    return task;
-  }
-
   get module() { return this.uParams.module; }
 
   get id() { return this.params.id; }
@@ -128,7 +138,7 @@ var depot = new class { // eslint-disable-line no-unused-vars
 
   get schemeMap() {
     let value = Object.create(null);
-    this.config.schemes.forEach(scheme => {
+    this.schemes.forEach(scheme => {
       if (scheme.key !== void 0) value[scheme.key] = scheme;
     });
     Object.defineProperty(this, 'schemeMap', { value });

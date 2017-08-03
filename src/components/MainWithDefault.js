@@ -111,8 +111,7 @@ def((Item) => {
   return class extends Jinkela {
     init() {
       while (this.element.firstChild) this.element.firstChild.remove();
-      let { key, session } = depot;
-      let { schemes } = config;
+      let { key, session, schemes } = depot;
       let { permissions = [] } = session;
       schemes = schemes.filter(scheme => {
         if (/(?:^|\/):/.test(scheme.key)) return false;

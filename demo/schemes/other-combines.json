@@ -1,0 +1,68 @@
+{
+  "key": "其它神奇的控件组合",
+  "title": "各种控件 - 其它神奇的控件组合",
+  "module": "editor",
+  "inputs": [
+    {
+      "key": "grouping1", "title": "各种神奇的组合", "component": "GroupingSelect",
+      "args": {
+        "options": {
+          "a": "两个搜索建议控件",
+          "b": "两个时期时间控件"
+        },
+        "mode": "line",
+        "subGroupMap": {
+          "a": [
+            { "title": "hehe1", "component": "Suggestion", "args": { "api": "../value-list.json" } },
+            { "title": "hehe2", "component": "Suggestion", "args": { "api": "../value-list.json" } }
+          ],
+          "b": [
+            { "component": "DateTime" },
+            { "component": "DateTime" }
+          ]
+        }
+      }
+    },
+    {
+      "title": "列表嵌搜索建议",
+      "component": "List",
+      "args": {
+        "defaultValue": [ "hehe" ],
+        "component": "Suggestion",
+        "args": {
+          "api": "../value-list.json",
+          "width": 100
+        }
+      }
+    },
+    {
+      "title": "列表嵌组合选择",
+      "component": "List",
+      "args": {
+        "defaultValue": [ "hehe" ],
+        "component": "GroupingSelect",
+        "args": {
+          "options": {
+            "a": "两个搜索建议控件",
+            "b": "两个时期时间控件",
+            "c": "xxx"
+          },
+          "mode": "line",
+          "subGroupMap": {
+            "a": [
+              { "title": "hehe1", "component": "Suggestion", "args": { "api": "../value-list.json" } },
+              { "title": "hehe2", "component": "Suggestion", "args": { "api": "../value-list.json" } },
+              { "component": "String", "args": { "width": 500 } }
+            ],
+            "b": [
+              { "component": "DateTime" },
+              { "component": "DateTime" }
+            ],
+            "c": [
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

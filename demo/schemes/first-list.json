@@ -1,0 +1,13 @@
+{
+  "key": "一个神奇的列表",
+  "title": "一个神奇的列表",
+  "module": "list",
+  "operations": [
+    { "method": "go", "title": "日期时间相关控件（只读）", "module": "editor", "key": "日期时间相关控件", "params": { "readonly": "true" } },
+    { "method": "go", "title": "键盘输入类控件（只读）", "module": "editor", "key": "键盘输入类控件", "params": { "readonly": "true" } },
+    { "method": "go", "title": "点选类控件（只读）", "module": "editor", "key": "点选类控件", "params": { "readonly": "true" } },
+    { "method": "go", "title": "Grouping 控件（只读）", "module": "editor", "key": "Grouping 控件", "params": { "readonly": "true" } },
+    { "method": "go", "title": "GroupingSelect 控件（只读）", "module": "editor", "key": "GroupingSelect 控件", "params": { "readonly": "true" } },
+    { "method": "go", "title": "其它复杂控件（只读）", "module": "editor", "key": "其它复杂控件", "params": { "readonly": "true" } }
+  ]
+}

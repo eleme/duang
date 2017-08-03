@@ -48,23 +48,6 @@
 
 一个 `Scheme` 对象的数组，配置这个系统的所有表
 
-参数描述
-
-| 名称 | 类型 | 描述 |
-| ---- | ---- | ---- |
-| key | String | 表对应的接口 |
-| title | String | 表显示的名称 |
-| href | String | 如果设置了 href，该选项会忽略其他配置，直接变成超链接，target 也会变成超链接的打开方式 |
-| target | String | 当前菜单项的打开方式，如果设置了 href 则表示超链接的打开方式 |
-| icon | String | 图标的 URL |
-| where | dict | 进入这张表的默认查询条件 |
-| caption | list | 一个 `Output` 类型的数组，配置列表页的表头 |
-| pageSize | number | 配置列表页每页显示的条数，默认显示所有 |
-| countable | Boolean | 配置为 true 后会调用接口获取结果集总数用于渲染分页导航，接口地址为 `key + "/count"`，需返回一个数字 |
-| require | Array | scheme 出现在首页需要的权限 |
-| hidden | Boolean | scheme 是否在首页展示 |
-| noSubmit | Boolean | 在编辑页隐藏提交按钮 |
-
 示例配置
 
 ```javascript
@@ -93,6 +76,25 @@
 ```
 
 ## Scheme
+
+如果 Scheme 是一个字符串，那么会将这个字符串作为 api 的路径，调用这个 api 来获取 Scheme
+
+参数描述
+
+| 名称 | 类型 | 描述 |
+| ---- | ---- | ---- |
+| key | String | 表对应的接口 |
+| title | String | 表显示的名称 |
+| href | String | 如果设置了 href，该选项会忽略其他配置，直接变成超链接，target 也会变成超链接的打开方式 |
+| target | String | 当前菜单项的打开方式，如果设置了 href 则表示超链接的打开方式 |
+| icon | String | 图标的 URL |
+| where | dict | 进入这张表的默认查询条件 |
+| caption | list | 一个 `Output` 类型的数组，配置列表页的表头 |
+| pageSize | number | 配置列表页每页显示的条数，默认显示所有 |
+| countable | Boolean | 配置为 true 后会调用接口获取结果集总数用于渲染分页导航，接口地址为 `key + "/count"`，需返回一个数字 |
+| require | Array | scheme 出现在首页需要的权限 |
+| hidden | Boolean | scheme 是否在首页展示 |
+| noSubmit | Boolean | 在编辑页隐藏提交按钮 |
 
 ### Scheme::operations
 

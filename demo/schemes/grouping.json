@@ -1,0 +1,76 @@
+{
+  "key": "Grouping 控件",
+  "title": "各种控件 - 容器类控件 - Grouping 控件",
+  "module": "editor",
+  "inputs": [
+    {
+      "key": "grouping1", "title": "Grouping", "component": "Grouping",
+      "args": {
+        "inputs": [
+          { "title": "hehe1", "args": { "width": 100 } },
+          { "title": "hehe1", "component": "Suggestion", "args": { "width": 150, "api": "../value-list.json" } },
+          { "title": "hehe1", "args": { "width": 100 } }
+        ]
+      }
+    },
+    {
+      "key": "grouping1", "title": "Grouping", "component": "Grouping",
+      "args": {
+        "mode": "line",
+        "inputs": [
+          { "title": "hehe1", "args": { "width": 100 } },
+          { "title": "hehe1", "args": { "width": 100 } },
+          { "title": "hehe1", "args": { "width": 100 } }
+        ]
+      }
+    },
+    {
+      "key": "grouping1", "title": "Grouping", "component": "Grouping",
+      "args": {
+        "mode": "table",
+        "defaultValue": { "a": 1, "b": 2, "c": 3 },
+        "inputs": [
+          { "title": "hehe1", "key": "a", "args": { "width": 100 } },
+          { "title": "hehe1", "key": "b", "args": { "width": 100 } },
+          { "title": "hehe1", "key": "c", "args": { "width": 100 } }
+        ]
+      }
+    },
+    {
+      "key": "grouping1", "title": "Grouping", "component": "Grouping",
+      "args": {
+        "mode": "line",
+        "defaultValue": { "a": 1, "b": 2, "c": 3 },
+        "inputs": [
+          { "title": "hehe1", "key": "a", "args": { "width": 100 } },
+          { "title": "hehe1", "key": "b", "args": { "width": 100 } },
+          { "title": "hehe1", "key": "c", "args": { "width": 100 } }
+        ]
+      }
+    },
+    {
+      "key": "grouping1", "title": "Grouping", "component": "Grouping",
+      "args": {
+        "mode": "table",
+        "defaultValue": { "a": 1, "b": 2, "c": 3 },
+        "inputs": [
+          { "key": "a", "args": { "width": 100 } },
+          { "key": "b", "args": { "width": 100 } },
+          { "key": "c", "args": { "width": 100 } }
+        ]
+      }
+    },
+    {
+      "key": "grouping1", "title": "grouping", "component": "Grouping",
+      "args": {
+        "mode": "line",
+        "defaultValue": { "a": 1, "b": 2, "c": 3 },
+        "inputs": [
+          { "key": "a", "args": { "width": 100 } },
+          { "key": "b", "args": { "width": 100 } },
+          { "key": "c", "args": { "width": 100 } }
+        ]
+      }
+    }
+  ]
+}

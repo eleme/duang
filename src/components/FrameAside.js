@@ -65,8 +65,7 @@ def((FrameAsideMenu) => {
     }
     init() {
       addEventListener('hashchange', () => this.hashchange());
-      let { session } = depot;
-      let { schemes } = config;
+      let { session, schemes } = depot;
       let { permissions = [] } = session;
       schemes.forEach(scheme => {
         if (/(?:^|\/):/.test(scheme.key)) return;

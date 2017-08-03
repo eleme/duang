@@ -1,0 +1,42 @@
+{
+  "key": "点选类控件",
+  "title": "各种控件 - 点选类控件",
+  "module": "editor",
+  "inputs": [
+    { "key": "select1", "component": "Select", "title": "下拉", "args": { "options": { "1": "one", "2": "two" } } },
+    { "key": "select2", "component": "Select", "title": "下拉", "args": { "options": { "1": "one", "2": "two" }, "defaultValue": "2" } },
+    { "key": "radio1", "component": "Radio", "title": "单选", "args": { "options": { "1": "one", "2": "two" } } },
+    { "key": "radio2", "component": "Radio", "title": "单选", "args": { "options": { "1": "one", "2": "two" }, "defaultValue": "2" } },
+    { "key": "checkbox1", "component": "Checkbox", "title": "多选", "args": { "options": { "1": "one", "2": "two" } } },
+    { "key": "checkbox2", "component": "Checkbox", "title": "多选", "args": { "options": { "1": "one", "2": "two" }, "defaultValue": "2" } },
+    { "key": "checkbox3", "component": "Checkbox", "title": "多选", "args": { "options": { "1": "one", "2": "two" }, "defaultValue": [ "1", "2" ] } },
+    { "key": "bool1", "component": "Boolean", "title": "布尔" },
+    { "key": "bool2", "component": "Boolean", "title": "布尔", "args": { "defaultValue": true } },
+    { "key": "bool1", "component": "FileBase64", "title": "文件 Base64" },
+    { "key": "bool2", "component": "FileBase64", "title": "文本 Base64", "args": { "defaultValue": "aGVoZQo=" } },
+    { "key": "bool1", "component": "FileToken", "title": "文件 Token" },
+    { "key": "bool1", "component": "FileToken", "title": "文件 Token", "args": { "defaultValue": "../logo.jpg" } },
+    { "key": "bool2", "component": "FileTokenWithInfo", "title": "详细的文本 Token" },
+    { "key": "bool2", "component": "FileTokenWithInfo", "title": "详细的文本 Token", "args": { "defaultValue": { "token": "../logo.jpg" } } },
+    { "key": "cascader1", "component": "Cascader", "title": "级联", "args": { "options": [ { "value": "item 1" } ] } },
+    { "key": "cascader2", "component": "Cascader", "title": "级联", "args": { "options": [ { "value": "item 1" } ], "defaultValue": [ "item 1" ] } },
+    { "key": "cascader1", "component": "Forest", "title": "树林", "args": { "options": [ { "id": 1, "text": "item 1" } ] } },
+    {
+      "key": "cascader2", "component": "Forest", "title": "树林",
+      "args": {
+        "options": [ { "id": 1, "text": "item 1" }, { "id": 2, "parentId": 1, "text": "item 2" } ],
+        "defaultValue": [ 1 ]
+      }
+    },
+    {
+      "key": "cascader3", "component": "Forest", "title": "树林",
+      "args": {
+        "options": [ { "a": 1, "c": "item 1" }, { "a": 2, "b": 1, "c": "item 2" } ],
+        "defaultValue": [ 1 ],
+        "idAlias": "a",
+        "parentIdAlias": "b",
+        "textAlias": "c"
+      }
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "key": "日期时间相关控件",
+  "title": "各种控件 - 日期时间相关控件",
+  "module": "editor",
+  "inputs": [
+    { "key": "datetime1", "component": "DateTime", "title": "日期时间" },
+    { "key": "datetime2", "component": "DateTime", "title": "日期时间", "args": { "defaultValue": 1499157139261 } },
+    { "key": "datetime3", "component": "DateTime", "title": "日期时间", "args": { "defaultValue": "2017-07-13T03:27:44.856Z" } },
+    { "key": "datetime4", "component": "DateTime", "title": "日期时间", "args": { "defaultValue": "now" } },
+
+    { "key": "date1", "component": "Date", "title": "日期" },
+    { "key": "date1", "component": "Date", "title": "日期", "args": { "defaultValue": 1499157139261 } },
+    { "key": "date2", "component": "Date", "title": "日期", "args": { "defaultValue": "2017-07-13T03:27:44.856Z" } },
+    { "key": "date3", "component": "Date", "title": "日期", "args": { "defaultValue": "today" } },
+
+    { "key": "time5", "component": "Time", "title": "时间" },
+    { "key": "time1", "component": "Time", "title": "时间", "args": { "defaultValue": 1499157139261 } },
+    { "key": "time2", "component": "Time", "title": "时间", "args": { "defaultValue": "23:59:59" } },
+    { "key": "time3", "component": "Time", "title": "时间", "args": { "defaultValue": "23:59" } },
+    { "key": "time4", "component": "Time", "title": "时间", "args": { "defaultValue": "now" } }
+  ]
+}
