@@ -248,7 +248,7 @@ def((Item) => {
       if (this.$active === value) return;
       this.$active = value;
       // 下面这个动画效果也是有点神奇的，为了解决动画无法自适应高度的问题，对展开和收起执行不同的动画效果
-      let options = { duration: 500, easing: 'ease', fill: 'forwards' };
+      let options = { duration: 300, easing: 'ease', fill: 'forwards' };
       let startFrame = { maxHeight: this.element.offsetHeight + 'px' };
       if (value) {
         // 展开：动画从当前位置开始，但是目标帧高度只能通过通过计算得到，于是我们使用先前计算好的理论高度值
