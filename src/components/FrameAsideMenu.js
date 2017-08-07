@@ -39,7 +39,7 @@ def((Item) => {
           }
         }
         ul :scope { --icon: ${svg('<circle cx="16" cy="16" r="14" stroke="#c0ccda" stroke-width="4" fill="none" />')}; }
-        ul ul :scope { --icon: ${svg('<circle cx="16" cy="16" r="10" stroke="#c0ccda" stroke-width="4" fill="none" />')}; }
+        ul ul :scope { --icon: ${svg('<circle cx="16" cy="16" r="10" stroke="#c0ccda" stroke-width="4" fill="none" />')}; font-size: 14px; }
         ul ul ul :scope { --icon: ${svg('<circle cx="16" cy="16" r="10" stroke="none" stroke-width="4" fill="#c0ccda" />')}; }
       `;
     }
@@ -220,23 +220,28 @@ def((Item) => {
       }, true);
     }
 
+    group(params) {
+      params = Object.assign({ parentMenu: this }, params);
+      if (params.title in this.map) {
+        this.map[params.title].updateScheme(params);
+      } else {
+        this.theoreticalHeight += UNIT_HEIGHT;
+        this.map[params.title] = new GroupItem(params).to(this);
+      }
+      return this.map[params.title];
+    }
+
     add(scheme) {
       let { map, key } = this;
       let [ , groupTitle, title ] = scheme.title.match(/^(?:(.*?)\s*-\s*)?(.*)$/);
       if (groupTitle) {
-        if (!(groupTitle in map)) {
-          this.theoreticalHeight += UNIT_HEIGHT;
-          map[groupTitle] = new GroupItem({ parentMenu: this, title: groupTitle }).to(this);
-        }
-        map[groupTitle].add(Object.assign({}, scheme, { title }));
+        this.group({ title: groupTitle }).add(Object.assign({}, scheme, { title }));
+      } else if (!scheme.key && !scheme.href) {
+        this.group(Object.assign({}, scheme, { title }));
       } else {
-        if (title in map) {
-          map[title].updateScheme(scheme);
-        } else {
-          let item = new this.Item(scheme, { title, currentKey: key }).to(this);
-          this.items.push(item);
-          this.theoreticalHeight += UNIT_HEIGHT;
-        }
+        let item = new this.Item(scheme, { title, currentKey: key }).to(this);
+        this.items.push(item);
+        this.theoreticalHeight += UNIT_HEIGHT;
       }
       this.element.style.setProperty('--theoretical-height', this.theoreticalHeight + 'px');
     }
