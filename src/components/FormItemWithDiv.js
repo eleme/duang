@@ -7,6 +7,7 @@ def((FormItem) => class extends FormItem {
         > span {
           width: auto;
           display: inline-block;
+          vertical-align: middle;
         }
       }
     `;
