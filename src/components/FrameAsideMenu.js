@@ -15,7 +15,7 @@ def((Item) => {
       return `
         :scope {
           position: relative;
-          font-size: 14px;
+          font-size: 16px;
           line-height: ${UNIT_HEIGHT}px;
           height: ${UNIT_HEIGHT}px;
           letter-spacing: 0.02em;
@@ -58,7 +58,6 @@ def((Item) => {
         :scope {
           margin: 0;
           position: relative;
-          font-size: 16px;
           font-weight: normal;
           &:hover {
             opacity: .6;
