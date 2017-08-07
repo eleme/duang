@@ -159,7 +159,7 @@ def((Item) => {
     get template() {
       return `
         <li>
-          <jkl-row-with-folding title="{title}" active="{active}" on-click="{click}"></jkl-row-with-folding>
+          <jkl-row-with-folding ref="row" title="{title}" active="{active}" on-click="{click}"></jkl-row-with-folding>
           <jkl-menu ref="menu" unit="{RowWithLeaf}" active="{active}"></jkl-menu>
         </li>
       `;
@@ -176,6 +176,10 @@ def((Item) => {
       let { active } = this;
       this.parentMenu.update(); // 父菜单的所有子选项（包括当前）取消 active 状态
       this.active = !active;
+    }
+
+    updateScheme(scheme) {
+      if (scheme.icon) this.row.element.style.setProperty('--icon', 'url("' + scheme.icon + '")');
     }
 
     get styleSheet() {
@@ -227,9 +231,13 @@ def((Item) => {
         }
         map[groupTitle].add(Object.assign({}, scheme, { title }));
       } else {
-        let item = new this.Item(scheme, { title, currentKey: key }).to(this);
-        this.items.push(item);
-        this.theoreticalHeight += UNIT_HEIGHT;
+        if (title in map) {
+          map[title].updateScheme(scheme);
+        } else {
+          let item = new this.Item(scheme, { title, currentKey: key }).to(this);
+          this.items.push(item);
+          this.theoreticalHeight += UNIT_HEIGHT;
+        }
       }
       this.element.style.setProperty('--theoretical-height', this.theoreticalHeight + 'px');
     }
