@@ -2,6 +2,8 @@ def((Item) => {
 
   const UNIT_HEIGHT = 50;
 
+  const svg = code => `url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">${code}</svg>')`;
+
   class Proto extends Item {
     init() {
       if (this.icon) this.element.style.setProperty('--icon', 'url("' + this.icon + '")');
@@ -36,6 +38,9 @@ def((Item) => {
             background-image: var(--icon);
           }
         }
+        ul :scope { --icon: ${svg('<circle cx="16" cy="16" r="14" stroke="#c0ccda" stroke-width="4" fill="none" />')}; }
+        ul ul :scope { --icon: ${svg('<circle cx="16" cy="16" r="10" stroke="#c0ccda" stroke-width="4" fill="none" />')}; }
+        ul ul ul :scope { --icon: ${svg('<circle cx="16" cy="16" r="10" stroke="none" stroke-width="4" fill="#c0ccda" />')}; }
       `;
     }
   }
@@ -55,7 +60,6 @@ def((Item) => {
           position: relative;
           font-size: 16px;
           font-weight: normal;
-          --icon: url('https://fuss10.elemecdn.com/1/bf/b0d65297795c53b29ac11f285aaa6svg.svg');
           &:hover {
             opacity: .6;
             background: #1f2d3d;
@@ -65,9 +69,20 @@ def((Item) => {
             background: #1f2d3d;
             opacity: 1;
             border-left-color: #20a0ff;
-            &::before {
-              transform: rotate(90deg);
-            }
+            &::after { transform: rotate(90deg); }
+          }
+          &::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 50px;
+            height: 50px;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 18px 18px;
+            background-image: ${svg('<polyline points="9,3 23,16 9,29" stroke="#c0ccda" stroke-width="6" stroke-linejoin="round" stroke-linecap="round" fill="none" />')};
+            transition: transform 200ms ease;
           }
         }
       `;
@@ -103,7 +118,6 @@ def((Item) => {
     get styleSheet() {
       return `
         :scope {
-          --icon: url('https://fuss10.elemecdn.com/9/12/017bdc919bb36dac8bb97014121absvg.svg');
           opacity: .8;
           &:hover {
             opacity: 1;
@@ -118,11 +132,10 @@ def((Item) => {
     }
   }
 
-  class RowWithCircle extends RowAction {
+  class RowWithTop extends RowAction {
     get styleSheet() {
       return `
         :scope {
-          --icon: url('https://fuss10.elemecdn.com/1/8e/1ea628209b8e1905b9ca3ffd8e57bsvg.svg');
           &:hover {
             opacity: .6;
             background: #1f2d3d;
@@ -181,7 +194,7 @@ def((Item) => {
   }
 
   class Menu extends Jinkela {
-    get Item() { return this.unit || RowWithCircle; }
+    get Item() { return this.unit || RowWithTop; }
 
     beforeParse() {
       Object.defineProperty(this, '$active', { value: true, configurable: true, writable: true });
