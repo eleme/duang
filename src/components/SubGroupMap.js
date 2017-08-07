@@ -29,12 +29,12 @@ def((FormItemWithTable, FormItemWithDiv) => class extends Jinkela {
   }
 
   init() {
-    let { group, depot, readonly, mode = 'table' } = this;
-    let { id } = depot;
-    let action = id ? 'edit' : 'create';
-    group = JSON.parse(JSON.stringify(group)).filter(item => item[action] !== 'none');
+    let { group, depot, mode = 'table' } = this;
+    let { formMode } = depot;
+    group = JSON.parse(JSON.stringify(group)).filter(item => item[formMode] !== 'none');
     group.forEach((item) => {
-      if (item[action] === 'readonly' || readonly) {
+      if (formMode === 'read' && item[formMode] === void 0) item[formMode] = 'readonly';
+      if (item[formMode] === 'readonly') {
         if (!item.args) item.args = {};
         item.args.readonly = true;
       }

@@ -7,21 +7,22 @@ def((FormSubmit, FormItemWithTable, Alert) => class extends Jinkela {
   beforeParse(params) {
     // 获取变量
     let { depot } = params;
-    let { id, scheme } = depot;
+    let { scheme, formMode } = depot;
     let { inputs = [], noSubmit } = scheme;
     // 设置属性
     this.listLength = inputs.length;
     this.noSubmit = noSubmit || depot.params.readonly;
     this.form = this;
     // 构建 this.list
-    let action = id ? 'edit' : 'create';
-    inputs = JSON.parse(JSON.stringify(inputs)).filter(item => item[action] !== 'none');
+    inputs = JSON.parse(JSON.stringify(inputs)).filter(item => item[formMode] !== 'none');
+    // read 方式默认是只读的
     inputs.forEach((item) => {
-      if (item[action] === 'readonly' || depot.params.readonly) {
+      if (formMode === 'read' && item[formMode] === void 0) item[formMode] = 'readonly';
+      if (item[formMode] === 'readonly') {
         if (!item.args) item.args = {};
         item.args.readonly = true;
       }
-      if (item[action] === 'hidden') item.hidden = true;
+      if (item[formMode] === 'hidden') item.hidden = true;
     });
     this.list = FormItemWithTable.cast(inputs, { depot });
     // 将 this.list 包成 Promise

@@ -122,6 +122,14 @@ var depot = new class { // eslint-disable-line no-unused-vars
 
   get module() { return this.uParams.module; }
 
+  get formMode() {
+    if (this.params.readonly) {
+      return 'read';
+    } else {
+      return this.id ? 'edit' : 'create';
+    }
+  }
+
   get id() { return this.params.id; }
 
   get key() { return this.uParams.key; }

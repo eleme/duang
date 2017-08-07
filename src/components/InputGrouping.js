@@ -1,4 +1,4 @@
-def((Input, InputSelect, SubGroupMap) => class extends Jinkela {
+def((SubGroupMap) => class extends Jinkela {
 
   init() {
     let { depot, inputs, readonly, mode = 'table' } = this;
