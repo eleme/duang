@@ -3,6 +3,7 @@ def(() => class extends Jinkela {
     this.element.addEventListener('blur', event => this.blur(event));
     if (this.min !== void 0) this.element.min = this.min;
     if (this.max !== void 0) this.element.max = this.max;
+    if (this.step !== void 0) this.element.step = this.step;
     if (this.width !== void 0) this.element.style.width = this.width;
     if (this.readonly) this.element.setAttribute('readonly', 'readonly');
     if (!('defaultValue' in this)) this.defaultValue = this.min;
@@ -12,7 +13,9 @@ def(() => class extends Jinkela {
   set value(value) {
     if (+value !== +value) value = this.defaultValue;
     if (+value !== +value) value = 0;
-    this.element.value = +value;
+    value *= 1;
+    if (typeof this.decimal === 'number') value = +value.toFixed(this.decimal);
+    this.element.value = value;
   }
   get template() { return '<input type="number" />'; }
   blur() {

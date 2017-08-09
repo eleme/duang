@@ -77,6 +77,7 @@ Input 用于接受用户的输入的组件，在 Duang 中用于:
 | max          | `Number`                | 不限制                   | 最大值         |
 | min          | `Number`                | 不限制                   | 最小值         |
 | width        | `String`                | 6em                      | 宽度           |
+| decimal      | `Number`                | 不限制                   | 保留几位小数   |
 
 示例：
 
