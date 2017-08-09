@@ -25,12 +25,16 @@
       "args": { "api": "../empty-list.json" }
     },
     {
-      "key": "suggestion5", "component": "Suggestion", "title": "搜索建议",
+      "key": "suggestion6", "component": "Suggestion", "title": "搜索建议",
       "args": { "api": "../empty-list.json", "emptyTip": "并没有内容" }
     },
     {
-      "key": "suggestion5", "component": "Suggestion", "title": "搜索建议",
+      "key": "suggestion7", "component": "Suggestion", "title": "搜索建议",
       "args": { "api": "../empty-list.json", "width": 100, "emptyTip": "并没有内容" }
+    },
+    {
+      "key": "custom1", "component": "https://fuss10.elemecdn.com/c/d6/9a844cf9941910a965c88b5af4f70js.js", "title": "外部控件",
+      "args": { "defaultValue": "这是一个外部控件，呵呵" }
     }
   ]
 }

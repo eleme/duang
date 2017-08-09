@@ -4,6 +4,6 @@ def((XPut) => class extends XPut {
   async buildComponent() {
     let { args = {}, depot } = this;
     let Component = await req(this.componentName);
-    this.result = new Component(args, { depot }).to(this);
+    this.result = new Component(args, { depot }).to(this.element);
   }
 });

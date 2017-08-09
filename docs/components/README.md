@@ -794,3 +794,32 @@ Markdown 输入控件，提供预览功能
 ```
 
 查看 [在线演示](http://codepen.io/shijn/pen/ENJBwe?editors=0010)
+
+### 控件开发
+
+控件是一个由 [AMD](https://en.wikipedia.org/wiki/Asynchronous_module_definition) 方式提供的 JavaScript 类。
+
+需要实现 `value` 访问器属性和 `to` 方法，并且正确处理构造参数中包含的 `readonly` 和 `defaultValue`。
+
+```
+define(() => class {
+
+  constructor(args) {
+    if (args.readonly) {
+      // 处理只读状态
+    }
+    if (args.defaultValue) {
+      // 处理默认值（当 value 被赋为 undefined 时的值）
+    }
+    // 处理其它参数
+  }
+
+  // 处理值的读写
+  get value() { /* TODO */ }
+  set value(value) { /* TODO */ }
+
+  // 渲染到 DOM 元素上
+  to(element) { /* TODO */ }
+
+});
+```

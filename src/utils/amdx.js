@@ -7,8 +7,13 @@ const def = factory => { // eslint-disable-line no-unused-vars
 };
 
 const req = dep => new Promise((resolve, reject) => { // eslint-disable-line no-unused-vars
-  let name = dep.replace(/\$/g, '/');
-  require([ `components/${name}.js` ], resolve, error => {
+  let url;
+  if (/^(?:https?:)\/\//.test(dep)) {
+    url = dep;
+  } else {
+    url = `components/${dep.replace(/\$/g, '/')}.js`
+  }
+  require([ url ], resolve, error => {
     console.error(error);
     throw new Error(`Unknown component <${name}>`);
   });

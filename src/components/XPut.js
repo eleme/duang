@@ -32,8 +32,13 @@ def((Item) => {
     get tagName() { return 'span'; }
 
     get componentName() {
-      let [ , hint = this.hint, name ] = String(this.component || this.defaultComponent).match(/^(Input|Output)?(.*)$/);
-      return hint + name;
+      let componentName = this.component || this.defaultComponent;
+      if (/^(?:https?:)\/\//.test(componentName)) {
+        return componentName;
+      } else {
+        let [ , hint = this.hint, name ] = String(componentName).match(/^(Input|Output)?(.*)$/);
+        return hint + name;
+      }
     }
 
     set depot(ignore) {}
