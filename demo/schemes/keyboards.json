@@ -10,6 +10,7 @@
     { "key": "number1", "component": "Number", "title": "数值" },
     { "key": "number2", "component": "Number", "title": "数值", "args": { "defaultValue": "123.456" } },
     { "key": "number3", "component": "Number", "title": "数值", "args": { "defaultValue": "a" } },
+    { "key": "number4", "component": "Number", "title": "数值", "args": { "defaultValue": "" } },
     { "key": "password1", "component": "Password", "title": "密码" },
     { "key": "password2", "component": "Password", "title": "密码", "args": { "defaultValue": "hehe" } },
     { "key": "md1", "component": "Markdown", "title": "MD" },

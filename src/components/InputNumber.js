@@ -12,7 +12,7 @@ def(() => class extends Jinkela {
   set value(value) {
     if (+value !== +value) value = this.defaultValue;
     if (+value !== +value) value = 0;
-    this.element.value = value;
+    this.element.value = +value;
   }
   get template() { return '<input type="number" />'; }
   blur() {
