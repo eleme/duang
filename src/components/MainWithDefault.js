@@ -13,7 +13,7 @@ def((Item) => {
       if (this.currentKey === this.key) this.element.classList.add('active');
       this.text = this.title || this.key.replace(/([^/]{2})[^/]{3,}\//g, '$1../');
       this.subText = this.key || this.href;
-      if (this.icon) {
+      if (this.icon && this.icon !== 'about:blank') {
         this.element.style.setProperty('--icon', `url("${this.icon}")`);
         this.element.dataset.char = '';
       } else {
