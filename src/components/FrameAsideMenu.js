@@ -1,7 +1,5 @@
 def((Item) => {
 
-  const UNIT_HEIGHT = 50;
-
   const svg = code => `url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">${code}</svg>')`;
 
   class Proto extends Item {
@@ -16,8 +14,9 @@ def((Item) => {
         :scope {
           position: relative;
           font-size: 16px;
-          line-height: ${UNIT_HEIGHT}px;
-          height: ${UNIT_HEIGHT}px;
+          --unit-height: 50px;
+          line-height: var(--unit-height);
+          height: var(--unit-height);
           letter-spacing: 0.02em;
           border-left: 3px solid transparent;
           list-style: none;
@@ -203,11 +202,16 @@ def((Item) => {
       Object.defineProperty(this, '$active', { value: true, configurable: true, writable: true });
       Object.defineProperty(this, 'map', { value: {}, configurable: true });
       Object.defineProperty(this, 'items', { value: [], configurable: true });
-      Object.defineProperty(this, 'theoreticalHeight', { value: 0, configurable: true, writable: true });
     }
 
     init() {
       this.preventDoubleClickSelect();
+      this.element.addEventListener('transitionend', event => {
+        // 忽略掉冒泡上来的该事件
+        if (event.target !== this.element) return;
+        // 如果动画完成后是 active 状态就删除掉 height（默认 auto），因为子菜单需要撑开容器
+        if (this.active) this.element.style.removeProperty('height');
+      });
     }
 
     preventDoubleClickSelect() {
@@ -225,7 +229,6 @@ def((Item) => {
       if (params.title in this.map) {
         this.map[params.title].updateScheme(params);
       } else {
-        this.theoreticalHeight += UNIT_HEIGHT;
         this.map[params.title] = new GroupItem(params).to(this);
       }
       return this.map[params.title];
@@ -241,20 +244,13 @@ def((Item) => {
       } else {
         let item = new this.Item(scheme, { title, currentKey: key }).to(this);
         this.items.push(item);
-        this.theoreticalHeight += UNIT_HEIGHT;
       }
-      this.element.style.setProperty('--theoretical-height', this.theoreticalHeight + 'px');
     }
 
     update(title) {
       let [ , headTitle, tailTitle ] = String(title || '').match(/^(?:(.*?)\s*-\s*)?(.*)$/);
       this.updateItems(headTitle, tailTitle);
-      // 如果动画正在执行则延迟到动画完成后再处理
-      if (this.anime && this.anime.playState !== 'finished') {
-        return this.anime.addEventListener('finish', () => this.updateSubGroups(headTitle, tailTitle));
-      } else {
-        this.updateSubGroups(headTitle, tailTitle);
-      }
+      this.updateSubGroups(headTitle, tailTitle);
     }
 
     updateSubGroups(headTitle, tailTitle) {
@@ -272,19 +268,12 @@ def((Item) => {
       value = !!value;
       if (this.$active === value) return;
       this.$active = value;
-      // 下面这个动画效果也是有点神奇的，为了解决动画无法自适应高度的问题，对展开和收起执行不同的动画效果
-      let options = { duration: 300, easing: 'ease', fill: 'forwards' };
-      let startFrame = { maxHeight: this.element.offsetHeight + 'px' };
       if (value) {
-        // 展开：动画从当前位置开始，但是目标帧高度只能通过通过计算得到，于是我们使用先前计算好的理论高度值
-        // 这个理论高度值是当前菜单的所有子菜单的收缩时的高度
-        // 并且需要在动画执行完成之后将这个理论高度设置为 auto，因为用户如果手动展开子菜单，那么实际高度会超出这个理论高度
-        this.element.style.setProperty('--theoretical-height', this.theoreticalHeight + 'px');
-        this.anime = this.element.animate([ startFrame, { maxHeight: 'var(--theoretical-height)' } ], options);
-        this.anime.addEventListener('finish', () => this.element.style.setProperty('--theoretical-height', 'auto'));
+        this.element.style.height = this.element.scrollHeight;
       } else {
-        // 收起：这时候比较简单，只要从当前位置收缩到 0 的位置即可
-        this.anime = this.element.animate([ startFrame, { maxHeight: 0 } ], options);
+        this.element.style.height = this.element.scrollHeight;
+        void getComputedStyle(this.element).height; // 强制 CSS 引擎计算掉 height
+        this.element.style.height = 0;
       }
     }
 
@@ -299,6 +288,7 @@ def((Item) => {
           margin: 0;
           padding: 0;
           overflow: hidden;
+          transition: height 300ms ease-in-out;
         }
       `;
     }
