@@ -17,7 +17,12 @@ def((Button) => {
     set value(value) {
       this.$value = value;
       this.visible = !!value;
-      this.link = `data:application/octet-stream;base64,${value}`;
+      // 黑科技，如果检测到不是 base64 就作为文本下载
+      if (/^[A-Za-z0-9/+=]*$/.test(value)) {
+        this.link = `data:application/octet-stream;base64,${value}`;
+      } else {
+        this.link = `data:application/octet-stream,${value}`;
+      }
     }
     get value() { return this.$value; }
     get template() { return '<a if="{visible}" href="{link}" download>{downloadText}</a>'; }
