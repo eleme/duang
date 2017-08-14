@@ -116,6 +116,7 @@ def((Item) => {
       schemes = schemes.filter(scheme => {
         if (/(?:^|\/):/.test(scheme.key)) return false;
         if (scheme.hidden) return false;
+        if (!scheme.title) return;
         if (!scheme.require) return true;
         return scheme.require.some((dep => ~permissions.indexOf(dep)));
       });

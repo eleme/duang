@@ -10,7 +10,8 @@
     "schemes/other.json",
     "schemes/other-combines.json",
     "schemes/the-form.json",
-    "schemes/the-list.json"
+    "schemes/the-list.json",
+    "schemes/hidden.json"
   ],
   "logo": "Duang Demo",
   "session": {
