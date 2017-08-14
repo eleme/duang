@@ -232,7 +232,7 @@ def((Item) => {
     }
 
     add(scheme) {
-      let { map, key } = this;
+      let { key } = this;
       let [ , groupTitle, title ] = scheme.title.match(/^(?:(.*?)\s*-\s*)?(.*)$/);
       if (groupTitle) {
         this.group({ title: groupTitle }).add(Object.assign({}, scheme, { title }));

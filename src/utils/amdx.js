@@ -11,7 +11,7 @@ const req = dep => new Promise((resolve, reject) => { // eslint-disable-line no-
   if (/^(?:https?:)\/\//.test(dep)) {
     url = dep;
   } else {
-    url = `components/${dep.replace(/\$/g, '/')}.js`
+    url = `components/${dep.replace(/\$/g, '/')}.js`;
   }
   require([ url ], resolve, error => {
     console.error(error);

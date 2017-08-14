@@ -35,6 +35,29 @@
     {
       "key": "custom1", "component": "https://fuss10.elemecdn.com/c/d6/9a844cf9941910a965c88b5af4f70js.js", "title": "外部控件",
       "args": { "defaultValue": "这是一个外部控件，呵呵" }
+    },
+    {
+      "key": "custom2", "component": "https://fuss10.elemecdn.com/f/8d/5466796bf2a3161d6eeb001d9b307js.js", "title": "外部控件",
+      "args": {
+        "options": [
+          { "id": 1, "text": "item 1" },
+          { "id": 2, "parentId": 1, "text": "item 2" },
+          { "id": 3, "parentId": 1, "text": "item 3" },
+          { "id": 4, "parentId": 2, "text": "item 4" },
+          { "id": 5, "parentId": 2, "text": "item 5" },
+          { "id": 6, "parentId": 3, "text": "item 6" },
+          { "id": 7, "parentId": 3, "text": "item 7" },
+          { "id": 8, "text": "item 8" },
+          { "id": 9, "parentId": 8, "text": "item 9" },
+          { "id": 10, "parentId": 8, "text": "item 10" },
+          { "id": 11, "parentId": 9, "text": "item 11" },
+          { "id": 12, "parentId": 9, "text": "item 12" },
+          { "id": 13, "parentId": 10, "text": "item 13" },
+          { "id": 14, "parentId": 10, "text": "item 14" }
+        ],
+        "readonly": true,
+        "defaultValue": [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
+      }
     }
   ]
 }
