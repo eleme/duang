@@ -55,7 +55,7 @@
         "defaultValue": { "a": 1, "b": 2, "c": 3 },
         "inputs": [
           { "key": "a", "args": { "width": 100 } },
-          { "key": "b", "args": { "width": 100 } },
+          { "key": "b", "title": "title", "args": { "width": 100 } },
           { "key": "c", "args": { "width": 100 } }
         ]
       }
@@ -67,7 +67,19 @@
         "defaultValue": { "a": 1, "b": 2, "c": 3 },
         "inputs": [
           { "key": "a", "args": { "width": 100 } },
-          { "key": "b", "args": { "width": 100 } },
+          { "key": "b", "title": "title", "args": { "width": 100 } },
+          { "key": "c", "args": { "width": 100 } }
+        ]
+      }
+    },
+    {
+      "key": "grouping1", "title": "grouping", "component": "Grouping",
+      "args": {
+        "mode": "line",
+        "defaultValue": { "a": 1, "b": 2, "c": 3 },
+        "inputs": [
+          { "key": "a", "args": { "width": 100 } },
+          { "key": "b", "title": "title", "args": { "width": 100 } },
           { "key": "c", "args": { "width": 100 } }
         ]
       }
