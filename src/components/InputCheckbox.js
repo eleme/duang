@@ -1,15 +1,19 @@
 def((Item, Value) => {
 
   return class extends Value {
-    get template() { return '<form on-change="{change}"></form>'; }
     get styleSheet() {
       return `
         :scope {
-          margin: 0;
+          display: inline-block;
+          vertical-align: middle;
+          > * {
+            vertical-align: top;
+          }
         }
       `;
     }
     init() {
+      this.element.addEventListener('change', event => this.change(event));
       let { options, readonly } = this;
       let list = Object.keys(options).map(key => ({ value: key, text: options[key] }));
       if (list.length > 1 && !readonly) this.toggleItem = new Checkbox({ readonly, text: '全选' }).to(this);

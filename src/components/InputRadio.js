@@ -5,7 +5,10 @@ def((Item, Value) => {
       return `
         :scope {
           display: inline-block;
-          vertical-align: middel;
+          vertical-align: middle;
+          > * {
+            vertical-align: top;
+          }
         }
       `;
     }
