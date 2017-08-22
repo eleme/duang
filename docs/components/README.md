@@ -761,7 +761,28 @@ Markdown 输入控件，提供预览功能
 }
 ```
 
-查看 [在线演示](http://codepen.io/shijn/pen/JbVQyw?editors=0010#0)
+### Output::Clipboard
+
+可复制内容
+
+参数描述
+
+| 名字         | 类型                    | 默认值                   | 描述              |
+| ------------ | ----------------------- | ------------------------ | ----------------- |
+| maxWidth     | `String`                | 420px                    | 最大宽度          |
+
+示例配置
+
+示例：
+
+```javascript
+{
+  "component": "Clipboard",
+  "args": {
+    "maxWidth": 500
+  }
+}
+```
 
 ### Output::Table
 

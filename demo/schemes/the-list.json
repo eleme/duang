@@ -44,9 +44,8 @@
     }
   ],
   "fields": [
-    {
-      "component": "String",
-      "key": "x"
-    }
+    { "key": "id", "title": "ID" },
+    { "key": "a", "title": "A" },
+    { "key": "b", "title": "B", "component": "Clipboard" }
   ]
 }

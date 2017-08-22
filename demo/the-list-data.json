@@ -1,4 +1,4 @@
 [
-  { "id": "1.json", "a": "one" },
-  { "id": "2.json", "a": "two" }
+  { "id": "1.json", "a": "one", "b": "hehe" },
+  { "id": "2.json", "a": "two", "b": "hehe" }
 ]

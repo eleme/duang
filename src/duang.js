@@ -94,7 +94,8 @@
       'https://shadow.elemecdn.com/gh/jinkelajs/jinkela-cascader@1.0.0/index.js',
       'https://shadow.elemecdn.com/gh/jinkelajs/jinkela-forest@1.0.2/index.js',
       'https://shadow.elemecdn.com/gh/jinkelajs/jinkela-checkbox@1.0.0/index.js',
-      'https://shadow.elemecdn.com/gh/jinkelajs/jinkela-radio@1.0.0/index.js'
+      'https://shadow.elemecdn.com/gh/jinkelajs/jinkela-radio@1.0.0/index.js',
+      'https://shadow.elemecdn.com/gh/jinkelajs/jinkela-clicktip@1.0.0/index.js'
     ],
     [ // Entry
       'utils/depot.js'
