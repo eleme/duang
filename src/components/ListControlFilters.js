@@ -87,5 +87,4 @@ def((ListControlFiltersItem, Button, ButtonHollow) => {
       `;
     }
   };
-
 });

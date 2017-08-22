@@ -65,7 +65,7 @@
       window.fetch ? null : 'https://github.elemecdn.com/uglifyjs!github/fetch/v0.11.0/fetch.js'
     ].filter(Boolean),
     [ // Basic
-      'https://npm.elemecdn.com/uglifyjs!jinkela@1.2.21/umd.js',
+      'https://npm.elemecdn.com/uglifyjs!jinkela@1.2.19/umd.js',
       'https://npm.elemecdn.com/excavator@0.2.1/bundle.js',
       'https://github.elemecdn.com/YanagiEiichi/uparams/1.4.0/UParams.min.js',
       'https://github.elemecdn.com/uglifyjs!s3u/JSONPath/v0.15.0/lib/jsonpath.js',
