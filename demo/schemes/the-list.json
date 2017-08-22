@@ -23,7 +23,33 @@
       "component": "Radio",
       "optional": true,
       "args": {
-        "options": { "a": "1", "b": "2" }
+        "options": { "a": "1", "b": "2" },
+        "defaultValue": "a"
+      },
+      "title": "Radio",
+      "description": "描述"
+    },
+    {
+      "key": "f4",
+      "component": "Checkbox",
+      "optional": true,
+      "args": {
+        "options": {
+          "a": "一个很长很长的描述",
+          "b": "2",
+          "c": "3",
+          "d": "一个很长很长的描述2",
+          "e": "5",
+          "f": "6",
+          "g": "7",
+          "h": "呵呵",
+          "i": "9",
+          "j": "10",
+          "k": "11",
+          "l": "12",
+          "m": "13",
+          "n": "14"
+        }
       },
       "title": "Radio",
       "description": "描述"
