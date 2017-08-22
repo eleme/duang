@@ -88,11 +88,12 @@
       'https://github.elemecdn.com/uglifyjs!requirejs/requirejs/2.2.0/require.js'
     ],
     [ // Components
-      'https://github.elemecdn.com/jinkelajs/jinkela-datepicker/1.2.3/datepicker.js',
-      'https://github.elemecdn.com/jinkelajs/jinkela-timepicker/1.0.0/timepicker.js',
-      'https://github.elemecdn.com/jinkelajs/jinkela-dialog/0.1.6/dialog.js',
-      'https://github.elemecdn.com/jinkelajs/jinkela-cascader/1.0.0/index.js',
-      'https://github.elemecdn.com/jinkelajs/jinkela-forest/1.0.2/index.js'
+      'https://shadow.elemecdn.com/gh/jinkelajs/jinkela-datepicker@1.2.3/datepicker.js',
+      'https://shadow.elemecdn.com/gh/jinkelajs/jinkela-timepicker@1.0.0/timepicker.js',
+      'https://shadow.elemecdn.com/gh/jinkelajs/jinkela-dialog@0.1.6/dialog.js',
+      'https://shadow.elemecdn.com/gh/jinkelajs/jinkela-cascader@1.0.0/index.js',
+      'https://shadow.elemecdn.com/gh/jinkelajs/jinkela-forest@1.0.2/index.js',
+      'https://shadow.elemecdn.com/gh/jinkelajs/jinkela-checkbox@1.0.0/index.js'
     ],
     [ // Entry
       'utils/depot.js'
