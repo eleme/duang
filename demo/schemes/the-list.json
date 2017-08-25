@@ -32,12 +32,9 @@
     {
       "key": "f4",
       "component": "Checkbox",
-      "optional": true,
       "args": {
-        "options": {
-          "a": "一个很长很长的描述1",
-          "b": "一个很长很长的描述2"
-        }
+        "options": { "a": "一个很长很长的描述", "b": "一个很长很长的描述", "c": "一个很长很长的描述", "d": "一个很长很长的描述" },
+        "defaultValue": [ "a", "b" ]
       },
       "title": "Radio",
       "description": "描述"

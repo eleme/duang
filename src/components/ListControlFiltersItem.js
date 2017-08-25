@@ -53,9 +53,8 @@ def((Input, Output, Item) => class extends Item {
     return `
       :scope {
         &:first-child { margin-top: 0; }
-        display: block;
+        display: flex;
         margin-top: 1em;
-        white-space: nowrap;
         line-height: 28px;
         > * {
           display: none;
