@@ -9,6 +9,9 @@
     UParams: false
     Jinkela: false
     JSONPath: false
+    Checkbox: false
+    Radio: false
+    ClickTip: false
     TimePicker: false
     DatePicker: false
     Cascader: false
