@@ -16,11 +16,8 @@ def((InputFileToken) => {
     get value() {
       if (this.$cache.token) return this.$cache;
       let { width, height } = this.input.info;
-      return {
-        token: (width && height) ? this.input.value : null,
-        width,
-        height
-      };
+      let token = this.input.value;
+      return (width && height && token) ? { token, width, height } : null;
     }
   };
 });
