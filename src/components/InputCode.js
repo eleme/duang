@@ -62,9 +62,9 @@ def(() => class extends Jinkela {
   focus() {
     return this.task.then(editor => editor.focus());
   }
-  async refresh() {
+  refresh() {
     if (!document.body.contains(this.element)) return setTimeout(() => this.refresh(), 16);
-    (await this.task).refresh();
+    return Promise.resolve(this.task).then(obj => obj.refresh());
   }
   get value() {
     return this.$editor ? this.$editor.getValue() : '';

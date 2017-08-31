@@ -1,21 +1,21 @@
 def((Item) => {
 
-  const parse = (base, depot = window.depot, query) => Promise.all(Object.keys(base).map(async key => {
+  const parse = (base, depot = window.depot, query) => Promise.all(Object.keys(base).map(key => {
     let item = base[key];
     if (key[0] === '@') {
       delete base[key];
       let options = { expires: 1000 };
       if (query) options.query = { where: depot.where };
-      try {
-        let path = [];
-        if (depot.scheme) path.push(depot.resolvedKey);
-        base[key.slice(1)] = await api(path.concat(item), options);
-      } catch (error) {
+      let path = [];
+      if (depot.scheme) path.push(depot.resolvedKey);
+      return api(path.concat(item), options).then(value => {
+        base[key.slice(1)] = value;
+      }, error => {
         console.error(error);
         throw new Error(`组件参数（${key}: ${item}）拉取失败`);
-      }
+      });
     } else {
-      if (item && typeof item === 'object') await parse(item, depot, query);
+      if (item && typeof item === 'object') return parse(item, depot, query);
     }
   }));
 
@@ -44,15 +44,14 @@ def((Item) => {
     set depot(ignore) {}
     get depot() { return this.parent.depot || window.depot; }
 
-    async didMount() {
-      try {
-        await this.$resolveAt;
-        await this.buildComponent();
-      } catch (error) {
-        this.element.textContent = error.message;
-      } finally {
+    // TODO: 不要用 didMount
+   didMount() {
+      return Promise.resolve(this.$resolveAt).then(() => this.buildComponent()).then(() => {
         this.$promise.resolve();
-      }
+      }, error => {
+        this.element.textContent = error.message;
+        this.$promise.resolve();
+      });
     }
 
     get $promise() {

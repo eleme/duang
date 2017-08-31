@@ -20,16 +20,17 @@ def((Item) => {
         this.element.dataset.char = this.text ? this.text.match(/[^-]*$/g)[0].trimLeft()[0] : 'X';
       }
     }
-    async onClick() {
+    onClick() {
       let { href, target, module = 'list', key, where = {}, params = {} } = this;
       let tasks = [];
       if (this['@where']) tasks.push(api([ this.key, this['@where'] ]).then(result => (where = result)));
       if (this['@params']) tasks.push(api([ this.key, this['@params'] ]).then(result => (params = result)));
-      await Promise.all(tasks);
-      where = JSON.stringify(where);
-      params = JSON.stringify(params);
-      if (href) return open(href, target);
-      return depot.go({ args: { module, key, params, where }, target });
+      return Promise.all(tasks).then(() => {
+        where = JSON.stringify(where);
+        params = JSON.stringify(params);
+        if (href) return open(href, target);
+        return depot.go({ args: { module, key, params, where }, target });
+      });
     }
     get styleSheet() {
       let radius = 40;

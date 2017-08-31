@@ -123,22 +123,23 @@ def((OutputHTML, Item) => {
       if (!this.$hasValue) this.value = void 0;
     }
 
-    async inputHandler() {
+    inputHandler() {
       if (this.readonly) return;
       let { resolvedKey } = depot;
-      let raw = await api([resolvedKey, this.api], { query: { q: this.value } });
-      if (!(raw instanceof Array)) throw new Error(`返回必须是数组，然而却是 ${raw}`);
-      this.list.innerHTML = '';
-      if (!raw.length) {
-        if (this.emptyTip) {
-          this.element.setAttribute('popup', '');
+      return api([resolvedKey, this.api], { query: { q: this.value } }).then(raw => {
+        if (!(raw instanceof Array)) throw new Error(`返回必须是数组，然而却是 ${raw}`);
+        this.list.innerHTML = '';
+        if (!raw.length) {
+          if (this.emptyTip) {
+            this.element.setAttribute('popup', '');
+          } else {
+            this.element.removeAttribute('popup');
+          }
         } else {
-          this.element.removeAttribute('popup');
+          raw.forEach(item => new ListItem(item).to(this.list));
+          this.element.setAttribute('popup', '');
         }
-      } else {
-        raw.forEach(item => new ListItem(item).to(this.list));
-        this.element.setAttribute('popup', '');
-      }
+      });
     }
 
     get value() { return this.$value || []; }

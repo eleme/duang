@@ -14,10 +14,14 @@ var depot = new class { // eslint-disable-line no-unused-vars
   }
 
   static waitUntilReady() {
-    let promise = Promise.resolve().then(async () => {
-      Object.defineProperty(this.prototype, 'config', { configurable: true, value: await this.initConfig() });
-      Object.defineProperty(this.prototype, 'schemes', { configurable: true, value: await this.initSchemes() });
-      Object.defineProperty(this.prototype, 'session', { configurable: true, value: await this.initSession() });
+    let promise = Promise.resolve(this.initConfig()).then(value => {
+      Object.defineProperty(this.prototype, 'config', { configurable: true, value });
+      return this.initSchemes();
+    }).then(value => {
+      Object.defineProperty(this.prototype, 'schemes', { configurable: true, value });
+      return this.initSession();
+    }).then(value => {
+      Object.defineProperty(this.prototype, 'session', { configurable: true, value });
     });
     Object.defineProperty(this, 'waitUntilReady', { configurable: true, value: () => promise });
     return promise;
@@ -38,10 +42,12 @@ var depot = new class { // eslint-disable-line no-unused-vars
     return task;
   }
 
-  static async initSchemes() {
+  static initSchemes() {
     let { config } = this.prototype;
     let schemes = JSON.parse(JSON.stringify(config && config.schemes || []));
-    return [].concat(... await Promise.all(schemes.map(scheme => typeof scheme !== 'string' ? scheme : api(scheme))));
+    return Promise.all(schemes.map(scheme => typeof scheme !== 'string' ? scheme : api(scheme))).then(list => {
+      return [].concat(...list);
+    });
   }
 
   static initSession() {
@@ -77,30 +83,30 @@ var depot = new class { // eslint-disable-line no-unused-vars
     }
   }
 
-  async onRouteChange() {
-    try {
-      await this.constructor.waitUntilReady();
-    } catch (error) {
+  onRouteChange() {
+    return this.constructor.waitUntilReady().then(() => {
+      Object.defineProperty(this, Symbol.for('cache'), { configurable: true, value: {} });
+      let moduleName = String(this.module || 'default');
+      let tasks = Promise.all([ req('Frame'), req('MainWith' + moduleName.replace(/./, $0 => $0.toUpperCase())) ]);
+      if (this._autoRefreshTimer) {
+        clearTimeout(this._autoRefreshTimer);
+        delete this._autoRefreshTimer;
+      }
+      return tasks;
+    }, error => {
       alert(error.message);
       throw error;
-    }
-    Object.defineProperty(this, Symbol.for('cache'), { configurable: true, value: {} });
-    let moduleName = String(this.module || 'default');
-    let tasks = Promise.all([ req('Frame'), req('MainWith' + moduleName.replace(/./, $0 => $0.toUpperCase())) ]);
-    if (this._autoRefreshTimer) {
-      clearTimeout(this._autoRefreshTimer);
-      delete this._autoRefreshTimer;
-    }
-    let [ Frame, Main ] = await tasks;
-    if (!this.moduleComponent) this.moduleComponent = new Frame().to(document.body);
-    this.moduleComponent.main = new Main();
-    let { autoRefresh } = this.scheme || {};
-    if (+autoRefresh) {
-      this._autoRefreshTimer = setTimeout(() => {
-        this.refresh();
-        delete this._autoRefreshTimer;
-      }, autoRefresh * 1000);
-    }
+    }).then(([ Frame, Main ]) => {
+      if (!this.moduleComponent) this.moduleComponent = new Frame().to(document.body);
+      this.moduleComponent.main = new Main();
+      let { autoRefresh } = this.scheme || {};
+      if (+autoRefresh) {
+        this._autoRefreshTimer = setTimeout(() => {
+          this.refresh();
+          delete this._autoRefreshTimer;
+        }, autoRefresh * 1000);
+      }
+    });
   }
 
   hashchange() { this.onRouteChange(); }
@@ -172,7 +178,7 @@ var depot = new class { // eslint-disable-line no-unused-vars
 
   refresh() { dispatchEvent(new Event('hashchange')); }
 
-  async go({ args, target, title }) {
+  go({ args, target, title }) {
     args = Object.assign({}, args);
     if (args.where && typeof args.where === 'object') args.where = JSON.stringify(args.where);
     if (args.params && typeof args.params === 'object') args.params = JSON.stringify(args.params);
@@ -183,9 +189,10 @@ var depot = new class { // eslint-disable-line no-unused-vars
       case 'dialog':
         try {
           let name = String(args.module || 'default').replace(/./, $0 => $0.toUpperCase());
-          let Main = await req(`MainWith${name}`);
-          let main = new Main({ depot: this.fork(uParams), title });
-          return Promise.resolve(main.$promise).then(() => dialog.popup(main));
+          return req(`MainWith${name}`).then(Main => {
+            let main = new Main({ depot: this.fork(uParams), title });
+            return Promise.resolve(main.$promise).then(() => dialog.popup(main));
+          });
         } catch (error) {
           return console.error(error); // eslint-disable-line
         }
