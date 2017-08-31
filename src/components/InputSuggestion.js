@@ -1,4 +1,4 @@
-def((InputString, Item) => {
+def((InputString, OutputHTML, Item) => {
 
   class ListItem extends Item {
 
@@ -9,8 +9,12 @@ def((InputString, Item) => {
       }));
     }
 
+    init() {
+      new OutputHTML(this).to(this);
+    }
+
     get template() {
-      return '<li>{value}</li>';
+      return '<li></li>';
     }
 
   }
