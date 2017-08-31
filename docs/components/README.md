@@ -460,6 +460,48 @@ Content-Length: ...
 }
 ```
 
+### Input::TagCollector
+
+参数：
+
+| 名字         | 类型                    | 默认值                   | 描述                   |
+| ------------ | ----------------------- | ------------------------ | ---------------------- |
+| api          | `String`                | 必选参数                 | 获取关键词接口相对路径 |
+| placeholder  | `String`                | "请选择"                 | 占位文字               |
+| width        | `String`                | 600                      | 宽度                   |
+| emptyTip     | `String`                | 无结果时不展开提示框     | 无结果时的提示文字     |
+
+当输入时会使用 GET 方法调用这个 api，并且在 QueryString 中带上一个名为 q 的参数（注意其是经过 json encode 的）。
+这个接口应该返回一个对象数组，其中的每一个对象都有一个 value 字段。
+
+下面是这个接口的请求实例：
+
+```text
+GET /api?q="xxx" HTTP/1.1
+Host: ...
+
+
+HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: ...
+
+[
+  { "value": "搜索建议 1" },
+  { "value": "搜索建议 2" }
+]
+```
+
+示例：
+
+```javascript
+{
+  "component": "TagCollector",
+  "args": {
+    "api": "suggestion"
+  }
+}
+```
+
 ### Input::City
 
 参数：

@@ -1,4 +1,8 @@
 [
   { "value": "item 1", "html": "i<strong style=\"color: red;\">te</strong>m 1" },
-  { "value": "item 2" }
+  { "value": "item 2" },
+  { "value": "item 3" },
+  { "value": "item 4" },
+  { "value": "item 5" },
+  { "value": "item 6" }
 ]

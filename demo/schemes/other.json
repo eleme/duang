@@ -33,6 +33,26 @@
       "args": { "api": "../empty-list.json", "width": 100, "emptyTip": "并没有内容" }
     },
     {
+      "key": "tagCollector1", "component": "TagCollector", "title": "标签选择",
+      "args": { "api": "../value-list.json" }
+    },
+    {
+      "key": "tagCollector2", "component": "TagCollector", "title": "标签选择",
+      "args": { "api": "../value-list.json", "width": 500 }
+    },
+    {
+      "key": "tagCollector3", "component": "TagCollector", "title": "标签选择",
+      "args": { "api": "../value-list.json", "defaultValue": [ "item 1", "hehe" ] }
+    },
+    {
+      "key": "tagCollector4", "component": "TagCollector", "title": "标签选择",
+      "args": { "api": "../empty-list.json", "emptyTip": "并没有内容" }
+    },
+    {
+      "key": "tagCollector5", "component": "TagCollector", "title": "标签选择",
+      "args": { "api": "../empty-list.json", "placeholder": "placeholder" }
+    },
+    {
       "key": "custom1", "component": "https://fuss10.elemecdn.com/c/d6/9a844cf9941910a965c88b5af4f70js.js", "title": "外部控件",
       "args": { "defaultValue": "这是一个外部控件，呵呵" }
     }
