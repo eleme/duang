@@ -126,7 +126,7 @@ def((OutputHTML, Item) => {
     inputHandler() {
       if (this.readonly) return;
       let { resolvedKey } = depot;
-      return api([resolvedKey, this.api], { query: { q: this.value } }).then(raw => {
+      return api([resolvedKey, this.api], { query: { q: this.input.value } }).then(raw => {
         if (!(raw instanceof Array)) throw new Error(`返回必须是数组，然而却是 ${raw}`);
         this.list.innerHTML = '';
         if (!raw.length) {
