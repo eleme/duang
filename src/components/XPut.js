@@ -45,7 +45,7 @@ def((Item) => {
     get depot() { return this.parent.depot || window.depot; }
 
     // TODO: 不要用 didMount
-   didMount() {
+    didMount() {
       return Promise.resolve(this.$resolveAt).then(() => this.buildComponent()).then(() => {
         this.$promise.resolve();
       }, error => {

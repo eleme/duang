@@ -156,7 +156,7 @@ def((OutputHTML, Item) => {
       let index = 0;
       let element = this.input;
       let remove = [];
-      while (element = element.nextElementSibling) {
+      while ((element = element.nextElementSibling)) {
         let { jinkela } = element;
         if (jinkela.value === value[index]) {
           index++;
