@@ -26,8 +26,7 @@
         "options": { "a": "1", "b": "2" },
         "defaultValue": "a"
       },
-      "title": "Radio",
-      "description": "描述"
+      "title": "Radio"
     },
     {
       "key": "f4",
@@ -36,13 +35,20 @@
         "options": { "a": "一个很长很长的描述", "b": "一个很长很长的描述", "c": "一个很长很长的描述", "d": "一个很长很长的描述" },
         "defaultValue": [ "a", "b" ]
       },
-      "title": "Radio",
-      "description": "描述"
+      "title": "Radio"
     }
   ],
   "fields": [
     { "key": "id", "title": "ID" },
     { "key": "a", "title": "A" },
-    { "key": "b", "title": "B", "component": "Clipboard" }
+    { "key": "b", "title": "B", "component": "Clipboard" },
+    {
+      "key": "c",
+      "component": "QRCode",
+      "args": {
+        "defaultValue": "hehe"
+      },
+      "title": "QRCode"
+    }
   ]
 }
