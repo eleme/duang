@@ -45,17 +45,10 @@
 
 // 加载样式库
 {
-  let styleSheets = [
-    'https://github.elemecdn.com/codemirror/CodeMirror/5.19.0/lib/codemirror.css',
-    'https://github.elemecdn.com/codemirror/CodeMirror/5.19.0/theme/neo.css',
-    'https://github.elemecdn.com/sindresorhus/github-markdown-css/gh-pages/github-markdown.css'
-  ];
-  styleSheets.forEach(href => {
-    let link = document.createElement('link');
-    link.setAttribute('href', href);
-    link.setAttribute('rel', 'stylesheet');
-    document.head.appendChild(link);
-  });
+  let link = document.createElement('link');
+  link.setAttribute('href', 'https://shadow.elemecdn.com/gh/codemirror/CodeMirror@5.19.0/lib/codemirror.css,/gh/codemirror/CodeMirror@5.19.0/theme/neo.css,/gh/sindresorhus/github-markdown-css@gh-pages/github-markdown.css');
+  link.setAttribute('rel', 'stylesheet');
+  document.head.appendChild(link);
 }
 
 // 加载 js（根据依赖考虑先后顺序）
@@ -65,36 +58,22 @@
       window.fetch ? null : 'https://github.elemecdn.com/uglifyjs!github/fetch/v0.11.0/fetch.js'
     ].filter(Boolean),
     [ // Basic
-      'https://npm.elemecdn.com/uglifyjs!jinkela@1.2.19/umd.js',
-      'https://npm.elemecdn.com/excavator@0.2.1/bundle.js',
-      'https://github.elemecdn.com/YanagiEiichi/uparams/1.4.0/UParams.min.js',
-      'https://github.elemecdn.com/uglifyjs!s3u/JSONPath/v0.15.0/lib/jsonpath.js',
-      'https://github.elemecdn.com/YanagiEiichi/fceptor/0.2.11/fceptor.js',
+      'https://shadow.elemecdn.com/npm/excavator@0.2.1/bundle.min.js,/npm/jinkela@1.2.19/umd.min.js',
+      'https://shadow.elemecdn.com/gh/YanagiEiichi/fceptor@0.2.11/fceptor.min.js,/gh/chjj/marked@v0.3.6/marked.min.js,/gh/YanagiEiichi/uparams@1.4.0/UParams.min.js,/gh/s3u/JSONPath@v0.15.0/lib/jsonpath.min.js',
       'utils/api.js',
       'utils/doAction.js',
       'utils/refactor.js',
       'utils/debounce.js',
       'utils/condition.js',
       'utils/amdx.js',
-      'https://github.elemecdn.com/uglifyjs!codemirror/CodeMirror/5.19.0/lib/codemirror.js'
+      'https://shadow.elemecdn.com/gh/codemirror/CodeMirror@5.19.0/lib/codemirror.min.js'
     ],
     [
-      'https://github.elemecdn.com/uglifyjs!codemirror/CodeMirror/5.19.0/mode/yaml/yaml.js',
-      'https://github.elemecdn.com/uglifyjs!codemirror/CodeMirror/5.19.0/mode/markdown/markdown.js',
-      'https://github.elemecdn.com/chjj/marked/v0.3.6/marked.min.js'
-    ],
-    [ // Plugins
-      'https://github.elemecdn.com/uglifyjs!requirejs/requirejs/2.2.0/require.js'
+      'https://shadow.elemecdn.com/gh/requirejs/requirejs@2.2.0/require.min.js',
+      'https://shadow.elemecdn.com/gh/codemirror/CodeMirror@5.19.0/mode/yaml/yaml.min.js,/gh/codemirror/CodeMirror@5.19.0/mode/markdown/markdown.min.js'
     ],
     [ // Components
-      'https://shadow.elemecdn.com/gh/jinkelajs/jinkela-datepicker@1.2.3/datepicker.js',
-      'https://shadow.elemecdn.com/gh/jinkelajs/jinkela-timepicker@1.0.0/timepicker.js',
-      'https://shadow.elemecdn.com/gh/jinkelajs/jinkela-dialog@0.1.6/dialog.js',
-      'https://shadow.elemecdn.com/gh/jinkelajs/jinkela-cascader@1.0.0/index.js',
-      'https://shadow.elemecdn.com/gh/jinkelajs/jinkela-forest@1.0.2/index.js',
-      'https://shadow.elemecdn.com/gh/jinkelajs/jinkela-checkbox@1.0.0/index.js',
-      'https://shadow.elemecdn.com/gh/jinkelajs/jinkela-radio@1.0.0/index.js',
-      'https://shadow.elemecdn.com/gh/jinkelajs/jinkela-clicktip@1.0.0/index.js'
+      'https://shadow.elemecdn.com/gh/jinkelajs/jinkela-datepicker@1.2.3/datepicker.js,/gh/jinkelajs/jinkela-timepicker@1.0.0/timepicker.js,/gh/jinkelajs/jinkela-dialog@0.1.6/dialog.js,/gh/jinkelajs/jinkela-cascader@1.0.0/index.js,/gh/jinkelajs/jinkela-forest@1.0.2/index.js,/gh/jinkelajs/jinkela-checkbox@1.0.0/index.js,/gh/jinkelajs/jinkela-radio@1.0.0/index.js,/gh/jinkelajs/jinkela-clicktip@1.0.0/index.js'
     ],
     [ // Entry
       'utils/depot.js'
