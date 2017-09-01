@@ -21,7 +21,7 @@ def((Item, Value) => {
     init() {
       this.element.addEventListener('change', event => this.change(event));
       let { options, readonly } = this;
-      let list = Object.keys(options).map(key => ({ value: key, text: options[key] }));
+      let list = options instanceof Array ? options : Object.keys(options).map(key => ({ value: key, text: options[key] }));
       this.list = Radio.from(list, { readonly }).to(this);
       if (!this.$hasValue) this.value = void 0;
     }

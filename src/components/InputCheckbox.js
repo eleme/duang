@@ -16,7 +16,7 @@ def((Item, Value) => {
     init() {
       this.element.addEventListener('change', event => this.change(event));
       let { options, readonly } = this;
-      let list = Object.keys(options).map(key => ({ value: key, text: options[key] }));
+      let list = options instanceof Array ? options : Object.keys(options).map(key => ({ value: key, text: options[key] }));
       if (list.length > 1 && !readonly) this.toggleItem = new Checkbox({ readonly, text: '全选' }).to(this);
       this.list = Checkbox.from(list.map(item => Object.assign({ readonly }, item))).to(this);
       for (let item of this.list) this.element.insertBefore(new Text(' '), item.element); // 为了自动换行强行插入一堆空文本节点
