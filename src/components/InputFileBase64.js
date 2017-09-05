@@ -24,7 +24,7 @@ def((Button) => {
         this.link = `data:application/octet-stream,${value}`;
       }
     }
-    get value() { return this.$value; }
+    get value() { return this.$value === null ? void 0 : this.$value; }
     get template() { return '<a if="{visible}" href="{link}" download>{downloadText}</a>'; }
     get styleSheet() {
       return `

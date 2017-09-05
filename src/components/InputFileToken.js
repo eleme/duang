@@ -75,7 +75,7 @@ def((Button) => {
     get Preview() { return Preview; }
     get ClearButton() { return ClearButton; }
     get info() { return this.preview.info || {}; }
-    get value() { return this.$value; }
+    get value() { return this.$value === null ? void 0 : this.$value; }
     set value(value = this.defaultValue) {
       this.$hasValue = true;
       this.$value = value;
@@ -95,7 +95,7 @@ def((Button) => {
         </div>
       `;
     }
-    clear() { this.value = void 0; }
+    clear() { this.value = null; }
     init() {
       if (this.readonly) {
         this.element.classList.add('readonly');
