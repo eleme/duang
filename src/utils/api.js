@@ -81,6 +81,10 @@
               throw result;
             }
           });
+        }, error => {
+          if (error.message === 'Failed to fetch') {
+            throw new Error('网络不给力，请稍后重试');
+          }
         });
         return this.cache(path, options, resolver);
       };
