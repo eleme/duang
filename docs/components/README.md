@@ -814,23 +814,29 @@ Markdown 输入控件，提供预览功能
 
 查看 [在线演示](http://codepen.io/shijn/pen/VmNJWO?editors=0010#0)
 
-### Output::Link
+### Output::Link2
+
+跳转到某个连接，配置方式类似 Action（原 Link 控件已废弃）
 
 参数描述
 
 | 名字 | 类型 | 描述 |
 | ---- | ---- | ---- |
-| value | `String` | 链接名 |
+| module | `String` | --- |
+| key | `String` | --- |
+| target | `String` | --- |
+| params | `Object` | --- |
+| where | `Object` | --- |
+| href | `String` | --- |
+| title | `Object` | --- |
 
 示例配置
 
 ```javascript
 {
-  component: "Link",
-  key: "order/:id",
-  title: "订单",
-  params: {
-    "#id": "123"
+  "component": "Link2",
+  "args": {
+    "module": "editor"
   }
 }
 ```
