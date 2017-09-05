@@ -227,6 +227,38 @@ options 是一个对象，其键名对应单选框的 value，其值对应单选
 }
 ```
 
+### Input::ImageSelector
+
+图片选择控件（类似 Radio，只不过选项是一张张图片而不是文字）
+
+参数：
+
+| 名字         | 类型                    | 默认值                   | 描述           |
+| ------------ | ----------------------- | ------------------------ | -------------- |
+| options      | `Array<Object>`         | 必选参数                 | 备选项         |
+
+options 是一个对象数组，其中的对象结构为：
+
+| 名字         | 类型                    | 默认值                   | 描述           |
+| ------------ | ----------------------- | ------------------------ | -------------- |
+| src          | `String`                | 必选参数                 | 图片 URL       |
+| value        | `Any`                   | 必选参数                 | 选中时的值     |
+
+示例配置
+
+```javascript
+{
+  "component": "ImageSelector",
+  "args": {
+    "options": [
+      { "src": "https://fuss10.elemecdn.com/1/89/56d597e004abf8d30365009c4492bjpeg.jpeg", "value": "麦当劳" },
+      { "src": "https://fuss10.elemecdn.com/7/d3/48a777a6b444dc317cc24d101220cjpeg.jpeg", "value": "肯德基" },
+      { "src": "https://fuss10.elemecdn.com/4/ff/bde8cd29387027b84824a95e0058bjpeg.jpeg", "value": "德克士" }
+    ]
+  }
+}
+```
+
 ### Input::Select
 
 参数：

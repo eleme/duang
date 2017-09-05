@@ -37,6 +37,17 @@
         "parentIdAlias": "b",
         "textAlias": "c"
       }
+    },
+    {
+      "key": "imageSelector1", "component": "ImageSelector", "title": "图片选择",
+      "args": { "@options": "../imageselector-options.json" }
+    },
+    {
+      "key": "imageSelector1", "component": "ImageSelector", "title": "图片选择",
+      "args": {
+        "@options": "../imageselector-options.json",
+        "defaultValue": "item 2"
+      }
     }
   ]
 }
