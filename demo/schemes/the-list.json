@@ -38,6 +38,9 @@
       "title": "Radio"
     }
   ],
+  "actions": [
+    { "title": "www.ele.me", "method": "open", "href": "https://www.ele.me" }
+  ],
   "fields": [
     { "key": "id", "title": "ID" },
     { "key": "a", "title": "A" },

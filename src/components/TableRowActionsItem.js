@@ -1,4 +1,5 @@
 def((ListItem, Confirm) => class extends ListItem {
+
   init() {
     this.text = this.title || this.method;
     if (!this.checkPermissions()) this.element.style.display = 'none';
@@ -61,6 +62,13 @@ def((ListItem, Confirm) => class extends ListItem {
     this.goAction();
   }
 
+  openAction() {
+    let { depot } = this;
+    let { queryParams, resolvedKey } = depot;
+    let url = api.resolvePath([ resolvedKey, this.href ]);
+    open(`${url}?${queryParams}`);
+  }
+
   defaultAction() {
     let { depot } = this;
     let path = [ depot.resolvedKey, this.fieldMap.id ];
@@ -71,17 +79,19 @@ def((ListItem, Confirm) => class extends ListItem {
       alert(error.message);
     });
   }
+
   get styleSheet() {
     return `
       :scope {
         margin-right: .5em;
         display: inline-block;
-        color: #20A0FF;
+        color: #20a0ff;
         font-size: 12px;
         &:hover {
-          color: #1D8CE0;
+          color: #1d8ce0;
         }
       }
     `;
   }
+
 });
