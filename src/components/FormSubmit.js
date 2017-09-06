@@ -1,4 +1,4 @@
-def((Button, ButtonHollow) => {
+def((Button, ButtonHollow, ErrorDialog) => {
 
   return class extends Jinkela {
     beforeParse() {
@@ -45,7 +45,7 @@ def((Button, ButtonHollow) => {
           window.depot.refresh();
         }
       }, error => {
-        if (error) alert(error.message || error);
+        if (error) ErrorDialog.popup({ error });
       }).then(() => {
         this.backComponent.busy = false;
       });

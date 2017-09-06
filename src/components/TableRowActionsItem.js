@@ -1,4 +1,4 @@
-def((ListItem, Confirm) => class extends ListItem {
+def((ListItem, Confirm, ErrorDialog) => class extends ListItem {
 
   init() {
     this.text = this.title || this.method;
@@ -76,7 +76,7 @@ def((ListItem, Confirm) => class extends ListItem {
     api(path, { method: this.method || 'POST' }).then(() => {
       depot.refresh();
     }, error => {
-      alert(error.message);
+      ErrorDialog.popup({ error });
     });
   }
 

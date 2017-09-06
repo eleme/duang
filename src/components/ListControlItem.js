@@ -1,4 +1,4 @@
-def((Button, Confirm) => class extends Button {
+def((Button, Confirm, ErrorDialog) => class extends Button {
   init() {
     this.text = this.title;
   }
@@ -33,7 +33,7 @@ def((Button, Confirm) => class extends Button {
     api(path, { method: this.method || 'POST' }).then(() => {
       depot.refresh();
     }, error => {
-      alert(error.message);
+      ErrorDialog.popup({ error });
     });
   }
   get styleSheet() {
