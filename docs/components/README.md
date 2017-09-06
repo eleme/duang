@@ -227,7 +227,7 @@ options 是一个对象，其键名对应单选框的 value，其值对应单选
 }
 ```
 
-### Input::ImageSelector
+### Input::ImageSelector （0.0.117 开始支持）
 
 图片选择控件（类似 Radio，只不过选项是一张张图片而不是文字）
 
@@ -814,7 +814,7 @@ Markdown 输入控件，提供预览功能
 
 查看 [在线演示](http://codepen.io/shijn/pen/VmNJWO?editors=0010#0)
 
-### Output::Link2
+### Output::Link2 （0.0.117 开始支持）
 
 跳转到某个连接，配置方式类似 Action（原 Link 控件已废弃）
 
