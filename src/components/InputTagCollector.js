@@ -260,7 +260,7 @@ def((OutputHTML, Item) => {
           width: 300px;
           min-height: 36px;
           font-size: 12px;
-          line-height: 28px;
+          line-height: 36px;
           border: 1px solid #C0CCDA;
           border-radius: 5px;
           padding: 3px;

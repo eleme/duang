@@ -33,9 +33,10 @@ def(() => class extends Jinkela {
   get styleSheet() {
     return `
       :scope {
-        width: 80px;
-        height: 24px;
-        line-height: 24px;
+        width: 100px;
+        height: 34px;
+        line-height: 34px;
+        font-size: 16px;
         border-radius: 12px;
         border: 1px solid #D3DCE6;
         box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
@@ -51,7 +52,7 @@ def(() => class extends Jinkela {
           text-align: center;
           color: #fff;
           width: 60px;
-          height: 24px;
+          height: 100%;
           border-radius: 12px;
           background: #D3DCE6;
           transition: transform 200ms ease;
@@ -61,7 +62,7 @@ def(() => class extends Jinkela {
         &[data-value=true]:before {
           content: attr(data-text-true);
           background: #58B7FF;
-          transform: translateX(20px);
+          transform: translateX(40px);
         }
       }
     `;

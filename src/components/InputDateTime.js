@@ -19,7 +19,6 @@ def(() => {
           position: relative;
           > span {
             > input {
-              height: 28px;
               width: 106px;
             }
             &:first-child {

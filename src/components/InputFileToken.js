@@ -48,8 +48,8 @@ def((Button) => {
       return `
         :scope {
           display: inline-block;
-          width: 28px;
-          height: 28px;
+          width: 36px;
+          height: 36px;
           vertical-align: top;
           text-align: center;
           &::after {
@@ -60,8 +60,8 @@ def((Button) => {
             vertical-align: middle;
           }
           img[src] {
-            width: 28px;
-            height: 28px;
+            width: 36px;
+            height: 36px;
             display: inline-block;
             box-shadow: 0 0 1px #E5E9F2;
           }

@@ -20,7 +20,7 @@ def((FormItem) => class extends FormItem {
         > span {
           display: table-cell;
           vertical-align: top;
-          line-height: 28px;
+          line-height: 36px;
           text-align: left;
         }
         > span:first-child {

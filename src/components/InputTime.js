@@ -40,7 +40,6 @@ def(() => {
     get styleSheet() {
       return `
         :scope {
-          input { height: 28px; }
           &.readonly {
             input {
               background-color: #eff2f7;

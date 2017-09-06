@@ -55,7 +55,7 @@ def((Input, Output, Item) => class extends Item {
         &:first-child { margin-top: 0; }
         display: flex;
         margin-top: 1em;
-        line-height: 28px;
+        line-height: 36px;
         > * {
           display: none;
           vertical-align: top;

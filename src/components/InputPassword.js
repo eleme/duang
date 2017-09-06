@@ -26,9 +26,9 @@ def(() => class extends Jinkela {
         vertical-align: middle;
         box-sizing: border-box;
         width: 300px;
-        height: 28px;
+        height: 36px;
         font-size: 12px;
-        line-height: 28px;
+        line-height: 36px;
         border: 1px solid #C0CCDA;
         border-radius: 5px;
         padding: .4em .5em;
