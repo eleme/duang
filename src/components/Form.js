@@ -84,7 +84,7 @@ def((FormSubmit, FormItemWithTable, Alert) => class extends Jinkela {
         padding: 2em;
         > [ref=columns] {
           > .table {
-            border-spacing: 1em;
+            border-spacing: var(--spacing);
             margin: -1em 0;
             width: 100%;
             font-size: inherit;

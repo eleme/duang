@@ -54,7 +54,7 @@ def((FormItemWithTable, FormItemWithDiv) => class extends Jinkela {
     return `
       .table:scope {
         break-inside: avoid-column;
-        border-spacing: 1em;
+        border-spacing: var(--spacing);
         margin: -1em;
         font-size: inherit;
         > div > span:first-child { width: 0; }

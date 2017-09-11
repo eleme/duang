@@ -54,8 +54,8 @@ def((Button, ButtonHollow, ErrorDialog) => {
       return `
         :scope {
           border-top: 1px solid #e0e6ed;
-          margin-top: 1em;
-          padding-top: 1em;
+          margin-top: var(--spacing);
+          padding-top: var(--spacing);
           :first-child { margin-right: 10px; }
         }
       `;

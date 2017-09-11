@@ -52,6 +52,7 @@ def((FrameLogo, FrameNav, FrameAside, FrameMain) => class extends Jinkela {
         font-size: 14px;
         font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
         -webkit-font-smoothing: antialiased;
+        --spacing: 1.5em;
       }
       a {
         text-decoration: none;
