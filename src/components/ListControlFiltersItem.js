@@ -54,7 +54,7 @@ def((Input, Output, Item) => class extends Item {
       :scope {
         &:first-child { margin-top: 0; }
         display: flex;
-        margin-top: 1em;
+        margin-top: var(--spacing);
         line-height: 36px;
         > * {
           display: none;

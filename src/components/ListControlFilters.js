@@ -80,7 +80,7 @@ def((ListControlFiltersItem, Button, ButtonHollow) => {
         :scope {
           text-align: left;
           margin-bottom: 1em;
-          padding: 16px;
+          padding: var(--spacing);
           border: 1px solid #e0e6ed;
           border-radius: 4px;
         }
