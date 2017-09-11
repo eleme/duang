@@ -5,7 +5,7 @@ def((ErrorDisplay) => class extends Jinkela {
   set error(error) {
     if (!error) return;
     this.element.innerHTML = '';
-    new ErrorDisplay({ error }).to(this);
+    new ErrorDisplay({ error, noIcon: true }).to(this);
   }
   set data(list) {
     if (!list) return;

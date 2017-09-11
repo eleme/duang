@@ -1,6 +1,6 @@
 {
   "key": "the-list-data.json",
-  "title": "列表",
+  "title": "列表 - 就是这个列表",
   "where": { "f3": "a" },
   "filters": [
     {

@@ -1,3 +1,18 @@
 <meta charset="utf8" />
 <link rel="icon" href="../logo.png" />
 <script src="../src/duang.js" base=".." config="config.json"></script>
+<script src="//shadow.elemecdn.com/gh/YanagiEiichi/fceptor@0.2.11/fceptor.min.js"></script>
+<script>
+FCeptor.post(/^/, ctx => {
+  let headers = { 'Content-Type': 'application/json' };
+  let body = { name: 'HEHE_ERROR', message: '这是一个不可思议的错误' };
+  ctx.response = new Response(JSON.stringify(body), { status: 500, headers });
+  return false;
+});
+FCeptor.get(/\/500(\?.*)?$/, ctx => {
+  let headers = { 'Content-Type': 'application/json' };
+  let body = { name: 'HEHE_ERROR', message: '这是一个错误的列表' };
+  ctx.response = new Response(JSON.stringify(body), { status: 500, headers });
+  return false;
+});
+</script>
