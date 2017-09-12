@@ -5,7 +5,8 @@
 <script>
 FCeptor.post(/^/, ctx => {
   let headers = { 'Content-Type': 'application/json' };
-  let body = { name: 'HEHE_ERROR', message: '这是一个不可思议的错误' };
+  let body = { name: 'HEHE_ERROR', message: 'POST 请求已拦截' };
+  ctx.request.json().then(console.log);
   ctx.response = new Response(JSON.stringify(body), { status: 500, headers });
   return false;
 });
