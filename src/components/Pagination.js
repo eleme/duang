@@ -39,7 +39,7 @@ def((ButtonHollow, SvgIcon, Input) => {
     get styleSheet() {
       return `
         :scope {
-          line-height: 36px;
+          line-height: 28px;
           vertical-align: middle;
           display: inline-block;
           margin: 0 .5em;

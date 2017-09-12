@@ -32,8 +32,8 @@ def((Item) => class extends Item {
       :scope {
         border: 0;
         border-radius: 4px;
-        padding: 11px 13px;
-        font-size: 14px;
+        padding: 7px 9px;
+        font-size: 12px;
         font-family: inherit;
         border: 1px solid;
         background-color: #20a0ff;

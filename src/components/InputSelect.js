@@ -55,7 +55,7 @@ def((Item) => {
           padding: .5em;
           font-size: 12px;
           min-width: 120px;
-          height: 36px;
+          height: 28px;
         }
       `;
     }
