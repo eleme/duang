@@ -2,5 +2,5 @@
   "user": {
     "name": "Mock User"
   },
-  "permissions": []
+  "permissions": [ "HEHE" ]
 }

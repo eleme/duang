@@ -13,10 +13,11 @@ def((FormSubmit, FormItemWithTable, Alert) => class extends Jinkela {
     this.listLength = inputs.length;
     this.noSubmit = noSubmit || depot.params.readonly;
     this.form = this;
-    // 构建 this.list
-    inputs = JSON.parse(JSON.stringify(inputs)).filter(item => item[formMode] !== 'none');
-    // read 方式默认是只读的
-    inputs.forEach((item) => {
+    // 创建 this.list
+    inputs = JSON.parse(JSON.stringify(inputs)); // inputs 消除引用
+    inputs = inputs.filter(item => item[formMode] !== 'none'); // 过滤隐藏项
+    inputs = inputs.filter(item => this.checkPermissions(item)); // 过滤权限
+    inputs.forEach((item) => { // read 方式默认是只读的
       if (formMode === 'read' && item[formMode] === void 0) item[formMode] = 'readonly';
       if (item[formMode] === 'readonly') {
         if (!item.args) item.args = {};
@@ -27,6 +28,15 @@ def((FormSubmit, FormItemWithTable, Alert) => class extends Jinkela {
     this.list = FormItemWithTable.cast(inputs, { depot });
     // 将 this.list 包成 Promise
     this.$promise = Promise.all(this.list.map(item => item.$promise));
+  }
+
+  checkPermissions(item) {
+    if (!item.require) return true;
+    let requireList = [].concat(item.require);
+    if (requireList.length === 0) return true;
+    let { session } = this.depot || depot;
+    let { permissions } = session;
+    return requireList.some(code => permissions.includes(code));
   }
 
   init() {

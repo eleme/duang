@@ -31,8 +31,10 @@ def((FormItemWithTable, FormItemWithDiv) => class extends Jinkela {
   init() {
     let { group, depot, mode = 'table' } = this;
     let { formMode } = depot;
-    group = JSON.parse(JSON.stringify(group)).filter(item => item[formMode] !== 'none');
-    group.forEach((item) => {
+    group = JSON.parse(JSON.stringify(group)); // group 消除引用
+    group = group.filter(item => item[formMode] !== 'none'); // 过滤隐藏项
+    group = group.filter(item => this.checkPermissions(item)); // 过滤权限
+    group.forEach((item) => { // read 方式默认是只读的
       if (formMode === 'read' && item[formMode] === void 0) item[formMode] = 'readonly';
       if (item[formMode] === 'readonly') {
         if (!item.args) item.args = {};
@@ -48,6 +50,15 @@ def((FormItemWithTable, FormItemWithDiv) => class extends Jinkela {
         this.inputs = FormItemWithDiv.cast(group).to(this);
         break;
     }
+  }
+
+  checkPermissions(item) {
+    if (!item.require) return true;
+    let requireList = [].concat(item.require);
+    if (requireList.length === 0) return true;
+    let { session } = this.depot;
+    let { permissions } = session;
+    return requireList.some(code => permissions.includes(code));
   }
 
   get styleSheet() {

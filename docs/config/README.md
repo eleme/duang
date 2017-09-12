@@ -204,8 +204,11 @@
 | 名称 | 类型 | 描述 |
 | ---- | ---- | ---- |
 | key | String | 字段名 |
-| title | String | 字段展示名称 |
+| title | String | 字段展示名称（支持 HTML) |
 | component | String | 指定 `Input` 组件 |
+| args | Object | 组件的参数 |
+| description | String | 描述（支持 HTML） |
+| require | Array 或 String | 依赖 [Session::authorize](#Session::authorize) 的权限列表中存在这个字符串时才可启用该动作 |
 
 示例配置
 

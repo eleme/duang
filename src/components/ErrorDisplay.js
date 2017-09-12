@@ -80,7 +80,7 @@ def(() => {
       this.element.style.display = 'none';
       this.element.addEventListener('load', () => {
         this.element.style.display = 'block';
-        this.element.style.height = iframe.contentDocument.documentElement.scrollHeight + 'px';
+        this.element.style.height = this.element.contentDocument.documentElement.scrollHeight + 'px';
       });
     }
     get styleSheet() {
