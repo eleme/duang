@@ -5,5 +5,7 @@ def((ErrorDisplay) => class extends Jinkela {
   static popup(...args) {
     dialog.popup(new this(...args));
   }
-  get title() { return '错误'; }
+  beforeParse(params) {
+    params.title = params.title || params.error && params.error.title || '错误';
+  }
 });

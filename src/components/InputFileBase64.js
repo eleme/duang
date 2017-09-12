@@ -68,7 +68,7 @@ def((Button) => {
   return class extends Jinkela {
     get SpanButton() { return SpanButton; }
     get DownloadLink() { return DownloadLink; }
-    get value() { return this.$value; }
+    get value() { return this.$value === void 0 ? null : this.$value; }
     set value(value = this.defaultValue) {
       this.$hasValue = true;
       this.$value = value;

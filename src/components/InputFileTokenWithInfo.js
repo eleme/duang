@@ -21,4 +21,3 @@ def((InputFileToken) => {
     }
   };
 });
-

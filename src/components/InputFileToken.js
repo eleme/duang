@@ -1,4 +1,4 @@
-def((Button) => {
+def((Button, ErrorDialog) => {
 
   class SpanButton extends Button {
     get tagName() { return 'span'; }
@@ -75,7 +75,7 @@ def((Button) => {
     get Preview() { return Preview; }
     get ClearButton() { return ClearButton; }
     get info() { return this.preview.info || {}; }
-    get value() { return this.$value === null ? void 0 : this.$value; }
+    get value() { return this.$value === void 0 ? null : this.$value; }
     set value(value = this.defaultValue) {
       this.$hasValue = true;
       this.$value = value;
@@ -95,7 +95,10 @@ def((Button) => {
         </div>
       `;
     }
-    clear() { this.value = null; }
+    clear() {
+      this.input.value = null;
+      this.input.dispatchEvent(new Event('change', { bubbles: true }));
+    }
     init() {
       if (this.readonly) {
         this.element.classList.add('readonly');
@@ -108,12 +111,19 @@ def((Button) => {
     change(event) {
       let { target } = event;
       let file = target.files[0];
-      if (!file) return;
-      this.button.element.classList.add('busy');
-      api(this.api, { method: 'POST', body: file }).then(result => {
-        this.button.element.classList.remove('busy');
-        this.value = result;
-      });
+      if (file) {
+        this.button.element.classList.add('busy');
+        api(this.api, { method: 'POST', body: file, headers: { 'Content-Type': file.type } }).then(result => {
+          this.button.element.classList.remove('busy');
+          this.value = result;
+        }, (error) => {
+          this.button.element.classList.remove('busy');
+          this.clear();
+          ErrorDialog.popup({ error });
+        });
+      } else {
+        this.value = null;
+      }
     }
     get styleSheet() {
       return `

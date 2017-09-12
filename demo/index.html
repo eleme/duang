@@ -5,10 +5,30 @@
 <script>
 FCeptor.post(/^/, ctx => {
   let headers = { 'Content-Type': 'application/json' };
-  let body = { name: 'HEHE_ERROR', message: 'POST 请求已拦截' };
-  ctx.request.json().then(console.log);
-  ctx.response = new Response(JSON.stringify(body), { status: 500, headers });
-  return false;
+  let body = { name: 'HEHE_ERROR', title: 'POST 请求已拦截', message: '' };
+  let reqMime = ctx.request.headers.get('Content-Type');
+  let key;
+  switch (true) {
+    case /\bjson\b/.test(reqMime):
+      key = 'json';
+      break;
+    case /\btext\b/.test(reqMime):
+      key = 'text';
+      break;
+    default:
+      key = 'blob';
+  }
+  return ctx.request[key]().then(data => {
+    if (key === 'json') {
+      body.message = `<pre style="font-size:12px;">${JSON.stringify(data,null,2)}</pre>`;
+    } else {
+      body.message = key;
+      // ctx.response = new Response(JSON.stringify('../logo.png'), { status: 200, headers });
+      // return false;
+    }
+    ctx.response = new Response(JSON.stringify(body), { status: 500, headers });
+    return false;
+  });
 });
 FCeptor.get(/\/500(\?.*)?$/, ctx => {
   let headers = { 'Content-Type': 'application/json' };
