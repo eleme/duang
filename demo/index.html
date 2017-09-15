@@ -36,4 +36,10 @@ FCeptor.get(/\/500(\?.*)?$/, ctx => {
   ctx.response = new Response(JSON.stringify(body), { status: 500, headers });
   return false;
 });
+FCeptor.get(/\/the-list-data\.json\/count(\?.*)?$/, ctx => {
+  let headers = { 'Content-Type': 'application/json' };
+  ctx.response = new Response(JSON.stringify(500), { status: 200, headers });
+  return false;
+});
+
 </script>
