@@ -3,8 +3,9 @@ const doAction = (data, depot = window.depot) => {
   args = refactor(args, depot);
   switch (action) {
     case 'confirm': return req('Confirm').then(Confirm => Confirm.popup(args));
-    case 'replace': return location.replace(args.href);
-    case 'assign': return location.assign(args.href);
+    case 'replace': return new Promise(() => { location.replace(args.href); });
+    case 'assign': return new Promise(() => { location.assign(args.href); });
+    case 'open': return open(args.href);
     case 'go': return location.replace('#!' + new UParams(args));
     case 'get':
     case 'put':
