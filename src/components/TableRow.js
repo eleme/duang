@@ -1,5 +1,7 @@
 def((Item, TableCell) => class extends Item {
+
   get tagName() { return 'tr'; }
+
   get $promise() {
     let resolve, reject;
     let value = new Promise((...args) => ([ resolve, reject ] = args));
@@ -8,6 +10,7 @@ def((Item, TableCell) => class extends Item {
     Object.defineProperty(this, '$promise', { value, configurable: true });
     return value;
   }
+
   init() {
     let { depot, fieldMap } = this;
     let { fields = [], actions = [] } = depot.scheme;
@@ -18,6 +21,7 @@ def((Item, TableCell) => class extends Item {
       this.$promise.resolve(this);
     });
   }
+
   get styleSheet() {
     return `
       :scope:hover {
@@ -26,4 +30,5 @@ def((Item, TableCell) => class extends Item {
       }
     `;
   }
+
 });
