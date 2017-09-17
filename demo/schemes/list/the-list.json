@@ -43,8 +43,7 @@
   ],
   "fields": [
     { "key": "id", "title": "ID" },
-    { "key": "a", "title": "A" },
-    { "key": "b", "title": "B", "component": "Clipboard" },
+    { "key": "a", "title": "A", "component": "Clipboard" },
     {
       "key": "c",
       "component": "QRCode",
