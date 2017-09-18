@@ -13,7 +13,21 @@ def((Output, Item, TableRowActions, Caption) => {
     }
   }
 
-  class TableCell extends Item {
+  class Cell extends Item {
+    get styleSheet() {
+      return `
+        :scope {
+          border: solid #e0e6ed;
+          padding: 0 18px;
+          line-height: 24px;
+          height: 40px;
+          border-width: 1px 0;
+        }
+      `;
+    }
+  }
+
+  class NormalCell extends Cell {
     get tagName() { return 'td'; }
     get $promise() {
       let resolve, reject;
@@ -41,100 +55,124 @@ def((Output, Item, TableRowActions, Caption) => {
           this.$promise.resolve(this);
       }
     }
+  }
+
+  class Sortable extends Jinkela {
     get styleSheet() {
       return `
         :scope {
-          border: solid #e0e6ed;
-          border-width: 1px 0;
-          padding: 0 18px;
-          line-height: 24px;
-          height: 40px;
+          margin-left: 5px;
+          width: 16px;
+          height: 34px;
+          position: relative;
+          cursor: pointer;
+          display: inline-block;
+          vertical-align: middle;
+          z-index: 1;
+          &::before, &::after {
+            content: '';
+            position: absolute;
+            left: 3px;
+            content: '';
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+          }
+          &::before {
+            border-bottom: 5px solid #97a8be;
+            top: 11px;
+          }
+          &::after {
+            border-top: 5px solid #97a8be;
+            bottom: 11px;
+          }
+          &[data-sign=""]::before { border-bottom-color: #48576a; }
+          &[data-sign="-"]::after { border-top-color: #48576a; }
         }
       `;
     }
-  }
-
-  class TableHeadCell extends Item {
     init() {
-      let { uParams } = depot;
-      let { width, nowrap } = this;
-      if (width) this.element.style.width = width + 'px';
-      if (nowrap) this.element.style.whiteSpace = 'nowrap';
-      if (uParams.orderBy) {
-        let { orderBy } = uParams;
-        let isDesc = (orderBy[0] === '-');
-        let key = isDesc ? orderBy.slice(1) : orderBy;
-        if (key === this.key) {
-          this.sortIcon.setAttribute('orderBy', isDesc ? 'desc' : 'asc');
-        }
+      let { uParams } = this.depot || window.depot;
+      let { orderBy } = uParams;
+      this.element.addEventListener('click', this.sort.bind(this));
+      if (orderBy) {
+        let [ , isDesc, key ] = /^(-?)(.*)$/.exec(orderBy);
+        if (key === this.key) this.element.dataset.sign = isDesc;
       }
     }
     sort() {
-      let orderBy = this.sortIcon.getAttribute('orderBy') === 'desc' ? '' : '-';
-      this.element.dispatchEvent(new CustomEvent('sort', {
-        bubbles: true,
-        detail: orderBy + this.key
-      }));
+      let { uParams } = this.depot || window.depot;
+      uParams.orderBy = (this.element.dataset.sign === '-' ? '' : '-') + this.key;
+      location.hash = new UParams(uParams);
+    }
+  }
+
+  class HeadCell extends Cell {
+    init() {
+      let { width, nowrap, title, sortable, key, depot } = this;
+      if (width) this.element.style.width = width + 'px';
+      if (nowrap) this.element.style.whiteSpace = 'nowrap';
+      if (title) Output.createAny(title).to(this);
+      if (sortable) new Sortable({ key, depot }).to(this);
     }
     get template() {
       return `
         <td>
-          <span>{title}</span>
-          <div if="{sortable}" on-click="{sort}" ref="sortIcon" class="caret-wrapper">
-            <i class="sort-caret ascend"></i>
-            <i class="sort-caret descend"></i>
-          </div>
         </td>
       `;
     }
     get styleSheet() {
       return `
         :scope {
-          padding: 0 18px;
-          line-height: 24px;
-          height: 40px;
           white-space: nowrap;
           font-weight: bold;
           color: #1f2d3d;
-          > .caret-wrapper {
-            margin-left: 5px;
-            width: 16px;
-            height: 34px;
-            position: relative;
-            cursor: pointer;
+          > * {
             display: inline-block;
             vertical-align: middle;
-            z-index: 1;
-            > .sort-caret {
-              position: absolute;
-              left: 3px;
-              content: '';
-              border-left: 5px solid transparent;
-              border-right: 5px solid transparent;
-              &.ascend {
-                border-bottom: 5px solid #97a8be;
-                top: 11px;
-              }
-              &.descend {
-                border-top: 5px solid #97a8be;
-                bottom: 11px;
-              }
-            }
-            &[orderBy=asc] {
-              > .ascend { border-bottom-color: #48576a; }
-            }
-            &[orderBy=desc] {
-              > .descend { border-top-color: #48576a; }
-            }
           }
         }
       `;
     }
   }
 
-  class TableRow extends Item {
+  class CheckboxCell extends Cell {
+    get template() {
+      return `
+        <td width="1">
+          <jkl-checkbox text="" on-change="{handler}" ref="checkbox"></jkl-checkbox>
+        </td>
+      `;
+    }
+    get checked() { return this.checkbox.checked; }
+    set checked(value) { this.checkbox.checked = value; }
+  }
 
+  class Row extends Item {
     get tagName() { return 'tr'; }
+    init() {
+      this.initCheckbox();
+    }
+    initCheckbox() {
+      let { depot = window.depot } = this;
+      let { scheme = {} } = depot;
+      if (!scheme.listSelector) return;
+      this.checkbox = new CheckboxCell({
+        handler: event => {
+          event.stopPropagation();
+          this.element.dispatchEvent(new CustomEvent('SelectRow', { bubbles: true, detail: this }));
+        }
+      }).to(this);
+    }
+    get checked() {
+      return this.checkbox && this.checkbox.checked;
+    }
+    set checked(value) {
+      if (!this.checkbox) return;
+      this.checkbox.checked = value;
+    }
+  }
+
+  class TableRow extends Row {
 
     get $promise() {
       let resolve, reject;
@@ -146,12 +184,14 @@ def((Output, Item, TableRowActions, Caption) => {
     }
 
     init() {
-      let { depot, fieldMap } = this;
-      let { fields = [], actions = [] } = depot.scheme;
-      let cells = fields.map(field => new TableCell(field, { value: fieldMap[field.key] }, this));
+      let { depot = window.depot, fieldMap } = this;
+      let { scheme } = depot;
+      let { fields = [], actions = [] } = scheme;
+      let cells = [];
+      cells.push(...fields.map(field => new NormalCell(field, { value: fieldMap[field.key] }, this)));
       Promise.all(cells.map(cell => cell.$promise)).then(cells => {
         cells.forEach(cell => cell.to(this));
-        if (actions.length) new TableCell({ depot, actions, nowrap: true, width: 1 }, this).to(this);
+        if (actions.length) new NormalCell({ depot, actions, nowrap: true, width: 1 }, this).to(this);
         this.$promise.resolve(this);
       });
     }
@@ -167,8 +207,7 @@ def((Output, Item, TableRowActions, Caption) => {
 
   }
 
-  class TableHead extends Jinkela {
-    get template() { return '<thead><tr ref="tr"></tr></thead>'; }
+  class TableHead extends Row {
     init() {
       let { depot = window.depot } = this;
       let { scheme, uParams } = depot;
@@ -176,23 +215,30 @@ def((Output, Item, TableRowActions, Caption) => {
       if (scheme.actions && scheme.actions.length) {
         fields.push({ title: depot.getConst('操作'), nowrap: true });
       }
-      TableHeadCell.from(fields).to(this.tr);
-      this.element.addEventListener('sort', e => {
-        e.stopPropagation();
-        uParams.orderBy = e.detail;
-        location.hash = new UParams(uParams);
-      });
-    }
-    get styleSheet() {
-      return `
-        :scope td {
-          background: #eff2f7;
-        }
-      `;
+      HeadCell.from(fields).to(this);
     }
   }
 
   return class extends Jinkela {
+
+    init() {
+      this.element.addEventListener('SelectRow', this.rowSelected.bind(this));
+    }
+
+    rowSelected(event) {
+      if (this.changing) return;
+      this.changing = true;
+      event.stopPropagation();
+      let jinkela = event.detail;
+      if (jinkela instanceof TableHead) {
+        this.rows.forEach(row => {
+          row.checked = jinkela.checked;
+        });
+      } else {
+        this.head.checked = this.rows.every(row => row.checked);
+      }
+      this.changing = false;
+    }
 
     createCaption() {
       let { depot = window.depot } = this;
@@ -206,7 +252,7 @@ def((Output, Item, TableRowActions, Caption) => {
 
     createHead() {
       let { depot = window.depot } = this;
-      return new TableHead({ depot }).to(this.table);
+      return new TableHead({ depot }).to(this.thead);
     }
 
     set data(list) {
@@ -217,8 +263,8 @@ def((Output, Item, TableRowActions, Caption) => {
       let { orderBy } = depot.uParams;
       if (!(list instanceof Array)) return console.error(`返回结果必须是数组, ${ JSON.stringify(list) }`); // eslint-disable-line
       if (orderBy) {
-        let isDesc = (orderBy[0] === '-');
-        let key = isDesc ? orderBy.slice(1) : orderBy;
+        let [ , isDesc, key ] = /^(-?)(.*)$/.exec(orderBy);
+        isDesc = !!isDesc;
         list = list.sort((current, next) => {
           let value = current[key];
           let nextValue = next[key];
@@ -229,7 +275,7 @@ def((Output, Item, TableRowActions, Caption) => {
           return (value > nextValue ^ isDesc) ? 1 : -1;
         });
       }
-      let rows = list.map(fieldMap => new TableRow({ fieldMap, depot }));
+      let rows = this.rows = list.map(fieldMap => new TableRow({ fieldMap, depot }));
       Promise.all(rows.map(row => row.$promise)).then(rows => {
         rows.forEach(row => row.to(this.table));
       });
@@ -243,9 +289,15 @@ def((Output, Item, TableRowActions, Caption) => {
     get template() {
       return `
         <div>
-          <table ref="table"></table>
+          <table ref="table">
+            <thead ref="thead"></thead>
+          </table>
         </div>
       `;
+    }
+
+    get selectedItems() {
+      return this.rows.filter(row => row.checked).map(row => row.fieldMap.id);
     }
 
     get styleSheet() {
@@ -264,6 +316,10 @@ def((Output, Item, TableRowActions, Caption) => {
             width: 100%;
             background: #fff;
             border-collapse: collapse;
+            > thead > tr > td {
+              border: 0;
+              background: #eff2f7;
+            }
           }
         }
       `;

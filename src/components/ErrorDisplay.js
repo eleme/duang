@@ -97,6 +97,7 @@ def(() => {
     init() {
       let { error, noIcon } = this;
       if (typeof error === 'object') {
+        console.error(error);
         let message = error.message || error.name || JSON.stringify(error);
         new NormalMessage({ message, noIcon }).to(this);
       } else if (typeof error === 'string') {

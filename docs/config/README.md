@@ -94,6 +94,7 @@
 | countable | Boolean | 配置为 true 后会调用接口获取结果集总数用于渲染分页导航，接口地址为 `key + "/count"`，需返回一个数字 |
 | require | Array | scheme 出现在首页需要的权限 |
 | hidden | Boolean | scheme 是否在首页展示 |
+| listSelector | Boolean | 列表项是否允许选择，默认不允许 |
 | noSubmit | Boolean | 在编辑页隐藏提交按钮 |
 
 ### Scheme::operations
@@ -109,6 +110,7 @@
 | target | String | 交互方式，取值为 dialog 时以对话框的形式打开页面，其它情况与 html 中 A 标签的 target 属性一致 |
 | href | String | 只有 method 为 open 时才有意义，表示打开的目标 URL |
 | api | String | 只有 method 为 http 方法时才有意义，表示请求的目标接口 |
+| query | Boolean | 调接口时是否带上 QueryString，默认不带 |
 | require | Array 或 String | 依赖 [Session::authorize](#Session::authorize) 的权限列表中存在这个字符串时才可启用该动作 |
 
 示例配置

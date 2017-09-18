@@ -38,11 +38,11 @@ def((Item, Value) => {
     set value(value = this.defaultValue || []) {
       this.$value = value;
       let set = new Set(value);
-      this.list.forEach(item => (item.checked = set.has(item.value)));
+      if (this.list) this.list.forEach(item => (item.checked = set.has(item.value)));
       this.updateTheAll();
     }
     get value() {
-      return this.list.filter(item => item.checked).map(item => item.value);
+      if (this.list) return this.list.filter(item => item.checked).map(item => item.value);
     }
   };
 

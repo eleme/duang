@@ -22,14 +22,19 @@ def((Button, Confirm, ErrorDialog) => class extends Button {
   }
   openAction() {
     let { depot } = this;
-    let { queryParams, resolvedKey } = depot;
+    let { queryParams, resolvedKey, main } = depot;
     let url = api.resolvePath([ resolvedKey, this.href ]);
     open(`${url}?${queryParams}`);
   }
   defaultAction() {
     let { depot } = this;
-    let path = [ depot.resolvedKey ];
+    let { scheme, queryParams, resolvedKey, main } = depot;
+    let path = [ resolvedKey ];
     if ('api' in this) path.push(this.api);
+    if (this.query) {
+      if (scheme.listSelector) queryParams.selectedItems = JSON.stringify(main.table.selectedItems);
+      path.push('?' + queryParams);
+    }
     api(path, { method: this.method || 'POST' }).then(() => {
       depot.refresh();
     }, error => {

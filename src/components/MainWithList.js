@@ -9,7 +9,7 @@ def((ListControl, Table, TableTip, Pagination) => class extends Jinkela {
     return `
       <div>
         <jkl-list-control depot="{depot}"></jkl-list-control>
-        <jkl-table if="{list}" depot="{depot}" data="{list}"></jkl-table>
+        <jkl-table if="{list}" depot="{depot}" data="{list}" ref="table"></jkl-table>
         <jkl-table-tip data="{list}" error="{error}"></jkl-table-tip>
         <meta ref="pagination" />
       </div>
@@ -52,6 +52,7 @@ def((ListControl, Table, TableTip, Pagination) => class extends Jinkela {
   }
 
   init() {
+    Object.defineProperty(this.depot, 'main', { configurable: true, value: this });
     let { scheme } = this.depot;
     let { fields = [] } = scheme;
     if (fields && fields.length) {
