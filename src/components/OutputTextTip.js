@@ -64,7 +64,7 @@ def(() => {
       Object.defineProperty(this, 'panel', { configurable: true, value });
       return value;
     }
-    enter(event) {
+    enter() {
       document.addEventListener('mousemove', this.move);
     }
     move(event) {

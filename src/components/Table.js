@@ -210,7 +210,7 @@ def((Output, Item, TableRowActions, Caption) => {
   class TableHead extends Row {
     init() {
       let { depot = window.depot } = this;
-      let { scheme, uParams } = depot;
+      let { scheme } = depot;
       let fields = (scheme.fields || []).slice(0);
       if (scheme.actions && scheme.actions.length) {
         fields.push({ title: depot.getConst('操作'), nowrap: true });
@@ -244,7 +244,6 @@ def((Output, Item, TableRowActions, Caption) => {
       let { depot = window.depot } = this;
       let { scheme } = depot;
       let { captionType = 'table' } = scheme;
-      let value;
       if (captionType === 'table' && scheme.caption) {
         return new TableCaption({ depot }).to(this.table);
       }

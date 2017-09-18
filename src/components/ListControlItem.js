@@ -22,7 +22,7 @@ def((Button, Confirm, ErrorDialog) => class extends Button {
   }
   openAction() {
     let { depot } = this;
-    let { queryParams, resolvedKey, main } = depot;
+    let { queryParams, resolvedKey } = depot;
     let url = api.resolvePath([ resolvedKey, this.href ]);
     open(`${url}?${queryParams}`);
   }
