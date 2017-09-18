@@ -50,8 +50,7 @@
     },
     {
       "key": "a", "title": "<font color=red>A</font>",
-      "component": "Clipboard",
-      "sortable": true
+      "component": "TextTip"
     },
     {
       "key": "c",

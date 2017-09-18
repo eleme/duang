@@ -1,5 +1,5 @@
 [
-  { "id": "1.json", "a": "one" },
+  { "id": "1.json", "a": { "text": "one", "tip": "hehe<br/>haha<br/>hoho" } },
   { "id": "2.json", "a": "two" },
   { "id": "3.json", "a": "tree" },
   { "id": "4.json", "a": "four" },
