@@ -2,14 +2,14 @@ def(() => class extends Jinkela {
   static popup(...args) { dialog.popup(new this(...args)); }
   init() {
     this.title = this.title || this.defaultTitle;
-    this.text = this.text || this.defaultText;
+    this.content.innerHTML = this.text || this.defaultText;
   }
   get template() {
     return `
       <table>
         <tr>
           <td>${this.iconTemplate}</td>
-          <td>{text}</td>
+          <td ref="content"></td>
         </tr>
       </table>
     `;
