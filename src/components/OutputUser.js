@@ -13,10 +13,7 @@ def((Output) => class extends Jinkela {
   get styleSheet() {
     return `
       :scope {
-        flex: 1;
         text-align: right;
-        width: 100px;
-        padding-right: 1em;
         font-size: 14px;
       }
     `;

@@ -1,6 +1,10 @@
-def((FrameUser) => class extends Jinkela {
+def((Output) => class extends Jinkela {
   init() {
-    new FrameUser().to(this);
+    let nav = depot.config.nav;
+    if (!(nav instanceof Array)) nav = [ { component: 'User' } ];
+    nav.forEach(item => {
+      Output.createAny(item).to(this);
+    });
   }
   get styleSheet() {
     return `
@@ -8,8 +12,12 @@ def((FrameUser) => class extends Jinkela {
         height: 50px;
         line-height: 50px;
         display: flex;
+        justify-content: flex-end;
         background: #20A0FF;
         color: #fff;
+        > * {
+          margin-right: 2em;
+        }
       }
     `;
   }

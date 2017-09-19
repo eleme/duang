@@ -1,4 +1,9 @@
 {
+  "nav": [
+    { "component": "HTML", "args": { "html": "<strong>Make everything 30'</strong>"} },
+    "<strong><a href=\"https://eleme.github.io/duang/docs/\" target=\"_blank\">Duang</a></strong>",
+    { "component": "User" }
+  ],
   "schemes": [
 
     "schemes/caption.json",

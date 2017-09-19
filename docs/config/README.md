@@ -423,3 +423,35 @@ Action 示例配置
 
 - 接口状态码返回 `4xx` or `5xx`
 - 接口返回内容包含 `{ name: UNAUTHORIZED }`
+
+
+### Duang::nav
+
+一个 `Output` 对象的数组，配置导航栏上的项
+
+默认值
+
+```json
+[ { "component": "User" } ]
+```
+
+因为有个叫 User 的 Output 控件，所以默认会显示用户信息。
+
+当主动配置 nav 时会覆盖掉默认配置，如果同时也需要显示用户信息可以手动在配置中把默认项加进去。
+
+示例配置
+
+```json
+{
+  "nav": [
+    {
+      "component": "HTML",
+      "args": {
+        "html": "文字"
+      }
+    }
+  ]
+}
+```
+
+<br/>
