@@ -7,6 +7,13 @@
     { "key": "string2", "component": "String", "title": "单行文本", "args": { "defaultValue": "hehe" } },
     { "key": "text1", "component": "Text", "title": "多行文本" },
     { "key": "text1", "component": "Text", "title": "多行文本", "args": { "defaultValue": "hehe\nhehe" } },
+    { "key": "textAround1", "component": "TextAround", "title": "文字环绕", "args": { "component": "String", "before": "总计", "after": "吨" } },
+    {
+      "key": "textAround2", "component": "TextAround", "title": "文字环绕",
+      "args": { "component": "String", "args": { "width": 50 }, "before": "总计" }
+    },
+    { "key": "textAround3", "component": "TextAround", "title": "文字环绕", "args": { "component": "String", "after": "公斤" } },
+    { "key": "textAround3", "component": "TextAround", "title": "文字环绕", "args": { "component": "Number", "after": "克" } },
     { "key": "number1", "component": "Number", "title": "数值" },
     { "key": "number2", "component": "Number", "title": "数值", "args": { "defaultValue": "123.456" } },
     { "key": "number3", "component": "Number", "title": "数值", "args": { "defaultValue": "a" } },
