@@ -17,6 +17,19 @@
     { "key": "time1", "component": "Time", "title": "时间", "args": { "defaultValue": 1499157139261 } },
     { "key": "time2", "component": "Time", "title": "时间", "args": { "defaultValue": "23:59:59" } },
     { "key": "time3", "component": "Time", "title": "时间", "args": { "defaultValue": "23:59" } },
-    { "key": "time4", "component": "Time", "title": "时间", "args": { "defaultValue": "now" } }
+    { "key": "time4", "component": "Time", "title": "时间", "args": { "defaultValue": "now" } },
+
+    {
+      "key": "datetime5", "component": "DateTime", "title": "日期时间 UNIX_TIMESTAMP",
+      "args": { "mode": "UNIX_TIMESTAMP" }
+    },
+    {
+      "key": "datetime6", "component": "DateTime", "title": "日期时间 UNIX_TIMESTAMP",
+      "args": { "defaultValue": 1499157139, "mode": "UNIX_TIMESTAMP" }
+    },
+    {
+      "key": "datetime7", "component": "DateTime", "title": "日期时间 UNIX_TIMESTAMP",
+      "args": { "defaultValue": "now", "mode": "UNIX_TIMESTAMP" }
+    }
   ]
 }

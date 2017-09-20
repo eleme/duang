@@ -1,5 +1,22 @@
 def(() => {
 
+  const format = value => {
+    let now = new Date();
+    switch (value) {
+      case 'now': return now.valueOf();
+      case 'today': return now.valueOf();
+      case 'nextDay': return now.setDate(now.getDate() + 1);
+      case 'lastDay': return now.setDate(now.getDate() - 1);
+      case 'nextWeek': return now.setDate(now.getDate() + 7);
+      case 'lastWeek': return now.setDate(now.getDate() - 7);
+      case 'nextMonth': return now.setMonth(now.getMonth() + 1);
+      case 'lastMonth': return now.setMonth(now.getMonth() - 1);
+      case 'nextYear': return now.setYear(now.getFullYear() + 1);
+      case 'lastYear': return now.setYear(now.getFullYear() - 1);
+      default: return value || '';
+    }
+  };
+
   class DateTimePicker extends Jinkela {
     init() {
       this.dp = new DatePicker().to(this);
@@ -47,10 +64,16 @@ def(() => {
       if (hours) date.setHours(hours);
       if (minutes) date.setMinutes(minutes);
       if (seconds) date.setSeconds(seconds);
-      return date;
+      if (this.mode === 'UNIX_TIMESTAMP') {
+        return Math.round(date / 1000);
+      } else {
+        return date;
+      }
     }
     set value(value = this.defaultValue) {
       this.$hasValue = true;
+      if (this.mode === 'UNIX_TIMESTAMP' && typeof value === 'number') value *= 1000;
+      value = format(value);
       if (typeof value === 'string' || typeof value === 'number') value = new Date(value);
       if (!(value instanceof Date)) return;
       this.dp.value = value;
