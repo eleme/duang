@@ -26,7 +26,12 @@ def((Item) => {
       Object.defineProperty(this, '$hasValue', { configurable: true, writable: true, value: false });
       Object.defineProperty(this, '$resolveAt', { configurable: true, writable: true, value: false });
       let { depot, query } = params;
-      this.$resolveAt = parse(params, depot, query).then(() => Object.assign(this, refactor(params, params)));
+      delete params.depot;
+      this.depot = depot;
+      params = JSON.parse(JSON.stringify(params));
+      this.$resolveAt = parse(params, depot, query).then(() => {
+        Object.assign(this, refactor(params, params))
+      });
     }
 
     get tagName() { return 'span'; }
