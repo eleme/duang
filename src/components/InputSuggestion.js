@@ -164,8 +164,9 @@ def((InputString, OutputHTML, Item) => {
             > ul {
               margin: 0;
               padding: 0;
+              font-size: 12px;
               li {
-                padding: .4em .5em;
+                padding: .2em .5em;
                 cursor: pointer;
                 list-style: none;
                 &:hover {
