@@ -1,6 +1,6 @@
 def((Output) => class extends Jinkela {
   init() {
-    let { value, map } = this;
+    let { value, map, otherwise } = this;
     // 强转 map
     map = Object(map);
     if (map instanceof Array) {
@@ -12,7 +12,8 @@ def((Output) => class extends Jinkela {
     }
     // 处理所有 value（支持数组）
     [].concat(value).forEach(value => {
-      Output.createAny(map[value] || '').to(this);
+      if (otherwise === void 0) otherwise = value;
+      Output.createAny(value in map ? map[value] : otherwise).to(this);
     });
   }
 });
