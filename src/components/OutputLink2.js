@@ -3,7 +3,11 @@ def(() => class extends Jinkela {
     e.stopPropagation();
     var { module, key, params = {}, where = {}, title, target, href, value } = this;
     var { module, key, target, params, where, href, title } = Object.assign({ module, target, key, params, where, href, title }, value); // eslint-disable-line no-redeclare
-    return depot.go({ args: { module, key, params }, target, title });
+    if (href) {
+      open(href, target || '_self');
+    } else {
+      return depot.go({ args: { module, key, params }, target, title });
+    }
   }
   get template() {
     return `
@@ -19,7 +23,6 @@ def(() => class extends Jinkela {
     return `
       :scope {
         color: #20A0FF;
-        font-size: 12px;
         &:hover {
           color: #1D8CE0;
         }
