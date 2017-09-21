@@ -8,7 +8,7 @@ def((Output) => class extends Jinkela {
       map.forEach(({ value, text }) => {
         temp[value] = text;
       });
-     map = temp;
+      map = temp;
     }
     // 处理所有 value（支持数组）
     [].concat(value).forEach(value => {

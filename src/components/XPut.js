@@ -30,7 +30,7 @@ def((Item) => {
       this.depot = depot;
       params = JSON.parse(JSON.stringify(params));
       this.$resolveAt = parse(params, depot, query).then(() => {
-        Object.assign(this, refactor(params, params))
+        Object.assign(this, refactor(params, params));
       });
     }
 
