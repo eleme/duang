@@ -1,4 +1,4 @@
-def((Button) => class extends Jinkela {
+def((Output, Button, ButtonHollow) => class extends Jinkela {
   static popup(config, depot) {
     if (typeof config === 'string') config = { text: config };
     let ins = new this(config, { depot });
@@ -7,9 +7,9 @@ def((Button) => class extends Jinkela {
     return Promise.resolve(ins);
   }
   init() {
-    this.title = this.title || 'Confirm';
-    this.text = this.text || 'Are you sure?';
-
+    this.title = this.title || '确认';
+    this.text = this.text || '你确定？';
+    Output.createAny(this.text).to(this.h5);
     if (this.onYes.action) this.onYes = doAction.bind(null, this.onYes, this.depot);
     if (this.onCancel.action) this.onCancel = doAction.bind(null, this.onCancel, this.depot);
     let onYes = () => this.resolve(Promise.resolve().then(this.onYes));
@@ -21,7 +21,7 @@ def((Button) => class extends Jinkela {
 
     if (!this.cancel) this.cancel = { text: 'Cancel', color: '#D3DCE6' };
     this.cancel = typeof this.cancel === 'string' ? { text: this.cancel } : this.cancel;
-    this.cancelButton = new Button(this.cancel, { onClick: onCancel });
+    this.cancelButton = new ButtonHollow(this.cancel, { onClick: onCancel });
   }
   get handlers() {
     let value = new Set();
@@ -41,7 +41,7 @@ def((Button) => class extends Jinkela {
   get template() {
     return `
       <div>
-        <h5>{text}</h5>
+        <h5 ref="h5"></h5>
         <div>
           <meta ref="yesButton" />
           <meta ref="cancelButton" />
@@ -52,16 +52,15 @@ def((Button) => class extends Jinkela {
   get styleSheet() {
     return `
       :scope {
-        h5 {
+        padding: 2em;
+        > h5 {
           margin: 0 0 2em 0;
-          font-size: 14px;
+          font-size: 16px;
           font-weight: normal;
         }
-        button {
-          font-size: 14px;
+        > div > button {
           margin: 0 1em;
         }
-        padding: 1em;
       }
     `;
   }
