@@ -41,6 +41,7 @@ def(() => class extends Jinkela {
         box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
         display: inline-block;
         cursor: pointer;
+        text-align: left;
         &[readonly] {
           cursor: not-allowed;
           filter: saturate(0);
