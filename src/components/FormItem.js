@@ -6,7 +6,7 @@ def((Item, Input, Output) => {
       return `
         <div>
           <span ref="text" class="text"></span>
-          <span ref="ctrl"></span>
+          <span ref="ctrl" class="ctrl"></span>
           <span ref="desc" class="desc"></span>
         </div>
       `;

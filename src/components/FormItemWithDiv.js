@@ -4,10 +4,14 @@ def((FormItem) => class extends FormItem {
     return `
       :scope {
         white-space: nowrap;
+        display: flex;
+        > .ctrl {
+          margin: 0 1em;
+        }
         > span {
           width: auto;
           display: inline-block;
-          vertical-align: middle;
+          align-items: center;
         }
       }
     `;
