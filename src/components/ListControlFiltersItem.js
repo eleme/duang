@@ -28,6 +28,7 @@ def((Input, Output, Item) => class extends Item {
   keydown({ keyCode, target }) {
     if (target.tagName !== 'TEXTAREA' && keyCode === 13) this.apply();
   }
+  apply() { this.element.dispatchEvent(new CustomEvent('apply', { bubbles: true })); }
   ready() {
     let { key, squash, depot } = this;
     let { where } = depot;
