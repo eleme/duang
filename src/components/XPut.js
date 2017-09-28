@@ -1,5 +1,7 @@
 def((Item) => {
 
+  const swrApi = setStaleWhileRevalidate(api, 60);
+
   const parse = (base, depot = window.depot, query) => Promise.all(Object.keys(base).map(key => {
     let item = base[key];
     if (key[0] === '@') {
@@ -8,7 +10,8 @@ def((Item) => {
       if (query) options.query = { where: depot.where };
       let path = [];
       if (depot.scheme) path.push(depot.resolvedKey);
-      return api(path.concat(item), options).then(value => {
+      path = path.concat(item);
+      return swrApi(path, options).then(value => {
         base[key.slice(1)] = value;
       }, error => {
         console.error(error);

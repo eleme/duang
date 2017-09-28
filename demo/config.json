@@ -13,9 +13,10 @@
     "schemes/list/first-list.json",
     "schemes/list/the-list.json",
     "schemes/list/pager-list.json",
+    "schemes/list/the-filter.json",
+    "schemes/list/no-list.json",
     "schemes/list/404-list.json",
     "schemes/list/500-list.json",
-    "schemes/list/no-list.json",
 
     "schemes/inputs/datetime.json",
     "schemes/inputs/keyboards.json",
