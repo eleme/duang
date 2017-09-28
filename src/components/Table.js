@@ -173,7 +173,6 @@ def((Output, Item, TableRowActions, Caption) => {
   }
 
   class TableRow extends Row {
-
     get $promise() {
       let resolve, reject;
       let value = new Promise((...args) => ([ resolve, reject ] = args));
@@ -182,7 +181,6 @@ def((Output, Item, TableRowActions, Caption) => {
       Object.defineProperty(this, '$promise', { value, configurable: true });
       return value;
     }
-
     init() {
       let { depot = window.depot, fieldMap } = this;
       let { scheme } = depot;
@@ -195,7 +193,6 @@ def((Output, Item, TableRowActions, Caption) => {
         this.$promise.resolve(this);
       });
     }
-
     get styleSheet() {
       return `
         :scope:hover {
@@ -204,7 +201,7 @@ def((Output, Item, TableRowActions, Caption) => {
         }
       `;
     }
-
+    remove() { this.element.remove(); }
   }
 
   class TableHead extends Row {
@@ -221,8 +218,28 @@ def((Output, Item, TableRowActions, Caption) => {
 
   return class extends Jinkela {
 
+    beforeParse(params) {
+      this.depot = params.depot;
+    }
+
     init() {
+      this.initCaption();
+      this.initHead();
       this.element.addEventListener('SelectRow', this.rowSelected.bind(this));
+    }
+
+    initCaption() {
+      let { depot = window.depot } = this;
+      let { scheme } = depot;
+      let { captionType = 'table' } = scheme;
+      if (captionType !== 'table' || !scheme.caption) return;
+      new TableCaption({ depot }).to(this.table);
+    }
+
+    initHead() {
+      if (this.isEmptyFields) return;
+      let { depot = window.depot } = this;
+      this.head = new TableHead({ depot }).to(this.table.createTHead());
     }
 
     rowSelected(event) {
@@ -240,59 +257,42 @@ def((Output, Item, TableRowActions, Caption) => {
       this.changing = false;
     }
 
-    createCaption() {
-      let { depot = window.depot } = this;
+    get isEmptyFields() {
+      let { depot } = this;
       let { scheme } = depot;
-      let { captionType = 'table' } = scheme;
-      if (captionType === 'table' && scheme.caption) {
-        return new TableCaption({ depot }).to(this.table);
-      }
+      return !(scheme.fields && scheme.fields.length);
     }
 
-    createHead() {
-      let { depot = window.depot } = this;
-      return new TableHead({ depot }).to(this.thead);
+    clear() {
+      if (this.rows instanceof Array) this.rows.forEach(item => item.remove());
     }
 
     set data(list) {
-      if (!list) return;
-      this.create();
-      if (list === 'EMPTY_FIELDS') return;
+      if (!(list instanceof Array)) list = [];
       let { depot = window.depot } = this;
       let { orderBy } = depot.uParams;
-      if (!(list instanceof Array)) return console.error(`返回结果必须是数组, ${ JSON.stringify(list) }`); // eslint-disable-line
       if (orderBy) {
         let [ , isDesc, key ] = /^(-?)(.*)$/.exec(orderBy);
         isDesc = !!isDesc;
-        list = list.sort((current, next) => {
+        list = list.sort((current, next) => { // 这里的 sort 会影响原始数据，但是无所谓
           let value = current[key];
           let nextValue = next[key];
           if (value == null) return 1; // eslint-disable-line
-          // sort => (value > nextValue) ? 1 : -1 是升序排序
-          // 两个相同 boolean 进行 `^` 异或操作为 0, 否则为 1
-          // 因此: 升序 ^ 降序(isDesc) = 0 && 升序 ^ 升序(!isDesc) = 1
           return (value > nextValue ^ isDesc) ? 1 : -1;
         });
       }
-      let rows = this.rows = list.map(fieldMap => new TableRow({ fieldMap, depot }));
-      Promise.all(rows.map(row => row.$promise)).then(rows => {
+      Promise.all(list.map(fieldMap => new TableRow({ fieldMap, depot }).$promise)).then(rows => {
+        this.clear();
+        this.rows = rows;
         rows.forEach(row => row.to(this.table));
       });
     }
 
-    create() {
-      if (!this.caption) this.caption = this.createCaption();
-      if (!this.head) this.head = this.createHead();
-    }
-
-    get template() {
-      return `
-        <div>
-          <table ref="table">
-            <thead ref="thead"></thead>
-          </table>
-        </div>
-      `;
+    get table() {
+      let value = document.createElement('table');
+      this.element.appendChild(value);
+      Object.defineProperty(this, 'table', { value, configurable: true });
+      return value;
     }
 
     get selectedItems() {
@@ -307,6 +307,7 @@ def((Output, Item, TableRowActions, Caption) => {
           overflow: auto;
           border: 1px solid #e0e6ed;
           box-sizing: border-box;
+          &:empty { display: none; }
           > table {
             margin-bottom: -1px;
             color: #666;

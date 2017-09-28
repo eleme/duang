@@ -7,17 +7,21 @@ def((ErrorDisplay) => class extends Jinkela {
     this.element.innerHTML = '';
     new ErrorDisplay({ error, noIcon: true }).to(this);
   }
+  get isEmptyFields() {
+    let { depot = window.depot } = this;
+    let { scheme } = depot;
+    return !(scheme.fields && scheme.fields.length);
+  }
   set data(list) {
-    if (!list) return;
-    if (list === 'EMPTY_FIELDS') {
+    if (this.isEmptyFields) {
       this.text = '字段未配置';
       return;
-    }
-    if (!(list instanceof Array)) list = [];
-    if (list.length) {
-      this.hide();
-    } else {
-      this.text = '没有数据';
+    } else if (list instanceof Array) {
+      if (list.length) {
+        this.hide();
+      } else {
+        this.text = '没有数据';
+      }
     }
   }
   hide() {
