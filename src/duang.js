@@ -56,8 +56,7 @@
   let dependencies = [
     [
       window.fetch ? null : 'https://github.elemecdn.com/uglifyjs!github/fetch/v0.11.0/fetch.js',
-      'https://shadow.elemecdn.com/npm/excavator@0.2.1/bundle.min.js,/npm/jinkela@1.2.21/umd.min.js,/npm/vanilla.js@1.0.0/index.js,/gh/jinkelajs/jinkela-datepicker@1.2.3/datepicker.js,/gh/jinkelajs/jinkela-timepicker@1.0.0/timepicker.js,/gh/jinkelajs/jinkela-dialog@0.1.6/dialog.js,/gh/jinkelajs/jinkela-cascader@1.0.0/index.js,/gh/jinkelajs/jinkela-forest@1.0.2/index.js,/gh/jinkelajs/jinkela-checkbox@1.0.0/index.js,/gh/jinkelajs/jinkela-radio@1.0.0/index.js,/gh/jinkelajs/jinkela-clicktip@1.0.0/index.js,/gh/chjj/marked@v0.3.6/marked.min.js,/gh/s3u/JSONPath@v0.15.0/lib/jsonpath.min.js,/gh/YanagiEiichi/uparams@1.4.0/UParams.min.min.js',
-      'https://shadow.elemecdn.com/npm/stale-while-revalidate@0.1.0/bundle.js',
+      'https://shadow.elemecdn.com/npm/excavator@0.2.1/bundle.js,npm/jinkela@1.2.21/umd.min.js,gh/jinkelajs/jinkela-datepicker@1.2.3/datepicker.js,gh/jinkelajs/jinkela-timepicker@1.0.0/timepicker.js,gh/jinkelajs/jinkela-dialog@0.1.6/dialog.js,gh/jinkelajs/jinkela-cascader@1.0.0/index.js,gh/jinkelajs/jinkela-forest@1.0.2/index.js,gh/jinkelajs/jinkela-checkbox@1.0.0/index.js,gh/jinkelajs/jinkela-radio@1.0.0/index.js,gh/jinkelajs/jinkela-clicktip@1.0.0/index.js,gh/chjj/marked@v0.3.6/marked.min.js,gh/YanagiEiichi/uparams@1.4.0/UParams.min.js,npm/stale-while-revalidate@0.1.0/bundle.min.js,gh/s3u/JSONPath@v0.15.0/lib/jsonpath.min.js,npm/vanilla.js@1.0.0/index.js',
       'utils/api.js',
       'utils/doAction.js',
       'utils/refactor.js',
