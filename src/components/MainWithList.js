@@ -64,8 +64,6 @@ def((ListControl, Table, TableTip, Pagination) => class extends Jinkela {
       }).catch(error => {
         this.error = error;
       });
-    } else {
-      this.list = 'EMPTY_FIELDS';
     }
   }
 
