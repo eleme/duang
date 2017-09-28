@@ -1,11 +1,11 @@
 def((XPut) => class extends XPut {
-  static createAny(what) {
+  static createAny(what, params) {
     switch (typeof what) {
       case 'object':
-        return new this(what);
+        return new this(what, params);
       case 'string':
       default:
-        return new this({ component: 'HTML', args: { html: String(what) } });
+        return new this({ component: 'HTML', args: { html: String(what) } }, params);
     }
   }
   get hint() { return 'Output'; }
