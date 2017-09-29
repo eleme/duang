@@ -3,9 +3,9 @@ const doAction = (data, depot = window.depot) => {
   args = refactor(args, depot);
   switch (action) {
     case 'confirm': return req('Confirm').then(Confirm => Confirm.popup(args));
-    case 'replace': return new Promise(resolve => { location.replace(args.href); setTimeout(resolve, 300); });
-    case 'assign': return new Promise(resolve => { location.assign(args.href); setTimeout(resolve, 300); });
-    case 'open': return open(args.href);
+    case 'replace': return new Promise((resolve, reject) => { location.replace(args.href); setTimeout(reject, 300); });
+    case 'assign': return new Promise((resolve, reject) => { location.assign(args.href); setTimeout(reject, 300); });
+    case 'open': return new Promise((resolve, reject) => { open(args.href); setTimeout(reject, 300); });
     case 'go': return location.replace('#!' + new UParams(args));
     case 'get':
     case 'put':
