@@ -15,8 +15,11 @@
         if (/^(?:https?:)?\/\//.test(item)) return item;
         // 斜杆开头的接到 base 所在域名后面作为路径
         if (/^\//.test(item)) return base.replace(/^((?:https?:)?\/\/[^/]*)?(.*)/, `$1${item}`);
-        // 其它情况是相对于当前目录的路径
-        if (item && base[base.length - 1] !== '/') base += '/';
+        // 其它情况，处理掉 qs，然后计算出相对路径
+        if (item) {
+          base = base.replace(/\?.*/, '');
+          if (base[base.length - 1] !== '/') base += '/';
+        }
         return base + item;
       });
     }
