@@ -27,7 +27,7 @@ def(() => {
       if (!scheme.title) return;
       let { separator } = this;
       if (!separator) separator = '/';
-      let path = scheme.title.split(/\s*-\s*/g).filter(Boolean).forEach(text => {
+      scheme.title.split(/\s*-\s*/g).filter(Boolean).forEach(text => {
         new Separator({ text: separator }).to(this);
         new Step({ text }).to(this);
       });
@@ -36,7 +36,6 @@ def(() => {
       return `
         :scope {
           display: flex;
-          line-height: 20px;
           > :first-child { display: none; }
           > :last-child { color: #20a0ff; }
         }

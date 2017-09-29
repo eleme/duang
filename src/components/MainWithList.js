@@ -1,6 +1,9 @@
-def((ListControl, Table, TableTip, Pagination) => class extends Jinkela {
+def((ListFlex, ListOperations, ListHeaders, ListFilters, Table, TableTip, Pagination) => class extends Jinkela {
 
-  get ListControl() { return ListControl; }
+  get ListFlex() { return ListFlex; }
+  get ListOperations() { return ListOperations; }
+  get ListFilters() { return ListFilters; }
+  get ListHeaders() { return ListHeaders; }
   get Table() { return Table; }
   get TableTip() { return TableTip; }
   get Pagination() { return Pagination; }
@@ -8,7 +11,13 @@ def((ListControl, Table, TableTip, Pagination) => class extends Jinkela {
   get template() {
     return `
       <div>
-        <jkl-list-control depot="{depot}"></jkl-list-control>
+        <jkl-list-flex>
+          <jkl-list-headers depot="{depot}"></jkl-list-headers>
+          <jkl-list-operations depot="{depot}"></jkl-list-operations>
+        </jkl-list-flex>
+        <jkl-list-flex>
+          <jkl-list-filters depot="{depot}"></jkl-list-filters>
+        </jkl-list-flex>
         <jkl-table if="{list}" depot="{depot}" data="{list}" ref="table"></jkl-table>
         <jkl-table-tip data="{list}" error="{error}"></jkl-table-tip>
         <meta ref="pagination" />

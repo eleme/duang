@@ -171,6 +171,7 @@ def((Input, Output, Item, Button, ButtonHollow) => {
     get styleSheet() {
       return `
         :scope {
+          flex: 1;
           text-align: left;
           margin-bottom: 1em;
           padding: var(--spacing);
