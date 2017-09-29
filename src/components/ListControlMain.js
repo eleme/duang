@@ -27,7 +27,7 @@ def((Output, ListFilters, ListCaption) => {
     init() {
       let { depot } = this;
       let { scheme } = depot;
-      let { caption, captionType, headers } = scheme;
+      let { caption, captionType } = scheme;
       if (captionType === 'control' && caption) new ListCaption({ depot }).to(this);
       new ListHeaders({ depot }).to(this);
       let filters = new ListFilters({ depot });

@@ -29,4 +29,5 @@
     def: false
     excavate: false
     marked: false
+    setStaleWhileRevalidate: false
   extends: elemefe

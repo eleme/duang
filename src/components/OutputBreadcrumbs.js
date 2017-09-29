@@ -1,4 +1,4 @@
-def((Output, ListFilters, ListCaption) => {
+def(() => {
 
   class Separator extends Jinkela {
     init() {
