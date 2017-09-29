@@ -18,16 +18,11 @@ def(() => {
     init() {
       this.element.textContent = this.text;
     }
-    get styleSheet() {
-      return `
-        :scope {
-        }
-      `;
-    }
   };
 
   return class extends Jinkela {
     init() {
+      this.element.classList.add('breadcrumbs');
       let { scheme } = this.depot || window.depot;
       if (!scheme.title) return;
       let { separator } = this;
@@ -36,7 +31,6 @@ def(() => {
         new Separator({ text: separator }).to(this);
         new Step({ text }).to(this);
       });
-      Step.from(path).to(this);
     }
     get styleSheet() {
       return `
@@ -44,6 +38,7 @@ def(() => {
           display: flex;
           line-height: 20px;
           > :first-child { display: none; }
+          > :last-child { color: #20a0ff; }
         }
       `;
     }
