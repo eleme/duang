@@ -836,6 +836,10 @@ Markdown 输入控件，提供预览功能
 
 查看 [在线演示](http://codepen.io/shijn/pen/VmNJWO?editors=0010#0)
 
+### Output::Image
+
+值为图片的 URL，会渲染一张小图，并且点击可以查看大图。
+
 ### Output::Link2
 
 从 0.0.117 开始支持

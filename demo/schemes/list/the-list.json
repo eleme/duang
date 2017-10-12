@@ -53,6 +53,10 @@
       "component": "TextTip"
     },
     {
+      "key": "img", "title": "图片",
+      "component": "Image"
+    },
+    {
       "key": "c",
       "component": "QRCode",
       "args": {

@@ -1,4 +1,4 @@
-def((Button, ErrorDialog) => {
+def((Button, ErrorDialog, PureDialog) => {
 
   class SpanButton extends Button {
     get tagName() { return 'span'; }
@@ -28,7 +28,7 @@ def((Button, ErrorDialog) => {
   }
 
   class Preview extends Jinkela {
-    get template() { return '<a target="_blank" href="JavaScript:"><img ref="img"/></a>'; }
+    get template() { return '<a target="_blank" href="javascript:" on-click="{click}"><img ref="img" /></a>'; }
     set token(token) {
       if (token) {
         fetch(api.resolvePath([ this.api, token ]), { credentials: 'include' }).then(response => response.blob()).then(result => {
@@ -43,6 +43,10 @@ def((Button, ErrorDialog) => {
       } else {
         this.element.style.display = 'none';
       }
+    }
+    click(event) {
+      event.preventDefault();
+      PureDialog.showImage({ url: this.img.src });
     }
     get styleSheet() {
       return `
