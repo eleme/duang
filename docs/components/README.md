@@ -937,7 +937,7 @@ Markdown 输入控件，提供预览功能
 
 查看 [在线演示](http://codepen.io/shijn/pen/ENJBwe?editors=0010)
 
-### 控件开发
+## 控件开发
 
 控件是一个由 [AMD](https://en.wikipedia.org/wiki/Asynchronous_module_definition) 方式提供的 JavaScript 类。
 
