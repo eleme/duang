@@ -111,19 +111,60 @@ def((Button, ErrorDialog) => {
     change(event) {
       let { target } = event;
       let file = target.files[0];
-      if (file) {
-        this.button.element.classList.add('busy');
-        api(this.api, { method: 'POST', body: file, headers: { 'Content-Type': file.type } }).then(result => {
-          this.button.element.classList.remove('busy');
-          this.value = result;
-        }, (error) => {
-          this.button.element.classList.remove('busy');
-          this.clear();
-          ErrorDialog.popup({ error });
+      if (!file) return this.value = null;
+      let { limit } = this;
+      const highlight = (templates, ...args) => {
+        return String.raw(templates, ...args.map(data => `<code style="color:orange;font-weight:bold;">${data}</code>`));
+      };
+      return Promise.resolve().then(() => {
+        // 如果没有任何限制条件则直接跳过检测
+        if (!limit) return;
+        // 检测文件的类型和大小
+        switch(true) {
+          case 'type' in limit && !new RegExp(limit.type).test(file.type):
+            throw new Error(highlight`当前文件类型为 ${file.type}，不满足要求的类型`);
+          case 'maxSize' in limit && file.size > limit.maxSize:
+            throw new Error(highlight`文件大小 ${file.size} 字节，请选择小于或等于 ${limit.maxSize} 字节的图片`);
+          case 'minSize' in limit && file.size < limit.minSize:
+            throw new Error(highlight`文件大小 ${file.size} 字节，请选择大于或等于 ${limit.minSize} 字节的图片`);
+        }
+        // 如果限制中不包含任何关于图片大小的限制则则跳过后续检测
+        if (![ 'width', 'maxWidth','minWidth', 'height', 'maxHeight', 'minHeight' ].some(key => key in limit)) return;
+        // 加载图片并检测尺寸
+        return new Promise((resolve, reject) => {
+          let img = new Image();
+          img.addEventListener('load', resolve.bind(null, img));
+          img.addEventListener('error', reject);
+          img.src = URL.createObjectURL(file);
+        }).then(img => {
+          switch(true) {
+            case 'width' in limit && img.width !== limit.width:
+              throw new Error(highlight`当前图片宽度 ${img.width} 像素，必须为 ${limit.width} 像素`);
+            case 'height' in limit && img.height !== limit.height:
+              throw new Error(highlight`当前图片高度 ${img.height} 像素，必须为 ${limit.height} 像素`);
+            case 'maxWidth' in limit && img.width > limit.maxWidth:
+              throw new Error(highlight`当前图片宽度 ${img.width} 像素，请选择宽度小于或等于 ${limit.maxWidth} 像素的图片`);
+            case 'maxHeight' in limit && img.height > limit.maxHeight:
+              throw new Error(highlight`当前图片宽度 ${img.height} 像素，请选择高度小于或等于 ${limit.maxHeight} 像素的图片`);
+            case 'minWidth' in limit && img.width < limit.minWidth:
+              throw new Error(highlight`当前图片宽度 ${img.width} 像素，请选择宽度大于或等于 ${limit.minWidth} 像素的图片`);
+            case 'minHeight' in limit && img.height < limit.minHeight:
+              throw new Error(highlight`当前图片高度 ${img.height} 像素，请选择高度大于或等于 ${limit.minHeight} 像素的图片`);
+          }
         });
-      } else {
-        this.value = null;
-      }
+      }).then(this.upload.bind(this, file)).then(result => {
+        this.value = result;
+      }, error => {
+        this.clear();
+        ErrorDialog.popup({ error });
+      });
+    }
+    upload(file) {
+      this.button.element.classList.add('busy');
+      let task = api(this.api, { method: 'POST', body: file, headers: { 'Content-Type': file.type } });
+      let removeBusy = () => this.button.element.classList.remove('busy');
+      task.then(removeBusy, removeBusy);
+      return task;
     }
     get styleSheet() {
       return `
