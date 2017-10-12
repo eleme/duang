@@ -49,14 +49,11 @@ def((Item) => {
       }
     }
 
-    set depot(ignore) {}
-    get depot() { return this.parent.depot || window.depot; }
-
-    // TODO: 不要用 didMount
-    didMount() {
+    init() {
       return Promise.resolve(this.$resolveAt).then(() => this.buildComponent()).then(() => {
         this.$promise.resolve();
       }, error => {
+        setTimeout(() => { throw error; });
         this.element.textContent = error.message;
         this.$promise.resolve();
       });

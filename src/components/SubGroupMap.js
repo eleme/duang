@@ -44,10 +44,10 @@ def((FormItemWithTable, FormItemWithDiv) => class extends Jinkela {
     this.element.classList.add(mode);
     switch (mode) {
       case 'table':
-        this.inputs = FormItemWithTable.cast(group).to(this);
+        this.inputs = FormItemWithTable.cast(group, { depot }).to(this);
         break;
       case 'line':
-        this.inputs = FormItemWithDiv.cast(group).to(this);
+        this.inputs = FormItemWithDiv.cast(group, { depot }).to(this);
         break;
     }
   }

@@ -31,27 +31,25 @@ def((Item, Input, Output) => {
     }
 
     init() {
-      this.ctrl.depot = this.depot;
+      let { depot } = this;
+      this.ctrl.depot = depot;
       if (this.hidden) this.element.style.display = 'none';
       this.input = this.createInput().to(this.ctrl);
       this.$promise = this.input.$promise;
       if ('title' in this) {
-        if (typeof this.title === 'string') {
-          new Output({ component: 'HTML', value: this.title }).to(this.text);
-        } else if (typeof this.title === 'object') {
-          new Output(this.title).to(this.text);
-        }
+        Output.createAny(this.title, { depot }).to(this.text);
       } else {
         this.text.style.display = 'none';
       }
-      if (typeof this.description === 'string') {
-        new Output({ component: 'HTML', value: this.description }).to(this.desc);
-      } else if (typeof this.description === 'object') {
-        new Output(this.description).to(this.desc);
+      if ('description' in this) {
+        Output.createAny(this.description, { depot }).to(this.desc);
+      } else {
+        this.desc.style.display = 'none';
       }
     }
     createInput() {
-      return new Input(this);
+      let { component, args, depot } = this;
+      return new Input({ component, args, depot });
     }
 
   };

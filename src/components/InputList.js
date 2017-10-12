@@ -3,9 +3,9 @@ def((Input, Button) => {
   class InternalListItem extends Jinkela {
     get tagName() { return 'li'; }
     beforeParse(params) {
-      let { component, args, readonly } = params;
+      let { component, args, readonly, depot } = params;
       args = Object.assign({ readonly }, args);
-      this.input = new Input({ component, args, onReady: () => this.ready() });
+      this.input = new Input({ depot, component, args, onReady: () => this.ready() });
     }
     ready() {
       this.element.style.display = 'block';

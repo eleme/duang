@@ -1,4 +1,4 @@
-def((Input, InputSelect, SubGroupMap) => class extends Jinkela {
+def((InputSelect, SubGroupMap) => class extends Jinkela {
   beforeParse(params) {
     this.options = params.options;
     this.readonly = params.readonly;
@@ -7,11 +7,11 @@ def((Input, InputSelect, SubGroupMap) => class extends Jinkela {
   get template() {
     return `
       <div>
-        <jkl-input-select
-          ref="select"
+        <jkl-input-select ref="select"
           options="{options}"
           readonly="{readonly}"
-          onchange="{selectChange}"></jkl-input-select>
+          onchange="{selectChange}"
+          depot="{depot}"></jkl-input-select>
         <div ref="container" class="container"></div>
       </div>
     `;

@@ -4,14 +4,10 @@ def((Input, Output, Item, Button, ButtonHollow) => {
     init() {
       this.initTitle();
       this.initCheckbox();
-      this.input = new Input(this, { onReady: () => this.ready() }).to(this);
+      this.input = new Input(this, { depot: this.depot, onReady: () => this.ready() }).to(this);
     }
     initTitle() {
-      if (typeof this.title === 'string') {
-        new Output({ component: 'HTML', value: this.title }).to(this.label);
-      } else if (typeof this.title === 'object') {
-        new Output(this.title).to(this.lablel);
-      }
+      Output.createAny(this.title, { depot: this.depot }).to(this.label);
     }
     initCheckbox() {
       let { key, depot, optional } = this;
