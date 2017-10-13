@@ -9,7 +9,6 @@ def((Tip) => {
 
   return class extends Tip {
     init() {
-console.log(!('$value' in this))
       if (!('$value' in this)) this.value = void 0;
     }
     get value() { return this.$value; }
