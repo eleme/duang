@@ -1,18 +1,37 @@
 def((Input, Output) => {
+
   return class extends Jinkela {
+
+    beforeParse(params) {
+      let { component = 'String', args = {} } = params;
+      this.component = component;
+      this.args = args;
+    }
+
+    get input() {
+      let { component, args } = this;
+      let value = new Input({ component, args });
+      Object.defineProperty(this, 'input', { configurable: true, value });
+      return value;
+    }
+
+    get value() { return this.input.value; }
+    set value(value) { this.input.value = value; }
+
     init() {
-      let { component = 'String', args = {}, before, after } = this;
+      let { before, after } = this;
       if (before) {
         Output.createAny(before).to(this);
         this.element.classList.add('has-before');
       }
-      this.input = new Input({ component, args }).to(this);
+      this.input.to(this);
       this.input.element.classList.add('input');
       if (after) {
         Output.createAny(after).to(this);
         this.element.classList.add('has-after');
       }
     }
+
     get styleSheet() {
       return `
         :scope {
@@ -51,5 +70,6 @@ def((Input, Output) => {
         }
       `;
     }
+
   };
 });
