@@ -6,15 +6,21 @@ const def = factory => { // eslint-disable-line no-unused-vars
   define(deps, factory);
 };
 
-const req = dep => new Promise((resolve, reject) => { // eslint-disable-line no-unused-vars
+const req = dep => {
   let url;
   if (/^(?:https?:)\/\//.test(dep)) {
     url = dep;
   } else {
     url = `components/${dep.replace(/\$/g, '/')}.js`;
   }
-  require([ url ], resolve, error => {
-    console.error(error);
-    throw new Error(`Unknown component <${name}>`);
+  if (url in req.cache) return req.cache[url];
+  req.cache[url] = new Promise((resolve, reject) => { // eslint-disable-line no-unused-vars
+    require([ url ], resolve, error => {
+      setTimeout(() => { throw error; });
+      throw new Error(`Unknown component <${dep}>`);
+    });
   });
-});
+  return req.cache[url];
+};
+
+req.cache = {};
