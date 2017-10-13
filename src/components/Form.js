@@ -1,19 +1,19 @@
 def((FormSubmit, FormItemWithTable, Alert) => class extends Jinkela {
 
+  beforeParse(params) {
+    this.depot = params.depot;
+  }
+
   get FormSubmit() { return FormSubmit; }
 
-  get Alert() { return Alert; }
+  get listLength() { return this.depot.scheme.inputs && this.depot.scheme.inputs.length; }
+  get nosubmit() { return this.depot.scheme.noSubmit || this.depot.params.readonly; }
+  get form() { return this; }
 
-  beforeParse(params) {
-    // 获取变量
-    let { depot } = params;
+  get list() {
+    let { depot } = this;
     let { scheme, formMode } = depot;
-    let { inputs = [], noSubmit } = scheme;
-    // 设置属性
-    this.listLength = inputs.length;
-    this.noSubmit = noSubmit || depot.params.readonly;
-    this.form = this;
-    // 创建 this.list
+    let { inputs = [] } = scheme;
     inputs = JSON.parse(JSON.stringify(inputs)); // inputs 消除引用
     inputs = inputs.filter(item => item[formMode] !== 'none'); // 过滤隐藏项
     inputs = inputs.filter(item => this.checkPermissions(item)); // 过滤权限
@@ -25,9 +25,15 @@ def((FormSubmit, FormItemWithTable, Alert) => class extends Jinkela {
       }
       if (item[formMode] === 'hidden') item.hidden = true;
     });
-    this.list = FormItemWithTable.cast(inputs, { depot });
-    // 将 this.list 包成 Promise
-    this.$promise = Promise.all(this.list.map(item => item.$promise));
+    let value = FormItemWithTable.cast(inputs, { depot });
+    Object.defineProperty(this, 'list', { configurable: true, value });
+    return value;
+  }
+
+  get $promise() {
+    let value = Promise.all(this.list.map(item => item.$promise));
+    Object.defineProperty(this, '$promise', { configurable: true, value });
+    return value;
   }
 
   checkPermissions(item) {
@@ -39,16 +45,15 @@ def((FormSubmit, FormItemWithTable, Alert) => class extends Jinkela {
     return requireList.some(code => permissions.includes(code));
   }
 
+  ready() {
+    this.list.forEach(item => item.to(this.table));
+    this.hasReady = true;
+  }
+
   init() {
-    let { depot } = this;
-    let { scheme } = depot;
-    let { columns } = scheme;
-    // 渲染列表
-    this.$promise.then(() => {
-      this.list.forEach(item => item.to(this.table));
-    });
+    this.$promise.then(() => this.ready());
     // 处理多列样式
-    if (columns > 1) {
+    if (this.columns > 1) {
       this.columns.dataset.columns = columns;
       this.columns.style.columns = columns;
     }
@@ -111,6 +116,7 @@ def((FormSubmit, FormItemWithTable, Alert) => class extends Jinkela {
         <div ref="columns">
           <div ref="table" class="table"></div>
         </div>
+        <div if-not="{hasReady}">加载中...</div>
         <h3 if-not="{listLength}">并没有什么东西可以编辑</h3>
         <jkl-form-submit nosubmit="{noSubmit}" depot="{depot}" form="{form}"></jkl-form-submit>
       </div>
