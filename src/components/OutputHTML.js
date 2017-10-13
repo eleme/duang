@@ -10,7 +10,7 @@ def(() => class extends Jinkela {
     this.value = this.value;
   }
   render() {
-    if (this.html) {
+    if ('html' in this) {
       this.element.innerHTML = String(this.html).replace(/\{(.*?)\}/g, ($0, key) => {
         let base = this.value instanceof Object ? this.value : this;
         return key.split('.').reduce((base, name) => Object(base)[name], base);
