@@ -92,6 +92,32 @@ Input 用于接受用户的输入的组件，在 Duang 中用于:
 }
 ```
 
+### Input::TextAround
+
+数值输入
+
+参数：
+
+| 名字         | 类型                    | 默认值                   | 描述           |
+| ------------ | ----------------------- | ------------------------ | -------------- |
+| before       | `String`                | 无                       | 前描述         |
+| after        | `String`                | 无                       | 后描述         |
+| component    | `String`                | 必须                     | 组件           |
+| args         | `Object`                |                          | 组件参数       |
+
+示例：
+
+```javascript
+{
+  "component": "TextAround",
+  "args": {
+    "before": "人民币",
+    "after": "元",
+    "component": "String"
+  }
+}
+```
+
 ### Input::Boolean
 
 参数：
@@ -708,11 +734,7 @@ Markdown 输入控件，提供预览功能
 
 ## Output
 
-`Output` 是用来输出展示数据的一类组件，在 `Duang` 中用于：
-
-- [Duang::logo](../config/#Duang::logo)
-- [Scheme::caption](../config/#Duang::schemes)
-- [Scheme::fields](../config/Scheme::fields)
+`Output` 是用来输出展示数据的一类组件
 
 ### Output::HTML
 
@@ -898,26 +920,24 @@ Markdown 输入控件，提供预览功能
 
 参数描述
 
-| 名字 | 类型 | 描述 |
-| ---- | ---- | ---- |
-| fields | `List<Output>` | 展示字段 |
+| 名字         | 类型                    | 默认值                   | 描述                          |
+| ------------ | ----------------------- | ------------------------ | ----------------------------- |
+| fields       | `List<Output>`          |                          | 展示字段                      |
 
 示例配置
 
 ```javascript
 {
-  component: "Table",
-  key: "details",
-  title: "详细信息",
-  args: {
-    fields: [
+  "component": "Table",
+  "args": {
+    "fields": [
       {
-        key: "id",
-        title: "id"
+        "key": "id",
+        "title": "id"
       },
       {
-        key: "name",
-        title: "名称"
+        "key": "name",
+        "title": "名称"
       }
     ]
   }
