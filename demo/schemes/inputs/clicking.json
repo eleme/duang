@@ -16,7 +16,16 @@
     { "key": "file2", "component": "FileBase64", "title": "文本 Base64", "args": { "defaultValue": "aGVoZQo=" } },
     { "key": "file3", "component": "FileToken", "title": "文件 Token" },
     { "key": "file4", "component": "FileToken", "title": "文件 Token", "args": { "defaultValue": "../logo.png" } },
-    { "key": "file3", "component": "FileToken", "title": "文件 Token（png only）", "args": { "limit": { "type": "png" } } },
+    {
+      "key": "file3", "title": {
+        "component": "InputGrouping", "args": {
+          "mode": "line", "inputs": [
+            { "title": "文件 Token", "component": "OutputIconTip", "args": { "defaultValue": { "tip": "type png" } } }
+          ]
+        }
+      },
+      "component": "FileToken", "args": { "limit": { "type": "png" } }
+    },
     { "key": "file3", "component": "FileToken", "title": "文件 Token（max size 100）", "args": { "limit": { "maxSize": 100 } } },
     { "key": "file3", "component": "FileToken", "title": "文件 Token（max width 100）", "args": { "limit": { "maxWidth": 100 } } },
     { "key": "file5", "component": "FileTokenWithInfo", "title": "详细的文本 Token" },

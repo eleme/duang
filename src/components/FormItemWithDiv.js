@@ -5,9 +5,8 @@ def((FormItem) => class extends FormItem {
       :scope {
         white-space: nowrap;
         display: flex;
-        > .ctrl {
-          margin: 0 1em;
-        }
+        > .text { margin-right: 1em; }
+        > .desc { margin-left: 1em; }
         > span {
           width: auto;
           display: inline-block;

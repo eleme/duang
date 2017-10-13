@@ -15,8 +15,6 @@ def((Item, Input, Output) => {
     get styleSheet() {
       return `
         :scope {
-          > .text { opacity: .6; }
-          > .desc { opacity: .6; }
         }
       `;
     }
