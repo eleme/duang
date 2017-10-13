@@ -6,7 +6,7 @@ def((Tip) => {
     }
     get value() { return this.$value; }
     set value(value = this.defaultValue) {
-      if (!value) value = {};
+      if (!value) value = this;
       this.$value = value;
       super.value = { data: value.text, tip: value.tip };
     }
