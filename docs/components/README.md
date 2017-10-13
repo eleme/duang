@@ -718,64 +718,50 @@ Markdown 输入控件，提供预览功能
 
 参数描述
 
-| 名字 | 类型 | 描述 |
-| ---- | ---- | ---- |
-| value | `String` | 数据源 |
-| html | `String` | html 内容 |
-
-示例配置
+| 名字         | 类型                    | 默认值                   | 描述              |
+| ------------ | ----------------------- | ------------------------ | ----------------- |
+| html         | `String`                | 空字符串                 | html 内容         |
 
 ```javascript
 {
-  component: "HTML",
-  "@value": "summary",
-  args: {
-    html: "<div>总价: {total_amount}, 创建日期: {created_at}</div>"
+  "component": "HTML",
+  "args": {
+    "html": "<strong>hehe</strong>"
   }
 }
 ```
-
-查看 [在线演示](http://codepen.io/shijn/pen/MbRMpE?editors=0010#0)
 
 ### Output::Number
 
 参数描述
 
-| 名字 | 类型 | 描述 |
-| ---- | ---- | ---- |
-| value | `String` | 数据 |
-| fixed | `String` or `Number` | 保留小数位数 |
-
-示例配置
+| 名字         | 类型                    | 默认值                   | 描述              |
+| ------------ | ----------------------- | ------------------------ | ----------------- |
+| fixed        | `Number`                | 保持全部小数位           | 保留指定小数位数  |
 
 ```javascript
 {
-  component: "Number",
-  key: "price",
-  args: {
-    fixed: 2
+  "component": "Number",
+  "args": {
+    "fixed": 2
   }
 }
 ```
-
-查看 [在线演示](http://codepen.io/shijn/pen/BQEgRK?editors=0010#0)
 
 ### Output::Boolean
 
 参数描述
 
-| 名字 | 类型 | 描述 |
-| ---- | ---- | ---- |
-| value | `Boolean` | 字段的布尔值 |
-| text | `Dict` | 状态文案 |
+| 名字         | 类型                    | 默认值                   | 描述              |
+| ------------ | ----------------------- | ------------------------ | ----------------- |
+| text         | `Object`                | 未设置                   | 文案字典          |
 
 示例配置
 
 ```javascript
 {
-  component: "Boolean",
-  key: "active",
-  args: {
+  "component": "Boolean",
+  "args": {
     "text": {
       "true": "有效",
       "false": "无效"
@@ -784,57 +770,49 @@ Markdown 输入控件，提供预览功能
 }
 ```
 
-查看 [在线演示](http://codepen.io/pen/?editors=0010#0)
-
 ### Output::Datetime
 
 参数描述
 
-| 名字 | 类型 | 描述 |
-| ---- | ---- | ---- |
-| value | `Number` or `DateString` | 日期 |
-| format | `String` | 日期显示格式 |
-| offset | `Number` | 日期偏移量（支持负数）|
+| 名字         | 类型                    | 默认值                   | 描述                        |
+| ------------ | ----------------------- | ------------------------ | --------------------------- |
+| format       | `string`                |                          | 日期显示格式                |
+| offset       | `number`                | 0                        | 日期偏移量（支持负数）      |
 
 示例配置
 
 ```javascript
 {
-  component: "Datetime",
-  key: "createdAt",
-  title: "创建日期",
-  args: {
-    format: "$Y-$M-$D",
-    offset: -864E5
+  "component": "Datetime",
+  "args": {
+    "format": "$Y-$M-$D",
+    "offset": -864E5
   }
 }
 ```
-
-查看 [在线演示](http://codepen.io/shijn/pen/yVrdXz?editors=0010#0)
 
 ### Output::Enum
 
 参数描述
 
-| 名字 | 类型 | 描述 |
-| ---- | ---- | ---- |
-| value | `String` | 字段名 |
-| map | `Dict` | 数据源 |
+| 名字         | 类型                    | 默认值                   | 描述                        |
+| ------------ | ----------------------- | ------------------------ | --------------------------- |
+| map          | `Object`                |                          | 字典                        |
 
 示例配置
 
 ```javascript
 {
-  component: "Enum",
-  key: "type",
-  title: "类型",
-  args: {
-    "@map": "type_map"
+  "component": "Enum",
+  "args": {
+    "map": {
+      "PENDDING": "等待中",
+      "ACTIVE": "生效中",
+      "EXPIRED": "已过期"
+    }
   }
 }
 ```
-
-查看 [在线演示](http://codepen.io/shijn/pen/VmNJWO?editors=0010#0)
 
 ### Output::Image
 
@@ -842,21 +820,19 @@ Markdown 输入控件，提供预览功能
 
 ### Output::Link2
 
-从 0.0.117 开始支持
-
 跳转到某个连接，配置方式类似 Action（原 Link 控件已废弃）
 
 参数描述
 
-| 名字 | 类型 | 描述 |
-| ---- | ---- | ---- |
-| module | `String` | --- |
-| key | `String` | --- |
-| target | `String` | --- |
-| params | `Object` | --- |
-| where | `Object` | --- |
-| href | `String` | --- |
-| title | `Object` | --- |
+| 名字         | 类型                    | 默认值                   | 描述                        |
+| ------------ | ----------------------- | ------------------------ | --------------------------- |
+| module       | `String`                |                          |                             |
+| key          | `String`                |                          |                             |
+| target       | `String`                |                          |                             |
+| params       | `Object`                |                          |                             |
+| where        | `Object`                |                          |                             |
+| href         | `String`                |                          |                             |
+| title        | `Object`                |                          |                             |
 
 示例配置
 
@@ -948,15 +924,13 @@ Markdown 输入控件，提供预览功能
 }
 ```
 
-查看 [在线演示](http://codepen.io/shijn/pen/ENJBwe?editors=0010)
-
 ## 控件开发
 
 控件是一个由 [AMD](https://en.wikipedia.org/wiki/Asynchronous_module_definition) 方式提供的 JavaScript 类。
 
 需要实现 `value` 访问器属性和 `to` 方法，并且正确处理构造参数中包含的 `readonly` 和 `defaultValue`。
 
-```
+```javascript
 define(() => class {
 
   constructor(args) {
