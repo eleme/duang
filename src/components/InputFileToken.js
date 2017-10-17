@@ -143,17 +143,29 @@ def((Button, ErrorDialog, PureDialog) => {
         }).then(img => {
           switch (true) {
             case 'width' in limit && img.width !== limit.width:
-              throw new Error(highlight`当前图片宽度 ${img.width} 像素，必须为 ${limit.width} 像素`);
             case 'height' in limit && img.height !== limit.height:
-              throw new Error(highlight`当前图片高度 ${img.height} 像素，必须为 ${limit.height} 像素`);
             case 'maxWidth' in limit && img.width > limit.maxWidth:
-              throw new Error(highlight`当前图片宽度 ${img.width} 像素，请选择宽度小于或等于 ${limit.maxWidth} 像素的图片`);
             case 'maxHeight' in limit && img.height > limit.maxHeight:
-              throw new Error(highlight`当前图片宽度 ${img.height} 像素，请选择高度小于或等于 ${limit.maxHeight} 像素的图片`);
             case 'minWidth' in limit && img.width < limit.minWidth:
-              throw new Error(highlight`当前图片宽度 ${img.width} 像素，请选择宽度大于或等于 ${limit.minWidth} 像素的图片`);
             case 'minHeight' in limit && img.height < limit.minHeight:
-              throw new Error(highlight`当前图片高度 ${img.height} 像素，请选择高度大于或等于 ${limit.minHeight} 像素的图片`);
+              let result = [ highlight`当前图片 ${img.width}x${img.height}` ];
+              if ('width' in limit && 'height' in limit) {
+                result.push(`必须为 ${limit.width}x${limit.height}`);
+              } else {
+                let map = { Width: '宽度', Height: '高度' };
+                for (let type in map) {
+                  if (type.toLowerCase() in limit) {
+                    result.push(highlight`${map[type]} 必须为 ${limit[type.toLowerCase()]}`);
+                  } else if (`max${type}` in limit && `min${type}` in limit) {
+                    result.push(highlight`${map[type]} 必须在 ${limit['min' + type]} 到 ${limit['max' + type]} 之间`);
+                  } else if (`max${type}` in limit) {
+                    result.push(highlight`最大 ${map[type]} 不能大于 ${limit['max' + type]}`);
+                  } else if (`min${type}` in limit) {
+                    result.push(highlight`最小 ${map[type]} 不能小于 ${limit['min' + type]}`);
+                  }
+                }
+              }
+              throw new Error(result.join('，'));
           }
         });
       }).then(this.upload.bind(this, file)).then(result => {

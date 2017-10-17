@@ -27,7 +27,12 @@
       "component": "FileToken", "args": { "limit": { "type": "png" } }
     },
     { "key": "file3", "component": "FileToken", "title": "文件 Token（max size 100）", "args": { "limit": { "maxSize": 100 } } },
-    { "key": "file3", "component": "FileToken", "title": "文件 Token（max width 100）", "args": { "limit": { "maxWidth": 100 } } },
+    { "key": "file3", "component": "FileToken", "title": "文件 Token（[,100]x[]）", "args": { "limit": { "maxWidth": 100 } } },
+    { "key": "file3", "component": "FileToken", "title": "文件 Token（100x100）", "args": { "limit": { "width": 100, "height": 100 } } },
+    {
+      "key": "file3", "component": "FileToken", "title": "文件 Token（100x[100,200]）",
+      "args": { "limit": { "width": 100, "minHeight": 100, "maxHeight": 200 } }
+    },
     { "key": "file5", "component": "FileTokenWithInfo", "title": "详细的文本 Token" },
     { "key": "file6", "component": "FileTokenWithInfo", "title": "详细的文本 Token", "args": { "defaultValue": { "token": "../logo.png" } } },
     { "key": "file3", "component": "FileTokenWithInfo", "title": "详细的文本 Token（png only）", "args": { "limit": { "type": "png" } } },
