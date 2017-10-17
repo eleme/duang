@@ -6,7 +6,7 @@ def((ErrorDialog) => class extends Jinkela {
     let handler = () => dialog.cancel();
     img.addEventListener('load', () => {
       panel = new this({ children: [ img ], handler }, args);
-      dialog.popup(panel);
+      dialog.popup(panel, { minWidth: '0' });
       dialog.once('transitionend', () => (panel.element.style.cursor = 'zoom-out'));
     });
     img.addEventListener('error', () => ErrorDialog.popup({ error: new Error('图片加载失败') }));

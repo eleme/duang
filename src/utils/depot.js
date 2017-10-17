@@ -8,9 +8,23 @@ var depot = new class { // eslint-disable-line no-unused-vars
       addEventListener('load', () => this.hashchange());
     }
     addEventListener('hashchange', () => this.hashchange());
-    dialog.element.firstChild.style.maxHeight = '80%';
-    dialog.element.firstChild.style.overflow = 'auto';
 
+    initDialog: {
+      let { popup } = dialog;
+      Object.defineProperty(dialog, 'popup', {
+        configurable: true,
+        value: (panel, options) => {
+          dialog.box.element.style.maxHeight = '80%';
+          dialog.box.element.style.overflow = 'auto';
+          if (options && options.minWidth) {
+            dialog.box.element.style.setProperty('min-width', options.minWidth);
+          } else {
+            dialog.box.element.style.removeProperty('min-width');
+          }
+          popup(panel);
+        }
+      });
+    }
   }
 
   static waitUntilReady() {
