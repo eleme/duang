@@ -41,7 +41,7 @@ def((Item) => {
 
     get componentName() {
       let componentName = this.component || this.defaultComponent;
-      if (/^(?:https?:)\/\//.test(componentName)) {
+      if (/\W/.test(componentName)) {
         return componentName;
       } else {
         let [ , hint = this.hint, name ] = String(componentName).match(/^(Input|Output)?(.*)$/);

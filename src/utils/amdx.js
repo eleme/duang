@@ -8,7 +8,8 @@ const def = factory => { // eslint-disable-line no-unused-vars
 
 const req = dep => {
   let url;
-  if (/^(?:https?:)\/\//.test(dep)) {
+  if (/\W/.test(dep)) {
+    dep = new Function('return `' + dep + '`')();
     url = dep;
   } else {
     url = `components/${dep.replace(/\$/g, '/')}.js`;
