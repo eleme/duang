@@ -12,10 +12,13 @@ def((Item) => {
       if (depot.scheme) path.push(depot.resolvedKey);
       path = path.concat(item);
       return swrApi(path, options).then(value => {
-        base[key.slice(1)] = value;
+        if (value && typeof value === 'object') return parse(value, depot, query).then(() => value);
+        return value;
       }, error => {
         console.error(error);
         throw new Error(`组件参数（${key}: ${item}）拉取失败`);
+      }).then(value => {
+        base[key.slice(1)] = value;
       });
     } else {
       if (item && typeof item === 'object') return parse(item, depot, query);
