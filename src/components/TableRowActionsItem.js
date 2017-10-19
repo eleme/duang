@@ -1,4 +1,4 @@
-def((ListItem, Confirm, ErrorDialog) => class extends ListItem {
+def((Item, Confirm, ErrorDialog) => class extends Item {
 
   init() {
     this.text = this.title || this.method;
@@ -82,9 +82,16 @@ def((ListItem, Confirm, ErrorDialog) => class extends ListItem {
     });
   }
 
+  get template() {
+    return `
+      <li>{text}</li>
+    `;
+  }
+
   get styleSheet() {
     return `
       :scope {
+        cursor: pointer;
         margin-left: .5em;
         display: inline-block;
         color: #20a0ff;
