@@ -16,7 +16,10 @@ def((Output, Caption) => {
       let { depot } = this;
       let { scheme } = depot;
       let { headers, caption, captionType } = scheme;
-      if (!headers) headers = [ { component: 'Breadcrumbs' } ];
+      if (!headers) {
+        headers = [];
+        if ('title' in scheme) headers.push({ component: 'Breadcrumbs' });
+      }
       [].concat(headers).forEach(raw => Output.createAny(raw, { depot }).to(this));
       if (captionType === 'control' && caption) new ListCaption({ depot }).to(this); // 历史遗留，建议废弃
     }
