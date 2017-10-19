@@ -32,8 +32,10 @@ def((ListItem, Confirm, ErrorDialog) => class extends ListItem {
 
   goAction() {
     let { module, key, params, _blank, target, title, where, depot } = this;
-    params = refactor(params || {}, this.fieldMap);
-    where = refactor(where || {}, this.fieldMap);
+    let data = Object.create(depot);
+    for (let key in this.fieldMap) Object.defineProperty(data, key, { configurable: true, value: this.fieldMap[key] });
+    params = refactor(params || {}, data);
+    where = refactor(where || {}, data);
     if (_blank) target = '_blank';
     return depot.go({ args: { module, key, params, where }, target, title });
   }
