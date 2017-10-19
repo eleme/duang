@@ -29,7 +29,7 @@ def((Item) => {
         where = JSON.stringify(where);
         params = JSON.stringify(params);
         if (href) return open(href, target);
-        return depot.go({ args: { module, key, params, where }, target });
+        return this.depot.go({ args: { module, key, params, where }, target });
       });
     }
     get styleSheet() {
@@ -111,8 +111,9 @@ def((Item) => {
 
   return class extends Jinkela {
     init() {
+      Object.defineProperty(this.depot, 'main', { configurable: true, value: this });
       while (this.element.firstChild) this.element.firstChild.remove();
-      let { key, session, schemes } = depot;
+      let { key, session, schemes } = this.depot;
       let { permissions = [] } = session;
       schemes = schemes.filter(scheme => {
         if (/(?:^|\/):/.test(scheme.key)) return false;

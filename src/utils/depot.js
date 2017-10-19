@@ -112,7 +112,7 @@ var depot = new class { // eslint-disable-line no-unused-vars
       throw error;
     }).then(([ Frame, Main ]) => {
       if (!this.moduleComponent) this.moduleComponent = new Frame().to(document.body);
-      this.moduleComponent.main = new Main();
+      this.moduleComponent.main = new Main({ depot: this });
       let { autoRefresh } = this.scheme || {};
       if (+autoRefresh) {
         this._autoRefreshTimer = setTimeout(() => {
@@ -190,7 +190,11 @@ var depot = new class { // eslint-disable-line no-unused-vars
     return new UParams(params);
   }
 
-  refresh() { dispatchEvent(new Event('hashchange')); }
+  refresh() {
+    if (window.depot === this) return dispatchEvent(new Event('hashchange'));
+    let { main } = this;
+    new main.constructor({ depot: this }).renderWith(main);
+  }
 
   go({ args, target, title }) {
     args = Object.assign({}, args);

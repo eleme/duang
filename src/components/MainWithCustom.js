@@ -1,8 +1,8 @@
 def(() => class extends Jinkela {
 
   init() {
-    let { params } = this.depot || depot;
-    this.element.src = params.href;
+    Object.defineProperty(this.depot, 'main', { configurable: true, value: this });
+    this.element.src = this.depot.params.href;
   }
 
   get template() {

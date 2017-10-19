@@ -6,9 +6,9 @@ def((Form, FormSubmit, PanelFailure, ErrorDisplay) => class extends Jinkela {
     return api([resolvedKey, id]);
   }
   init() {
-    let depot = this.depot || window.depot;
+    Object.defineProperty(this.depot, 'main', { configurable: true, value: this });
     this.$promise = this.load().then(value => {
-      let form = new Form({ depot }).to(this);
+      let form = new Form({ depot: this.depot }).to(this);
       form.value = value;
       return form.$promise;
     }, error => {
