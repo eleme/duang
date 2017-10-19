@@ -3,6 +3,7 @@ def((Output, Button, ButtonHollow) => class extends Jinkela {
     if (typeof config === 'string') config = { text: config };
     let ins = new this(config, { depot });
     if (config.autoCancel !== false) ins.then(dialog.cancel, dialog.cancel);
+    dialog.once('transitionend', () => ins.focus());
     dialog.popup(ins);
     return Promise.resolve(ins);
   }
@@ -17,11 +18,19 @@ def((Output, Button, ButtonHollow) => class extends Jinkela {
 
     if (!this.yes) this.yes = '是的';
     this.yes = typeof this.yes === 'string' ? { text: this.yes } : this.yes;
-    this.yesButton = new Button(this.yes, { onClick: onYes });
+    this.theYesButton = this.yesButton = new Button(this.yes, { onClick: onYes });
 
     if (!this.cancel) this.cancel = { text: '取消', color: '#D3DCE6' };
     this.cancel = typeof this.cancel === 'string' ? { text: this.cancel } : this.cancel;
-    this.cancelButton = new ButtonHollow(this.cancel, { onClick: onCancel });
+    this.theCancelButton = this.cancelButton = new ButtonHollow(this.cancel, { onClick: onCancel });
+
+    this.element.addEventListener('keydown', event => this.keydown(event));
+  }
+  keydown(event) {
+    if (event.keyCode === 27) this.theCancelButton.click();
+  }
+  focus() {
+    if (this.theYesButton && this.theYesButton.element && this.theYesButton.element.focus) this.theYesButton.element.focus();
   }
   get handlers() {
     let value = new Set();
