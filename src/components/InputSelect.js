@@ -3,6 +3,7 @@ def((Item) => {
   class InputSelectItem extends Item {
     get tagName() { return 'option'; }
     init() {
+      this.element.jinkela = this;
       this.element.setAttribute('value', this.value);
       this.element.textContent = this.text;
     }
@@ -26,10 +27,12 @@ def((Item) => {
     initOptions() {
       let { options } = this;
       while (this.element.firstChild) this.element.firstChild.remove();
-      if (!options) return;
-      if (!(options instanceof Array)) {
-        options = Object.keys(options).map(key => ({ text: options[key], value: key }));
+      if (options instanceof Array) {
+        options = options.slice(0);
+      } else {
+        options = Object.keys(Object(options)).map(key => ({ text: options[key], value: key }));
       }
+      if ('null' in this) options.unshift({ text: this.null, value: null });
       InputSelectItem.cast(options).to(this);
     }
     change() {
@@ -59,7 +62,11 @@ def((Item) => {
         }
       `;
     }
-    get value() { return this.element.value; }
+    get value() {
+      if (!this.keepValueType) return this.element.value;
+      let [ option ] = this.element.selectedOptions;
+      return option && option.jinkela && option.jinkela.value;
+    }
     set value(value = this.defaultValue) {
       this.$hasValue = true;
       if (value !== void 0) this.$value = this.element.value = value;
