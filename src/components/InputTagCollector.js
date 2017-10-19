@@ -68,29 +68,136 @@ def((OutputHTML, Item) => {
     }
   }
 
-  class ListItem extends Item {
-    onClick() {
-      this.element.dispatchEvent(new CustomEvent('select', {
-        bubbles: true,
-        detail: this
-      }));
+  class ListItem extends Jinkela {
+    click() {
+      this.element.dispatchEvent(new CustomEvent('select', { bubbles: true, detail: this }));
     }
     init() {
       new OutputHTML(this).to(this);
     }
     get template() {
-      return '<li></li>';
+      return '<li on-click="{click}"></li>';
     }
   }
 
+  class SuggestionList extends Jinkela {
+    show(anchor) {
+      this.anchor = anchor;
+      document.body.appendChild(this.element);
+      let rect = anchor.getBoundingClientRect();
+      this.element.style.width = rect.width;
+      this.element.style.left = rect.left;
+      this.element.style.top = rect.top + rect.height;
+    }
+    hide() {
+      this.element.animate([
+        { opacity: 1 },
+        { opacity: 0 }
+      ], { duration: 300 }).addEventListener('finish', () => {
+        this.element.remove();
+      });
+    }
+    clean() {
+      this.ul.innerHTML = '';
+    }
+    append(jinkela) {
+      jinkela.to(this.ul);
+    }
+    move(step) {
+      if (!step) return;
+      let $current = this.active;
+      if ($current) {
+        $current.classList.remove('active');
+        if (step > 0) {
+          while (step--) {
+            $current = $current.nextElementSibling
+              ? $current.nextElementSibling
+              : this.first;
+          }
+        } else {
+          while (step++) {
+            $current = $current.previousElementSibling
+              ? $current.previousElementSibling
+              : this.last;
+          }
+        }
+      }
+      if (!$current) $current = this.first;
+      $current.classList.add('active');
+      this.ensureVisible();
+    }
+    ensureVisible() {
+      let $current = this.active;
+      if ($current) {
+        let viewTop = this.element.scrollTop;
+        let viewHeight = this.element.getBoundingClientRect().height;
+        let viewBottom = viewHeight + viewTop;
+        let itemTop = $current.offsetTop;
+        let itemHeight = $current.getBoundingClientRect().height;
+        let itemBottom = itemTop + itemHeight;
+        if (itemTop < viewTop) this.element.scrollTop = itemTop;
+        if (itemBottom > viewBottom) this.element.scrollTop = itemTop - viewHeight + itemHeight;
+      }
+    }
+    enter() {
+      let active = this.active;
+      if (active) active.click();
+    }
+    set tip(value) { this.ul.dataset.tip = value; }
+    get active() { return this.element.querySelector('.active'); }
+    get first() { return this.ul.firstElementChild; }
+    get last() { return this.ul.lastElementChild; }
+    get template() { return '<div on-select="{selectHandler}"><ul ref="ul"></ul></div>'; }
+    get styleSheet() {
+      return `
+        :scope {
+          line-height: 24px;
+          box-sizing: border-box;
+          position: absolute;
+          transform: translateY(-3px);
+          z-index: 9999;
+          background: #fff;
+          border: 1px solid #20a0ff;
+          border-top: none;
+          border-radius: 0 0 5px 5px;
+          transition: border-color ease .15s, opacity .15s ease, visibility .15s ease;
+          max-height: 200px;
+          overflow: scroll;
+          > ul {
+            margin: 0;
+            padding: 0;
+            li {
+              padding: .4em .5em;
+              cursor: pointer;
+              list-style: none;
+              &:hover {
+                background-color: rgba(25,137,250,.08);
+              }
+              &.active {
+                background-color: rgba(25,137,250,.08);
+              }
+            }
+            &:empty::before {
+              content: attr(data-tip);
+              display: block;
+              opacity: .5;
+              text-align: center;
+              padding: .5em;
+            }
+          }
+        }
+      `;
+    }
+  }
+
+
   return class extends Jinkela {
 
-    selectItem(event) {
+    selectItem(value) {
       let list = this.value;
-      let index = list.indexOf(event.detail.value);
+      let index = list.indexOf(value);
       if (~index) list.splice(index, 1);
-      this.value = list.concat(event.detail.value);
-      event.stopPropagation();
+      this.value = list.concat(value);
     }
 
     removeItem(event) {
@@ -116,9 +223,8 @@ def((OutputHTML, Item) => {
     init() {
       this.inputSlot = this.input;
       if (this.width !== void 0) this.element.style.width = this.width;
-      if (this.emptyTip) this.list.dataset.tip = this.emptyTip;
+      if (this.emptyTip) this.list.tip = this.emptyTip;
       if (this.readonly) this.element.classList.add('disabled');
-      this.element.addEventListener('select', this.selectItem.bind(this));
       this.element.addEventListener('remove', this.removeItem.bind(this));
       if (!this.$hasValue) this.value = void 0;
     }
@@ -128,16 +234,19 @@ def((OutputHTML, Item) => {
       let { resolvedKey } = depot;
       return api([resolvedKey, this.api], { query: { q: this.input.value } }).then(raw => {
         if (!(raw instanceof Array)) throw new Error(`返回必须是数组，然而却是 ${raw}`);
-        this.list.innerHTML = '';
+        this.list.clean();
         if (!raw.length) {
           if (this.emptyTip) {
             this.element.setAttribute('popup', '');
+            this.list.show(this.element);
           } else {
             this.element.removeAttribute('popup');
+            this.list.hide();
           }
         } else {
-          raw.forEach(item => new ListItem(item).to(this.list));
+          raw.forEach(item => this.list.append(new ListItem(item)));
           this.element.setAttribute('popup', '');
+          this.list.show(this.element);
         }
       });
     }
@@ -168,76 +277,36 @@ def((OutputHTML, Item) => {
       ForestSelectedItem.from(value.slice(index).map(value => ({ text: value, value }))).to(this.tags);
     }
 
-    move(step) {
-      if (!step) return;
-      let $current = this.list.querySelector('.active');
-      if ($current) {
-        $current.classList.remove('active');
-        if (step > 0) {
-          while (step--) {
-            $current = $current.nextElementSibling
-              ? $current.nextElementSibling
-              : this.list.firstElementChild;
-          }
-        } else {
-          while (step++) {
-            $current = $current.previousElementSibling
-              ? $current.previousElementSibling
-              : this.list.lastElementChild;
-          }
-        }
-      }
-      if (!$current) $current = this.list.firstElementChild;
-      $current.classList.add('active');
-      this.ensureVisible();
-    }
-
-    enter() {
-      let active = this.list.querySelector('.active');
-      if (active) active.click();
-    }
-
     onKeydown(e) {
       switch (e.keyCode) {
-        case 40: return this.move(1);
-        case 38: return this.move(-1);
-        case 13: return this.enter();
+        case 40: return this.list.move(1);
+        case 38: return this.list.move(-1);
+        case 13: return this.list.enter();
         case 8:
           if (e.target.value === '') this.value = this.value.slice(0, -1);
       }
     }
 
     blur() {
-      let $current = this.list.querySelector('active');
+      let $current = this.list.active;
       if ($current) $current.classList.remove('active');
       this.inputHandler.cancel();
       this.element.removeAttribute('popup');
+      this.list.hide();
     }
 
-    ensureVisible() {
-      let $current = this.list.querySelector('.active');
-      if ($current) {
-        let viewTop = this.list.scrollTop;
-        let viewHeight = this.list.getBoundingClientRect().height;
-        let viewBottom = viewHeight + viewTop;
-        let itemTop = $current.offsetTop;
-        let itemHeight = $current.getBoundingClientRect().height;
-        let itemBottom = itemTop + itemHeight;
-        if (itemTop < viewTop) this.list.scrollTop = itemTop;
-        if (itemBottom > viewBottom) this.list.scrollTop = itemTop - viewHeight + itemHeight;
-      }
+    get list() {
+      let value = new SuggestionList({ selectHandler: event => this.selectItem(event.detail.value) });
+      Object.defineProperty(this, 'list', { configurable: true, value });
+      return value;
     }
 
-    // TODO: ul 弹层挂到 body 上，防止被 overflow hidden
     get template() {
       return `
         <div on-keydown="{onKeydown}">
           <ul ref="tags">
             <meta ref="inputSlot" />
           </ul>
-          <div>
-            <ul ref="list"></ul>
-          </div>
         </div>
       `;
     }
@@ -281,45 +350,6 @@ def((OutputHTML, Item) => {
               flex: 1;
               height: 24px;
               margin: 2px 3px;
-            }
-          }
-          > div {
-            visibility: hidden;
-            opacity: 0;
-            position: absolute;
-            top: 100%;
-            right: -1px;
-            left: -1px;
-            transform: translateY(-3px);
-            z-index: 99;
-            background: #fff;
-            border: 1px solid #20a0ff;
-            border-top: none;
-            border-radius: 0 0 5px 5px;
-            transition: border-color ease .15s, opacity .15s ease, visibility .15s ease;
-            max-height: 200px;
-            overflow: scroll;
-            > ul {
-              margin: 0;
-              padding: 0;
-              li {
-                padding: .4em .5em;
-                cursor: pointer;
-                list-style: none;
-                &:hover {
-                  background-color: rgba(25,137,250,.08);
-                }
-                &.active {
-                  background-color: rgba(25,137,250,.08);
-                }
-              }
-              &:empty::before {
-                content: attr(data-tip);
-                display: block;
-                opacity: .5;
-                text-align: center;
-                padding: .5em;
-              }
             }
           }
           &[popup] {
