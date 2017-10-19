@@ -108,8 +108,9 @@ def((Output, Item, TableRowActions, Caption) => {
 
   class HeadCell extends Cell {
     init() {
-      let { width, nowrap, title, sortable, key, depot } = this;
+      let { width, nowrap, title, align, sortable, key, depot } = this;
       if (width) this.element.style.width = width + 'px';
+      if (align) this.element.style.textAlign = align;
       if (nowrap) this.element.style.whiteSpace = 'nowrap';
       if (title) Output.createAny(title).to(this);
       if (sortable) new Sortable({ key, depot }).to(this);
@@ -210,7 +211,7 @@ def((Output, Item, TableRowActions, Caption) => {
       let { scheme } = depot;
       let fields = (scheme.fields || []).slice(0);
       if (scheme.actions && scheme.actions.length) {
-        fields.push({ title: depot.getConst('操作'), nowrap: true });
+        fields.push({ title: depot.getConst('操作'), nowrap: true, align: 'right' });
       }
       HeadCell.from(fields).to(this);
     }

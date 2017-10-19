@@ -85,7 +85,7 @@ def((ListItem, Confirm, ErrorDialog) => class extends ListItem {
   get styleSheet() {
     return `
       :scope {
-        margin-right: .5em;
+        margin-left: .5em;
         display: inline-block;
         color: #20a0ff;
         font-size: 12px;

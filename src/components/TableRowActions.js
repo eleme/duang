@@ -11,6 +11,7 @@ def((TableRowActionsItem) => class extends Jinkela {
       :scope {
         margin: 0;
         padding: 0;
+        text-align: right;
         list-style: none;
       }
     `;
