@@ -6,12 +6,12 @@ def(() => class extends Jinkela {
     if (href) {
       open(href, target || '_self');
     } else {
-      return depot.go({ args: { module, key, params }, target, title });
+      return depot.go({ args: { module, key, params, where }, target, title });
     }
   }
   get template() {
     return `
-      <a on-click="{onClick}" href="Javascript:;">{title}</a>
+      <a on-click="{onClick}" href="javascript:">{title}</a>
     `;
   }
   set value(value) {
