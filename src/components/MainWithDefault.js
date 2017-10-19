@@ -122,7 +122,7 @@ def((Item) => {
         if (!scheme.require) return true;
         return scheme.require.some((dep => ~permissions.indexOf(dep)));
       });
-      MainWithDefaultItem.cast(schemes, { currentKey: key }).to(this);
+      MainWithDefaultItem.cast(schemes, { currentKey: key, depot: this.depot }).to(this);
     }
     get styleSheet() {
       return `
