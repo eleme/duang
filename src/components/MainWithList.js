@@ -53,7 +53,7 @@ def((ListFlex, ListOperations, ListHeaders, ListFilters, Table, TableTip, Pagina
 
   ready() {
     let { depot, list, count } = this;
-    this.pagination = new Pagination({ depot, list, count });
+    if ('pageSize' in depot.scheme) this.pagination = new Pagination({ depot, list, count });
   }
 
   beforeParse(params) {
