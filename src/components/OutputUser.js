@@ -1,7 +1,7 @@
 def((Output) => class extends Jinkela {
   init() {
-    let { session, config } = depot;
-    let value = session.username || session.user && session.user.name;
+    let { session = {}, config } = this.depot || window.depot;
+    let value = session.username || session.user && session.user.name || session.name;
     if (!value) return;
     let { component, args } = config.session;
     if (!component) {
