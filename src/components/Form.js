@@ -54,8 +54,8 @@ def((FormSubmit, FormItemWithTable, Alert) => class extends Jinkela {
     this.$promise.then(() => this.ready());
     // 处理多列样式
     if (this.columns > 1) {
-      this.columns.dataset.columns = columns;
-      this.columns.style.columns = columns;
+      this.columns.dataset.columns = this.columns;
+      this.columns.style.columns = this.columns;
     }
     // 这里 Alert（什么鬼）？？？
     if (depot.scheme.alert) {

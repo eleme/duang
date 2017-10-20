@@ -1,4 +1,4 @@
-def((OutputHTML, Item) => {
+def((OutputHTML) => {
 
   const PANEL_CLASS_NAME = 'jinkela_tag_collector_' + Array.from({ length: 16 }, () => (36 * Math.random() | 0).toString(36)).join('');
 
@@ -189,7 +189,6 @@ def((OutputHTML, Item) => {
       `;
     }
   }
-
 
   return class extends Jinkela {
 
