@@ -100,8 +100,9 @@ var depot = new class { // eslint-disable-line no-unused-vars
   onRouteChange() {
     return this.constructor.waitUntilReady().then(() => {
       Object.defineProperty(this, Symbol.for('cache'), { configurable: true, value: {} });
-      let moduleName = String(this.module || 'default');
-      let tasks = Promise.all([ req('Frame'), req('MainWith' + moduleName.replace(/./, $0 => $0.toUpperCase())) ]);
+      let moduleName = String(this.module);
+      if (!/\W/.test(moduleName)) moduleName = 'MainWith' + moduleName.replace(/./, $0 => $0.toUpperCase());
+      let tasks = Promise.all([ req('Frame'), req(moduleName) ]);
       if (this._autoRefreshTimer) {
         clearTimeout(this._autoRefreshTimer);
         delete this._autoRefreshTimer;
@@ -140,7 +141,7 @@ var depot = new class { // eslint-disable-line no-unused-vars
 
   getSchemeByKey(key) { return this.schemeMap[key] || {}; }
 
-  get module() { return this.uParams.module; }
+  get module() { return this.uParams.module || this.config.defaultModule || 'default'; }
 
   get formMode() {
     if (this.params.readonly) {
@@ -206,8 +207,9 @@ var depot = new class { // eslint-disable-line no-unused-vars
         return open(location.href.replace(/(#.*)?$/, '#!' + uParams));
       case 'dialog':
         try {
-          let name = String(args.module || 'default').replace(/./, $0 => $0.toUpperCase());
-          return req(`MainWith${name}`).then(Main => {
+          let moduleName = String(args.module).replace(/./, $0 => $0.toUpperCase());
+          if (!/\W/.test(moduleName)) moduleName = 'MainWith' + moduleName.replace(/./, $0 => $0.toUpperCase());
+          return req(moduleName).then(Main => {
             let main = new Main({ depot: this.fork(uParams), title });
             return Promise.resolve(main.$promise).then(() => dialog.popup(main));
           });
