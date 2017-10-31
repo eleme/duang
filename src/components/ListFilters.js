@@ -112,7 +112,6 @@ def((Input, Output, Item, Button, ButtonHollow) => {
     get styleSheet() {
       return `
         :scope {
-          margin-top: 1em;
           > :first-child {
             margin-right: 1em;
           }
@@ -136,6 +135,7 @@ def((Input, Output, Item, Button, ButtonHollow) => {
         this.element.style.display = 'none';
         $promise = Promise.resolve();
       }
+      if (filters.length === 1 && !scheme.disableInlineFilter) this.element.classList.add('line');
       Object.defineProperty(this, '$promise', { value: $promise, configurable: true });
     }
     apply() {
@@ -180,8 +180,16 @@ def((Input, Output, Item, Button, ButtonHollow) => {
           padding: var(--spacing);
           border: 1px solid #e0e6ed;
           border-radius: 4px;
+          &.line {
+            display: flex;
+            > :first-child { flex: 1; }
+          }
+          &:not(.line) {
+            > :last-child { margin-top: 1em; }
+          }
         }
       `;
     }
   };
+
 });
