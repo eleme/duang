@@ -30,7 +30,7 @@ def((ErrorDisplay) => class extends Jinkela {
   get template() {
     return `
       <div>
-        <p ref="p">{text}</p>
+        <p ref="p"><meta ref="text" /></p>
       </div>
     `;
   }

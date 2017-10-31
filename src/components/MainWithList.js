@@ -1,4 +1,4 @@
-def((ListFlex, ListOperations, ListHeaders, ListFilters, Table, TableTip, Pagination) => class extends Jinkela {
+def((Output, ListFlex, ListOperations, ListHeaders, ListFilters, Table, TableTip, Pagination) => class extends Jinkela {
 
   get ListFlex() { return ListFlex; }
   get ListOperations() { return ListOperations; }
@@ -19,7 +19,7 @@ def((ListFlex, ListOperations, ListHeaders, ListFilters, Table, TableTip, Pagina
           <jkl-list-filters depot="{depot}"></jkl-list-filters>
         </jkl-list-flex>
         <jkl-table if="{list}" depot="{depot}" data="{list}" ref="table"></jkl-table>
-        <jkl-table-tip data="{list}" error="{error}"></jkl-table-tip>
+        <jkl-table-tip ref="tip" data="{list}" error="{error}"></jkl-table-tip>
         <meta ref="pagination" />
       </div>
     `;
@@ -62,17 +62,25 @@ def((ListFlex, ListOperations, ListHeaders, ListFilters, Table, TableTip, Pagina
 
   init() {
     Object.defineProperty(this.depot, 'main', { configurable: true, value: this });
-    let { scheme } = this.depot;
-    let { fields = [] } = scheme;
-    if (fields && fields.length) {
-      return Promise.all([ this.loadData(), this.loadCount() ]).then(([ data, count ]) => {
-        if (!(data instanceof Array)) throw new Error('返回结果必须是数组');
-        this.list = data;
-        this.count = typeof count === 'number' ? count : count.count;
-        this.ready();
-      }).catch(error => {
-        this.error = error;
-      });
+    let { scheme, where } = this.depot;
+    let { noWhere, fields = [] } = scheme;
+    if (noWhere && Object.keys(where).length === 0) {
+      if (noWhere === true) {
+        this.tip.hide();
+      } else {
+        this.tip.text = Output.createAny(noWhere);
+      }
+    } else {
+      if (fields && fields.length) {
+        return Promise.all([ this.loadData(), this.loadCount() ]).then(([ data, count ]) => {
+          if (!(data instanceof Array)) throw new Error('返回结果必须是数组');
+          this.list = data;
+          this.count = typeof count === 'number' ? count : count.count;
+          this.ready();
+        }).catch(error => {
+          this.error = error;
+        });
+      }
     }
   }
 
