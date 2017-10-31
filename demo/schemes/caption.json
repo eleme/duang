@@ -3,9 +3,9 @@
   "title": "分组",
   "module": "editor",
   "inputs": [
-    { "component": "Caption", "args": { "h1": "第零组", "h2": "一堆神奇的字段" } },
+    { "component": "Caption", "args": { "h1": "第零组", "h2": "<font color=red>一堆神奇的字段" } },
     { "title": "a", "args": {} },
-    { "component": "Caption", "args": { "h1": "第壹组", "h2": "又堆神奇的字段" } },
+    { "component": "Caption", "args": { "h1": "第壹组", "h2": { "component": "IconTip", "args": { "tip": "hehe" } } } },
     { "title": "b", "args": {} },
     { "component": "Caption", "args": { "h1": "第贰组", "h2": "双堆神奇的字段" } },
     { "title": "c", "args": {} },
