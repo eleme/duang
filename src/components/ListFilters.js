@@ -7,7 +7,11 @@ def((Input, Output, Item, Button, ButtonHollow) => {
       this.input = new Input(this, { depot: this.depot, onReady: () => this.ready() }).to(this);
     }
     initTitle() {
-      Output.createAny(this.title, { depot: this.depot }).to(this.label);
+      if ('title' in this) {
+        Output.createAny(this.title, { depot: this.depot }).to(this.label);
+      } else {
+        this.label.style.minWidth = 'auto';
+      }
     }
     initCheckbox() {
       let { key, depot, optional } = this;
@@ -55,26 +59,29 @@ def((Input, Output, Item, Button, ButtonHollow) => {
           display: flex;
           margin-top: var(--spacing);
           line-height: 28px;
+          min-height: 28px;
           > * {
             display: none;
             vertical-align: top;
           }
           > label {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
             min-width: 100px;
             > * {
               display: inline-block;
               vertical-align: middle;
+              margin: 0 1em 0 0;
             }
             > input[type=checkbox] {
               display: none;
-              margin-left: 10px;
             }
           }
           &[data-optional=true] {
             > label {
               cursor: pointer;
               > input[type=checkbox] {
+                cursor: pointer;
                 display: inline-block;
               }
             }
