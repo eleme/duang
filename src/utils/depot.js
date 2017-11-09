@@ -36,6 +36,9 @@ var depot = new class { // eslint-disable-line no-unused-vars
       return this.initSession();
     }).then(value => {
       Object.defineProperty(this.prototype, 'session', { configurable: true, value });
+    }).catch(error => {
+      setTimeout(error => { throw error; });
+      return new Promise(resolve => {});
     });
     Object.defineProperty(this, 'waitUntilReady', { configurable: true, value: () => promise });
     return promise;
@@ -45,12 +48,12 @@ var depot = new class { // eslint-disable-line no-unused-vars
     const configElement = document.querySelector('script[config]');
     const config = configElement && configElement.getAttribute('config') || '';
     let task = window.config ? Promise.resolve(window.config) : api(config);
-    this.setGlobalMessage('正在加载配置', true);
+    dispatchEvent(new CustomEvent('duang::notify', { detail: '正在加载根配置' }));
     task.then(value => {
-      this.setGlobalMessage();
+      dispatchEvent(new CustomEvent('duang::notify', { detail: '根配置加载完毕' }));
       window.config = value; // 写到全局
     }, error => {
-      this.setGlobalMessage();
+      dispatchEvent(new CustomEvent('duang::fatal', { detail: '根配置加载失败' }));
       throw error;
     });
     return task;
@@ -59,46 +62,50 @@ var depot = new class { // eslint-disable-line no-unused-vars
   static initSchemes() {
     let { config } = this.prototype;
     let schemes = JSON.parse(JSON.stringify(config && config.schemes || []));
-    return Promise.all(schemes.map(scheme => typeof scheme !== 'string' ? scheme : api(scheme))).then(list => {
+    let tasks = schemes.map(scheme => typeof scheme !== 'string' ? scheme : api(scheme));
+    if (tasks.length === 0) return Promise.resolve([]);
+    let total = 0;
+    let loaded = 0;
+    let update = result => {
+      loaded++;
+      dispatchEvent(new CustomEvent('duang::notify', { detail: `正在加载子配置 (${loaded}/${total})` }));
+      return result;
+    };
+    total = tasks.filter(task => task instanceof Promise).map(task => task.then(update)).length;
+    dispatchEvent(new CustomEvent('duang::notify', { detail: `正在加载子配置 (${loaded}/${total})` }));
+    return Promise.all(tasks).then(list => {
+      update = () => {};
+      dispatchEvent(new CustomEvent('duang::notify', { detail: '子配置加载完毕' }));
       return [].concat(...list);
+    }, error => {
+      update = () => {};
+      dispatchEvent(new CustomEvent('duang::fatal', { detail: '子配置加载失败' }));
+      throw error;
     });
   }
 
   static initSession() {
     let { config } = this.prototype;
     let task = config.session ? api(config.session.authorize, { method: config.session.method || 'post' }) : Promise.resolve({});
-    this.setGlobalMessage('正在加载用户信息', true);
+    dispatchEvent(new CustomEvent('duang::notify', { detail: '正在加载用户信息' }));
     task.then(value => {
-      this.setGlobalMessage();
+      dispatchEvent(new CustomEvent('duang::notify', { detail: '用户信息加载完毕' }));
       window.session = value;
     }, reason => {
-      this.setGlobalMessage();
       let response = reason && reason[Symbol.for('response')] || {};
       if (response.status === 401 || reason.name === 'UNAUTHORIZED') {
         location.href = api.resolvePath(new Function('return `' + config.session.signin + '`')());
       } else if (response.status !== 200) {
+        dispatchEvent(new CustomEvent('duang::fatal', { detail: '用户信息加载失败' }));
         throw Error('用户信息加载失败');
       }
     });
     return task;
   }
 
-  static setGlobalMessage(message, animation) {
-    if (message) {
-      document.body.style.setProperty('--global-message', JSON.stringify(message));
-      if (animation) {
-        document.body.style.setProperty('--global-message-animation', 'body-busy');
-      } else {
-        document.body.style.removeProperty('--global-message-animation');
-      }
-    } else {
-      document.body.style.removeProperty('--global-message');
-      document.body.style.removeProperty('--global-message-animation');
-    }
-  }
-
   onRouteChange() {
     return this.constructor.waitUntilReady().then(() => {
+      dispatchEvent(new CustomEvent('duang::notify', { detail: '正在加载并渲染框架控件' }));
       Object.defineProperty(this, Symbol.for('cache'), { configurable: true, value: {} });
       let moduleName = String(this.module);
       if (!/\W/.test(moduleName)) moduleName = 'MainWith' + moduleName.replace(/./, $0 => $0.toUpperCase());
@@ -108,10 +115,8 @@ var depot = new class { // eslint-disable-line no-unused-vars
         delete this._autoRefreshTimer;
       }
       return tasks;
-    }, error => {
-      alert(error.message);
-      throw error;
     }).then(([ Frame, Main ]) => {
+      dispatchEvent(new CustomEvent('duang::done'));
       if (!this.moduleComponent) this.moduleComponent = new Frame().to(document.body);
       this.moduleComponent.main = new Main({ depot: this });
       let { autoRefresh } = this.scheme || {};
@@ -121,6 +126,10 @@ var depot = new class { // eslint-disable-line no-unused-vars
           delete this._autoRefreshTimer;
         }, autoRefresh * 1000);
       }
+    }, error => {
+      dispatchEvent(new CustomEvent('duang::fatal', { detail: '框架组件加载失败' }));
+      alert(error.message);
+      setTimeout(() => { throw error; });
     });
   }
 
