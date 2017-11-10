@@ -305,7 +305,8 @@ def((Output, Item, TableRowActions, Caption) => {
         :scope {
           margin: 1em;
           width: calc(100% - 2em);
-          overflow: hidden;
+          overflow-x: auto;
+          overflow-y: hidden;
           border: 1px solid #e0e6ed;
           box-sizing: border-box;
           &:empty { display: none; }
