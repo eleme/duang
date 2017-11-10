@@ -1,13 +1,58 @@
 def((Button, Confirm, ErrorDialog) => {
 
   class OperationsItem extends Button {
+    get styleSheet() {
+      return `
+        :scope {
+          display: inline-block;
+          vertical-align: top;
+          margin-left: 1em;
+          min-width: 64px;
+          min-height: 32px;
+          &:first-child {
+            margin-left: 0;
+          }
+        }
+      `;
+    }
+  }
+
+  class FilterToggle extends OperationsItem {
+    init() {
+      this.updateState();
+    }
+    updateState() {
+      let { params } = this.depot;
+      let { filterState } = params;
+      this.text = { folded: '展开筛选栏', unfolded: '折叠筛选栏' }[filterState];
+      this.element.classList[filterState === 'folded' ? 'remove' : 'add']('hollow');
+    }
+    onClick() {
+      let { params } = this.depot;
+      params.filterState = { folded: 'unfolded', unfolded: 'folded' }[params.filterState];
+      this.updateState();
+      let args = Object.assign(this.depot.uParams, { params });
+      this.depot.go({ args, target: 'soft' });
+      this.element.dispatchEvent(new CustomEvent('filtertoggle', { bubbles: true }));
+    }
+  }
+
+  class OperationsButton extends OperationsItem {
     init() {
       this.text = this.title;
     }
     onClick() {
       this.confirm ? Confirm.popup(this.confirm, this.depot).then(result => result && this.exec()) : this.exec();
     }
-    get exec() { return this[this.method + 'Action'] || this.defaultAction; }
+    get exec() {
+      switch (this.method) {
+        case 'go': return this.goAction;
+        case 'create': return this.createAction;
+        case 'open': return this.openAction;
+        case void 0: case '': return () => {}; // noop
+        default: return this.defaultAction;
+      }
+    }
     goAction() {
       let { module, key, params, _blank, target, title, depot } = this;
       let { scheme, where } = depot;
@@ -43,20 +88,6 @@ def((Button, Confirm, ErrorDialog) => {
         ErrorDialog.popup({ error });
       });
     }
-    get styleSheet() {
-      return `
-        :scope {
-          display: inline-block;
-          vertical-align: top;
-          margin-left: 1em;
-          min-width: 64px;
-          min-height: 32px;
-          &:first-child {
-            margin-left: 0;
-          }
-        }
-      `;
-    }
   }
 
   return class extends Jinkela {
@@ -68,18 +99,22 @@ def((Button, Confirm, ErrorDialog) => {
           overflow: hidden;
           flex: 1;
           padding-bottom: 1em;
+          &:empty { display: none; }
         }
       `;
     }
 
     init() {
       let { depot } = this;
-      let { scheme } = depot;
+      let { scheme, params } = depot;
       let { operations } = scheme;
       if (!(operations instanceof Array)) operations = [];
+      // 检查操作权限
       operations = operations.filter(item => this.checkPermissions(item));
-      OperationsItem.cast(operations, { depot }).to(this);
-      if (!operations.length) this.element.style.display = 'none';
+      // 筛选器控制按钮
+      if (params.filterState === 'folded' || params.filterState === 'unfolded') new FilterToggle({ depot }).to(this);
+      // 渲染
+      OperationsButton.from(operations.map(data => Object.assign({ depot }, data))).to(this);
     }
 
     checkPermissions(item) {

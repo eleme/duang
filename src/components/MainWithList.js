@@ -10,12 +10,12 @@ def((Output, ListFlex, ListOperations, ListHeaders, ListFilters, Table, TableTip
 
   get template() {
     return `
-      <div>
+      <div on-filtertoggle="{filterToggle}">
         <jkl-list-flex>
           <jkl-list-headers depot="{depot}"></jkl-list-headers>
           <jkl-list-operations depot="{depot}"></jkl-list-operations>
         </jkl-list-flex>
-        <jkl-list-flex>
+        <jkl-list-flex ref="filterContainer" hidden-default="{isFilterHiddenDefault}">
           <jkl-list-filters depot="{depot}"></jkl-list-filters>
         </jkl-list-flex>
         <jkl-table if="{list}" depot="{depot}" data="{list}" ref="table"></jkl-table>
@@ -40,6 +40,10 @@ def((Output, ListFlex, ListOperations, ListHeaders, ListFilters, Table, TableTip
 
   get count() { return this.$count; }
 
+  filterToggle() {
+    this.filterContainer.toggle();
+  }
+
   loadData() {
     let { queryParams, resolvedKey } = this.depot;
     return api(resolvedKey + '?' + queryParams);
@@ -58,6 +62,8 @@ def((Output, ListFlex, ListOperations, ListHeaders, ListFilters, Table, TableTip
 
   beforeParse(params) {
     this.depot = params.depot || depot;
+    let { scheme } = this.depot;
+    this.isFilterHiddenDefault = this.depot.params.filterState === 'folded';
   }
 
   init() {

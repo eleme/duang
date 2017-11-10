@@ -225,6 +225,8 @@ var depot = new class { // eslint-disable-line no-unused-vars
         } catch (error) {
           return console.error(error); // eslint-disable-line
         }
+      case 'soft':
+        return history.pushState(null, null, location.href.replace(/(#.*)?$/, '#!' + uParams));
       case 'replace':
         return location.replace(location.href.replace(/(#.*)?$/, '#!' + uParams));
       default:

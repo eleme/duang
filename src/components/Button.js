@@ -74,6 +74,15 @@ def((Item) => class extends Item {
           border-color: #d3dce6;
           &:hover { opacity: 1; }
         }
+        &.hollow {
+          background-color: transparent;
+          border-color: #c0ccda;
+          color: #1f2d3d;
+          &:not([disabled]):hover {
+            color: #20a0ff;
+            border-color: #20a0ff;
+          }
+        }
       }
       @keyframes button-busy {
         0% { content: '·'; }
