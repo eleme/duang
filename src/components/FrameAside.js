@@ -84,9 +84,12 @@ def((FrameAsideMenu) => {
     }
     get Toggle() { return Toggle; }
     get Container() { return Container; }
+    click(event) {
+      event.xIsFromAside = true;
+    }
     get template() {
       return `
-        <div>
+        <div on-click="{click}">
           <jkl-toggle if="{noToggle}"></jkl-toggle>
           <jkl-container></jkl-container>
         </div>
@@ -96,7 +99,6 @@ def((FrameAsideMenu) => {
       return `
         .folded :scope { width: 50px; }
         :scope {
-          height: 100%;
           background: #324057;
           color: #fff;
           width: 230px;
@@ -104,6 +106,16 @@ def((FrameAsideMenu) => {
           flex: 1;
           display: flex;
           flex-direction: column;
+        }
+        @media (max-width: 600px) {
+          .show-as-slide :scope { margin-left: 0; }
+          :scope {
+            transition: margin-left 200ms ease;
+            margin-left: -250px;
+            padding-top: 50px;
+            height: 100%;
+            box-shadow: 0 0 12px rgba(0,0,0,0.7);
+          }
         }
       `;
     }

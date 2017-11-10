@@ -105,6 +105,13 @@ def((Item) => {
             overflow: hidden;
           }
         }
+        @media (max-width: 600px) {
+          :scope {
+            margin: 0 0 1em 0;
+            display: block;
+            width: auto;
+          }
+        }
       `;
     }
   }

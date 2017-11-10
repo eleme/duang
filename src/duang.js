@@ -87,14 +87,14 @@
       ),
       w`https://shadow.elemecdn.com/gh/codemirror/CodeMirror@5.19.0/mode/yaml/yaml.min.js,/gh/codemirror/CodeMirror@5.19.0/mode/markdown/markdown.min.js`,
       w`https://shadow.elemecdn.com/gh/requirejs/requirejs@2.2.0/require.min.js`,
-      w`utils/depot.js`,
+      w`utils/depot.js`
     ]
   );
 
   load().then(() => {
-    dispatchEvent(new CustomEvent('duang::notify', { detail: `静态资源加载完毕` }));
+    dispatchEvent(new CustomEvent('duang::notify', { detail: '静态资源加载完毕' }));
   }, error => {
-    dispatchEvent(new CustomEvent('duang::fatal', { detail: `静态资源加载失败` }));
+    dispatchEvent(new CustomEvent('duang::fatal', { detail: '静态资源加载失败' }));
     setTimeout(() => { throw error; });
   });
 

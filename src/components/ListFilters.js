@@ -177,7 +177,8 @@ def((Input, Output, Item, Button, ButtonHollow) => {
           flex: 1;
           text-align: left;
           margin-bottom: 1em;
-          overflow: hidden;
+          overflow-x: auto;
+          overflow-y: hidden;
           padding: var(--spacing);
           border: 1px solid #e0e6ed;
           border-radius: 4px;
