@@ -1,6 +1,6 @@
 {
   "key": "the-list-data.json?1",
-  "title": "列表 - 神奇的选择器",
+  "title": "列表 - 神奇的筛选器",
   "noWhere": "<b>请先选择筛选条件</b>",
   "filters": [
     {
@@ -11,6 +11,11 @@
         "@options": "../string-map-abcd.json",
         "defaultValue": [ "a", "b" ]
       }
+    },
+    {
+      "title": "DateTime",
+      "key": "f2",
+      "component": "DateTime"
     }
   ],
   "fields": [
