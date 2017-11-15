@@ -5,6 +5,8 @@ def((PureDialog) => class extends Jinkela {
   init() {
     if (this.src) {
       let img = new Image();
+      if (this.maxWidth) img.style.setProperty('max-width', this.maxWidth);
+      if (this.maxHeight) img.style.setProperty('max-height', this.maxHeight);
       img.src = this.src;
       img.addEventListener('click', event => {
         event.preventDefault();
