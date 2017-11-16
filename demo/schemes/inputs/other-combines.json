@@ -63,6 +63,38 @@
           }
         }
       }
+    },
+
+    {
+      "title": "列表嵌组合选择",
+      "component": "Grouping",
+      "args": {
+        "mode": "line",
+        "inputs": [
+          { "component": "OutputHTML", "args": { "html": "呵呵" } },
+          {
+            "component": "Forest", 
+            "key": "cascader4", 
+            "title": "树林",
+            "args": {
+              "options": [
+                { "a": 1, "c": "item 1" },
+                { "a": 2, "b": 1, "c": "item 2" },
+                { "a": 1, "c": "item 1" },
+                { "a": 2, "c": "item 2" },
+                { "a": 3, "c": "item 3" },
+                { "a": 4, "c": "item 4" },
+                { "a": 5, "c": "item 5" }
+              ],
+              "defaultValue": [ 1 ],
+              "idAlias": "a",
+              "parentIdAlias": "b",
+              "textAlias": "c"
+            }
+          }
+        ]
+      }
     }
+
   ]
 }

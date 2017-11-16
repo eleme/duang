@@ -13,6 +13,7 @@ def(() => {
     get styleSheet() {
       return `
         :scope {
+          white-space: normal;
           > input { height: 28px; }
         }
       `;
