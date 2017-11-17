@@ -13,9 +13,16 @@ def((Output, Button, ButtonHollow) => class extends Jinkela {
     Output.createAny(this.text).to(this.h5);
     if (this.onYes.action) this.onYes = doAction.bind(null, this.onYes, this.depot);
     if (this.onCancel.action) this.onCancel = doAction.bind(null, this.onCancel, this.depot);
-    let onYes = () => this.resolve(Promise.resolve().then(this.onYes));
-    let onCancel = () => this.resolve(Promise.resolve().then(this.onCancel));
-
+    let onYes = () => {
+      let promise = Promise.resolve().then(this.onYes);
+      this.resolve(promise);
+      return promise;
+    };
+    let onCancel = () => {
+      let promise = Promise.resolve().then(this.onCancel);
+      this.resolve(promise);
+      return promise;
+    };
     if (!this.yes) this.yes = '是的';
     this.yes = typeof this.yes === 'string' ? { text: this.yes } : this.yes;
     this.theYesButton = this.yesButton = new Button(this.yes, { onClick: onYes });
