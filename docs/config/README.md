@@ -77,14 +77,17 @@
 
 ## Scheme
 
-如果 Scheme 是一个字符串，那么会将这个字符串作为 api 的路径，调用这个 api 来获取 Scheme
+一个 Scheme 可以理解为对一张表的一组操作集合，也可以理解为页面左侧菜单的一个项。
+
+如果 Scheme 是一个字符串，那么会将这个字符串作为 api 的路径，调用这个 api 来获取 Scheme。
 
 参数描述
 
 | 名称 | 类型 | 描述 |
 | ---- | ---- | ---- |
-| key | String | 表对应的接口 |
-| title | String | 表显示的名称 |
+| key | String | 对应的 api（需要唯一） |
+| title | String | 菜单项上的文字（用「-」分隔可以自动聚合成二级菜单） |
+| module | String | Scheme 打开时使用的模块（默认是 list） |
 | href | String | 如果设置了 href，该选项会忽略其他配置，直接变成超链接，target 也会变成超链接的打开方式 |
 | target | String | 当前菜单项的打开方式，如果设置了 href 则表示超链接的打开方式 |
 | icon | String | 图标的 URL |
@@ -97,6 +100,18 @@
 | listSelector | Boolean | 列表项是否允许选择，默认不允许 |
 | noSubmit | Boolean | 在编辑页隐藏提交按钮 |
 
+### Scheme::module
+
+默认是 `list`，这意味着用户点击菜单项时默认使用列表页的模板来渲染这个 `Scheme`。
+
+某些操作可以修改页面的 `module`，比如一个 `method` 为 `edit` 的 `Action` 被点击时会将当前页面的 `module` 改成 `editor`。
+对用户的感受就是点击「编辑」按钮时进入编辑页。
+
+除了 `list` 和 `editor` 外，还自带了 `custom` 模板来嵌入外部页面（因为 Duang 不能满足所有需求，特殊页面需要外嵌）。
+
+`custom` 的行为是将 `params` 里的 `href` 以 iframe 的形式作为页面内容。
+
+ 
 ### Scheme::operations
 
 一个 `Action` 类型的数组，配置表级别的操作，比如新增，清空
