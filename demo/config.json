@@ -6,6 +6,8 @@
   ],
   "schemes": [
 
+    { "key": "doc", "title": "文档", "module": "Custom", "params": { "href": "https://eleme.github.io/duang/docs/" } },
+
     "schemes/caption.json",
     "schemes/the-form.json",
     "schemes/hidden.json",
