@@ -28,7 +28,7 @@ FCeptor.get(/\/pager-list-data\.json\/count(\?.*)?$/, ctx => {
 });
 FCeptor.post(/^/, ctx => {
   let headers = { 'Content-Type': 'application/json' };
-  let body = { name: 'HEHE_ERROR', title: 'POST 请求已拦截', message: '' };
+  let body = { name: 'HEHE_ERROR', title: `请求已拦截`, message: '' };
   let reqMime = ctx.request.headers.get('Content-Type');
   let key;
   switch (true) {
@@ -42,10 +42,11 @@ FCeptor.post(/^/, ctx => {
       key = 'blob';
   }
   return ctx.request[key]().then(data => {
+    body.message = `<code>POST ${ctx.request.url}</code><br/><br/>`;
     if (key === 'json') {
-      body.message = `<pre style="font-size:12px;">${JSON.stringify(data,null,2)}</pre>`;
+      body.message += `<pre style="font-size:12px;">${JSON.stringify(data,null,2)}</pre>`;
     } else {
-      body.message = key;
+      body.message += key;
       // ctx.response = new Response(JSON.stringify('../logo.png'), { status: 200, headers });
       // return false;
     }
