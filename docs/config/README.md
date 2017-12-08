@@ -98,6 +98,7 @@
 | require | Array | scheme 出现在首页需要的权限 |
 | hidden | Boolean | scheme 是否在首页展示 |
 | listSelector | Boolean | 列表项是否允许选择，默认不允许 |
+| noWhere | String | 进入列表时不发起查询，以这个字符串提示用户 |
 | noSubmit | Boolean | 在编辑页隐藏提交按钮 |
 
 ### Scheme::module
