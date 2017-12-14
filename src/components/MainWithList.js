@@ -63,6 +63,7 @@ def((Output, ListFlex, ListOperations, ListHeaders, ListFilters, Table, TableTip
   beforeParse(params) {
     this.depot = params.depot || depot;
     let { scheme } = this.depot;
+    void scheme;
     this.isFilterHiddenDefault = this.depot.params.filterState === 'folded';
   }
 

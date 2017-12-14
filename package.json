@@ -22,6 +22,7 @@
   "homepage": "https://github.com/eleme/duang#readme",
   "devDependencies": {
     "babel-eslint": "^7.2.3",
+    "eslint": "^4.13.1",
     "eslint-config-elemefe": "^0.3.0"
   }
 }

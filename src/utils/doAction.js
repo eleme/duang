@@ -12,10 +12,10 @@ const doAction = (data, depot = window.depot) => {
     case 'delete':
     case 'post':
     case 'patch':
-      {
-        let body = JSON.stringify(args.body);
-        return api([ depot.key, args.key ], { method: action, body }).then(result => doAction(result, depot));
-      }
+    {
+      let body = JSON.stringify(args.body);
+      return api([ depot.key, args.key ], { method: action, body }).then(result => doAction(result, depot));
+    }
     case 'reject': return Promise.reject(args);
     case 'resolve': return Promise.resolve(args);
   }

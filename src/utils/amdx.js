@@ -17,6 +17,7 @@ const req = dep => {
   if (url in req.cache) return req.cache[url];
   req.cache[url] = new Promise((resolve, reject) => { // eslint-disable-line no-unused-vars
     require([ url ], resolve, error => {
+      void error;
       reject(new Error(`组件 <${dep}> 未找到`));
     });
   });

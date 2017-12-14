@@ -37,8 +37,8 @@ var depot = new class { // eslint-disable-line no-unused-vars
     }).then(value => {
       Object.defineProperty(this.prototype, 'session', { configurable: true, value });
     }).catch(error => {
-      setTimeout(error => { throw error; });
-      return new Promise(resolve => {});
+      setTimeout(() => { throw error; });
+      return new Promise(() => {});
     });
     Object.defineProperty(this, 'waitUntilReady', { configurable: true, value: () => promise });
     return promise;

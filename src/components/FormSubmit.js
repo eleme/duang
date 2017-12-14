@@ -1,11 +1,14 @@
 def((Button, ButtonHollow, ErrorDialog) => {
 
   return class extends Jinkela {
+
     beforeParse() {
       this.submit = this.submit.bind(this);
     }
+
     get Button() { return Button; }
     get ButtonHollow() { return ButtonHollow; }
+
     get template() {
       return `
         <div>
@@ -14,6 +17,7 @@ def((Button, ButtonHollow, ErrorDialog) => {
         </div>
       `;
     }
+
     back() {
       if (dialog.element.contains(this.element)) {
         dialog.cancel();
@@ -21,6 +25,7 @@ def((Button, ButtonHollow, ErrorDialog) => {
         history.back();
       }
     }
+
     submit() {
       this.backComponent.busy = true;
       let { form, depot } = this;
@@ -50,6 +55,7 @@ def((Button, ButtonHollow, ErrorDialog) => {
         this.backComponent.busy = false;
       });
     }
+
     get styleSheet() {
       return `
         :scope {
@@ -60,6 +66,7 @@ def((Button, ButtonHollow, ErrorDialog) => {
         }
       `;
     }
+
   };
 
 });
