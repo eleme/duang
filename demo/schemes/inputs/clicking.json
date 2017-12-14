@@ -2,6 +2,7 @@
   "key": "点选类控件",
   "title": "各种控件 - 点选类控件",
   "module": "editor",
+  "noSubmit": true,
   "inputs": [
     { "key": "select1", "component": "Select", "title": "下拉", "args": { "options": { "1": "one", "2": "two" } } },
     { "key": "select2", "component": "Select", "title": "下拉", "args": { "options": { "1": "one", "2": "two" }, "defaultValue": "2" } },

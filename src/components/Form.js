@@ -118,7 +118,7 @@ def((FormSubmit, FormItemWithTable, Alert) => class extends Jinkela {
         </div>
         <div if-not="{hasReady}">加载中...</div>
         <h3 if-not="{listLength}">并没有什么东西可以编辑</h3>
-        <jkl-form-submit nosubmit="{noSubmit}" depot="{depot}" form="{form}"></jkl-form-submit>
+        <jkl-form-submit nosubmit="{nosubmit}" depot="{depot}" form="{form}"></jkl-form-submit>
       </div>
     `;
   }
