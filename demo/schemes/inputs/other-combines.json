@@ -42,6 +42,10 @@
         "component": "Grouping",
         "args": {
           "mode": "line",
+          "style": {
+            "padding": "1em",
+            "background": "#f0f0f0"
+          },
           "inputs": [
             {
               "component": "Grouping",

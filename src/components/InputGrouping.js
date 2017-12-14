@@ -15,6 +15,7 @@ def((SubGroupMap) => class extends Jinkela {
       this.element.style.columns = this.columns;
     }
     if (!this.$hasValue) this.value = void 0;
+    if (this.style) Object.assign(this.element.style, this.style);
   }
 
   get value() {

@@ -157,6 +157,7 @@ Input::Boolean::text
 | ------------ | ----------------------- | ------------------------ | -------------- |
 | inputs       | `Array<Input>`          | 必选参数                 | 默认文本       |
 | mode         | `String`                | "table"                  | 显示模式       |
+| style        | `Object<String>`        | 空                       | 附加 CSS 样式  |
 
 mode 目前支持两种取值，"line" 和 "table"，分别表示单行显示和表格显示。
 
@@ -167,6 +168,7 @@ mode 目前支持两种取值，"line" 和 "table"，分别表示单行显示和
   "component": "Grouping",
   "args": {
     "mode": "line",
+    "style": { "color": "red" },
     "inputs": [
       { "component": "String", "key": "name", "title": "名称" },
       { "component": "String", "key": "title", "title": "标题" }
