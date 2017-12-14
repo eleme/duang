@@ -9,7 +9,8 @@ def((Input, Output) => {
     }
 
     get input() {
-      let { component, args } = this;
+      let { component, args, readonly } = this;
+      args = Object.assign({ readonly }, args);
       let value = new Input({ component, args });
       Object.defineProperty(this, 'input', { configurable: true, value });
       return value;
@@ -20,6 +21,7 @@ def((Input, Output) => {
 
     init() {
       let { before, after } = this;
+      if (this.readonly) this.element.setAttribute('readonly', 'readonly');
       if (before) {
         Output.createAny(before).to(this);
         this.element.classList.add('has-before');
@@ -44,6 +46,12 @@ def((Input, Output) => {
             height: 28px;
             font-size: 12px;
             line-height: 28px;
+          }
+          &[readonly] > :not(.input) {
+            background-color: #eff2f7;
+            border-color: #d3dce6;
+            color: #bbb;
+            cursor: not-allowed;
           }
           &.has-before {
             > .input input {
