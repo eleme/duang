@@ -2,29 +2,120 @@
   "key": "键盘输入类控件",
   "title": "各种控件 - 键盘输入类控件",
   "module": "editor",
+
   "inputs": [
-    { "key": "string1", "component": "String", "title": "单行文本" },
-    { "key": "string2", "component": "String", "title": "单行文本", "args": { "defaultValue": "hehe" } },
-    { "key": "text1", "component": "Text", "title": "多行文本" },
-    { "key": "text1", "component": "Text", "title": "多行文本", "args": { "defaultValue": "hehe\nhehe" } },
-    { "key": "textAround1", "component": "TextAround", "title": "文字环绕", "args": { "component": "String", "before": "总计", "after": "吨" } },
+
     {
-      "key": "textAround2", "component": "TextAround", "title": "文字环绕",
-      "args": { "component": "String", "args": { "width": 50 }, "before": "总计" }
+      "component": "Grouping",
+      "squash": "direct",
+      "title": "<b>单行文本</b>",
+      "args": {
+        "inputs": [
+          { "key": "string1", "component": "String", "title": "普通" },
+          { "key": "string2", "component": "String", "title": "带默认值", "args": { "defaultValue": "hehe" } }
+        ]
+      }
     },
-    { "key": "textAround3", "component": "TextAround", "title": "文字环绕", "args": { "component": "String", "after": "公斤" } },
-    { "key": "textAround3", "component": "TextAround", "title": "文字环绕", "args": { "component": "Number", "after": "克" } },
-    { "key": "number1", "component": "Number", "title": "数值" },
-    { "key": "number2", "component": "Number", "title": "数值", "args": { "defaultValue": "123.456" } },
-    { "key": "number3", "component": "Number", "title": "数值", "args": { "defaultValue": "a" } },
-    { "key": "number4", "component": "Number", "title": "数值", "args": { "defaultValue": "" } },
-    { "key": "number5", "component": "Number", "title": "数值", "args": { "defaultValue": "3.1415926", "decimal": 2 } },
-    { "key": "number6", "component": "Number", "title": "数值", "args": { "defaultValue": "3.1415926", "decimal": 0 } },
-    { "key": "password1", "component": "Password", "title": "密码" },
-    { "key": "password2", "component": "Password", "title": "密码", "args": { "defaultValue": "hehe" } },
-    { "key": "md1", "component": "Markdown", "title": "MD" },
-    { "key": "md2", "component": "Markdown", "title": "MD", "args": { "defaultValue": "# hehe" } },
-    { "key": "code1", "component": "Code", "title": "代码" },
-    { "key": "code2", "component": "Code", "title": "代码", "args": { "defaultValue": "console.log('hehe');", "mode": "javascript" } }
+
+    {
+      "component": "Grouping",
+      "squash": "direct",
+      "title": "<b>多行文本</b>",
+      "args": {
+        "inputs": [
+          { "key": "text1", "component": "Text", "title": "多行文本" },
+          { "key": "text1", "component": "Text", "title": "多行文本", "args": { "defaultValue": "hehe\nhehe" } }
+        ]
+      }
+    },
+
+    {
+      "component": "Grouping",
+      "squash": "direct",
+      "title": "<b>文字环绕</b>",
+      "args": {
+        "inputs": [
+          {
+            "key": "textAround1", "component": "TextAround", "title": "双标签",
+            "args": { "component": "String", "before": "总计", "after": "吨" }
+          },
+          {
+            "key": "textAround2", "component": "TextAround", "title": "前标记，带宽度",
+            "args": { "component": "String", "args": { "width": 50 }, "before": "总计" }
+          },
+          {
+            "key": "textAround3", "component": "TextAround", "title": "后标记",
+            "args": { "component": "String", "after": "公斤" }
+          },
+          {
+            "key": "textAround3", "component": "TextAround", "title": "数字",
+            "args": { "component": "Number", "after": "克" }
+          }
+        ]
+      }
+    },
+
+    {
+      "component": "Grouping",
+      "squash": "direct",
+      "title": "<b>数值</b>",
+      "args": {
+        "inputs": [
+          { "key": "number1", "component": "Number", "title": "正常" },
+          { "key": "number2", "component": "Number", "title": "默认值", "args": { "defaultValue": "123.456" } },
+          { "key": "number3", "component": "Number", "title": "非数字", "args": { "defaultValue": "a" } },
+          { "key": "number4", "component": "Number", "title": "空默认值", "args": { "defaultValue": "" } },
+          {
+            "key": "number5", "component": "Number", "title": "保留两位",
+            "args": { "defaultValue": "3.1415926", "decimal": 2 }
+          },
+          {
+            "key": "number6", "component": "Number", "title": "保留整数",
+            "args": { "defaultValue": "3.1415926", "decimal": 0 }
+          }
+        ]
+      }
+    },
+
+    {
+      "component": "Grouping",
+      "squash": "direct",
+      "title": "<b>密码</b>",
+      "args": {
+        "inputs": [
+          { "key": "password1", "component": "Password", "title": "正常" },
+          { "key": "password2", "component": "Password", "title": "默认值", "args": { "defaultValue": "hehe" } }
+        ]
+      }
+    },
+
+    {
+      "component": "Grouping",
+      "squash": "direct",
+      "title": "<b>Markdown</b>",
+      "args": {
+        "inputs": [
+          { "key": "md1", "component": "Markdown", "title": "正常" },
+          { "key": "md2", "component": "Markdown", "title": "默认值", "args": { "defaultValue": "# hehe" } }
+        ]
+      }
+    },
+
+    {
+      "component": "Grouping",
+      "squash": "direct",
+      "title": "<b>代码</b>",
+      "args": {
+        "inputs": [
+          { "key": "code1", "component": "Code", "title": "正常" },
+          {
+            "key": "code2", "component": "Code", "title": "默认值",
+            "args": { "defaultValue": "console.log('hehe');", "mode": "javascript" }
+          }
+        ]
+      }
+    }
+
   ]
+
 }
