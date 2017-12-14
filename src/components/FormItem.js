@@ -45,6 +45,7 @@ def((Item, Input, Output) => {
         this.desc.style.display = 'none';
       }
     }
+
     createInput() {
       let { component, args, depot } = this;
       return new Input({ component, args, depot });

@@ -36,6 +36,30 @@
       }
     },
     {
+      "component": "List",
+      "args": {
+        "defaultValue": [ "hehe" ],
+        "component": "Grouping",
+        "args": {
+          "mode": "line",
+          "inputs": [
+            {
+              "component": "Grouping",
+              "args": {
+                "mode": "line",
+                "inputs": [
+                  { "args": { "html": "hehe" }, "component": "OutputHTML" },
+                  { "args": { "width": 100 }, "component": "String" },
+                  { "args": { "width": 100 }, "component": "String" }
+                ]
+              }
+            },
+            { "args": { "width": 100 }, "component": "String", "title": "String" }
+          ]
+        }
+      }
+    },
+    {
       "title": "列表嵌组合选择",
       "component": "List",
       "args": {
