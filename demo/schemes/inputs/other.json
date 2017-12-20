@@ -64,6 +64,10 @@
           {
             "key": "tagCollector5", "component": "TagCollector", "title": "Placeholder",
             "args": { "api": "../empty-list.json", "placeholder": "placeholder" }
+          },
+          {
+            "key": "tagCollector6", "component": "TagCollector", "title": "api 带参数",
+            "args": { "api": "../empty-list.json?hehe=123" }
           }
         ]
       }

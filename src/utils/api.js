@@ -59,7 +59,8 @@
       return (path, options) => {
         let url = this.resolvePath(path);
         if (options && 'query' in options) {
-          url += '?' + Object.keys(options.query).map(key => {
+          url += ~url.indexOf('?') ? '&' : '?';
+          url += Object.keys(options.query).map(key => {
             return `${encodeURIComponent(key)}=${encodeURIComponent(JSON.stringify(options.query[key]))}`;
           }).join('&');
         }
