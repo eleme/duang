@@ -1,6 +1,7 @@
 def(() => class extends Jinkela {
   init() {
-    let { value, format = '$Y-$M-$D', offset } = this;
+    let { value, format = '$Y-$M-$D', offset, UNIX_TIMESTAMP = false } = this;
+    if (UNIX_TIMESTAMP) value *= 1000;
     value = new Date(value);
     if (offset) value = new Date(value.getTime() + offset);
     const lz = date => (date + '').replace(/\b\d\b/g, '0$&');
