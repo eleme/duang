@@ -5,6 +5,7 @@ require.config({
 });
 
 def(() => class extends Jinkela {
+
   init() {
     if (!this.mode) {
       this.mode = 'markdown';
@@ -41,34 +42,42 @@ def(() => class extends Jinkela {
     this.element.addEventListener('click', () => this.focus());
     if (!this.$hasValue) this.value = void 0;
   }
+
   enable() {
     return this.task.then(editor => {
       editor.setOption('readOnly', false);
       this.element.classList.remove('readonly');
     });
   }
+
   disable() {
     return this.task.then(editor => {
       editor.setOption('readOnly', true);
       this.element.classList.add('readonly');
     });
   }
+
   on(...args) {
     return this.task.then(editor => editor.on(...args));
   }
+
   execCommand(...args) {
     return this.task.then(editor => editor.execCommand(...args));
   }
+
   focus() {
     return this.task.then(editor => editor.focus());
   }
+
   refresh() {
     if (!document.body.contains(this.element)) return setTimeout(() => this.refresh(), 16);
     return Promise.resolve(this.task).then(obj => obj.refresh());
   }
+
   get value() {
     return this.$editor ? this.$editor.getValue() : '';
   }
+
   set value(value = this.defaultValue) {
     if (value == null || value === '') return; // eslint-disable-line eqeqeq
     if (value instanceof Object) {
@@ -79,6 +88,7 @@ def(() => class extends Jinkela {
       this.refresh();
     });
   }
+
   get styleSheet() {
     return `
       :scope {
@@ -90,13 +100,15 @@ def(() => class extends Jinkela {
         &.focus { border-color: #20a0ff; }
         --width: 600px;
         --height: auto;
+        --min-height: 200px;
+        --monospace: 'Roboto Mono', Monaco, courier, monospace;
         .CodeMirror {
           border-radius: 5px;
           font-family: var(--monospace);
           font-size: 12px;
           width: var(--width);
           height: var(--height);
-          min-height: 200px;
+          min-height: var(--min-height);
         }
         &.readonly {
           .CodeMirror-cursor {
@@ -128,8 +140,31 @@ def(() => class extends Jinkela {
           box-sizing: border-box;
           opacity: .5;
         }
+        &:empty::before {
+          display: block;
+          padding: .5em 1em;
+          content: '代码渲染中 ···';
+        }
       }
     `;
   }
-});
 
+  get minHeight() { return this.$minHeight; }
+  set minHeight(value) {
+    Object.defineProperty(this, '$minHeight', { configurable: true, value });
+    this.element.style.setProperty('--min-height', value);
+  }
+
+  get height() { return this.$height; }
+  set height(value) {
+    Object.defineProperty(this, '$height', { configurable: true, value });
+    this.element.style.setProperty('--height', value);
+  }
+
+  get width() { return this.$width; }
+  set width(value) {
+    Object.defineProperty(this, '$width', { configurable: true, value });
+    this.element.style.setProperty('--width', value);
+  }
+
+});
