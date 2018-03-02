@@ -1,7 +1,7 @@
 def((SubGroupMap) => class extends Jinkela {
 
   init() {
-    let { depot, inputs, readonly, mode = 'table' } = this;
+    let { depot = window.depot, inputs, readonly, mode = 'table' } = this;
     let group = inputs || [];
     if (group.length) {
       let list = new SubGroupMap({ group, depot, readonly, mode });
