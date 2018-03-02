@@ -1,5 +1,6 @@
 def(() => class extends Jinkela {
-  init() {
+
+  update() {
     let { value, format = '$Y-$M-$D', offset } = this;
     value = new Date(value);
     if (offset) value = new Date(value.getTime() + offset);
@@ -16,4 +17,23 @@ def(() => class extends Jinkela {
       }
     });
   }
+
+  get format() { return this.$format; }
+  set format(value) {
+    Object.defineProperty(this, '$format', { configurable: true, value });
+    this.update();
+  }
+
+  get format() { return this.$format; }
+  set format(value) {
+    Object.defineProperty(this, '$format', { configurable: true, value });
+    this.update();
+  }
+
+  get value() { return this.$value; }
+  set value(value) {
+    Object.defineProperty(this, '$value', { configurable: true, value });
+    this.update();
+  }
+
 });
