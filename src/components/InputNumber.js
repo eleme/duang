@@ -40,7 +40,7 @@ def(() => class extends Jinkela {
         border: 1px solid #C0CCDA;
         border-radius: 5px;
         padding: .4em .5em;
-        min-width: 120px;
+        width: 120px;
         height: 28px;
         font-size: 12px;
         line-height: 28px;
