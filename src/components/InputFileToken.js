@@ -31,7 +31,9 @@ def((Button, ErrorDialog, PureDialog) => {
     get template() { return '<a target="_blank" href="javascript:" on-click="{click}"><img ref="img" /></a>'; }
     set token(token) {
       if (token) {
-        fetch(api.resolvePath([ this.api, token ]), { credentials: 'include' }).then(response => response.blob()).then(result => {
+        fetch(api.resolvePath([ this.api, encodeURIComponent(token) ]), {
+          credentials: 'include'
+        }).then(response => response.blob()).then(result => {
           let url = URL.createObjectURL(result);
           this.element.style.display = 'inline-block';
           this.element.href = url;
