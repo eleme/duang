@@ -30,26 +30,31 @@ def((Button, ButtonHollow, ErrorDialog) => {
       this.backComponent.busy = true;
       let { form, depot } = this;
       let { id, resolvedKey } = depot;
-      let value = JSON.stringify(form.value);
-      let $result;
-      if (id) {
-        $result = api([ resolvedKey, id ], { method: 'PUT', body: value });
-      } else {
-        $result = api(resolvedKey, { method: 'POST', body: value });
-      }
-      return $result.then(result => doAction(result, depot)).then(() => {
-        if (window.depot.module === 'editor') {
-          if (history.length > 1) {
-            history.back();
-          } else {
-            if (opener) opener.depot.refresh();
-            close();
-          }
+      let task;
+      try {
+        let value = JSON.stringify(form.value);
+        if (id) {
+          task = api([ resolvedKey, id ], { method: 'PUT', body: value });
         } else {
-          dialog.cancel();
-          window.depot.refresh();
+          task = api(resolvedKey, { method: 'POST', body: value });
         }
-      }, error => {
+        task = task.then(result => doAction(result, depot)).then(() => {
+          if (window.depot.module === 'editor') {
+            if (history.length > 1) {
+              history.back();
+            } else {
+              if (opener) opener.depot.refresh();
+              close();
+            }
+          } else {
+            dialog.cancel();
+            window.depot.refresh();
+          }
+        });
+      } catch (error) {
+        task = Promise.reject(error);
+      }
+      task.catch(error => {
         if (error) ErrorDialog.popup({ error });
       }).then(() => {
         this.backComponent.busy = false;

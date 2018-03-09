@@ -80,7 +80,12 @@ def((FormSubmit, FormItemWithTable, Alert) => class extends Jinkela {
 
   get value() {
     return this.list.reduce((result, item) => {
-      let { value } = item;
+      let value;
+      try {
+        value = item.value;
+      } catch (error) {
+        throw new Error(item.text.textContent + error.message);
+      }
       switch (item.squash) {
         case 'direct':
           result[item.key] = value[''];
