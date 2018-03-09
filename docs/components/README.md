@@ -23,6 +23,7 @@ Input 用于接受用户的输入的组件，在 Duang 中用于:
 | placeholder  | `String`                | 空字符串                 | 占位文字       |
 | width        | `String`                | 300                      | 宽度           |
 | maxlength    | `Number`                | 不限制                   | 最大字符个数   |
+| minlength    | `Number`                | 不限制                   | 最少字符个数   |
 
 示例：
 

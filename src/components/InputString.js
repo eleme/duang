@@ -1,5 +1,9 @@
 def(() => class extends Jinkela {
-  get value() { return this.element.value; }
+  get value() {
+    let { value } = this.element;
+    if (this.minlength && value.length < this.minlength) throw new Error('必须大于 5 个字符');
+    return value;
+  }
   set value(value = this.defaultValue) {
     this.$hasValue = true;
     this.element.value = value === void 0 ? '' : value;

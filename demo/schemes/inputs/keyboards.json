@@ -12,7 +12,9 @@
       "args": {
         "inputs": [
           { "key": "string1", "component": "String", "title": "普通" },
-          { "key": "string2", "component": "String", "title": "带默认值", "args": { "defaultValue": "hehe" } }
+          { "key": "string2", "component": "String", "title": "带默认值", "args": { "defaultValue": "hehe" } },
+          { "key": "string1", "component": "String", "title": "最大限制", "args": { "maxlength": 3 } },
+          { "key": "string1", "component": "String", "title": "最小限制", "args": { "minlength": 3 } }
         ]
       }
     },
