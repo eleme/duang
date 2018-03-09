@@ -40,6 +40,7 @@ def((FormItemWithTable, FormItemWithDiv) => class extends Jinkela {
         if (!item.args) item.args = {};
         item.args.readonly = true;
       }
+      if (item[formMode] === 'hidden') item.hidden = true;
     });
     this.element.classList.add(mode);
     switch (mode) {

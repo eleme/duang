@@ -28,10 +28,17 @@ def((Item, Input, Output) => {
       return this.input.value;
     }
 
+    set hidden(value) {
+      if (value) {
+        this.element.style.display = 'none';
+      } else {
+        this.element.style.removePropery('display');
+      }
+    }
+
     init() {
       let { depot } = this;
       this.ctrl.depot = depot;
-      if (this.hidden) this.element.style.display = 'none';
       this.input = this.createInput().to(this.ctrl);
       this.$promise = this.input.$promise;
       if ('title' in this) {
