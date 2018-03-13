@@ -321,6 +321,7 @@ options 是一个对象数组，其中的对象结构为：
 | options      | `Object`                | 必选参数                 | 备选项         |
 | subGroupMap  | `Object<Array<Input>>`  | 空对象                   | 匹配组         |
 | hideKey      | `Boolean`               | false                    | 是否过滤字段   |
+| aliasKey     | `String`                | undefined                | 字段别名       |
 | mode         | `String`                | "normal"                 | 排列模式       |
 
 当选择某个选项时，通过选中的值在 subGroupMap 中找到对应的数组，作为 Grouping 的 inputs 渲染。
@@ -343,6 +344,31 @@ mode 目前支持两种取值，"line" 和 "normal"，分别表示单行显示�
       ],
       "point": [
         { "key": "point", "component": "Number", "title": "积分" }
+      ]
+    }
+  }
+}
+```
+
+### Input::GroupingCheckbox
+
+参数：
+
+| 名字         | 类型                    | 默认值                   | 描述           |
+| ------------ | ----------------------- | ------------------------ | -------------- |
+| subGroup     | `<Array<Input>>`        | 空数组                   | 子控件         |
+| aliasKey     | `String`                | undefined                | 字段别名       |
+
+当勾选时，subGroup 中的控件将生效。
+
+示例：
+
+```javascript
+{
+  "component": "GroupingCheckbox",
+  "args": {
+    "subGroup": [
+        { "key": "hongbao_amount", "component": "Number", "title": "红包金额" }
       ]
     }
   }

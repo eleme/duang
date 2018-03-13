@@ -31,6 +31,7 @@ def((Item, Value) => {
         this.updateTheAll();
       }
       this.changing = false;
+      if (typeof this.onchange === 'function') this.onchange();
     }
     updateTheAll() {
       if (this.toggleItem) this.toggleItem.checked = this.list.every(item => item.checked);

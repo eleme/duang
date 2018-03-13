@@ -25,6 +25,7 @@
     "schemes/inputs/clicking.json",
     "schemes/inputs/grouping.json",
     "schemes/inputs/grouping-select.json",
+    "schemes/inputs/grouping-checkbox.json",
     "schemes/inputs/other.json",
     "schemes/inputs/other-combines.json"
 

@@ -1,0 +1,46 @@
+{
+  "key": "GroupingCheckbox 控件",
+  "title": "各种控件 - 容器类控件 - GroupingCheckbox 控件",
+  "module": "editor",
+  "inputs": [
+    {
+      "key": "grouping1", "title": "GroupingCheckbox", "component": "GroupingCheckbox",
+      "args": {
+        "subGroup": [
+          { "title": "hehe1", "key": "hehe1", "component": "Suggestion", "args": { "api": "../value-list.json" } }
+        ]
+      }
+    },
+    {
+      "key": "grouping2", "title": "GroupingCheckbox", "component": "GroupingCheckbox",
+      "args": {
+        "subGroup": [
+          { "title": "hehe", "key": "hehe", "component": "String" }
+        ],
+        "defaultValue": { "": true, "hehe": "测试" }
+      }
+    },
+    {
+      "key": "grouping3", "title": "GroupingCheckbox", "component": "GroupingCheckbox",
+      "args": {
+        "aliasKey": "bool",
+        "subGroup": [
+          { "title": "hehe1", "key": "hehe1", "component": "String" },
+          { "title": "hehe2", "key": "hehe2", "component": "String" }
+        ],
+        "defaultValue": { "bool": true, "hehe1": "a", "hehe2": "b" }
+      }
+    },
+    {
+      "title": "GroupingCheckbox", "component": "GroupingCheckbox",
+      "squash": "direct",
+      "args": {
+        "aliasKey": "bool-direct",
+        "subGroup": [
+          { "title": "hehe", "key": "hehe", "component": "String" }
+        ],
+        "defaultValue": { "": true, "hehe": "测试" }
+      }
+    }
+  ]
+}
