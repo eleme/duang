@@ -117,7 +117,7 @@ def((Item) => {
       this.text = this.title || this.key.replace(/([^/]{2})[^/]{3,}\//g, '$1../');
     }
 
-    onClick() {
+    onClick(event) {
       let { href, target, module = 'list', key, where = {}, params = {} } = this;
       let tasks = [];
       if (this['@where']) tasks.push(api([ this.key, this['@where'] ]).then(result => (where = result)));
@@ -125,6 +125,7 @@ def((Item) => {
       return Promise.all(tasks).then(() => {
         where = JSON.stringify(where);
         params = JSON.stringify(params);
+        if (event.metaKey) target = '_blank';
         if (href) return open(href, target);
         return depot.go({ args: { module, key, params, where }, target });
       });
