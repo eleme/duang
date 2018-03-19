@@ -29,26 +29,67 @@ def((Button, ErrorDialog, PureDialog) => {
 
   class Preview extends Jinkela {
     get template() { return '<a target="_blank" href="javascript:" on-click="{click}"><img ref="img" /></a>'; }
-    set token(token) {
+    get token() { return this.$token; }
+    set token(value) {
+      Object.defineProperty(this, '$token', { value, configurable: true });
+      this.update();
+    }
+    get internalMimeIconMap() {
+      let value = {
+        'text/plain': '//fuss10.elemecdn.com/9/0b/a24cae44ba82ad8325cad35a2f87dpng.png',
+        'text/csv': '//fuss10.elemecdn.com/9/93/db4df04f032ea6aee86208399f8afpng.png',
+        'application/rar': '//fuss10.elemecdn.com/e/17/182cc40a1607a3738dbcfb83a203cpng.png',
+        'application/zip': '//fuss10.elemecdn.com/f/be/fa7cd746fd8a7f18f9e7e35569ccapng.png',
+        'application/pdf': 'https://fuss10.elemecdn.com/a/f3/c18c1dbb95e8fa4a804a96ebca9d0png.png',
+        'application/vnd.ms-excel': '//fuss10.elemecdn.com/a/97/bf743d43418c1dbef89b566b5ed8apng.png',
+        'application/vnd.ms-powerpoint': '//fuss10.elemecdn.com/4/3e/886ee7b59faf596a3a81f60da450cpng.png',
+        'application/msword': '//fuss10.elemecdn.com/5/0e/b075e0ceaa38e9f83e7321dcf38a6png.png',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': '//fuss10.elemecdn.com/3/81/176119defd395cf61c1343af79e26png.png',
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document': '//fuss10.elemecdn.com/f/d5/b58a5c643d1d97eadea3f027823bfpng.png',
+        'application/vnd.openxmlformats-officedocument.presentationml.presentation': '//fuss10.elemecdn.com/1/1c/9faa016e4dea890765062d0847bbdpng.png'
+      };
+      Object.defineProperty(this, 'internalMimeIconMap', { value, configurable: true });
+      return value;
+    }
+    update() {
+      let { token } = this;
       if (token) {
-        fetch(api.resolvePath([ this.api, encodeURIComponent(token) ]), {
-          credentials: 'include'
-        }).then(response => response.blob()).then(result => {
-          let url = URL.createObjectURL(result);
-          this.element.style.display = 'inline-block';
-          this.element.href = url;
-          this.img.onload = () => {
-            this.info = { width: this.img.naturalWidth, height: this.img.naturalHeight };
-          };
-          this.img.src = url;
+        let path = [ this.api, this.disableEncode ? token : encodeURIComponent(token) ];
+        let params = {};
+        if (!this.disableCredentialsForDownload) params.credentials = 'include';
+        fetch(api.resolvePath(path), params).then(response => {
+          let mime = response.headers.get('Content-Type');
+          return response.blob().then(blob => {
+            let url = URL.createObjectURL(blob);
+            this.element.style.display = 'inline-block';
+            this.element.href = url;
+            if (/^image\//.test(mime)) {
+              this.element.download = null;
+              let info = this.info = {};
+              this.img.onload = () => {
+                info.width = this.img.naturalWidth;
+                info.height = this.img.naturalHeight;
+              };
+              this.img.src = url;
+            } else {
+              this.element.download = token;
+              this.info = null;
+              this.img.onload = () => {};
+              let defaultIcon = this.defaultIcon || '//fuss10.elemecdn.com/c/3f/61fb295909ab668c094f8ffe0bed6jpeg.jpeg';
+              let mimeIconMap = Object.assign({}, this.internalMimeIconMap, this.mimeIconMap);
+              this.img.src = mimeIconMap[mime] || defaultIcon;
+            }
+          });
         });
       } else {
         this.element.style.display = 'none';
       }
     }
     click(event) {
-      event.preventDefault();
-      PureDialog.showImage({ url: this.img.src });
+      if (this.info) {
+        event.preventDefault();
+        PureDialog.showImage({ url: this.img.src });
+      }
     }
     get styleSheet() {
       return `
@@ -78,7 +119,6 @@ def((Button, ErrorDialog, PureDialog) => {
 
   return class extends Jinkela {
     get SpanButton() { return SpanButton; }
-    get Preview() { return Preview; }
     get ClearButton() { return ClearButton; }
     get info() { return this.preview.info || {}; }
     get value() { return this.$value === void 0 ? null : this.$value; }
@@ -86,6 +126,7 @@ def((Button, ErrorDialog, PureDialog) => {
       this.$hasValue = true;
       this.$value = value;
       this.token = value;
+      this.preview.token = value;
       this.hasClearButton = !!value && !this.readonly;
     }
     get template() {
@@ -96,7 +137,7 @@ def((Button, ErrorDialog, PureDialog) => {
             <jkl-span-button ref="button" text="{text}"></jkl-span-button>
           </label>
           <span class="empty" if-not="{token}">未选择</span>
-          <jkl-preview ref="preview" api="{api}" token="{token}"></jkl-preview>
+          <meta ref="preview" />
           <jkl-clear-button if="{hasClearButton}" on-click="{clear}"></jkl-clear-button>
         </div>
       `;
@@ -113,6 +154,11 @@ def((Button, ErrorDialog, PureDialog) => {
         this.input.addEventListener('change', event => this.change(event));
       }
       if (!this.$hasValue) this.value = void 0;
+      let { api, disableCredentialsForDownload, disableEncode, defaultIcon, mimeIconMap, value } = this;
+      this.preview = new Preview({
+        api, disableCredentialsForDownload, disableEncode, defaultIcon, mimeIconMap,
+        token: value
+      });
     }
     change(event) {
       let { target } = event;

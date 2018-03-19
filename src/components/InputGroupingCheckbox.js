@@ -1,7 +1,7 @@
 def((SubGroupMap) => class extends Jinkela {
 
   beforeParse(params) {
-    this.options = { true: params.label }
+    this.options = { true: params.label };
   }
 
   get template() {

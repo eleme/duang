@@ -477,12 +477,16 @@ mode 目前支持两种取值，"line" 和 "normal"，分别表示单行显示�
 
 参数：
 
-| 名字         | 类型                    | 默认值                   | 描述                   |
-| ------------ | ----------------------- | ------------------------ | ---------------------- |
-| text         | `String`                | "请选择文件"             | 选择文件按钮文案       |
-| downloadText | `String`                | "下载"                   | 下载按钮文案           |
-| api          | `String`                | 必选参数                 | 图片上传接口相对路径   |
-| limit        | `Object`                | 不限制                   | 对选择的文件做一些限制 |
+| 名字                  | 类型                     | 默认值                       | 描述                      |
+| --------------------- | ------------------------ | ---------------------------- | ------------------------- |
+| text                  | `String`                 | "请选择文件"                 | 选择文件按钮文案          |
+| downloadText          | `String`                 | "下载"                       | 下载按钮文案              |
+| api                   | `String`                 | 必选参数                     | 图片上传接口相对路径      |
+| limit                 | `Object`                 | 不限制                       | 对选择的文件做一些限制    |
+| mineIconMap           | `Object<stirng, string>` | 对一些常用文件类型有默认图标 | Mime 到图标 URL 的字典    |
+| defaultIcon           | `String`                 | 默认图标                     | 未知类型文件的默认图标    |
+| disableEncode         | `Boolean`                | false                        | 禁止请求 token 时 encode  |
+| disableCredentialsForDownload | `Boolean`        | false                        | 禁止请求预览文件带 Cookie |
 
 limit：
 

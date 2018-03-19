@@ -2,21 +2,34 @@
   "key": "点选类控件",
   "title": "各种控件 - 点选类控件",
   "module": "editor",
-  "noSubmit": true,
   "inputs": [
     { "key": "select1", "component": "Select", "title": "下拉", "args": { "options": { "1": "one", "2": "two" } } },
-    { "key": "select2", "component": "Select", "title": "下拉", "args": { "options": { "1": "one", "2": "two" }, "defaultValue": "2" } },
+    {
+      "key": "select2", "component": "Select", "title": "下拉",
+      "args": { "options": { "1": "one", "2": "two" }, "defaultValue": "2" }
+    },
     { "key": "radio1", "component": "Radio", "title": "单选", "args": { "options": { "1": "one", "2": "two" } } },
-    { "key": "radio2", "component": "Radio", "title": "单选", "args": { "options": { "1": "one", "2": "two" }, "defaultValue": "2" } },
+    {
+      "key": "radio2", "component": "Radio", "title": "单选",
+      "args": { "options": { "1": "one", "2": "two" }, "defaultValue": "2" }
+    },
     { "key": "checkbox1", "component": "Checkbox", "title": "多选", "args": { "options": { "1": "one", "2": "two" } } },
-    { "key": "checkbox2", "component": "Checkbox", "title": "多选", "args": { "options": { "1": "one", "2": "two" }, "defaultValue": "2" } },
-    { "key": "checkbox3", "component": "Checkbox", "title": "多选", "args": { "options": { "1": "one", "2": "two" }, "defaultValue": [ "1", "2" ] } },
+    {
+      "key": "checkbox2", "component": "Checkbox", "title": "多选",
+      "args": { "options": { "1": "one", "2": "two" }, "defaultValue": "2" }
+    },
+    {
+      "key": "checkbox3", "component": "Checkbox", "title": "多选",
+      "args": { "options": { "1": "one", "2": "two" }, "defaultValue": [ "1", "2" ] }
+    },
     { "key": "bool1", "component": "Boolean", "title": "布尔" },
     { "key": "bool2", "component": "Boolean", "title": "布尔", "args": { "defaultValue": true } },
     { "key": "file1", "component": "FileBase64", "title": "文件 Base64" },
     { "key": "file2", "component": "FileBase64", "title": "文本 Base64", "args": { "defaultValue": "aGVoZQo=" } },
     { "key": "file3", "component": "FileToken", "title": "文件 Token" },
-    { "key": "file4", "component": "FileToken", "title": "文件 Token", "args": { "defaultValue": "../logo.png" } },
+    { "key": "file4", "component": "FileToken", "title": "文件 Token",
+      "args": { "defaultValue": "logo.png", "api": "/" }
+    },
     {
       "key": "file3", "title": {
         "component": "InputGrouping", "args": {
@@ -27,19 +40,49 @@
       },
       "component": "FileToken", "args": { "limit": { "type": "png" } }
     },
-    { "key": "file3", "component": "FileToken", "title": "文件 Token（max size 100）", "args": { "limit": { "maxSize": 100 } } },
-    { "key": "file3", "component": "FileToken", "title": "文件 Token（[,100]x[]）", "args": { "limit": { "maxWidth": 100 } } },
-    { "key": "file3", "component": "FileToken", "title": "文件 Token（100x100）", "args": { "limit": { "width": 100, "height": 100 } } },
+    {
+      "key": "file3", "component": "FileToken", "title": "文件 Token（max size 100）",
+      "args": { "limit": { "maxSize": 100 } }
+    },
+    {
+      "key": "file3", "component": "FileToken", "title": "文件 Token（[,100]x[]）",
+      "args": { "limit": { "maxWidth": 100 } }
+    },
+    {
+      "key": "file3", "component": "FileToken", "title": "文件 Token（100x100）",
+      "args": { "limit": { "width": 100, "height": 100 } }
+    },
     {
       "key": "file3", "component": "FileToken", "title": "文件 Token（100x[100,200]）",
       "args": { "limit": { "width": 100, "minHeight": 100, "maxHeight": 200 } }
     },
+    {
+      "key": "file4", "component": "FileToken", "title": "文件 Token（disable*）",
+      "args": {
+        "disableCredentialsForDownload": true,
+        "defaultIcon": "https://fuss10.elemecdn.com/3/81/176119defd395cf61c1343af79e26png.png",
+        "disableEncode": true,
+        "defaultValue": "https://fuss10.elemecdn.com/e/ac/f2b009ddbe51831a778a0ee3e2c20xlsx.xlsx"
+      }
+    },
     { "key": "file5", "component": "FileTokenWithInfo", "title": "详细的文本 Token" },
-    { "key": "file6", "component": "FileTokenWithInfo", "title": "详细的文本 Token", "args": { "defaultValue": { "token": "../logo.png" } } },
-    { "key": "file3", "component": "FileTokenWithInfo", "title": "详细的文本 Token（png only）", "args": { "limit": { "type": "png" } } },
+    {
+      "key": "file6", "component": "FileTokenWithInfo", "title": "详细的文本 Token",
+      "args": { "defaultValue": { "api": "/", "token": "demo.png" } }
+    },
+    {
+      "key": "file3", "component": "FileTokenWithInfo", "title": "详细的文本 Token（png only）",
+      "args": { "limit": { "type": "png" } }
+    },
     { "key": "cascader1", "component": "Cascader", "title": "级联", "args": { "options": [ { "value": "item 1" } ] } },
-    { "key": "cascader2", "component": "Cascader", "title": "级联", "args": { "options": [ { "value": "item 1" } ], "defaultValue": [ "item 1" ] } },
-    { "key": "cascader1", "component": "Forest", "title": "树林", "args": { "options": [ { "id": 1, "text": "item 1" } ] } },
+    {
+      "key": "cascader2", "component": "Cascader", "title": "级联",
+      "args": { "options": [ { "value": "item 1" } ], "defaultValue": [ "item 1" ] }
+    },
+    {
+      "key": "cascader1", "component": "Forest", "title": "树林",
+      "args": { "options": [ { "id": 1, "text": "item 1" } ] }
+    },
     {
       "key": "cascader2", "component": "Forest", "title": "树林",
       "args": {
