@@ -1,7 +1,7 @@
 [
 
   {
-    "key": "Select",
+    "key": "Input::Select",
     "title": "组件 - 点选类 - Select",
     "module": "editor",
     "inputs": [
@@ -14,7 +14,7 @@
   },
 
   {
-    "key": "Radio",
+    "key": "Input::Radio",
     "title": "组件 - 点选类 - Radio",
     "module": "editor",
     "inputs": [
@@ -27,7 +27,7 @@
   },
 
   {
-    "key": "Checkbox",
+    "key": "Input::Checkbox",
     "title": "组件 - 点选类 - Checkbox",
     "module": "editor",
     "inputs": [
@@ -47,7 +47,7 @@
   },
 
   {
-    "key": "Boolean",
+    "key": "Input::Boolean",
     "title": "组件 - 点选类 - Boolean",
     "module": "editor",
     "inputs": [
@@ -57,7 +57,7 @@
   },
 
   {
-    "key": "FileBase64",
+    "key": "Input::FileBase64",
     "title": "组件 - 点选类 - FileBase64",
     "module": "editor",
     "inputs": [
@@ -67,7 +67,7 @@
   },
 
   {
-    "key": "FileToken",
+    "key": "Input::FileToken",
     "title": "组件 - 点选类 - FileToken",
     "module": "editor",
     "inputs": [
@@ -114,7 +114,7 @@
   },
 
   {
-    "key": "FileTokenWithInfo",
+    "key": "Input::FileTokenWithInfo",
     "title": "组件 - 点选类 - FileTokenWithInfo",
     "module": "editor",
     "inputs": [
@@ -131,7 +131,7 @@
   },
 
   {
-    "key": "Cascader",
+    "key": "Input::Cascader",
     "title": "组件 - 点选类 - Cascader",
     "module": "editor",
     "inputs": [
@@ -144,7 +144,7 @@
   },
 
   {
-    "key": "Forest",
+    "key": "Input::Forest",
     "title": "组件 - 点选类 - Forest",
     "module": "editor",
     "inputs": [
@@ -173,7 +173,7 @@
   },
 
   {
-    "key": "ImageSelector",
+    "key": "Input::ImageSelector",
     "title": "组件 - 点选类 - ImageSelector",
     "module": "editor",
     "inputs": [

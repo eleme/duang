@@ -1,17 +1,22 @@
-{
-  "key": "Caption",
-  "title": "组件 - 分组",
-  "module": "editor",
-  "inputs": [
-    { "component": "Caption", "args": { "h1": "第零组", "h2": "<font color=red>一堆神奇的字段" } },
-    { "title": "a", "args": {} },
-    { "component": "Caption", "args": { "h1": "第壹组", "h2": { "component": "IconTip", "args": { "tip": "hehe" } } } },
-    { "title": "b", "args": {} },
-    { "component": "Caption", "args": { "h1": "第贰组", "h2": "双堆神奇的字段" } },
-    { "title": "c", "args": {} },
-    { "component": "Caption", "args": { "h1": "第叁组", "h2": "叒堆神奇的字段" } },
-    { "title": "d", "args": {} },
-    { "component": "Caption", "args": { "h1": "第肆组", "h2": "叕堆神奇的字段" } },
-    { "title": "e", "args": {} }
-  ]
-}
+[
+  {
+    "key": "Input::Caption",
+    "title": "组件 - 分组",
+    "module": "editor",
+    "inputs": [
+      { "component": "Caption", "args": { "h1": "第零组", "h2": "<font color=red>一堆神奇的字段" } },
+      { "title": "a", "args": {} },
+      {
+        "component": "Caption",
+        "args": { "h1": "第壹组", "h2": { "component": "IconTip", "args": { "tip": "hehe" } } }
+      },
+      { "title": "b", "args": {} },
+      { "component": "Caption", "args": { "h1": "第贰组", "h2": "双堆神奇的字段" } },
+      { "title": "c", "args": {} },
+      { "component": "Caption", "args": { "h1": "第叁组", "h2": "叒堆神奇的字段" } },
+      { "title": "d", "args": {} },
+      { "component": "Caption", "args": { "h1": "第肆组", "h2": "叕堆神奇的字段" } },
+      { "title": "e", "args": {} }
+    ]
+  }
+]

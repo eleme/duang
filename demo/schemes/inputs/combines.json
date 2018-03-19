@@ -1,128 +1,132 @@
-{
-  "key": "组合",
-  "title": "组件 - 组合",
-  "module": "editor",
-  "inputs": [
-    {
-      "key": "grouping1", "title": "神奇的组合", "component": "GroupingSelect",
-      "args": {
-        "options": {
-          "a": "两个搜索建议组件",
-          "b": "两个时期时间组件"
-        },
-        "mode": "line",
-        "subGroupMap": {
-          "a": [
-            { "title": "hehe1", "component": "Suggestion", "args": { "api": "../data/value-list.json" } },
-            { "title": "hehe2", "component": "Suggestion", "args": { "api": "../data/value-list.json" } }
-          ],
-          "b": [
-            { "component": "DateTime" },
-            { "component": "DateTime" }
-          ]
-        }
-      }
-    },
-    {
-      "title": "列表嵌搜索建议",
-      "component": "List",
-      "args": {
-        "defaultValue": [ "hehe" ],
-        "component": "Suggestion",
-        "args": {
-          "api": "../data/value-list.json",
-          "width": 100
-        }
-      }
-    },
-    {
-      "component": "List",
-      "args": {
-        "defaultValue": [ "hehe" ],
-        "component": "Grouping",
-        "args": {
-          "mode": "line",
-          "style": {
-            "padding": "1em",
-            "background": "#f0f0f0"
-          },
-          "inputs": [
-            {
-              "component": "Grouping",
-              "args": {
-                "mode": "line",
-                "inputs": [
-                  { "args": { "html": "hehe" }, "component": "OutputHTML" },
-                  { "args": { "width": 100 }, "component": "String" },
-                  { "args": { "width": 100 }, "component": "String" }
-                ]
-              }
-            },
-            { "args": { "width": 100 }, "component": "String", "title": "String" }
-          ]
-        }
-      }
-    },
-    {
-      "title": "列表嵌组合选择",
-      "component": "List",
-      "args": {
-        "defaultValue": [ "hehe" ],
-        "component": "GroupingSelect",
+[
+
+  {
+    "key": "Input::组合",
+    "title": "组件 - 组合",
+    "module": "editor",
+    "inputs": [
+      {
+        "key": "grouping1", "title": "神奇的组合", "component": "GroupingSelect",
         "args": {
           "options": {
             "a": "两个搜索建议组件",
-            "b": "两个时期时间组件",
-            "c": "xxx"
+            "b": "两个时期时间组件"
           },
           "mode": "line",
           "subGroupMap": {
             "a": [
               { "title": "hehe1", "component": "Suggestion", "args": { "api": "../data/value-list.json" } },
-              { "title": "hehe2", "component": "Suggestion", "args": { "api": "../data/value-list.json" } },
-              { "component": "String", "args": { "width": 500 } }
+              { "title": "hehe2", "component": "Suggestion", "args": { "api": "../data/value-list.json" } }
             ],
             "b": [
               { "component": "DateTime" },
               { "component": "DateTime" }
-            ],
-            "c": [
             ]
           }
         }
-      }
-    },
-
-    {
-      "title": "列表嵌组合选择",
-      "component": "Grouping",
-      "args": {
-        "mode": "line",
-        "inputs": [
-          { "component": "OutputHTML", "args": { "html": "呵呵" } },
-          {
-            "component": "Forest", 
-            "key": "cascader4", 
-            "title": "树林",
-            "args": {
-              "options": [
-                { "a": 1, "c": "item 1" },
-                { "a": 2, "b": 1, "c": "item 2" },
-                { "a": 1, "c": "item 1" },
-                { "a": 2, "c": "item 2" },
-                { "a": 3, "c": "item 3" },
-                { "a": 4, "c": "item 4" },
-                { "a": 5, "c": "item 5" }
+      },
+      {
+        "title": "列表嵌搜索建议",
+        "component": "List",
+        "args": {
+          "defaultValue": [ "hehe" ],
+          "component": "Suggestion",
+          "args": {
+            "api": "../data/value-list.json",
+            "width": 100
+          }
+        }
+      },
+      {
+        "component": "List",
+        "args": {
+          "defaultValue": [ "hehe" ],
+          "component": "Grouping",
+          "args": {
+            "mode": "line",
+            "style": {
+              "padding": "1em",
+              "background": "#f0f0f0"
+            },
+            "inputs": [
+              {
+                "component": "Grouping",
+                "args": {
+                  "mode": "line",
+                  "inputs": [
+                    { "args": { "html": "hehe" }, "component": "OutputHTML" },
+                    { "args": { "width": 100 }, "component": "String" },
+                    { "args": { "width": 100 }, "component": "String" }
+                  ]
+                }
+              },
+              { "args": { "width": 100 }, "component": "String", "title": "String" }
+            ]
+          }
+        }
+      },
+      {
+        "title": "列表嵌组合选择",
+        "component": "List",
+        "args": {
+          "defaultValue": [ "hehe" ],
+          "component": "GroupingSelect",
+          "args": {
+            "options": {
+              "a": "两个搜索建议组件",
+              "b": "两个时期时间组件",
+              "c": "xxx"
+            },
+            "mode": "line",
+            "subGroupMap": {
+              "a": [
+                { "title": "hehe1", "component": "Suggestion", "args": { "api": "../data/value-list.json" } },
+                { "title": "hehe2", "component": "Suggestion", "args": { "api": "../data/value-list.json" } },
+                { "component": "String", "args": { "width": 500 } }
               ],
-              "defaultValue": [ 1 ],
-              "idAlias": "a",
-              "parentIdAlias": "b",
-              "textAlias": "c"
+              "b": [
+                { "component": "DateTime" },
+                { "component": "DateTime" }
+              ],
+              "c": [
+              ]
             }
           }
-        ]
-      }
-    }
+        }
+      },
 
-  ]
-}
+      {
+        "title": "列表嵌组合选择",
+        "component": "Grouping",
+        "args": {
+          "mode": "line",
+          "inputs": [
+            { "component": "OutputHTML", "args": { "html": "呵呵" } },
+            {
+              "component": "Forest", 
+              "key": "cascader4", 
+              "title": "树林",
+              "args": {
+                "options": [
+                  { "a": 1, "c": "item 1" },
+                  { "a": 2, "b": 1, "c": "item 2" },
+                  { "a": 1, "c": "item 1" },
+                  { "a": 2, "c": "item 2" },
+                  { "a": 3, "c": "item 3" },
+                  { "a": 4, "c": "item 4" },
+                  { "a": 5, "c": "item 5" }
+                ],
+                "defaultValue": [ 1 ],
+                "idAlias": "a",
+                "parentIdAlias": "b",
+                "textAlias": "c"
+              }
+            }
+          ]
+        }
+      }
+
+    ]
+  }
+
+]

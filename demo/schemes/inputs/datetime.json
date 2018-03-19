@@ -1,13 +1,16 @@
 [
 
   {
-    "key": "DateTime",
+    "key": "Input::DateTime",
     "title": "组件 - 日期时间相关 - DateTime",
     "module": "editor",
     "inputs": [
       { "key": "datetime1", "component": "DateTime", "title": "日期时间" },
       { "key": "datetime2", "component": "DateTime", "title": "日期时间", "args": { "defaultValue": 1499157139261 } },
-      { "key": "datetime3", "component": "DateTime", "title": "日期时间", "args": { "defaultValue": "2017-07-13T03:27:44.856Z" } },
+      {
+        "key": "datetime3", "component": "DateTime", "title": "日期时间",
+        "args": { "defaultValue": "2017-07-13T03:27:44.856Z" }
+      },
       { "key": "datetime4", "component": "DateTime", "title": "日期时间", "args": { "defaultValue": "now" } },
       {
         "key": "datetime5", "component": "DateTime", "title": "日期时间 UNIX_TIMESTAMP",
@@ -25,7 +28,7 @@
   },
 
   {
-    "key": "Date",
+    "key": "Input::Date",
     "title": "组件 - 日期时间相关 - Date",
     "module": "editor",
     "inputs": [
@@ -37,7 +40,7 @@
   },
 
   {
-    "key": "Time",
+    "key": "Input::Time",
     "title": "组件 - 日期时间相关 - Time",
     "module": "editor",
     "inputs": [

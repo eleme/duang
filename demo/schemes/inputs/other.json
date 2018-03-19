@@ -1,7 +1,7 @@
 [
 
   {
-    "key": "Suggestion",
+    "key": "Input::Suggestion",
     "title": "组件 - 其它 - Suggestion",
     "module": "editor",
     "inputs": [
@@ -38,7 +38,7 @@
   },
 
   {
-    "key": "TagCollector",
+    "key": "Input::TagCollector",
     "title": "组件 - 其它 - TagCollector",
     "module": "editor",
     "inputs": [
@@ -70,7 +70,7 @@
   },
 
   {
-    "key": "Custom",
+    "key": "Input::Custom",
     "title": "组件 - 其它 - Custom",
     "module": "editor",
     "inputs": [

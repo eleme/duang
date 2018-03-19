@@ -1,6 +1,6 @@
 [
   {
-    "key": "String",
+    "key": "Input::String",
     "title": "组件 - 键盘输入类 - String",
     "module": "editor",
     "inputs": [
@@ -12,7 +12,7 @@
   },
 
   {
-    "key": "Text",
+    "key": "Input::Text",
     "title": "组件 - 键盘输入类 - Text",
     "module": "editor",
     "inputs": [
@@ -22,7 +22,7 @@
   },
 
   {
-    "key": "TextAround",
+    "key": "Input::TextAround",
     "title": "组件 - 键盘输入类 - TextAround",
     "module": "editor",
     "inputs": [
@@ -46,7 +46,7 @@
   },
 
   {
-    "key": "Number",
+    "key": "Input::Number",
     "title": "组件 - 键盘输入类 - Number",
     "module": "editor",
     "inputs": [
@@ -66,7 +66,7 @@
   },
 
   {
-    "key": "Password",
+    "key": "Input::Password",
     "title": "组件 - 键盘输入类 - Password",
     "module": "editor",
     "inputs": [
@@ -76,7 +76,7 @@
   },
 
   {
-    "key": "Markdown",
+    "key": "Input::Markdown",
     "title": "组件 - 键盘输入类 - Markdown",
     "module": "editor",
     "inputs": [
@@ -86,7 +86,7 @@
   },
 
   {
-    "key": "Code",
+    "key": "Input::Code",
     "title": "组件 - 键盘输入类 - Code",
     "module": "editor",
     "inputs": [

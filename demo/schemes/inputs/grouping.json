@@ -1,7 +1,7 @@
 [
 
   {
-    "key": "Grouping",
+    "key": "Input::Grouping",
     "title": "组件 - 容器类 - Grouping",
     "module": "editor",
     "inputs": [
@@ -90,7 +90,7 @@
   },
 
   {
-    "key": "GroupingSelect",
+    "key": "Input::GroupingSelect",
     "title": "组件 - 容器类 - GroupingSelect",
     "module": "editor",
     "inputs": [
@@ -156,7 +156,7 @@
   },
 
   {
-    "key": "GroupingCheckbox",
+    "key": "Input::GroupingCheckbox",
     "title": "组件 - 容器类 - GroupingCheckbox",
     "module": "editor",
     "inputs": [
