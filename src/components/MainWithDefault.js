@@ -39,7 +39,8 @@ def((Item) => {
         :scope {
           position: relative;
           border: 1px solid #e6e6e6;
-          width: calc(33.33% - 2em);
+          min-width: 300px;
+          flex: auto;
           border-radius: 6px;
           display: inline-block;
           box-sizing: border-box;
@@ -138,6 +139,8 @@ def((Item) => {
           list-style: none;
           padding: 1em;
           height: 100%;
+          display: flex;
+          flex-flow: wrap;
           box-sizing: border-box;
         }
       `;
