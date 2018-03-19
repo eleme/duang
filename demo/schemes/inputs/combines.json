@@ -1,20 +1,20 @@
 {
-  "key": "其它神奇的控件组合",
-  "title": "各种控件 - 其它神奇的控件组合",
+  "key": "组合",
+  "title": "组件 - 组合",
   "module": "editor",
   "inputs": [
     {
-      "key": "grouping1", "title": "各种神奇的组合", "component": "GroupingSelect",
+      "key": "grouping1", "title": "神奇的组合", "component": "GroupingSelect",
       "args": {
         "options": {
-          "a": "两个搜索建议控件",
-          "b": "两个时期时间控件"
+          "a": "两个搜索建议组件",
+          "b": "两个时期时间组件"
         },
         "mode": "line",
         "subGroupMap": {
           "a": [
-            { "title": "hehe1", "component": "Suggestion", "args": { "api": "../value-list.json" } },
-            { "title": "hehe2", "component": "Suggestion", "args": { "api": "../value-list.json" } }
+            { "title": "hehe1", "component": "Suggestion", "args": { "api": "../data/value-list.json" } },
+            { "title": "hehe2", "component": "Suggestion", "args": { "api": "../data/value-list.json" } }
           ],
           "b": [
             { "component": "DateTime" },
@@ -30,7 +30,7 @@
         "defaultValue": [ "hehe" ],
         "component": "Suggestion",
         "args": {
-          "api": "../value-list.json",
+          "api": "../data/value-list.json",
           "width": 100
         }
       }
@@ -71,15 +71,15 @@
         "component": "GroupingSelect",
         "args": {
           "options": {
-            "a": "两个搜索建议控件",
-            "b": "两个时期时间控件",
+            "a": "两个搜索建议组件",
+            "b": "两个时期时间组件",
             "c": "xxx"
           },
           "mode": "line",
           "subGroupMap": {
             "a": [
-              { "title": "hehe1", "component": "Suggestion", "args": { "api": "../value-list.json" } },
-              { "title": "hehe2", "component": "Suggestion", "args": { "api": "../value-list.json" } },
+              { "title": "hehe1", "component": "Suggestion", "args": { "api": "../data/value-list.json" } },
+              { "title": "hehe2", "component": "Suggestion", "args": { "api": "../data/value-list.json" } },
               { "component": "String", "args": { "width": 500 } }
             ],
             "b": [

@@ -1,80 +1,84 @@
-{
-  "key": "其它复杂控件",
-  "title": "各种控件 - 其它复杂控件",
-  "module": "editor",
-  "inputs": [
-    {
-      "component": "Grouping",
-      "title": "<b>搜索建议</b>",
-      "args": {
-        "inputs": [
-          {
-            "description": "必选",
-            "key": "suggestion1", "component": "Suggestion", "title": "带描述",
-            "args": { "api": "../value-list.json" }
-          },
-          {
-            "key": "suggestion2", "component": "Suggestion", "title": "Placeholder",
-            "args": { "api": "../value-list.json", "placeholder": "placeholder" }
-          },
-          {
-            "key": "suggestion3", "component": "Suggestion", "title": "设置宽度",
-            "args": { "api": "../value-list.json", "width": 100 }
-          },
-          {
-            "key": "suggestion4", "component": "Suggestion", "title": "有默认值",
-            "args": { "api": "../value-list.json", "defaultValue": "hehe" }
-          },
-          {
-            "key": "suggestion5", "component": "Suggestion", "title": "正常",
-            "args": { "api": "../empty-list.json" }
-          },
-          {
-            "key": "suggestion6", "component": "Suggestion", "title": "空提示",
-            "args": { "api": "../empty-list.json", "emptyTip": "并没有内容" }
-          },
-          {
-            "key": "suggestion7", "component": "Suggestion", "title": "",
-            "args": { "api": "../empty-list.json", "width": 100, "emptyTip": "并没有内容" }
-          }
-        ]
-       }
-    },
-    {
-      "component": "Grouping",
-      "title": "<b>标签选择</b>",
-      "args": {
-        "inputs": [
-          {
-            "key": "tagCollector1", "component": "TagCollector", "title": "正常",
-            "args": { "api": "../value-list.json" }
-          },
-          {
-            "key": "tagCollector2", "component": "TagCollector", "title": "设置宽度",
-            "args": { "api": "../value-list.json", "width": 500 }
-          },
-          {
-            "key": "tagCollector3", "component": "TagCollector", "title": "带默认值",
-            "args": { "api": "../value-list.json", "defaultValue": [ "item 1", "hehe" ] }
-          },
-          {
-            "key": "tagCollector4", "component": "TagCollector", "title": "空提示",
-            "args": { "api": "../empty-list.json", "emptyTip": "并没有内容" }
-          },
-          {
-            "key": "tagCollector5", "component": "TagCollector", "title": "Placeholder",
-            "args": { "api": "../empty-list.json", "placeholder": "placeholder" }
-          },
-          {
-            "key": "tagCollector6", "component": "TagCollector", "title": "api 带参数",
-            "args": { "api": "../empty-list.json?hehe=123" }
-          }
-        ]
+[
+
+  {
+    "key": "Suggestion",
+    "title": "组件 - 其它 - Suggestion",
+    "module": "editor",
+    "inputs": [
+      {
+        "description": "必选",
+        "key": "suggestion1", "component": "Suggestion", "title": "带描述",
+        "args": { "api": "../data/value-list.json" }
+      },
+      {
+        "key": "suggestion2", "component": "Suggestion", "title": "Placeholder",
+        "args": { "api": "../data/value-list.json", "placeholder": "placeholder" }
+      },
+      {
+        "key": "suggestion3", "component": "Suggestion", "title": "设置宽度",
+        "args": { "api": "../data/value-list.json", "width": 100 }
+      },
+      {
+        "key": "suggestion4", "component": "Suggestion", "title": "有默认值",
+        "args": { "api": "../data/value-list.json", "defaultValue": "hehe" }
+      },
+      {
+        "key": "suggestion5", "component": "Suggestion", "title": "正常",
+        "args": { "api": "../data/empty-list.json" }
+      },
+      {
+        "key": "suggestion6", "component": "Suggestion", "title": "空提示",
+        "args": { "api": "../data/empty-list.json", "emptyTip": "并没有内容" }
+      },
+      {
+        "key": "suggestion7", "component": "Suggestion", "title": "",
+        "args": { "api": "../data/empty-list.json", "width": 100, "emptyTip": "并没有内容" }
       }
-    },
-    {
-      "key": "custom1", "component": "https://fuss10.elemecdn.com/c/d6/9a844cf9941910a965c88b5af4f70js.js", "title": "外部控件",
-      "args": { "defaultValue": "这是一个外部控件，呵呵" }
-    }
-  ]
-}
+    ]
+  },
+
+  {
+    "key": "TagCollector",
+    "title": "组件 - 其它 - TagCollector",
+    "module": "editor",
+    "inputs": [
+      {
+        "key": "tagCollector1", "component": "TagCollector", "title": "正常",
+        "args": { "api": "../data/value-list.json" }
+      },
+      {
+        "key": "tagCollector2", "component": "TagCollector", "title": "设置宽度",
+        "args": { "api": "../data/value-list.json", "width": 500 }
+      },
+      {
+        "key": "tagCollector3", "component": "TagCollector", "title": "带默认值",
+        "args": { "api": "../data/value-list.json", "defaultValue": [ "item 1", "hehe" ] }
+      },
+      {
+        "key": "tagCollector4", "component": "TagCollector", "title": "空提示",
+        "args": { "api": "../data/empty-list.json", "emptyTip": "并没有内容" }
+      },
+      {
+        "key": "tagCollector5", "component": "TagCollector", "title": "Placeholder",
+        "args": { "api": "../data/empty-list.json", "placeholder": "placeholder" }
+      },
+      {
+        "key": "tagCollector6", "component": "TagCollector", "title": "api 带参数",
+        "args": { "api": "../data/empty-list.json?hehe=123" }
+      }
+    ]
+  },
+
+  {
+    "key": "Custom",
+    "title": "组件 - 其它 - Custom",
+    "module": "editor",
+    "inputs": [
+      {
+        "key": "custom1", "component": "https://fuss10.elemecdn.com/c/d6/9a844cf9941910a965c88b5af4f70js.js",
+        "title": "外部组件", "args": { "defaultValue": "这是一个外部组件，呵呵" }
+      }
+    ]
+  }
+
+]

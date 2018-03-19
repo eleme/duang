@@ -1,35 +1,52 @@
-{
-  "key": "日期时间相关控件",
-  "title": "各种控件 - 日期时间相关控件",
-  "module": "editor",
-  "inputs": [
-    { "key": "datetime1", "component": "DateTime", "title": "日期时间" },
-    { "key": "datetime2", "component": "DateTime", "title": "日期时间", "args": { "defaultValue": 1499157139261 } },
-    { "key": "datetime3", "component": "DateTime", "title": "日期时间", "args": { "defaultValue": "2017-07-13T03:27:44.856Z" } },
-    { "key": "datetime4", "component": "DateTime", "title": "日期时间", "args": { "defaultValue": "now" } },
+[
 
-    { "key": "date1", "component": "Date", "title": "日期" },
-    { "key": "date1", "component": "Date", "title": "日期", "args": { "defaultValue": 1499157139261 } },
-    { "key": "date2", "component": "Date", "title": "日期", "args": { "defaultValue": "2017-07-13T03:27:44.856Z" } },
-    { "key": "date3", "component": "Date", "title": "日期", "args": { "defaultValue": "today" } },
+  {
+    "key": "DateTime",
+    "title": "组件 - 日期时间相关 - DateTime",
+    "module": "editor",
+    "inputs": [
+      { "key": "datetime1", "component": "DateTime", "title": "日期时间" },
+      { "key": "datetime2", "component": "DateTime", "title": "日期时间", "args": { "defaultValue": 1499157139261 } },
+      { "key": "datetime3", "component": "DateTime", "title": "日期时间", "args": { "defaultValue": "2017-07-13T03:27:44.856Z" } },
+      { "key": "datetime4", "component": "DateTime", "title": "日期时间", "args": { "defaultValue": "now" } },
+      {
+        "key": "datetime5", "component": "DateTime", "title": "日期时间 UNIX_TIMESTAMP",
+        "args": { "mode": "UNIX_TIMESTAMP" }
+      },
+      {
+        "key": "datetime6", "component": "DateTime", "title": "日期时间 UNIX_TIMESTAMP",
+        "args": { "defaultValue": 1499157139, "mode": "UNIX_TIMESTAMP" }
+      },
+      {
+        "key": "datetime7", "component": "DateTime", "title": "日期时间 UNIX_TIMESTAMP",
+        "args": { "defaultValue": "now", "mode": "UNIX_TIMESTAMP" }
+      }
+    ]
+  },
 
-    { "key": "time5", "component": "Time", "title": "时间" },
-    { "key": "time1", "component": "Time", "title": "时间", "args": { "defaultValue": 1499157139261 } },
-    { "key": "time2", "component": "Time", "title": "时间", "args": { "defaultValue": "23:59:59" } },
-    { "key": "time3", "component": "Time", "title": "时间", "args": { "defaultValue": "23:59" } },
-    { "key": "time4", "component": "Time", "title": "时间", "args": { "defaultValue": "now" } },
+  {
+    "key": "Date",
+    "title": "组件 - 日期时间相关 - Date",
+    "module": "editor",
+    "inputs": [
+      { "key": "date1", "component": "Date", "title": "日期" },
+      { "key": "date1", "component": "Date", "title": "日期", "args": { "defaultValue": 1499157139261 } },
+      { "key": "date2", "component": "Date", "title": "日期", "args": { "defaultValue": "2017-07-13T03:27:44.856Z" } },
+      { "key": "date3", "component": "Date", "title": "日期", "args": { "defaultValue": "today" } }
+    ]
+  },
 
-    {
-      "key": "datetime5", "component": "DateTime", "title": "日期时间 UNIX_TIMESTAMP",
-      "args": { "mode": "UNIX_TIMESTAMP" }
-    },
-    {
-      "key": "datetime6", "component": "DateTime", "title": "日期时间 UNIX_TIMESTAMP",
-      "args": { "defaultValue": 1499157139, "mode": "UNIX_TIMESTAMP" }
-    },
-    {
-      "key": "datetime7", "component": "DateTime", "title": "日期时间 UNIX_TIMESTAMP",
-      "args": { "defaultValue": "now", "mode": "UNIX_TIMESTAMP" }
-    }
-  ]
-}
+  {
+    "key": "Time",
+    "title": "组件 - 日期时间相关 - Time",
+    "module": "editor",
+    "inputs": [
+      { "key": "time5", "component": "Time", "title": "时间" },
+      { "key": "time1", "component": "Time", "title": "时间", "args": { "defaultValue": 1499157139261 } },
+      { "key": "time2", "component": "Time", "title": "时间", "args": { "defaultValue": "23:59:59" } },
+      { "key": "time3", "component": "Time", "title": "时间", "args": { "defaultValue": "23:59" } },
+      { "key": "time4", "component": "Time", "title": "时间", "args": { "defaultValue": "now" } }
+    ]
+  }
+
+]

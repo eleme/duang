@@ -1,88 +1,205 @@
-{
-  "key": "Grouping 控件",
-  "title": "各种控件 - 容器类控件 - Grouping 控件",
-  "module": "editor",
-  "inputs": [
-    {
-      "key": "grouping1", "title": "Grouping", "component": "Grouping",
-      "args": {
-        "inputs": [
-          { "title": "hehe1", "args": { "width": 100 } },
-          { "title": "hehe1", "component": "Suggestion", "args": { "width": 150, "api": "../value-list.json" } },
-          { "title": "hehe1", "args": { "width": 100 } }
-        ]
+[
+
+  {
+    "key": "Grouping",
+    "title": "组件 - 容器类 - Grouping",
+    "module": "editor",
+    "inputs": [
+      {
+        "key": "grouping1", "title": "Grouping", "component": "Grouping",
+        "args": {
+          "inputs": [
+            { "title": "hehe1", "args": { "width": 100 } },
+            { "title": "hehe1", "component": "Suggestion", "args": { "width": 150, "api": "../data/value-list.json" } },
+            { "title": "hehe1", "args": { "width": 100 } }
+          ]
+        }
+      },
+      {
+        "key": "grouping1", "title": "Grouping", "component": "Grouping",
+        "args": {
+          "mode": "line",
+          "inputs": [
+            { "title": "hehe1", "args": { "width": 100 } },
+            { "title": "hehe1", "args": { "width": 100 } },
+            { "title": "hehe1", "args": { "width": 100 } }
+          ]
+        }
+      },
+      {
+        "key": "grouping1", "title": "Grouping", "component": "Grouping",
+        "args": {
+          "mode": "table",
+          "defaultValue": { "a": 1, "b": 2, "c": 3 },
+          "inputs": [
+            { "title": "hehe1", "key": "a", "args": { "width": 100 } },
+            { "title": "hehe1", "key": "b", "args": { "width": 100 } },
+            { "title": "hehe1", "key": "c", "args": { "width": 100 } }
+          ]
+        }
+      },
+      {
+        "key": "grouping1", "title": "Grouping", "component": "Grouping",
+        "args": {
+          "mode": "line",
+          "defaultValue": { "a": 1, "b": 2, "c": 3 },
+          "inputs": [
+            { "title": "hehe1", "key": "a", "args": { "width": 100 } },
+            { "title": "hehe1", "key": "b", "args": { "width": 100 } },
+            { "title": "hehe1", "key": "c", "args": { "width": 100 } }
+          ]
+        }
+      },
+      {
+        "key": "grouping1", "title": "Grouping", "component": "Grouping",
+        "args": {
+          "mode": "table",
+          "defaultValue": { "a": 1, "b": 2, "c": 3 },
+          "inputs": [
+            { "key": "a", "args": { "width": 100 } },
+            { "key": "b", "title": "title", "args": { "width": 100 } },
+            { "key": "c", "args": { "width": 100 } }
+          ]
+        }
+      },
+      {
+        "key": "grouping1", "title": "grouping", "component": "Grouping",
+        "args": {
+          "mode": "line",
+          "defaultValue": { "a": 1, "b": 2, "c": 3 },
+          "inputs": [
+            { "key": "a", "args": { "width": 100 } },
+            { "key": "b", "title": "title", "args": { "width": 100 } },
+            { "key": "c", "args": { "width": 100 } }
+          ]
+        }
+      },
+      {
+        "key": "grouping1", "title": "grouping", "component": "Grouping",
+        "args": {
+          "mode": "line",
+          "defaultValue": { "a": 1, "b": 2, "c": 3 },
+          "inputs": [
+            { "key": "a", "args": { "width": 100 } },
+            { "key": "b", "title": "title", "args": { "width": 100 } },
+            { "key": "c", "args": { "width": 100 } }
+          ]
+        }
       }
-    },
-    {
-      "key": "grouping1", "title": "Grouping", "component": "Grouping",
-      "args": {
-        "mode": "line",
-        "inputs": [
-          { "title": "hehe1", "args": { "width": 100 } },
-          { "title": "hehe1", "args": { "width": 100 } },
-          { "title": "hehe1", "args": { "width": 100 } }
-        ]
+    ]
+  },
+
+  {
+    "key": "GroupingSelect",
+    "title": "组件 - 容器类 - GroupingSelect",
+    "module": "editor",
+    "inputs": [
+      {
+        "key": "grouping1", "title": "GroupingSelect", "component": "GroupingSelect",
+        "args": {
+          "options": { "a": "first", "b": "second" },
+          "mode": "line",
+          "subGroupMap": {
+            "a": [ { "title": "hehe1", "component": "Suggestion", "args": { "api": "../data/value-list.json" } } ],
+            "b": [ { "args": { "placeholder": "b", "width": 100 } } ]
+          }
+        }
+      },
+      {
+        "key": "grouping2", "title": "GroupingSelect", "component": "GroupingSelect",
+        "args": {
+          "options": { "a": "first", "b": "second" },
+          "subGroupMap": {
+            "a": [
+              { "title": "hehe1", "component": "Suggestion", "args": { "width": 150, "api": "../data/value-list.json" } }
+            ],
+            "b": [ { "args": { "placeholder": "b", "width": 100 } } ]
+          }
+        }
+      },
+      {
+        "key": "grouping2", "title": "GroupingSelect", "component": "GroupingSelect",
+        "args": {
+          "options": { "a": "first", "b": "second" },
+          "subGroupMap": {
+            "a": [ { "args": { "placeholder": "a", "width": 100 } } ]
+          }
+        }
+      },
+      {
+        "key": "grouping4", "title": "GroupingSelect", "component": "GroupingSelect",
+        "args": {
+          "options": { "a": "first", "b": "second" },
+          "subGroupMap": {}
+        }
+      },
+      {
+        "key": "grouping5", "title": "GroupingSelect", "component": "GroupingSelect",
+        "args": {
+          "options": { "a": "first", "b": "second" },
+          "subGroupMap": {
+            "a": [
+              {
+                "key": "grouping2", "title": "GroupingSelect", "component": "GroupingSelect",
+                "args": {
+                  "options": { "a": "first", "b": "second" },
+                  "subGroupMap": {
+                    "a": [ { "args": { "placeholder": "a", "width": 100 } } ]
+                  }
+                }
+              }
+            ]
+          }
+        }
       }
-    },
-    {
-      "key": "grouping1", "title": "Grouping", "component": "Grouping",
-      "args": {
-        "mode": "table",
-        "defaultValue": { "a": 1, "b": 2, "c": 3 },
-        "inputs": [
-          { "title": "hehe1", "key": "a", "args": { "width": 100 } },
-          { "title": "hehe1", "key": "b", "args": { "width": 100 } },
-          { "title": "hehe1", "key": "c", "args": { "width": 100 } }
-        ]
+    ]
+  },
+
+  {
+    "key": "GroupingCheckbox",
+    "title": "组件 - 容器类 - GroupingCheckbox",
+    "module": "editor",
+    "inputs": [
+      {
+        "key": "grouping1", "title": "GroupingCheckbox", "component": "GroupingCheckbox",
+        "args": {
+          "subGroup": [
+            { "title": "hehe1", "key": "hehe1", "component": "Suggestion", "args": { "api": "../data/value-list.json" } }
+          ]
+        }
+      },
+      {
+        "key": "grouping2", "title": "GroupingCheckbox", "component": "GroupingCheckbox",
+        "args": {
+          "subGroup": [
+            { "title": "hehe", "key": "hehe", "component": "String" }
+          ],
+          "defaultValue": { "": true, "hehe": "测试" }
+        }
+      },
+      {
+        "key": "grouping3", "title": "GroupingCheckbox", "component": "GroupingCheckbox",
+        "args": {
+          "aliasKey": "bool",
+          "subGroup": [
+            { "title": "hehe1", "key": "hehe1", "component": "String" },
+            { "title": "hehe2", "key": "hehe2", "component": "String" }
+          ],
+          "defaultValue": { "bool": true, "hehe1": "a", "hehe2": "b" }
+        }
+      },
+      {
+        "title": "GroupingCheckbox", "component": "GroupingCheckbox",
+        "squash": "direct",
+        "args": {
+          "aliasKey": "bool-direct",
+          "subGroup": [
+            { "title": "hehe", "key": "hehe", "component": "String" }
+          ],
+          "defaultValue": { "": true, "hehe": "测试" }
+        }
       }
-    },
-    {
-      "key": "grouping1", "title": "Grouping", "component": "Grouping",
-      "args": {
-        "mode": "line",
-        "defaultValue": { "a": 1, "b": 2, "c": 3 },
-        "inputs": [
-          { "title": "hehe1", "key": "a", "args": { "width": 100 } },
-          { "title": "hehe1", "key": "b", "args": { "width": 100 } },
-          { "title": "hehe1", "key": "c", "args": { "width": 100 } }
-        ]
-      }
-    },
-    {
-      "key": "grouping1", "title": "Grouping", "component": "Grouping",
-      "args": {
-        "mode": "table",
-        "defaultValue": { "a": 1, "b": 2, "c": 3 },
-        "inputs": [
-          { "key": "a", "args": { "width": 100 } },
-          { "key": "b", "title": "title", "args": { "width": 100 } },
-          { "key": "c", "args": { "width": 100 } }
-        ]
-      }
-    },
-    {
-      "key": "grouping1", "title": "grouping", "component": "Grouping",
-      "args": {
-        "mode": "line",
-        "defaultValue": { "a": 1, "b": 2, "c": 3 },
-        "inputs": [
-          { "key": "a", "args": { "width": 100 } },
-          { "key": "b", "title": "title", "args": { "width": 100 } },
-          { "key": "c", "args": { "width": 100 } }
-        ]
-      }
-    },
-    {
-      "key": "grouping1", "title": "grouping", "component": "Grouping",
-      "args": {
-        "mode": "line",
-        "defaultValue": { "a": 1, "b": 2, "c": 3 },
-        "inputs": [
-          { "key": "a", "args": { "width": 100 } },
-          { "key": "b", "title": "title", "args": { "width": 100 } },
-          { "key": "c", "args": { "width": 100 } }
-        ]
-      }
-    }
-  ]
-}
+    ]
+  }
+
+]

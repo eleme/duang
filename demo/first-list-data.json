@@ -1,8 +1,0 @@
-[
-  { "link": { "title": "日期时间相关控件", "key": "日期时间相关控件" } },
-  { "link": { "title": "键盘输入类控件", "key": "键盘输入类控件" } },
-  { "link": { "title": "点选类控件", "key": "点选类控件" } },
-  { "link": { "title": "Grouping 控件", "key": "Grouping 控件" } },
-  { "link": { "title": "GroupingSelect 控件", "key": "GroupingSelect 控件" } },
-  { "link": { "title": "其它复杂控件", "key": "其它复杂控件" } }
-]

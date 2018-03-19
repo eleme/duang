@@ -1,0 +1,234 @@
+[
+
+  {
+    "key": "data/the-list-data.json?1",
+    "title": "配置 - 列表 - 标准",
+    "actions": [
+      { "title": "www.ele.me", "method": "open", "href": "https://www.ele.me" },
+      { "title": "The-Action", "method": "post", "api": "theAction" }
+    ],
+    "fields": [
+      {
+        "key": "id",
+        "title": "ID",
+        "sortable": true
+      },
+      {
+        "key": "a", "title": "<font color=red>A</font>",
+        "component": "TextTip"
+      },
+      {
+        "key": "img", "title": "图片",
+        "component": "Image"
+      },
+      {
+        "key": "c",
+        "component": "QRCode",
+        "args": {
+          "defaultValue": "hehe"
+        },
+        "title": "QRCode"
+      }
+    ],
+    "operations": [
+      { "title": "批量删除", "method": "delete", "query": true }
+    ]
+  },
+
+  {
+    "listSelector": true,
+    "key": "data/the-list-data.json?2",
+    "title": "配置 - 列表 - 可全选",
+    "actions": [
+      { "title": "www.ele.me", "method": "open", "href": "https://www.ele.me" },
+      { "title": "The-Action", "method": "post", "api": "theAction" }
+    ],
+    "fields": [
+      {
+        "key": "id",
+        "title": "ID",
+        "sortable": true
+      },
+      {
+        "key": "a", "title": "<font color=red>A</font>",
+        "component": "TextTip"
+      },
+      {
+        "key": "img", "title": "图片",
+        "component": "Image"
+      },
+      {
+        "key": "c",
+        "component": "QRCode",
+        "args": {
+          "defaultValue": "hehe"
+        },
+        "title": "QRCode"
+      }
+    ],
+    "operations": [
+      { "title": "批量删除", "method": "delete", "query": true }
+    ]
+  },
+
+  {
+    "key": "data/the-list-data.json?3",
+    "title": "配置 - 列表 - 默认筛选条件",
+    "where": { "f3": "a" },
+    "filters": [
+      {
+        "key": "f1",
+        "component": "String",
+        "args": { "width": 100 },
+        "title": "Input - 100",
+        "description": "描述"
+      },
+      {
+        "key": "f2",
+        "component": "String",
+        "optional": true,
+        "args": { "width": 150 },
+        "title": "Input - 150",
+        "description": "描述"
+      },
+      {
+        "key": "f3",
+        "component": "Radio",
+        "optional": true,
+        "args": {
+          "options": { "a": "1", "b": "2" },
+          "defaultValue": "a"
+        },
+        "title": "Radio"
+      },
+      {
+        "key": "f4",
+        "component": "Checkbox",
+        "args": {
+          "options": { "a": "一个很长很长的描述", "b": "一个很长很长的描述", "c": "一个很长很长的描述", "d": "一个很长很长的描述" },
+          "defaultValue": [ "a", "b" ]
+        },
+        "title": "Radio"
+      }
+    ],
+    "actions": [
+      { "title": "www.ele.me", "method": "open", "href": "https://www.ele.me" },
+      { "title": "The-Action", "method": "post", "api": "theAction" }
+    ],
+    "fields": [
+      {
+        "key": "id",
+        "title": "ID",
+        "sortable": true
+      },
+      {
+        "key": "a", "title": "<font color=red>A</font>",
+        "component": "TextTip"
+      },
+      {
+        "key": "img", "title": "图片",
+        "component": "Image"
+      },
+      {
+        "key": "c",
+        "component": "QRCode",
+        "args": {
+          "defaultValue": "hehe"
+        },
+        "title": "QRCode"
+      }
+    ],
+    "operations": [
+      { "title": "批量删除", "method": "delete", "query": true }
+    ]
+  },
+
+  {
+    "key": "data/the-list-data.json?4",
+    "title": "配置 - 列表 - 默认折叠筛选器",
+    "where": { "f3": "a" },
+    "params": {
+      "filterState": "folded"
+    },
+    "filters": [
+      {
+        "key": "f1",
+        "component": "String",
+        "args": { "width": 100 },
+        "title": "Input - 100",
+        "description": "描述"
+      },
+      {
+        "key": "f2",
+        "component": "String",
+        "optional": true,
+        "args": { "width": 150 },
+        "title": "Input - 150",
+        "description": "描述"
+      },
+      {
+        "key": "f3",
+        "component": "Radio",
+        "optional": true,
+        "args": {
+          "options": { "a": "1", "b": "2" },
+          "defaultValue": "a"
+        },
+        "title": "Radio"
+      },
+      {
+        "key": "f4",
+        "component": "Checkbox",
+        "args": {
+          "options": { "a": "一个很长很长的描述", "b": "一个很长很长的描述", "c": "一个很长很长的描述", "d": "一个很长很长的描述" },
+          "defaultValue": [ "a", "b" ]
+        },
+        "title": "Radio"
+      }
+    ],
+    "actions": [
+      { "title": "www.ele.me", "method": "open", "href": "https://www.ele.me" },
+      { "title": "The-Action", "method": "post", "api": "theAction" }
+    ],
+    "fields": [
+      {
+        "key": "id",
+        "title": "ID",
+        "sortable": true
+      },
+      {
+        "key": "a", "title": "<font color=red>A</font>",
+        "component": "TextTip"
+      },
+      {
+        "key": "img", "title": "图片",
+        "component": "Image"
+      },
+      {
+        "key": "c",
+        "component": "QRCode",
+        "args": {
+          "defaultValue": "hehe"
+        },
+        "title": "QRCode"
+      }
+    ],
+    "operations": [
+      { "title": "批量删除", "method": "delete", "query": true }
+    ]
+  },
+
+  {
+    "key": "data/pager-list-data.json",
+    "title": "配置 - 列表 - 分页",
+    "countable": 5,
+    "pageSize": 10,
+    "module": "list",
+    "fields": [
+      { "key": "id", "title": "ID" },
+      { "key": "a", "title": "A" },
+      { "key": "b", "title": "B", "component": "Clipboard" }
+    ]
+  }
+
+]

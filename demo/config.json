@@ -6,28 +6,24 @@
   ],
   "schemes": [
 
-    { "key": "doc", "title": "文档", "module": "Custom", "params": { "href": "https://eleme.github.io/duang/docs/" } },
-
-    "schemes/caption.json",
-    "schemes/the-form.json",
-    "schemes/hidden.json",
-
-    "schemes/list/first-list.json",
-    "schemes/list/the-list.json",
-    "schemes/list/pager-list.json",
-    "schemes/list/the-filter.json",
-    "schemes/list/no-list.json",
-    "schemes/list/404-list.json",
-    "schemes/list/500-list.json",
-
     "schemes/inputs/datetime.json",
     "schemes/inputs/keyboards.json",
     "schemes/inputs/clicking.json",
     "schemes/inputs/grouping.json",
-    "schemes/inputs/grouping-select.json",
-    "schemes/inputs/grouping-checkbox.json",
     "schemes/inputs/other.json",
-    "schemes/inputs/other-combines.json"
+    "schemes/inputs/combines.json",
+    "schemes/inputs/caption.json",
+
+    "schemes/config/list.json",
+    "schemes/config/filter.json",
+    "schemes/config/error.json",
+    "schemes/config/form.json",
+    "schemes/config/hidden.json",
+
+    {
+      "key": "doc", "title": "文档", "module": "Custom",
+      "params": { "href": "https://eleme.github.io/duang/docs/" }
+    }
 
   ],
   "logo": "Duang Demo",
