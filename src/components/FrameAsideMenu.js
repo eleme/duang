@@ -1,6 +1,8 @@
 def((Item) => {
 
-  const svg = code => `url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">${code}</svg>')`;
+  const svg = code => {
+    return `url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">${code}</svg>')`;
+  };
 
   class Proto extends Item {
     init() {
@@ -37,9 +39,16 @@ def((Item) => {
             background-image: var(--icon);
           }
         }
-        ul :scope { --icon: ${svg('<circle cx="16" cy="16" r="14" stroke="#c0ccda" stroke-width="4" fill="none" />')}; }
-        ul ul :scope { --icon: ${svg('<circle cx="16" cy="16" r="10" stroke="#c0ccda" stroke-width="4" fill="none" />')}; font-size: 14px; }
-        ul ul ul :scope { --icon: ${svg('<circle cx="16" cy="16" r="10" stroke="none" stroke-width="4" fill="#c0ccda" />')}; }
+        ul :scope {
+          --icon: ${svg('<circle cx="16" cy="16" r="14" stroke="#c0ccda" stroke-width="4" fill="none" />')};
+        }
+        ul ul :scope {
+          --icon: ${svg('<circle cx="16" cy="16" r="10" stroke="#c0ccda" stroke-width="4" fill="none" />')};
+          font-size: 14px;
+        }
+        ul ul ul :scope {
+          --icon: ${svg('<circle cx="16" cy="16" r="10" stroke="none" stroke-width="4" fill="#c0ccda" />')};
+        }
       `;
     }
   }
@@ -76,12 +85,21 @@ def((Item) => {
             top: 0;
             width: 50px;
             height: 50px;
+            visibility: visible;
+            opacity: 1;
             background-repeat: no-repeat;
             background-position: center;
             background-size: 18px 18px;
             background-image: ${svg('<polyline points="9,3 23,16 9,29" stroke="#c0ccda" stroke-width="6" stroke-linejoin="round" stroke-linecap="round" fill="none" />')};
-            transition: transform 200ms ease;
+            transition: transform 200ms ease, visibility 200ms ease, opacity 200ms ease;
           }
+        }
+        .folded :scope::after {
+          visibility: hidden;
+          opacity: 0;
+        }
+        ul ul :scope.active {
+          background: hsl(211,33%,23%);
         }
       `;
     }
@@ -183,10 +201,6 @@ def((Item) => {
 
     get styleSheet() {
       return `
-        .folded :scope > ul { 
-          position: absolute;
-          visibility: hidden;
-        }
         :scope {
           > ul {
             background: rgba(255,255,255,.1);
