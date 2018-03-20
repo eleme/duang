@@ -38,6 +38,8 @@ Input 用于接受用户的输入的组件，在 Duang 中用于:
 }
 ```
 
+[试一试](../../demo/#!module=editor&key=Input::String)
+
 ### Input::Text
 
 参数描述
@@ -67,6 +69,8 @@ Input 用于接受用户的输入的组件，在 Duang 中用于:
 }
 ```
 
+[试一试](../../demo/#!module=editor&key=Input::Text)
+
 ### Input::Number
 
 数值输入
@@ -93,31 +97,7 @@ Input 用于接受用户的输入的组件，在 Duang 中用于:
 }
 ```
 
-### Input::TextAround
-
-数值输入
-
-参数：
-
-| 名字         | 类型                    | 默认值                   | 描述           |
-| ------------ | ----------------------- | ------------------------ | -------------- |
-| before       | `String`                | 无                       | 前描述         |
-| after        | `String`                | 无                       | 后描述         |
-| component    | `String`                | 必须                     | 组件           |
-| args         | `Object`                |                          | 组件参数       |
-
-示例：
-
-```javascript
-{
-  "component": "TextAround",
-  "args": {
-    "before": "人民币",
-    "after": "元",
-    "component": "String"
-  }
-}
-```
+[试一试](../../demo/#!module=editor&key=Input::Number)
 
 ### Input::Boolean
 
@@ -148,60 +128,7 @@ Input::Boolean::text
 }
 ```
 
-### Input::Grouping
-
-组合控件
-
-参数：
-
-| 名字         | 类型                    | 默认值                   | 描述           |
-| ------------ | ----------------------- | ------------------------ | -------------- |
-| inputs       | `Array<Input>`          | 必选参数                 | 默认文本       |
-| mode         | `String`                | "table"                  | 显示模式       |
-| style        | `Object<String>`        | 空                       | 附加 CSS 样式  |
-
-mode 目前支持两种取值，"line" 和 "table"，分别表示单行显示和表格显示。
-
-示例配置
-
-```javascript
-{
-  "component": "Grouping",
-  "args": {
-    "mode": "line",
-    "style": { "color": "red" },
-    "inputs": [
-      { "component": "String", "key": "name", "title": "名称" },
-      { "component": "String", "key": "title", "title": "标题" }
-    ]
-  }
-}
-```
-
-### Input::List
-
-列表控件
-
-参数：
-
-| 名字         | 类型                    | 默认值                   | 描述           |
-| ------------ | ----------------------- | ------------------------ | -------------- |
-| component    | `String`                | "String"                 | 每项的控件类型 |
-| args         | `Object`                | 空对象                   | 每项的控件参数 |
-| max          | `Number`                | 不限制                   | 项数量上限     |
-
-示例配置
-
-```javascript
-{
-  "component": "List",
-  "args": {
-    "component": "String",
-    "args": {},
-    "max": 10
-  }
-}
-```
+[试一试](../../demo/#!module=editor&key=Input::Boolean)
 
 ### Input::Checkbox
 
@@ -230,6 +157,8 @@ options 是一个对象，其键名对应复选框的 value，其值对应复选
 }
 ```
 
+[试一试](../../demo/#!module=editor&key=Input::Checkbox)
+
 ### Input::Radio
 
 单选框
@@ -255,6 +184,33 @@ options 是一个对象，其键名对应单选框的 value，其值对应单选
   }
 }
 ```
+
+[试一试](../../demo/#!module=editor&key=Input::Radio)
+
+
+### Input::Select
+
+参数：
+
+| 名字         | 类型                    | 默认值                   | 描述           |
+| ------------ | ----------------------- | ------------------------ | -------------- |
+| options      | `Object`                | 必选参数                 | 备选项         |
+
+示例：
+
+```javascript
+{
+  "component": "Select",
+  "args": {
+    "options": {
+      "active": "启用",
+      "inactive": "禁用"
+    }
+  }
+}
+```
+
+[试一试](../../demo/#!module=editor&key=Input::Select)
 
 ### Input::ImageSelector
 
@@ -290,90 +246,7 @@ options 是一个对象数组，其中的对象结构为：
 }
 ```
 
-### Input::Select
-
-参数：
-
-| 名字         | 类型                    | 默认值                   | 描述           |
-| ------------ | ----------------------- | ------------------------ | -------------- |
-| options      | `Object`                | 必选参数                 | 备选项         |
-
-示例：
-
-```javascript
-{
-  "component": "Select",
-  "args": {
-    "options": {
-      "active": "启用",
-      "inactive": "禁用"
-    }
-  }
-}
-```
-
-### Input::GroupingSelect
-
-参数：
-
-| 名字         | 类型                    | 默认值                   | 描述           |
-| ------------ | ----------------------- | ------------------------ | -------------- |
-| options      | `Object`                | 必选参数                 | 备选项         |
-| subGroupMap  | `Object<Array<Input>>`  | 空对象                   | 匹配组         |
-| hideKey      | `Boolean`               | false                    | 是否过滤字段   |
-| aliasKey     | `String`                | undefined                | 字段别名       |
-| mode         | `String`                | "normal"                 | 排列模式       |
-
-当选择某个选项时，通过选中的值在 subGroupMap 中找到对应的数组，作为 Grouping 的 inputs 渲染。
-
-mode 目前支持两种取值，"line" 和 "normal"，分别表示单行显示和分行显示。
-
-示例：
-
-```javascript
-{
-  "component": "GroupingSelect",
-  "args": {
-    "options": {
-      "hongbao": "红包",
-      "point": "积分"
-    },
-    "subGroupMap": {
-      "hongbao": [
-        { "key": "hongbao_amount", "component": "Number", "title": "红包金额" }
-      ],
-      "point": [
-        { "key": "point", "component": "Number", "title": "积分" }
-      ]
-    }
-  }
-}
-```
-
-### Input::GroupingCheckbox
-
-参数：
-
-| 名字         | 类型                    | 默认值                   | 描述           |
-| ------------ | ----------------------- | ------------------------ | -------------- |
-| subGroup     | `<Array<Input>>`        | 空数组                   | 子控件         |
-| aliasKey     | `String`                | undefined                | 字段别名       |
-
-当勾选时，subGroup 中的控件将生效。
-
-示例：
-
-```javascript
-{
-  "component": "GroupingCheckbox",
-  "args": {
-    "subGroup": [
-        { "key": "hongbao_amount", "component": "Number", "title": "红包金额" }
-      ]
-    }
-  }
-}
-```
+[试一试](../../demo/#!module=editor&key=Input::ImageSelector)
 
 ### Input::Date
 
@@ -403,6 +276,8 @@ mode 目前支持两种取值，"line" 和 "normal"，分别表示单行显示�
 }
 ```
 
+[试一试](../../demo/#!module=editor&key=Input::Date)
+
 ### Input::Time
 
 一个时间选择器，基于 [jinkela-timepicker](https://github.com/jinkelajs/jinkela-timepicker)，`args` 中的参数都会传到 `jinkela-timepicker` 的初始化配置中。
@@ -430,6 +305,8 @@ mode 目前支持两种取值，"line" 和 "normal"，分别表示单行显示�
 }
 ```
 
+[试一试](../../demo/#!module=editor&key=Input::Time)
+
 ### Input::DateTime
 
 值的标准格式为 Date 类型的对象。
@@ -451,6 +328,8 @@ mode 目前支持两种取值，"line" 和 "normal"，分别表示单行显示�
 }
 ```
 
+[试一试](../../demo/#!module=editor&key=Input::DateTime)
+
 ### Input::FileBase64
 
 文件上传（Base64 方式）
@@ -470,6 +349,8 @@ mode 目前支持两种取值，"line" 和 "normal"，分别表示单行显示�
   "args": { "text": "上传文件" }
 }
 ```
+
+[试一试](../../demo/#!module=editor&key=Input::FileBase64)
 
 ### Input::FileToken
 
@@ -515,6 +396,8 @@ limit：
 }
 ```
 
+[试一试](../../demo/#!module=editor&key=Input::FileToken)
+
 ### Input::FileTokenWithInfo
 
 功能同 (InputFileToken)[/duang/docs/components/#Input%3A%3AFileToken] 上传时额外多发送图片相关信息：`width` 和 `height`。
@@ -530,6 +413,37 @@ limit：
 | api          | `String`                | 必选参数                 | 图片上传接口相对路径 |
 
 提供的 api 应该支持 `POST api` 上传文件（文件所在的字段名叫 file），以及 `GET api/:token` 下载某个 token（用于预览）。
+
+[试一试](../../demo/#!module=editor&key=Input::FileTokenWithInfo)
+
+### Input::TextAround
+
+数值输入
+
+参数：
+
+| 名字         | 类型                    | 默认值                   | 描述           |
+| ------------ | ----------------------- | ------------------------ | -------------- |
+| before       | `String`                | 无                       | 前描述         |
+| after        | `String`                | 无                       | 后描述         |
+| component    | `String`                | 必须                     | 组件           |
+| args         | `Object`                |                          | 组件参数       |
+
+示例：
+
+```javascript
+{
+  "component": "TextAround",
+  "args": {
+    "before": "人民币",
+    "after": "元",
+    "component": "String"
+  }
+}
+```
+
+[试一试](../../demo/#!module=editor&key=Input::TextAround)
+
 
 ### Input::Suggestion
 
@@ -573,6 +487,8 @@ Content-Length: ...
 }
 ```
 
+[试一试](../../demo/#!module=editor&key=Input::Suggestion)
+
 ### Input::TagCollector
 
 参数：
@@ -615,28 +531,7 @@ Content-Length: ...
 }
 ```
 
-### Input::City
-
-参数：
-
-| 名字             | 类型                    | 默认值                   | 描述                     |
-| ---------------- | ----------------------- | ------------------------ | ------------------------ |
-| api              | `String`                | 必选参数                 | 获取城市数据接口相对路径 |
-| defaultText      | `String`                | "请选择城市"             | 默认提示文案             |
-| defaultGroupName | `String`                | "其它"                   | 未分组元素的默认组名     |
-
-配置：
-
-```javascript
-{
-  "component": "City",
-  "args": {
-    "api": "/cities",
-    "defaultText": "请选择城市",
-    "defaultGroupName": "其他"
-  }
-}
-```
+[试一试](../../demo/#!module=editor&key=Input::TagCollector)
 
 ### Input::Cascader
 
@@ -678,6 +573,8 @@ Input::Cascader::Options:
 }
 ```
 
+[试一试](../../demo/#!module=editor&key=Input::Cascader)
+
 ### Input::Forest
 
 树林选择器
@@ -717,6 +614,8 @@ Input::Cascader::Options:
 }
 ```
 
+[试一试](../../demo/#!module=editor&key=Input::Forest)
+
 ### Input::Code
 
 一个代码输入框，底层使用的是 [CodeMirror](https://codemirror.net/doc/manual.html)，`args` 中的参数都会传到 `CodeMirror` 初始化配置中
@@ -743,6 +642,8 @@ Input::Cascader::Options:
 }
 ```
 
+[试一试](../../demo/#!module=editor&key=Input::Code)
+
 ### Input::Markdown
 
 Markdown 输入控件，提供预览功能
@@ -764,6 +665,137 @@ Markdown 输入控件，提供预览功能
 | ------------ | ----------------------- | ------------------------ | ----------------- |
 | h1           | `String`                | 空字符串                 | 主标题            |
 | h2           | `String`                | 空字符串                 | 副标题            |
+
+[试一试](../../demo/#!module=editor&key=Input::Markdown)
+
+### Input::Grouping
+
+组合控件
+
+参数：
+
+| 名字         | 类型                    | 默认值                   | 描述           |
+| ------------ | ----------------------- | ------------------------ | -------------- |
+| inputs       | `Array<Input>`          | 必选参数                 | 默认文本       |
+| mode         | `String`                | "table"                  | 显示模式       |
+| style        | `Object<String>`        | 空                       | 附加 CSS 样式  |
+
+mode 目前支持两种取值，"line" 和 "table"，分别表示单行显示和表格显示。
+
+示例配置
+
+```javascript
+{
+  "component": "Grouping",
+  "args": {
+    "mode": "line",
+    "style": { "color": "red" },
+    "inputs": [
+      { "component": "String", "key": "name", "title": "名称" },
+      { "component": "String", "key": "title", "title": "标题" }
+    ]
+  }
+}
+```
+
+[试一试](../../demo/#!module=editor&key=Input::Grouping)
+
+
+### Input::GroupingSelect
+
+参数：
+
+| 名字         | 类型                    | 默认值                   | 描述           |
+| ------------ | ----------------------- | ------------------------ | -------------- |
+| options      | `Object`                | 必选参数                 | 备选项         |
+| subGroupMap  | `Object<Array<Input>>`  | 空对象                   | 匹配组         |
+| hideKey      | `Boolean`               | false                    | 是否过滤字段   |
+| aliasKey     | `String`                | undefined                | 字段别名       |
+| mode         | `String`                | "normal"                 | 排列模式       |
+
+当选择某个选项时，通过选中的值在 subGroupMap 中找到对应的数组，作为 Grouping 的 inputs 渲染。
+
+mode 目前支持两种取值，"line" 和 "normal"，分别表示单行显示和分行显示。
+
+示例：
+
+```javascript
+{
+  "component": "GroupingSelect",
+  "args": {
+    "options": {
+      "hongbao": "红包",
+      "point": "积分"
+    },
+    "subGroupMap": {
+      "hongbao": [
+        { "key": "hongbao_amount", "component": "Number", "title": "红包金额" }
+      ],
+      "point": [
+        { "key": "point", "component": "Number", "title": "积分" }
+      ]
+    }
+  }
+}
+```
+
+[试一试](../../demo/#!module=editor&key=Input::GroupingSelect)
+
+### Input::GroupingCheckbox
+
+参数：
+
+| 名字         | 类型                    | 默认值                   | 描述           |
+| ------------ | ----------------------- | ------------------------ | -------------- |
+| subGroup     | `<Array<Input>>`        | 空数组                   | 子控件         |
+| aliasKey     | `String`                | undefined                | 字段别名       |
+
+当勾选时，subGroup 中的控件将生效。
+
+示例：
+
+```javascript
+{
+  "component": "GroupingCheckbox",
+  "args": {
+    "subGroup": [
+        { "key": "hongbao_amount", "component": "Number", "title": "红包金额" }
+      ]
+    }
+  }
+}
+```
+
+[试一试](../../demo/#!module=editor&key=Input::GroupingCheckbox)
+
+### Input::List
+
+列表控件
+
+参数：
+
+| 名字         | 类型                    | 默认值                   | 描述           |
+| ------------ | ----------------------- | ------------------------ | -------------- |
+| component    | `String`                | "String"                 | 每项的控件类型 |
+| args         | `Object`                | 空对象                   | 每项的控件参数 |
+| max          | `Number`                | 不限制                   | 项数量上限     |
+
+示例配置
+
+```javascript
+{
+  "component": "List",
+  "args": {
+    "component": "String",
+    "args": {},
+    "max": 10
+  }
+}
+```
+
+[试一试](../../demo/#!module=editor&key=Input::List)
+
+
 
 ## Output
 
@@ -825,7 +857,7 @@ Markdown 输入控件，提供预览功能
 }
 ```
 
-### Output::Datetime
+### Output::DateTime
 
 参数描述
 
@@ -838,7 +870,7 @@ Markdown 输入控件，提供预览功能
 
 ```javascript
 {
-  "component": "Datetime",
+  "component": "DateTime",
   "args": {
     "format": "$Y-$M-$D",
     "offset": -864E5
