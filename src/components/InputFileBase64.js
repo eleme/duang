@@ -68,7 +68,11 @@ def((Button) => {
   return class extends Jinkela {
     get SpanButton() { return SpanButton; }
     get DownloadLink() { return DownloadLink; }
-    get value() { return this.$value === void 0 ? null : this.$value; }
+    get value() {
+      let value = this.$value === void 0 ? null : this.$value;
+      if (this.notEmpty && !value) throw new Error('不能为空');
+      return value;
+    }
     set value(value = this.defaultValue) {
       this.$hasValue = true;
       this.$value = value;

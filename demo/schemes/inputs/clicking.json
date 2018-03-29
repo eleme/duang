@@ -62,7 +62,8 @@
     "module": "editor",
     "inputs": [
       { "key": "file1", "component": "FileBase64", "title": "文件 Base64" },
-      { "key": "file2", "component": "FileBase64", "title": "文本 Base64", "args": { "defaultValue": "aGVoZQo=" } }
+      { "key": "file2", "component": "FileBase64", "title": "默认值", "args": { "defaultValue": "aGVoZQo=" } },
+      { "key": "file3", "component": "FileBase64", "title": "非空", "args": { "notEmpty": true } }
     ]
   },
 
@@ -71,44 +72,51 @@
     "title": "组件 - 点选类 - FileToken",
     "module": "editor",
     "inputs": [
-      { "key": "file3", "component": "FileToken", "title": "文件 Token" },
-      { "key": "file4", "component": "FileToken", "title": "文件 Token",
+      { "key": "file1", "component": "FileToken", "title": "常规" },
+      { "key": "file2", "component": "FileToken", "title": "默认值",
         "args": { "defaultValue": "logo.png", "api": "/" }
       },
       {
         "key": "file3", "title": {
           "component": "InputGrouping", "args": {
             "mode": "line", "inputs": [
-              { "title": "文件 Token", "component": "OutputIconTip", "args": { "defaultValue": { "tip": "type png" } } }
+              {
+                "title": "限制 png 类型", "component": "OutputIconTip",
+                "args": { "defaultValue": { "tip": "type png" } }
+              }
             ]
           }
         },
         "component": "FileToken", "args": { "limit": { "type": "png" } }
       },
       {
-        "key": "file3", "component": "FileToken", "title": "文件 Token（max size 100）",
+        "key": "file4", "component": "FileToken", "title": "限制最大 100",
         "args": { "limit": { "maxSize": 100 } }
       },
       {
-        "key": "file3", "component": "FileToken", "title": "文件 Token（[,100]x[]）",
+        "key": "file5", "component": "FileToken", "title": "限制 [,100]x[]",
         "args": { "limit": { "maxWidth": 100 } }
       },
       {
-        "key": "file3", "component": "FileToken", "title": "文件 Token（100x100）",
+        "key": "file6", "component": "FileToken", "title": "限制 100x100",
         "args": { "limit": { "width": 100, "height": 100 } }
       },
       {
-        "key": "file3", "component": "FileToken", "title": "文件 Token（100x[100,200]）",
+        "key": "file7", "component": "FileToken", "title": "限制 100x[100,200]",
         "args": { "limit": { "width": 100, "minHeight": 100, "maxHeight": 200 } }
       },
       {
-        "key": "file4", "component": "FileToken", "title": "文件 Token（disable*）",
+        "key": "file8", "component": "FileToken", "title": "disable*",
         "args": {
           "disableCredentialsForDownload": true,
           "defaultIcon": "https://fuss10.elemecdn.com/3/81/176119defd395cf61c1343af79e26png.png",
           "disableEncode": true,
           "defaultValue": "https://fuss10.elemecdn.com/e/ac/f2b009ddbe51831a778a0ee3e2c20xlsx.xlsx"
         }
+      },
+      {
+        "key": "file4", "component": "FileToken", "title": "非空",
+        "args": { "notEmpty": true }
       }
     ]
   },

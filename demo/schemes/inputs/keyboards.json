@@ -4,10 +4,12 @@
     "title": "组件 - 键盘输入类 - String",
     "module": "editor",
     "inputs": [
-      { "key": "string1", "component": "String", "title": "普通" },
-      { "key": "string2", "component": "String", "title": "带默认值", "args": { "defaultValue": "hehe" } },
-      { "key": "string1", "component": "String", "title": "最大限制", "args": { "maxlength": 3 } },
-      { "key": "string1", "component": "String", "title": "最小限制", "args": { "minlength": 3 } }
+      { "key": "string1", "component": "String", "title": "常规" },
+      { "key": "string2", "component": "String", "title": "默认值", "args": { "defaultValue": "hehe" } },
+      { "key": "string3", "component": "String", "title": "最大限制", "args": { "maxLength": 3 } },
+      { "key": "string4", "component": "String", "title": "最小限制", "args": { "minLength": 3 } },
+      { "key": "string5", "component": "String", "title": "非空", "args": { "notEmpty": true } },
+      { "key": "string6", "component": "String", "title": "自动清空头尾空格", "args": { "autoTrim": true } }
     ]
   },
 
@@ -16,8 +18,12 @@
     "title": "组件 - 键盘输入类 - Text",
     "module": "editor",
     "inputs": [
-      { "key": "text1", "component": "Text", "title": "多行文本" },
-      { "key": "text1", "component": "Text", "title": "多行文本", "args": { "defaultValue": "hehe\nhehe" } }
+      { "key": "text1", "component": "Text", "title": "常规" },
+      { "key": "text2", "component": "Text", "title": "默认值", "args": { "defaultValue": "hehe\nhehe" } },
+      { "key": "text3", "component": "Text", "title": "最大限制", "args": { "maxLength": 3 } },
+      { "key": "text4", "component": "Text", "title": "最小限制", "args": { "minLength": 3 } },
+      { "key": "text5", "component": "Text", "title": "非空", "args": { "notEmpty": true } },
+      { "key": "text6", "component": "Text", "title": "自动清空头尾空格", "args": { "autoTrim": true } }
     ]
   },
 
@@ -70,8 +76,14 @@
     "title": "组件 - 键盘输入类 - Password",
     "module": "editor",
     "inputs": [
-      { "key": "password1", "component": "Password", "title": "正常" },
-      { "key": "password2", "component": "Password", "title": "默认值", "args": { "defaultValue": "hehe" } }
+      { "key": "password1", "component": "Password", "title": "常规" },
+      { "key": "password2", "component": "Password", "title": "placeholder", "args": { "placeholder": "请输入密码" } },
+      { "key": "password3", "component": "Password", "title": "width 60", "args": { "width": 60 } },
+      { "key": "password4", "component": "Password", "title": "默认值", "args": { "defaultValue": "hehe" } },
+      { "key": "password5", "component": "Password", "title": "最大限制", "args": { "maxLength": 3 } },
+      { "key": "password6", "component": "Password", "title": "最小限制", "args": { "minLength": 3 } },
+      { "key": "password7", "component": "Password", "title": "非空", "args": { "notEmpty": true } },
+      { "key": "password8", "component": "Password", "title": "自动清空头尾空格", "args": { "autoTrim": true } }
     ]
   },
 

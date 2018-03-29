@@ -1,5 +1,12 @@
 def(() => class extends Jinkela {
-  get value() { return this.element.value; }
+  get value() {
+    let { value } = this.element;
+    if (this.autoTrim) value = value.trim();
+    if (this.minlength && value.length < this.minlength) throw new Error(`必须大于 ${this.minLength} 个字符`);
+    if (this.minLength && value.length < this.minLength) throw new Error(`必须大于 ${this.minLength} 个字符`);
+    if (this.notEmpty && !value) throw new Error('不能为空');
+    return value;
+  }
   set value(value = this.defaultValue) {
     this.$hasValue = true;
     this.element.value = value === void 0 ? '' : value;
@@ -10,6 +17,7 @@ def(() => class extends Jinkela {
     if (this.readonly) this.element.setAttribute('readonly', 'readonly');
     if ('placeholder' in this) this.element.setAttribute('placeholder', this.placeholder);
     if ('maxlength' in this) this.element.setAttribute('maxlength', this.maxlength);
+    if ('maxLength' in this) this.element.setAttribute('maxlength', this.maxLength);
     if (!this.$hasValue) this.value = this.default; // default 已废弃，暂时保持兼容，请使用 defaultValue
   }
   get tagName() { return 'textarea'; }

@@ -18,12 +18,14 @@ Input 用于接受用户的输入的组件，在 Duang 中用于:
 
 参数：
 
-| 名字         | 类型                    | 默认值                   | 描述           |
-| ------------ | ----------------------- | ------------------------ | -------------- |
-| placeholder  | `String`                | 空字符串                 | 占位文字       |
-| width        | `String`                | 300                      | 宽度           |
-| maxlength    | `Number`                | 不限制                   | 最大字符个数   |
-| minlength    | `Number`                | 不限制                   | 最少字符个数   |
+| 名字         | 类型                    | 默认值                   | 描述             |
+| ------------ | ----------------------- | ------------------------ | ---------------- |
+| placeholder  | `String`                | 空字符串                 | 占位文字         |
+| width        | `String`                | 300                      | 宽度             |
+| maxLength    | `Number`                | 不限制                   | 最大字符个数     |
+| minLength    | `Number`                | 不限制                   | 最少字符个数     |
+| notEmpty     | `Boolean`               | 不限制                   | 限制必须非空     |
+| autoTrim     | `Boolean`               | 不限制                   | 自动清除空格     |
 
 示例：
 
@@ -33,12 +35,42 @@ Input 用于接受用户的输入的组件，在 Duang 中用于:
   "args": {
     "width": "180px",
     "placeholder": "请输入名称",
-    "maxlength": 32
+    "maxLength": 32
   }
 }
 ```
 
 [试一试](../../demo/#!module=editor&key=Input::String)
+
+### Input::Password
+
+单行文本
+
+参数：
+
+| 名字         | 类型                    | 默认值                   | 描述             |
+| ------------ | ----------------------- | ------------------------ | ---------------- |
+| placeholder  | `String`                | 空字符串                 | 占位文字         |
+| width        | `String`                | 300                      | 宽度             |
+| maxLength    | `Number`                | 不限制                   | 最大字符个数     |
+| minLength    | `Number`                | 不限制                   | 最少字符个数     |
+| notEmpty     | `Boolean`               | 不限制                   | 限制必须非空     |
+| autoTrim     | `Boolean`               | 不限制                   | 自动清除空格     |
+
+示例：
+
+```javascript
+{
+  "component": "Password",
+  "args": {
+    "width": "180px",
+    "placeholder": "请输入密码",
+    "maxLength": 32
+  }
+}
+```
+
+[试一试](../../demo/#!module=editor&key=Input::Password)
 
 ### Input::Text
 
@@ -53,7 +85,10 @@ Input 用于接受用户的输入的组件，在 Duang 中用于:
 | placeholder  | `String`                | 空字符串                 | 占位文字       |
 | width        | `String`                | 300                      | 宽度           |
 | height       | `String`                | 60                       | 高度           |
-| maxlength    | `Number`                | 不限制                   | 最大字符个数   |
+| maxLength    | `Number`                | 不限制                   | 最大字符个数   |
+| minLength    | `Number`                | 不限制                   | 最少字符个数   |
+| notEmpty     | `Boolean`               | 不限制                   | 限制必须非空   |
+| autoTrim     | `Boolean`               | 不限制                   | 自动清除空格   |
 
 示例：
 
@@ -64,7 +99,7 @@ Input 用于接受用户的输入的组件，在 Duang 中用于:
     "width": "180px",
     "height": "300px",
     "placeholder": "请输入名称",
-    "maxlength": 1024
+    "maxLength": 1024
   }
 }
 ```
@@ -340,6 +375,7 @@ options 是一个对象数组，其中的对象结构为：
 | ------------ | ----------------------- | ------------------------ | ----------------- |
 | text         | `String`                | "请选择文件"             | 选择文件按钮文案  |
 | downloadText | `String`                | "下载"                   | 下载按钮文案      |
+| notEmpty     | `Boolean`               | 不限制                   | 限制必须非空     |
 
 示例配置
 
@@ -368,6 +404,7 @@ options 是一个对象数组，其中的对象结构为：
 | defaultIcon           | `String`                 | 默认图标                     | 未知类型文件的默认图标    |
 | disableEncode         | `Boolean`                | false                        | 禁止请求 token 时 encode  |
 | disableCredentialsForDownload | `Boolean`        | false                        | 禁止请求预览文件带 Cookie |
+| notEmpty              | `Boolean`                | 不限制                       | 限制必须非空              |
 
 limit：
 
@@ -411,6 +448,7 @@ limit：
 | text         | `String`                | "请选择文件"             | 选择文件按钮文案     |
 | downloadText | `String`                | "下载"                   | 下载按钮文案         |
 | api          | `String`                | 必选参数                 | 图片上传接口相对路径 |
+| notEmpty     | `Boolean`               | 不限制                   | 限制必须非空         |
 
 提供的 api 应该支持 `POST api` 上传文件（文件所在的字段名叫 file），以及 `GET api/:token` 下载某个 token（用于预览）。
 

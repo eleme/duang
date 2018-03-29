@@ -121,7 +121,11 @@ def((Button, ErrorDialog, PureDialog) => {
     get SpanButton() { return SpanButton; }
     get ClearButton() { return ClearButton; }
     get info() { return this.preview.info || {}; }
-    get value() { return this.$value === void 0 ? null : this.$value; }
+    get value() {
+      let value = this.$value === void 0 ? null : this.$value;
+      if (this.notEmpty && !value) throw new Error('不能为空');
+      return value;
+    }
     set value(value = this.defaultValue) {
       this.$hasValue = true;
       this.$value = value;
@@ -154,7 +158,13 @@ def((Button, ErrorDialog, PureDialog) => {
         this.input.addEventListener('change', event => this.change(event));
       }
       if (!this.$hasValue) this.value = void 0;
-      let { api, disableCredentialsForDownload, disableEncode, defaultIcon, mimeIconMap, value } = this;
+      let { api, disableCredentialsForDownload, disableEncode, defaultIcon, mimeIconMap } = this;
+      let value;
+      try {
+        value = this.value;
+      } catch (error) {
+        void error;
+      }
       this.preview = new Preview({
         api, disableCredentialsForDownload, disableEncode, defaultIcon, mimeIconMap,
         token: value

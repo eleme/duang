@@ -1,7 +1,10 @@
 def(() => class extends Jinkela {
   get value() {
     let { value } = this.element;
-    if (this.minlength && value.length < this.minlength) throw new Error('必须大于 5 个字符');
+    if (this.autoTrim) value = value.trim();
+    if (this.minlength && value.length < this.minlength) throw new Error(`必须大于 ${this.minLength} 个字符`);
+    if (this.minLength && value.length < this.minLength) throw new Error(`必须大于 ${this.minLength} 个字符`);
+    if (this.notEmpty && !value) throw new Error('不能为空');
     return value;
   }
   set value(value = this.defaultValue) {
@@ -13,6 +16,7 @@ def(() => class extends Jinkela {
     if (this.readonly) this.element.setAttribute('readonly', 'readonly');
     if (typeof this.placeholder === 'string') this.element.setAttribute('placeholder', this.placeholder);
     if ('maxlength' in this) this.element.setAttribute('maxlength', this.maxlength);
+    if ('maxLength' in this) this.element.setAttribute('maxlength', this.maxLength);
     if (!this.$hasValue) this.value = this.default; // default 已废弃，暂时保持兼容，请使用 defaultValue
   }
   get template() { return '<input type="text" />'; }
