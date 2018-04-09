@@ -26,6 +26,20 @@ FCeptor.get(/\/pager-list-data\.json\/count(\?.*)?$/, ctx => {
   ctx.response = new Response(JSON.stringify(500), { status: 200, headers });
   return false;
 });
+FCeptor.post(/\bfiletoken$/, ctx => {
+  console.log(1);
+  let headers = { 'Content-Type': 'application/json' };
+  let body = 'hehe';
+  ctx.response = new Response(JSON.stringify(body), { status: 200, headers });
+  return false;
+});
+FCeptor.get(/\bfiletoken\/hehe$/, ctx => {
+  console.log(1);
+  let headers = { 'Content-Type': 'image/svg+xml' };
+  let body = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 0 110 55"><path d="M 0 0 L 50 50 L 100 0" fill="none" stroke="#9b9ea0" stroke-width="10" /></svg>';
+  ctx.response = new Response(body, { status: 200, headers });
+  return false;
+});
 FCeptor.post(/^/, ctx => {
   let headers = { 'Content-Type': 'application/json' };
   let body = { name: 'HEHE_ERROR', title: `请求已拦截`, message: '' };

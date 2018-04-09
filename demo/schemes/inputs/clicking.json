@@ -115,8 +115,8 @@
         }
       },
       {
-        "key": "file4", "component": "FileToken", "title": "非空",
-        "args": { "notEmpty": true }
+        "key": "file9", "component": "FileToken", "title": "非空",
+        "args": { "notEmpty": true, "api": "filetoken" }
       }
     ]
   },

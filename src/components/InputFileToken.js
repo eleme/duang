@@ -120,7 +120,7 @@ def((Button, ErrorDialog, PureDialog) => {
   return class extends Jinkela {
     get SpanButton() { return SpanButton; }
     get ClearButton() { return ClearButton; }
-    get info() { return this.preview.info || {}; }
+    get info() { return this.previewObject.info || {}; }
     get value() {
       let value = this.$value === void 0 ? null : this.$value;
       if (this.notEmpty && !value) throw new Error('不能为空');
@@ -130,7 +130,7 @@ def((Button, ErrorDialog, PureDialog) => {
       this.$hasValue = true;
       this.$value = value;
       this.token = value;
-      this.preview.token = value;
+      if (this.previewObject) this.previewObject.token = value;
       this.hasClearButton = !!value && !this.readonly;
     }
     get template() {
@@ -165,7 +165,7 @@ def((Button, ErrorDialog, PureDialog) => {
       } catch (error) {
         void error;
       }
-      this.preview = new Preview({
+      this.previewObject = this.preview = new Preview({
         api, disableCredentialsForDownload, disableEncode, defaultIcon, mimeIconMap,
         token: value
       });
