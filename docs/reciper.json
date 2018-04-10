@@ -30,9 +30,19 @@
       "href": "api/"
     },
     {
-      "text": "Github",
-      "href": "https://github.com/eleme/duang/",
-      "target": "_blank"
+      "text": "其它",
+      "children": [
+        {
+          "text": "Demo",
+          "href": "../demo/",
+          "target": "_blank"
+        },
+        {
+          "text": "Github",
+          "href": "https://github.com/eleme/duang/",
+          "target": "_blank"
+        }
+      ]
     }
   ]
 }
