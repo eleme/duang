@@ -86,7 +86,7 @@
         w`https://shadow.elemecdn.com/gh/codemirror/CodeMirror@5.19.0/lib/codemirror.min.js`
       ),
       w`https://shadow.elemecdn.com/gh/codemirror/CodeMirror@5.19.0/mode/yaml/yaml.min.js,/gh/codemirror/CodeMirror@5.19.0/mode/markdown/markdown.min.js`,
-      w`https://shadow.elemecdn.com/gh/requirejs/requirejs@2.2.0/require.min.js`,
+      w`https://shadow.elemecdn.com/gh/YanagiEiichi/requirejs@caae34b/require.min.js`,
       w`utils/depot.js`
     ]
   );
