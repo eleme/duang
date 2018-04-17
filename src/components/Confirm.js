@@ -3,6 +3,7 @@ def((Output, Button, ButtonHollow) => class extends Jinkela {
     if (typeof config === 'string') config = { text: config };
     let ins = new this(config, { depot });
     if (config.autoCancel !== false) ins.then(dialog.cancel, dialog.cancel);
+    dialog.once('dialogcancel', () => ins.resolve(false));
     dialog.once('transitionend', () => ins.focus());
     dialog.popup(ins);
     return Promise.resolve(ins);
