@@ -157,24 +157,50 @@
     "module": "editor",
     "inputs": [
       {
-        "key": "cascader1", "component": "Forest", "title": "树林",
-        "args": { "options": [ { "id": 1, "text": "item 1" } ] }
+        "key": "cascader1", "component": "Forest", "title": "正常",
+        "args": {
+          "options": [
+            { "id": 1, "text": "item 1" },
+            { "id": 2, "parentId": 1, "text": "item 2" },
+            { "id": 3, "parentId": 1, "text": "item 3" }
+          ]
+        }
       },
       {
-        "key": "cascader2", "component": "Forest", "title": "树林",
+        "key": "cascader2", "component": "Forest", "title": "默认值",
         "args": {
-          "options": [ { "id": 1, "text": "item 1" }, { "id": 2, "parentId": 1, "text": "item 2" } ],
+          "options": [
+            { "id": 1, "text": "item 1" },
+            { "id": 2, "parentId": 1, "text": "item 2" },
+            { "id": 3, "parentId": 1, "text": "item 3" }
+          ],
           "defaultValue": [ 1 ]
         }
       },
       {
-        "key": "cascader3", "component": "Forest", "title": "树林",
+        "key": "cascader3", "component": "Forest", "title": "字段别名",
         "args": {
-          "options": [ { "a": 1, "c": "item 1" }, { "a": 2, "b": 1, "c": "item 2" } ],
+          "options": [
+            { "a": 1, "c": "item 1" },
+            { "a": 2, "b": 1, "c": "item 2" },
+            { "a": 3, "b": 1, "c": "item 3" }
+          ],
           "defaultValue": [ 1 ],
           "idAlias": "a",
           "parentIdAlias": "b",
           "textAlias": "c"
+        }
+      },
+      {
+        "key": "cascader4", "component": "Forest", "title": "只能选一个",
+        "args": {
+          "options": [
+            { "id": 1, "text": "item 1" },
+            { "id": 2, "parentId": 1, "text": "item 2" },
+            { "id": 3, "parentId": 1, "text": "item 3" }
+          ],
+          "maxLength": 1,
+          "noRemovingAnimation": true
         }
       }
     ]
