@@ -30,31 +30,31 @@ def((Button, ButtonHollow, ErrorDialog) => {
       this.backComponent.busy = true;
       let { form, depot } = this;
       let { id, resolvedKey } = depot;
-      let task;
-      try {
+      let { beforeSubmit, afterSubmit, defaultAfterSubmit } = depot.scheme;
+      return Promise.resolve().then(() => doAction(beforeSubmit, depot)).then(value => {
+        if (value === false) throw null; // Confirm 拒绝
+      }).then(() => {
+        // 准备数据，调接口
         let value = JSON.stringify(form.value);
         if (id) {
-          task = api([ resolvedKey, id ], { method: 'PUT', body: value });
+          return api([ resolvedKey, id ], { method: 'PUT', body: value });
         } else {
-          task = api(resolvedKey, { method: 'POST', body: value });
+          return api(resolvedKey, { method: 'POST', body: value });
         }
-        task = task.then(result => doAction(result, depot)).then(() => {
-          if (window.depot.module === 'editor') {
-            if (history.length > 1) {
-              history.back();
-            } else {
-              if (opener) opener.depot.refresh();
-              close();
-            }
+      }).then(result => doAction(afterSubmit || result || defaultAfterSubmit, depot)).then(() => {
+        // 处理结果
+        if (window.depot.module === 'editor') {
+          if (history.length > 1) {
+            history.back();
           } else {
-            dialog.cancel();
-            window.depot.refresh();
+            if (opener) opener.depot.refresh();
+            close();
           }
-        });
-      } catch (error) {
-        task = Promise.reject(error);
-      }
-      return task.catch(error => {
+        } else {
+          dialog.cancel();
+          window.depot.refresh();
+        }
+      }).catch(error => {
         if (error) ErrorDialog.popup({ error });
       }).then(() => {
         this.backComponent.busy = false;
