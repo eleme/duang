@@ -18,6 +18,7 @@ const doAction = (data, depot = window.depot) => {
     }
     case 'reject': return Promise.reject(args);
     case 'resolve': return Promise.resolve(args);
+    case 'noop': return Promise.reject();
   }
   return Promise.resolve(data);
 };
