@@ -54,7 +54,7 @@ def((Button, ButtonHollow, ErrorDialog) => {
       } catch (error) {
         task = Promise.reject(error);
       }
-      task.catch(error => {
+      return task.catch(error => {
         if (error) ErrorDialog.popup({ error });
       }).then(() => {
         this.backComponent.busy = false;
