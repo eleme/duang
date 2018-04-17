@@ -55,17 +55,25 @@ FCeptor.post(/^/, ctx => {
     default:
       key = 'blob';
   }
-  return ctx.request[key]().then(data => {
-    body.message = `<code>POST ${ctx.request.url}</code><br/><br/>`;
-    if (key === 'json') {
-      body.message += `<pre style="font-size:12px;">${JSON.stringify(data,null,2)}</pre>`;
-    } else {
-      body.message += key;
-      // ctx.response = new Response(JSON.stringify('../logo.png'), { status: 200, headers });
-      // return false;
-    }
-    ctx.response = new Response(JSON.stringify(body), { status: 500, headers });
-    return false;
+  return new Promise(resolve => {
+    let promise = ctx.request[key]().then(data => {
+      body.message = `<code>POST ${ctx.request.url}</code><br/><br/>`;
+      if (key === 'json') {
+        body.message += `<pre style="font-size:12px;">${JSON.stringify(data,null,2)}</pre>`;
+      } else {
+        body.message += key;
+        // ctx.response = new Response(JSON.stringify('../logo.png'), { status: 200, headers });
+        // return false;
+      }
+      // body = { action: 'noop' };
+      // ctx.response = new Response(JSON.stringify(body), { status: 200, headers });
+      ctx.response = new Response(JSON.stringify(body), { status: 500, headers });
+      return false;
+    });
+    setTimeout(() => {
+      resolve(promise);
+    }, 500);
   });
+
 });
 </script>
