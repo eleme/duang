@@ -34,10 +34,16 @@ def(() => {
     }
     set value(value = this.defaultValue) {
       this.$hasValue = true;
+      if (this.mode === 'UNIX_TIMESTAMP' && typeof value === 'number') { value *= 1000; }
       this.dp.value = format(value);
     }
     get value() {
-      return this.dp.value;
+      let date = this.dp.value;
+      if (this.mode === 'UNIX_TIMESTAMP') {
+        return Math.round(date / 1000);
+      } else {
+        return date;
+      }
     }
     get styleSheet() {
       return `
