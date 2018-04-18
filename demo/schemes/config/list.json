@@ -7,6 +7,15 @@
       { "title": "www.ele.me", "method": "open", "href": "https://www.ele.me" },
       { "title": "The-Action", "method": "post", "api": "theAction" }
     ],
+    "caption": [
+      {
+        "component": "HTML",
+        "args": {
+          "html": "{value}",
+          "@defaultValue": "now"
+        }
+      }
+    ],
     "fields": [
       {
         "key": "id",
