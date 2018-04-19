@@ -251,8 +251,7 @@ var depot = new class { // eslint-disable-line no-unused-vars
 
   fork(uParams) {
     return Object.create(Object.getPrototypeOf(this), {
-      uParams: { configurable: true, value: uParams },
-      [Symbol.for('cache')]: { configurable: true, value: {} }
+      [Symbol.for('cache')]: { configurable: true, value: { uParams } }
     });
   }
 
