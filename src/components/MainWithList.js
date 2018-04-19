@@ -19,7 +19,7 @@ def((Output, ListFlex, ListOperations, ListHeaders, ListFilters, Table, TableTip
           <jkl-list-filters depot="{depot}"></jkl-list-filters>
         </jkl-list-flex>
         <jkl-table if="{list}" depot="{depot}" data="{list}" ref="table"></jkl-table>
-        <jkl-table-tip ref="tip" data="{list}" error="{error}"></jkl-table-tip>
+        <jkl-table-tip ref="tip" data="{list}" error="{error}" depot="{depot}"></jkl-table-tip>
         <meta ref="pagination" />
       </div>
     `;
