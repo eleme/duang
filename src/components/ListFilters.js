@@ -155,7 +155,14 @@ def((Input, Output, Item, Button, ButtonHollow) => {
         }
       });
       uParams.where = JSON.stringify(where);
+
+      let oldHash = location.hash;
       location.hash = new UParams(uParams);
+
+      // enforce hash change
+      if (oldHash === location.hash) {
+        dispatchEvent(new Event('hashchange'));
+      }
     }
     reset() {
       let { uParams, scheme } = this.depot;
