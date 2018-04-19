@@ -91,7 +91,7 @@ def((Output, Item, TableRowActions, Caption) => {
       `;
     }
     init() {
-      let { uParams } = this.depot || window.depot;
+      let { uParams } = this.depot;
       let { orderBy } = uParams;
       this.element.addEventListener('click', this.sort.bind(this));
       if (orderBy) {
@@ -100,9 +100,8 @@ def((Output, Item, TableRowActions, Caption) => {
       }
     }
     sort() {
-      let depot = this.depot || window.depot;
       let orderBy = (this.element.dataset.sign === '-' ? '' : '-') + this.key;
-      depot.update({ orderBy });
+      this.depot.update({ orderBy });
     }
   }
 
@@ -210,10 +209,10 @@ def((Output, Item, TableRowActions, Caption) => {
       let { depot = window.depot } = this;
       let { scheme } = depot;
       let fields = (scheme.fields || []).slice(0);
+      fields.forEach(raw => new HeadCell(raw, { depot }).to(this));
       if (scheme.actions && scheme.actions.length) {
-        fields.push({ title: depot.getConst('操作'), nowrap: true, align: 'right' });
+        new HeadCell({ title: depot.getConst('操作'), nowrap: true, align: 'right', depot }).to(this);
       }
-      HeadCell.from(fields).to(this);
     }
   }
 
