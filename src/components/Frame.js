@@ -5,7 +5,7 @@ def((Output, FrameNav, FrameAside, FrameMain) => {
       let { logo = 'Duang' } = config;
       if (typeof logo === 'string') logo = { component: 'HTML', args: { html: logo } };
       new Output(logo).to(this);
-      this.element.addEventListener('click', () => (location.hash = ''));
+      this.element.addEventListener('click', () => depot.update({}, true));
     }
     get styleSheet() {
       return `

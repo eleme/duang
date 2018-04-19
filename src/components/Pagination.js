@@ -131,9 +131,7 @@ def((ButtonHollow, SvgIcon, Input) => {
     }
     init() {
       this.element.addEventListener('change', () => {
-        let { uParams } = this.depot;
-        uParams.pageSize = this.value;
-        location.hash = uParams;
+        this.depot.update({ pageSize: this.value });
       });
     }
   }

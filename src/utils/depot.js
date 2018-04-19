@@ -230,13 +230,22 @@ var depot = new class { // eslint-disable-line no-unused-vars
       case 'replace':
         return location.replace(location.href.replace(/(#.*)?$/, '#!' + uParams));
       default:
-        let hash = '#!' + uParams;
-        if (location.hash === hash) {
-          depot.refresh();
-        } else {
-          location.hash = hash;
-        }
-        return;
+        this.update(uParams, true);
+    }
+  }
+
+  update(uParams = {}, whole) {
+    uParams = new UParams(whole ? uParams : Object.assign({}, this.uParams, uParams));
+    if (this !== window.depot) {
+      Object.defineProperty(this, Symbol.for('cache'), { configurable: true, value: { uParams } });
+      this.refresh();
+    } else {
+      let hash = '#!' + uParams;
+      if (location.hash === hash) {
+        this.refresh();
+      } else {
+        location.hash = hash;
+      }
     }
   }
 

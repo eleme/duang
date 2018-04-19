@@ -100,9 +100,9 @@ def((Output, Item, TableRowActions, Caption) => {
       }
     }
     sort() {
-      let { uParams } = this.depot || window.depot;
-      uParams.orderBy = (this.element.dataset.sign === '-' ? '' : '-') + this.key;
-      location.hash = new UParams(uParams);
+      let depot = this.depot || window.depot;
+      let orderBy = (this.element.dataset.sign === '-' ? '' : '-') + this.key;
+      depot.update({ orderBy });
     }
   }
 

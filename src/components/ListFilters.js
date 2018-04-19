@@ -124,8 +124,7 @@ def((Input, Output, Item, Button, ButtonHollow) => {
     get FiltersButtonGroup() { return FiltersButtonGroup; }
     init() {
       let { depot } = this;
-      let { scheme } = depot;
-      if (!scheme) return (location.hash = '');
+      let { scheme = {} } = depot;
       let { filters = [] } = scheme;
       let $promise;
       if (filters.length) {
@@ -154,14 +153,12 @@ def((Input, Output, Item, Button, ButtonHollow) => {
           }
         }
       });
-      uParams.where = JSON.stringify(where);
-      location.hash = new UParams(uParams);
+      this.depot.update({ where: JSON.stringify(where) });
     }
     reset() {
       let { uParams, scheme } = this.depot;
       let { where = {} } = scheme;
-      uParams.where = JSON.stringify(where);
-      location.hash = new UParams(uParams);
+      this.depot.update({ where: JSON.stringify(where) });
     }
     get template() {
       return `
