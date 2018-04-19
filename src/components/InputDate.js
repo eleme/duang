@@ -19,7 +19,7 @@ def(() => {
   class DatePickerWithDuang extends Jinkela {
     beforeParse(params) {
       if (!('value' in params)) params.value = params.defaultValue;
-      this.dp = new DatePicker();
+      this.dp = new DatePicker(params);
     }
     init() {
       this.dp.to(this);

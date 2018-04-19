@@ -11,7 +11,7 @@ def(() => {
   class TimePickerWithDuang extends Jinkela {
     beforeParse(params) {
       if (!('value' in params)) params.value = params.defaultValue;
-      this.tp = new TimePicker();
+      this.tp = new TimePicker(params);
     }
     init() {
       this.tp.to(this);
