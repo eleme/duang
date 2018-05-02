@@ -109,16 +109,20 @@ var depot = new class { // eslint-disable-line no-unused-vars
       Object.defineProperty(this, Symbol.for('cache'), { configurable: true, value: {} });
       let moduleName = String(this.module);
       if (!/\W/.test(moduleName)) moduleName = 'MainWith' + moduleName.replace(/./, $0 => $0.toUpperCase());
-      let tasks = Promise.all([ req('Frame'), req(moduleName) ]);
+
+      // 自动刷新（废弃）
       if (this._autoRefreshTimer) {
         clearTimeout(this._autoRefreshTimer);
         delete this._autoRefreshTimer;
       }
-      return tasks;
+
+      return Promise.all([ req('Frame'), req(moduleName) ]);
     }).then(([ Frame, Main ]) => {
       dispatchEvent(new CustomEvent('duang::done'));
       if (!this.moduleComponent) this.moduleComponent = new Frame().to(document.body);
       this.moduleComponent.main = new Main({ depot: this });
+
+      // 自动刷新（废弃）
       let { autoRefresh } = this.scheme || {};
       if (+autoRefresh) {
         this._autoRefreshTimer = setTimeout(() => {
@@ -126,6 +130,7 @@ var depot = new class { // eslint-disable-line no-unused-vars
           delete this._autoRefreshTimer;
         }, autoRefresh * 1000);
       }
+
     }, error => {
       dispatchEvent(new CustomEvent('duang::fatal', { detail: '框架组件加载失败' }));
       alert(error.message);
