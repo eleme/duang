@@ -39,6 +39,9 @@
         "title": "QRCode"
       }
     ],
+    "headers": [
+      { "component": "AutoRefresh", "args": { "interval": 3000 } }
+    ],
     "operations": [
       { "title": "批量删除", "method": "delete", "query": true }
     ]
