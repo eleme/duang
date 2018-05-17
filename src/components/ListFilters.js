@@ -138,7 +138,7 @@ def((Input, Output, Item, Button, ButtonHollow) => {
       Object.defineProperty(this, '$promise', { value: $promise, configurable: true });
     }
     apply() {
-      let { uParams, where } = this.depot;
+      let { where } = this.depot;
       this.list.forEach(({ optional, checked, defaultValue, value, key, squash }) => {
         if (optional && !checked) {
           delete where[key];
@@ -156,7 +156,7 @@ def((Input, Output, Item, Button, ButtonHollow) => {
       this.depot.update({ where: JSON.stringify(where) });
     }
     reset() {
-      let { uParams, scheme } = this.depot;
+      let { scheme } = this.depot;
       let { where = {} } = scheme;
       this.depot.update({ where: JSON.stringify(where) });
     }
