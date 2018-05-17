@@ -5,23 +5,24 @@
     "title": "组件 - 日期时间相关 - DateTime",
     "module": "editor",
     "inputs": [
-      { "key": "datetime1", "component": "DateTime", "title": "日期时间" },
-      { "key": "datetime2", "component": "DateTime", "title": "日期时间", "args": { "defaultValue": 1499157139261 } },
+      { "key": "datetime1", "component": "DateTime", "title": "无参数" },
+      { "key": "datetime2", "component": "DateTime", "title": "数值", "args": { "defaultValue": 1499157139261 } },
       {
-        "key": "datetime3", "component": "DateTime", "title": "日期时间",
+        "key": "datetime3", "component": "DateTime", "title": "ISO 8601",
         "args": { "defaultValue": "2017-07-13T03:27:44.856Z" }
       },
-      { "key": "datetime4", "component": "DateTime", "title": "日期时间", "args": { "defaultValue": "now" } },
+      { "key": "datetime4", "component": "DateTime", "title": "now", "args": { "defaultValue": "now" } },
+      { "key": "datetime4", "component": "DateTime", "title": "today", "args": { "defaultValue": "today" } },
       {
-        "key": "datetime5", "component": "DateTime", "title": "日期时间 UNIX_TIMESTAMP",
+        "key": "datetime5", "component": "DateTime", "title": "UNIX_TIMESTAMP",
         "args": { "mode": "UNIX_TIMESTAMP" }
       },
       {
-        "key": "datetime6", "component": "DateTime", "title": "日期时间 UNIX_TIMESTAMP",
+        "key": "datetime6", "component": "DateTime", "title": "UNIX_TIMESTAMP 数值",
         "args": { "defaultValue": 1499157139, "mode": "UNIX_TIMESTAMP" }
       },
       {
-        "key": "datetime7", "component": "DateTime", "title": "日期时间 UNIX_TIMESTAMP",
+        "key": "datetime7", "component": "DateTime", "title": "UNIX_TIMESTAMP now",
         "args": { "defaultValue": "now", "mode": "UNIX_TIMESTAMP" }
       }
     ]
