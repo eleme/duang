@@ -32,7 +32,7 @@ def((Button, ButtonHollow, ErrorDialog) => {
       let { id, resolvedKey } = depot;
       let { beforeSubmit, afterSubmit, defaultAfterSubmit } = depot.scheme;
       return Promise.resolve().then(() => doAction(beforeSubmit, depot)).then(value => {
-        if (value === false) throw null; // Confirm 拒绝
+        if (value === false) return Promise.reject(null); // Confirm 拒绝
       }).then(() => {
         // 准备数据，调接口
         let value = JSON.stringify(form.value);

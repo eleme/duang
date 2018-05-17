@@ -4,7 +4,13 @@ def(() => {
     let now = new Date();
     switch (value) {
       case 'now': return now.valueOf();
-      case 'today': return now.valueOf();
+      case 'today':
+        let today = new Date();
+        today.setHours(0);
+        today.setMinutes(0);
+        today.setSeconds(0);
+        today.setMilliseconds(0);
+        return +today;
       case 'nextDay': return now.setDate(now.getDate() + 1);
       case 'lastDay': return now.setDate(now.getDate() - 1);
       case 'nextWeek': return now.setDate(now.getDate() + 7);
