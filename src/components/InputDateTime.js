@@ -5,22 +5,34 @@ def(() => {
     switch (value) {
       case 'now': return now.valueOf();
       case 'today':
-        let today = new Date();
-        today.setHours(0);
-        today.setMinutes(0);
-        today.setSeconds(0);
-        today.setMilliseconds(0);
-        return +today;
-      case 'nextDay': return now.setDate(now.getDate() + 1);
-      case 'lastDay': return now.setDate(now.getDate() - 1);
-      case 'nextWeek': return now.setDate(now.getDate() + 7);
-      case 'lastWeek': return now.setDate(now.getDate() - 7);
-      case 'nextMonth': return now.setMonth(now.getMonth() + 1);
-      case 'lastMonth': return now.setMonth(now.getMonth() - 1);
-      case 'nextYear': return now.setYear(now.getFullYear() + 1);
-      case 'lastYear': return now.setYear(now.getFullYear() - 1);
+        break;
+      case 'nextDay':
+        now.setDate(now.getDate() + 1);
+        break;
+      case 'lastDay':
+        now.setDate(now.getDate() - 1);
+        break;
+      case 'nextWeek':
+        now.setDate(now.getDate() + 7);
+        break;
+      case 'lastWeek':
+        now.setDate(now.getDate() - 7);
+        break;
+      case 'nextMonth':
+        now.setMonth(now.getMonth() + 1);
+        break;
+      case 'lastMonth':
+        now.setMonth(now.getMonth() - 1);
+        break;
+      case 'nextYear':
+        now.setYear(now.getFullYear() + 1);
+        break;
+      case 'lastYear':
+        now.setYear(now.getFullYear() - 1);
+        break;
       default: return value || '';
     }
+    return now.setHours(0, 0, 0, 0);
   };
 
   class DateTimePicker extends Jinkela {
