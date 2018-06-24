@@ -75,8 +75,8 @@
     w`https://shadow.elemecdn.com/gh/codemirror/CodeMirror@5.19.0/lib/codemirror.css,/gh/codemirror/CodeMirror@5.19.0/theme/neo.css,/gh/sindresorhus/github-markdown-css@gh-pages/github-markdown.css`,
     [
       group(
-        window.fetch ? null : w`https://github.elemecdn.com/uglifyjs!github/fetch/v0.11.0/fetch.js`,
-        w`https://shadow.elemecdn.com/bundle/npm/excavator@0.2.1/bundle.js,npm/jinkela@1.2.21/umd.min.js,gh/jinkelajs/jinkela-datepicker@1.2.4/datepicker.js,npm/jinkela-timepicker@1.1.1/umd.js,gh/jinkelajs/jinkela-dialog@0.1.6/dialog.js,gh/jinkelajs/jinkela-cascader@1.0.0/index.js,gh/jinkelajs/jinkela-forest@1.0.3/index.js,gh/jinkelajs/jinkela-checkbox@1.0.0/index.js,gh/jinkelajs/jinkela-radio@1.0.0/index.js,gh/jinkelajs/jinkela-clicktip@1.0.0/index.js,gh/chjj/marked@v0.3.6/marked.min.js,gh/YanagiEiichi/uparams@1.4.0/UParams.min.js,npm/stale-while-revalidate@0.1.0/bundle.min.js,gh/s3u/JSONPath@v0.15.0/lib/jsonpath.min.js,npm/vanilla.js@1.0.0/index.js`,
+        window.fetch ? null : w`https://shadow.elemecdn.com/gh/github/fetch@v0.11.0/fetch.min.js`,
+        w`https://shadow.elemecdn.com/bundle/npm/excavator@0.2.1/bundle.js,npm/jinkela@1.2.21/umd.min.js,gh/jinkelajs/jinkela-datepicker@1.2.4/datepicker.js,npm/jinkela-timepicker@1.1.1/umd.js,gh/jinkelajs/jinkela-dialog@0.1.6/dialog.js,gh/jinkelajs/jinkela-cascader@1.0.0/index.js,gh/jinkelajs/jinkela-forest@1.0.3/index.js,gh/jinkelajs/jinkela-checkbox@1.0.0/index.js,gh/jinkelajs/jinkela-radio@1.0.0/index.js,gh/jinkelajs/jinkela-clicktip@1.0.0/index.js,gh/chjj/marked@v0.3.6/marked.min.js,gh/YanagiEiichi/uparams@1.4.0/UParams.min.js,npm/stale-while-revalidate@0.1.0/bundle.min.js,gh/s3u/JSONPath@v0.15.0/lib/jsonpath.min.js,npm/fast-resolve@0.2.0/umd.min.js,placeholder/bundle.js`,
         w`utils/api.js`,
         w`utils/doAction.js`,
         w`utils/refactor.js`,
@@ -92,6 +92,9 @@
   );
 
   load().then(() => {
+    require.config({
+      paths: { codemirror: 'https://shadow.elemecdn.com/gh/codemirror/CodeMirror@5.19.0' }
+    });
     dispatchEvent(new CustomEvent('duang::notify', { detail: '静态资源加载完毕' }));
   }, error => {
     dispatchEvent(new CustomEvent('duang::fatal', { detail: '静态资源加载失败' }));

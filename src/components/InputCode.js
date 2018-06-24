@@ -1,9 +1,3 @@
-require.config({
-  paths: {
-    'codemirror': 'https://github.elemecdn.com/uglifyjs!/codemirror/CodeMirror/5.19.0'
-  }
-});
-
 def(() => class extends Jinkela {
 
   init() {

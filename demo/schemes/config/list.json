@@ -3,6 +3,7 @@
   {
     "key": "data/the-list-data.json?1",
     "title": "配置 - 列表 - 标准",
+    "gentleRefreshing": true,
     "actions": [
       { "title": "www.ele.me", "method": "open", "href": "https://www.ele.me" },
       { "title": "The-Action", "method": "post", "api": "theAction" }

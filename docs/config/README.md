@@ -100,6 +100,7 @@
 | listSelector | Boolean | 列表项是否允许选择，默认不允许 |
 | noWhere | String | 进入列表时不发起查询，以这个字符串提示用户 |
 | noSubmit | Boolean | 在编辑页隐藏提交按钮 |
+| gentleRefreshing | Boolean | 后台加载完毕后再刷新，跳过 Loading 状态 |
 
 ### Scheme::module
 

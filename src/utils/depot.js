@@ -120,7 +120,7 @@ var depot = new class { // eslint-disable-line no-unused-vars
     }).then(([ Frame, Main ]) => {
       dispatchEvent(new CustomEvent('duang::done'));
       if (!this.moduleComponent) this.moduleComponent = new Frame().to(document.body);
-      this.moduleComponent.main = new Main({ depot: this });
+      this.refresh(Main);
 
       // 自动刷新（废弃）
       let { autoRefresh } = this.scheme || {};
@@ -130,7 +130,6 @@ var depot = new class { // eslint-disable-line no-unused-vars
           delete this._autoRefreshTimer;
         }, autoRefresh * 1000);
       }
-
     }, error => {
       dispatchEvent(new CustomEvent('duang::fatal', { detail: '框架组件加载失败' }));
       alert(error.message);
@@ -205,10 +204,18 @@ var depot = new class { // eslint-disable-line no-unused-vars
     return new UParams(params);
   }
 
-  refresh() {
-    if (window.depot === this) return dispatchEvent(new Event('hashchange'));
-    let { main } = this;
-    new main.constructor({ depot: this }).renderWith(main);
+  refresh(Main = this.main.constructor) {
+    let { main, scheme } = this;
+
+    // 重新初始化构造器
+    let newMain = new Main({ depot: this });
+
+    // 如果设置了 gentleRefreshing，就考虑新实例的 promsie 异步
+    let promise = scheme.gentleRefreshing && newMain.promise || Promise.resolve();
+
+    return promise.then(() => {
+      this.moduleComponent.main = newMain;
+    });
   }
 
   go({ args, target, title }) {

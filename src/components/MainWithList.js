@@ -55,11 +55,6 @@ def((Output, ListFlex, ListOperations, ListHeaders, ListFilters, Table, TableTip
     return api(resolvedKey + '/count' + '?' + queryParams).catch(() => 0 / 0);
   }
 
-  ready() {
-    let { depot, list, count } = this;
-    if ('pageSize' in depot.scheme) this.pagination = new Pagination({ depot, list, count });
-  }
-
   beforeParse(params) {
     this.depot = params.depot || depot;
     let { scheme } = this.depot;
@@ -67,28 +62,37 @@ def((Output, ListFlex, ListOperations, ListHeaders, ListFilters, Table, TableTip
     this.isFilterHiddenDefault = this.depot.params.filterState === 'folded';
   }
 
-  init() {
-    Object.defineProperty(this.depot, 'main', { configurable: true, value: this });
-    let { scheme, where } = this.depot;
-    let { noWhere, fields = [] } = scheme;
-    if (noWhere && Object.keys(where).length === 0) {
-      if (noWhere === true) {
-        this.tip.hide();
+  initData() {
+    return Promise.resolve().then(() => {
+      let { scheme, where } = this.depot;
+      let { noWhere, fields = [] } = scheme;
+      if (!fields || !fields.length) throw new Error('字段未配置');
+      // 如果设置了 noWhere，那么在 where 为空时将不发起数据加载
+      if (noWhere && Object.keys(where).length === 0) {
+        if (noWhere === true) {
+          this.tip.hide();
+        } else {
+          // noWhere 可以是一个 Output，作为提示用
+          this.tip.text = Output.createAny(noWhere);
+        }
       } else {
-        this.tip.text = Output.createAny(noWhere);
-      }
-    } else {
-      if (fields && fields.length) {
-        return Promise.all([ this.loadData(), this.loadCount() ]).then(([ data, count ]) => {
-          if (!(data instanceof Array)) throw new Error('返回结果必须是数组');
-          this.list = data;
+        // 加载数据
+        return Promise.all([ this.loadData(), this.loadCount() ]).then(([ list, count ]) => {
+          if (!(list instanceof Array)) throw new Error('返回结果必须是数组');
+          this.list = list;
           this.count = typeof count === 'number' ? count : count.count;
-          this.ready();
-        }).catch(error => {
-          this.error = error;
+          // 如果设置了 pageSize，那么初始化分页控件
+          if ('pageSize' in depot.scheme) this.pagination = new Pagination({ depot, list, count });
         });
       }
-    }
+    });
+  }
+
+  init() {
+    Object.defineProperty(this.depot, 'main', { configurable: true, value: this });
+    this.promise = this.initData().catch(error => {
+      this.error = error;
+    });
   }
 
 });
