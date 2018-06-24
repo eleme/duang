@@ -1,4 +1,4 @@
-// 设置 base 标签
+// 设置 base 标签（TODO：太恶心了，副作用太大，应该想办法不修改 base）
 {
   let [ , path ] = document.currentScript.src.match(/^(.*\/)duang\.js$/);
   let base = document.createElement('base');
@@ -6,14 +6,14 @@
   document.head.appendChild(base);
 }
 
-// loading 效果
+// loading 效果（TODO：太丑，应该重新设计一下）
 {
   let element = document.createElement('div');
   element.style.position = 'absolute';
   element.style.top = element.style.left = '50%';
   element.style.transform = 'translate(-50%, -50%)';
-  let domReady = document.body ? Promise.resolve() : new Promise(resolve => addEventListener('DOMContentLoaded', resolve));
-  domReady.then(() => document.body.appendChild(element));
+  let ready = document.body ? Promise.resolve() : new Promise(resolve => addEventListener('DOMContentLoaded', resolve));
+  ready.then(() => document.body.appendChild(element));
   let state = 'LOADING';
   addEventListener('duang::fatal', () => {
     if (state !== 'LOADING') return;
@@ -34,70 +34,68 @@
 
 // 加载资源（考虑依赖关系）
 {
-
-  let resourceTotalCount = 0;
-  let resourceLoadedCount = 0;
-
   let w = (...args) => {
-    resourceTotalCount++;
     let src = String.raw(...args);
-    return () => new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       let loader;
-      switch (/\.\w+$|$/.exec(src)[0]) {
-        case '.js':
-          loader = document.createElement('script');
-          loader.setAttribute('src', src);
-          break;
-        case '.css':
-          loader = document.createElement('link');
-          loader.setAttribute('rel', 'stylesheet');
-          loader.setAttribute('href', src);
-          break;
-      }
+      loader = document.createElement('script');
+      loader.setAttribute('src', src);
       loader.addEventListener('load', resolve);
       loader.addEventListener('error', reject);
       document.head.appendChild(loader);
     }).then(() => {
-      resourceLoadedCount++;
-      dispatchEvent(new CustomEvent('duang::notify', { detail: `正在静态资源加载 (${resourceLoadedCount}/${resourceTotalCount})` }));
+      let detail = `正在加载依赖 ···`;
+      dispatchEvent(new CustomEvent('duang::notify', { detail }));
     });
   };
 
-  let group = (...args) => () => Promise.all(args.map(item => {
-    if (item instanceof Array) {
-      return item.reduce((task, next) => task.then(next), Promise.resolve());
-    } else if (typeof item === 'function') {
-      return item();
-    }
-  }));
+  // 加载 CSS（TODO：收到具体控件中懒加载）
+  let link = document.createElement('link');
+  link.setAttribute('rel', 'stylesheet');
+  link.setAttribute('href', `https://shadow.elemecdn.com/bundle/${[
+    'gh/codemirror/CodeMirror@5.19.0/lib/codemirror.css',
+    'gh/codemirror/CodeMirror@5.19.0/theme/neo.css',
+    'gh/sindresorhus/github-markdown-css@gh-pages/github-markdown.css'
+  ].join(',')}`);
+  document.head.appendChild(link);
 
-  let load = group(
-    w`https://shadow.elemecdn.com/gh/codemirror/CodeMirror@5.19.0/lib/codemirror.css,/gh/codemirror/CodeMirror@5.19.0/theme/neo.css,/gh/sindresorhus/github-markdown-css@gh-pages/github-markdown.css`,
-    [
-      group(
-        window.fetch ? null : w`https://shadow.elemecdn.com/gh/github/fetch@v0.11.0/fetch.min.js`,
-        w`https://shadow.elemecdn.com/bundle/npm/excavator@0.2.1/bundle.js,npm/jinkela@1.2.21/umd.min.js,gh/jinkelajs/jinkela-datepicker@1.2.4/datepicker.js,npm/jinkela-timepicker@1.1.1/umd.js,gh/jinkelajs/jinkela-dialog@0.1.6/dialog.js,gh/jinkelajs/jinkela-cascader@1.0.0/index.js,gh/jinkelajs/jinkela-forest@1.0.3/index.js,gh/jinkelajs/jinkela-checkbox@1.0.0/index.js,gh/jinkelajs/jinkela-radio@1.0.0/index.js,gh/jinkelajs/jinkela-clicktip@1.0.0/index.js,gh/chjj/marked@v0.3.6/marked.min.js,gh/YanagiEiichi/uparams@1.4.0/UParams.min.js,npm/stale-while-revalidate@0.1.0/bundle.min.js,gh/s3u/JSONPath@v0.15.0/lib/jsonpath.min.js,npm/fast-resolve@0.2.0/umd.min.js,placeholder/bundle.js`,
-        w`utils/api.js`,
-        w`utils/doAction.js`,
-        w`utils/refactor.js`,
-        w`utils/debounce.js`,
-        w`utils/condition.js`,
-        w`utils/amdx.js`,
-        w`https://shadow.elemecdn.com/gh/codemirror/CodeMirror@5.19.0/lib/codemirror.min.js`
-      ),
-      w`https://shadow.elemecdn.com/gh/codemirror/CodeMirror@5.19.0/mode/yaml/yaml.min.js,/gh/codemirror/CodeMirror@5.19.0/mode/markdown/markdown.min.js`,
-      w`https://shadow.elemecdn.com/gh/YanagiEiichi/requirejs@caae34b/require.min.js`,
-      w`utils/depot.js`
-    ]
-  );
+  // 加载 JS
+  Promise.all([
+    w`https://shadow.elemecdn.com/bundle/${[
+      'npm/excavator@0.2.1/bundle.min.js',
+      'npm/jinkela@1.2.21/umd.min.js',
+      'npm/stale-while-revalidate@0.1.0/bundle.min.js',
+      'npm/fast-resolve@0.2.0/umd.min.js',
+      'npm/jinkela-dialog@0.1.6/dialog.min.js',
+      'npm/UParams@1.4.0/UParams.min.js',
 
-  load().then(() => {
-    require.config({
-      paths: { codemirror: 'https://shadow.elemecdn.com/gh/codemirror/CodeMirror@5.19.0' }
-    });
-    dispatchEvent(new CustomEvent('duang::notify', { detail: '静态资源加载完毕' }));
+      // TODO：收到具体控件中懒加载
+      'npm/jinkela-timepicker@1.1.1/umd.min.js',
+      'gh/jinkelajs/jinkela-datepicker@1.2.4/datepicker.min.js',
+      'gh/jinkelajs/jinkela-cascader@1.0.0/index.min.js',
+      'gh/jinkelajs/jinkela-forest@1.0.3/index.min.js',
+      'gh/jinkelajs/jinkela-checkbox@1.0.0/index.min.js',
+      'gh/jinkelajs/jinkela-radio@1.0.0/index.min.js',
+      'gh/jinkelajs/jinkela-clicktip@1.0.0/index.min.js',
+
+      'gh/s3u/JSONPath@v0.15.0/lib/jsonpath.min.js',
+      'gh/YanagiEiichi/requirejs@caae34b/require.min.js',
+      'placeholder/bundle.js'
+    ].join(',')}`,
+
+    w`utils/api.js`,
+    w`utils/doAction.js`,
+    w`utils/refactor.js`,
+    w`utils/debounce.js`,
+    w`utils/condition.js`,
+    w`utils/amdx.js`,
+    w`utils/depot.js`
+  ]).then(() => {
+    duang();
+    dispatchEvent(new CustomEvent('duang::notify', { detail: '依赖加载完毕' }));
   }, error => {
-    dispatchEvent(new CustomEvent('duang::fatal', { detail: '静态资源加载失败' }));
+    let { src } = error.target;
+    dispatchEvent(new CustomEvent('duang::fatal', { detail: `依赖（${src}）加载失败` }));
     setTimeout(() => { throw error; });
   });
 

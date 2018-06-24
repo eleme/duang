@@ -30,6 +30,11 @@
       "component": "String",
       "title": "HAHA 权限可见",
       "require": "HAHA"
+    },
+    {
+      "component": "OutputMarkdown",
+      "title": "OutputMarkdown",
+      "args": { "defaultValue": "# HAHA\n\n**bold** x *italic*" }
     }
   ]
 }
