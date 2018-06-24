@@ -216,7 +216,7 @@ window.duang = () => {
     }
 
     refresh(Main = this.main.constructor) {
-      let { main, scheme } = this;
+      let { scheme } = this;
 
       // 重新初始化构造器
       let newMain = new Main({ depot: this });

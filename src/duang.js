@@ -44,7 +44,7 @@
       loader.addEventListener('error', reject);
       document.head.appendChild(loader);
     }).then(() => {
-      let detail = `正在加载依赖 ···`;
+      let detail = '正在加载依赖 ···';
       dispatchEvent(new CustomEvent('duang::notify', { detail }));
     });
   };

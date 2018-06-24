@@ -22,7 +22,7 @@ def((PureDialog) => {
           cache[src] = img;
           resolve(img.cloneNode());
         });
-        img.addEventListener('error', error => {
+        img.addEventListener('error', () => {
           let exception = new Error('加载失败');
           cache[src] = exception;
           reject(exception);
@@ -50,7 +50,7 @@ def((PureDialog) => {
       }
     }
 
-    errorHandler(error) {
+    errorHandler() {
       this.element.textContent = '加载失败';
     }
 
@@ -75,6 +75,6 @@ def((PureDialog) => {
       `;
     }
 
-  }
+  };
 
 });
