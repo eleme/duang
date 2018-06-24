@@ -1,7 +1,8 @@
 def((Item) => {
 
   const svg = code => {
-    return `url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">${code}</svg>')`;
+    let svg = encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">${code}</svg>`);
+    return `url('data:image/svg+xml,${svg}')`;
   };
 
   class Proto extends Item {
