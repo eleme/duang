@@ -1,4 +1,4 @@
-def((Item, Value) => {
+def((Item, Output, Value) => {
 
   return class extends Value {
     get styleSheet() {
@@ -18,6 +18,9 @@ def((Item, Value) => {
       let { options, readonly } = this;
       let list = options instanceof Array ? options : Object.keys(options).map(key => ({ value: key, text: options[key] }));
       if (list.length > 1 && !readonly) this.toggleItem = new Checkbox({ readonly, text: '全选' }).to(this);
+      list.forEach(item => {
+        item.text = Output.createAny(item.text);
+      });
       this.list = Checkbox.from(list.map(item => Object.assign({ readonly }, item))).to(this);
       for (let item of this.list) this.element.insertBefore(new Text(' '), item.element); // 为了自动换行强行插入一堆空文本节点
       this.value = this.$value || this.defaultValue;

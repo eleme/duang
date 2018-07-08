@@ -74,7 +74,7 @@
       'gh/jinkelajs/jinkela-datepicker@1.2.4/datepicker.min.js',
       'gh/jinkelajs/jinkela-cascader@1.0.0/index.min.js',
       'gh/jinkelajs/jinkela-forest@1.0.3/index.min.js',
-      'gh/jinkelajs/jinkela-checkbox@1.0.0/index.min.js',
+      'gh/jinkelajs/jinkela-checkbox@1.0.1/index.min.js',
       'gh/jinkelajs/jinkela-radio@1.0.0/index.min.js',
       'gh/jinkelajs/jinkela-clicktip@1.0.0/index.min.js',
 

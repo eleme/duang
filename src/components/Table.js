@@ -169,7 +169,12 @@ def((Output, Item, TableRowActions, Caption) => {
         setTimeout(() => { throw new Error('scheme.fields 必须是数组'); });
         fields = [];
       }
-      fields = fields.slice(0);
+      let visibleFields = params.fields;
+      if (visibleFields instanceof Array) {
+        fields = fields.filter(field => visibleFields.includes(field.key));
+      } else {
+        fields = fields.slice(0);
+      }
       // 根据字段描述创建单元格
       let cells = fields.map(field => this.createCell(field));
       return Promise.all(cells.map(i => i.$promise)).then(cells => {
