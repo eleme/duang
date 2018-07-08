@@ -1,62 +1,5 @@
 def((Output, Item, TableRowActions, Caption) => {
 
-  class TableCaption extends Caption {
-    get tagName() { return 'caption'; }
-    get styleSheet() {
-      return `
-        :scope {
-          background: #eff2f7;
-          border-bottom: 1px solid #e0e6ed;
-          padding: 0 18px;
-        }
-      `;
-    }
-  }
-
-  class Cell extends Item {
-    get styleSheet() {
-      return `
-        :scope {
-          border: solid #e0e6ed;
-          padding: 0 18px;
-          line-height: 24px;
-          height: 40px;
-          border-width: 1px 0;
-        }
-      `;
-    }
-  }
-
-  class NormalCell extends Cell {
-    get tagName() { return 'td'; }
-    get $promise() {
-      let resolve, reject;
-      let value = new Promise((...args) => ([ resolve, reject ] = args));
-      value.resolve = resolve;
-      value.reject = reject;
-      Object.defineProperty(this, '$promise', { value, configurable: true });
-      return value;
-    }
-    init() {
-      let { breakWord, width, nowrap, value, component, args, actions, scheme, fieldMap, depot } = this;
-      if (width) this.element.style.width = width + 'px';
-      if (nowrap) this.element.style.whiteSpace = 'nowrap';
-      if (breakWord) this.element.style.wordBreak = 'break-all';
-      switch (true) {
-        case !!component: {
-          let output = new Output({ component, args, value }).to(this);
-          return output.$promise.then(() => this.$promise.resolve(this));
-        }
-        case !!actions:
-          new TableRowActions({ depot, actions, scheme, fieldMap }).to(this);
-          return this.$promise.resolve(this);
-        default:
-          this.element.innerHTML = value;
-          this.$promise.resolve(this);
-      }
-    }
-  }
-
   class Sortable extends Jinkela {
     get styleSheet() {
       return `
@@ -105,6 +48,68 @@ def((Output, Item, TableRowActions, Caption) => {
     }
   }
 
+  class TableCaption extends Caption {
+    get tagName() { return 'caption'; }
+    get styleSheet() {
+      return `
+        :scope {
+          background: #eff2f7;
+          border-bottom: 1px solid #e0e6ed;
+          padding: 0 18px;
+        }
+      `;
+    }
+  }
+
+  class PromisedItem extends Item {
+    get $promise() {
+      let resolve, reject;
+      let value = new Promise((...args) => { [ resolve, reject ] = args; });
+      Object.defineProperty(value, 'resolve', { value: resolve, configurable: true });
+      Object.defineProperty(value, 'reject', { value: reject, configurable: true });
+      Object.defineProperty(this, '$promise', { value, configurable: true });
+      return value;
+    }
+  }
+
+  class Cell extends PromisedItem {
+    get styleSheet() {
+      return `
+        :scope {
+          border: solid #e0e6ed;
+          padding: 0 18px;
+          line-height: 24px;
+          height: 40px;
+          border-width: 1px 0;
+        }
+      `;
+    }
+  }
+
+  class NormalCell extends Cell {
+    get tagName() { return 'td'; }
+    init() {
+      let { breakWord, width, nowrap, value, component, args, actions, scheme, fieldMap, depot } = this;
+      if (width) this.element.style.width = width + 'px';
+      if (nowrap) this.element.style.whiteSpace = 'nowrap';
+      if (breakWord) this.element.style.wordBreak = 'break-all';
+      switch (true) {
+        case !!component: {
+          let output = new Output({ component, args, value }).to(this);
+          return output.$promise.then(() => {
+            this.$promise.resolve(this);
+          });
+        }
+        case !!actions:
+          new TableRowActions({ depot, actions, scheme, fieldMap }).to(this);
+          return this.$promise.resolve(this);
+        default:
+          this.element.innerHTML = value;
+          this.$promise.resolve(this);
+      }
+    }
+  }
+
   class HeadCell extends Cell {
     init() {
       let { width, nowrap, title, align, sortable, key, depot } = this;
@@ -113,13 +118,9 @@ def((Output, Item, TableRowActions, Caption) => {
       if (nowrap) this.element.style.whiteSpace = 'nowrap';
       if (title) Output.createAny(title).to(this);
       if (sortable) new Sortable({ key, depot }).to(this);
+      this.$promise.resolve(this);
     }
-    get template() {
-      return `
-        <td>
-        </td>
-      `;
-    }
+    get tagName() { return 'td'; }
     get styleSheet() {
       return `
         :scope {
@@ -147,25 +148,40 @@ def((Output, Item, TableRowActions, Caption) => {
     set checked(value) { this.checkbox.checked = value; }
   }
 
-  class Row extends Item {
+  class Row extends PromisedItem {
     get tagName() { return 'tr'; }
+    remove() { this.element.remove(); }
     init() {
-      this.initCheckbox();
+      let { scheme, params } = depot;
+      // 处理 Checkbox
+      let { listSelector } = scheme;
+      if (listSelector) {
+        this.checkbox = new CheckboxCell({
+          handler: event => {
+            event.stopPropagation();
+            this.element.dispatchEvent(new CustomEvent('SelectRow', { bubbles: true, detail: this }));
+          }
+        }).to(this);
+      }
+      // 获取字段列表（过滤掉不需要的部分）
+      let { fields } = scheme;
+      if (!(fields instanceof Array)) {
+        setTimeout(() => { throw new Error('scheme.fields 必须是数组'); });
+        fields = [];
+      }
+      fields = fields.slice(0);
+      // 根据字段描述创建单元格
+      let cells = fields.map(field => this.createCell(field));
+      return Promise.all(cells.map(i => i.$promise)).then(cells => {
+        cells.forEach(cell => cell.to(this));
+        let action = this.createActionCell();
+        if (action) action.to(this);
+        this.$promise.resolve(this);
+      }).catch(error => {
+        setTimeout(() => { throw error; });
+      });
     }
-    initCheckbox() {
-      let { depot = window.depot } = this;
-      let { scheme = {} } = depot;
-      if (!scheme.listSelector) return;
-      this.checkbox = new CheckboxCell({
-        handler: event => {
-          event.stopPropagation();
-          this.element.dispatchEvent(new CustomEvent('SelectRow', { bubbles: true, detail: this }));
-        }
-      }).to(this);
-    }
-    get checked() {
-      return this.checkbox && this.checkbox.checked;
-    }
+    get checked() { return this.checkbox && this.checkbox.checked; }
     set checked(value) {
       if (!this.checkbox) return;
       this.checkbox.checked = value;
@@ -173,25 +189,16 @@ def((Output, Item, TableRowActions, Caption) => {
   }
 
   class TableRow extends Row {
-    get $promise() {
-      let resolve, reject;
-      let value = new Promise((...args) => ([ resolve, reject ] = args));
-      value.resolve = resolve;
-      value.reject = reject;
-      Object.defineProperty(this, '$promise', { value, configurable: true });
-      return value;
-    }
-    init() {
+    createCell(field) {
       let { depot = window.depot, fieldMap } = this;
-      let { scheme } = depot;
-      let { fields = [], actions = [] } = scheme;
-      let cells = [];
-      cells.push(...fields.map(field => new NormalCell(field, { value: fieldMap[field.key] }, this)));
-      Promise.all(cells.map(cell => cell.$promise)).then(cells => {
-        cells.forEach(cell => cell.to(this));
-        if (actions.length) new NormalCell({ depot, actions, nowrap: true, width: 1 }, this).to(this);
-        this.$promise.resolve(this);
-      });
+      let value = fieldMap[field.key];
+      return new NormalCell(field, { value, depot }, this);
+    }
+    createActionCell() {
+      let { actions } = depot.scheme;
+      if (actions && actions.length) {
+        new NormalCell({ depot, actions, nowrap: true, width: 1 }, this).to(this);
+      }
     }
     get styleSheet() {
       return `
@@ -201,23 +208,22 @@ def((Output, Item, TableRowActions, Caption) => {
         }
       `;
     }
-    remove() { this.element.remove(); }
   }
 
   class TableHead extends Row {
-    init() {
+    createCell(field) {
       let { depot = window.depot } = this;
-      let { scheme } = depot;
-      let fields = (scheme.fields || []).slice(0);
-      fields.forEach(raw => new HeadCell(raw, { depot }).to(this));
-      if (scheme.actions && scheme.actions.length) {
-        new HeadCell({ title: depot.getConst('操作'), nowrap: true, align: 'right', depot }).to(this);
+      return new HeadCell(field, { depot });
+    }
+    createActionCell() {
+      let { actions } = depot.scheme;
+      if (actions && actions.length) {
+        return new HeadCell({ title: depot.getConst('操作'), nowrap: true, align: 'right', depot });
       }
     }
   }
 
   return class extends Jinkela {
-
     beforeParse(params) {
       this.depot = params.depot;
     }
@@ -281,11 +287,16 @@ def((Output, Item, TableRowActions, Caption) => {
           return (value > nextValue ^ isDesc) ? 1 : -1;
         });
       }
-      Promise.all(list.map(fieldMap => new TableRow({ fieldMap, depot }).$promise)).then(rows => {
+      let rows = list.map(fieldMap => new TableRow({ fieldMap, depot }));
+      if (rows.length === 0) return;
+      let updating = Promise.all(rows.map(i => i.$promise)).then(rows => {
+        if (this.updating !== updating) return;
         this.clear();
         this.rows = rows;
         rows.forEach(row => row.to(this.table));
+        delete this.updating;
       });
+      this.updating = updating;
     }
 
     get table() {
@@ -325,7 +336,6 @@ def((Output, Item, TableRowActions, Caption) => {
         }
       `;
     }
-
   };
 
 });
