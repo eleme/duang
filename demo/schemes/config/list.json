@@ -24,12 +24,19 @@
         "sortable": true
       },
       {
-        "key": "a", "title": "<font color=red>A</font>",
+        "key": "a",
+        "title": "<font color=red>A</font>",
         "component": "TextTip"
       },
       {
-        "key": "img", "title": "图片",
-        "component": "Image"
+        "key": "b",
+        "title": "B",
+        "component": "TextTip",
+        "args": {
+          "underline": false,
+          "tip": "the tip, blah blah blah blah blah blah blah blah blah blah",
+          "text": "empty"
+        }
       },
       {
         "key": "c",
@@ -38,6 +45,10 @@
           "defaultValue": "hehe"
         },
         "title": "QRCode"
+      },
+      {
+        "key": "img", "title": "图片",
+        "component": "Image"
       }
     ],
     "headers": [

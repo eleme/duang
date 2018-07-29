@@ -2,6 +2,7 @@ def((Tip) => {
 
   return class extends Tip {
     init() {
+      if (this.underline === false) this.element.style.textDecoration = 'none';
       if (!('$value' in this)) this.value = void 0;
     }
     get value() { return this.$value; }
