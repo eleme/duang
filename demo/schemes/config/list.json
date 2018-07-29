@@ -236,7 +236,7 @@
     "title": "配置 - 列表 - 默认隐藏部分字段",
     "where": { "f3": "a" },
     "params": {
-      "fields": [ "id", "img" ]
+      "fields": "all"
     },
     "filters": [
       {

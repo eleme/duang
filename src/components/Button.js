@@ -7,26 +7,16 @@ def((Item) => class extends Item {
   }
   get tag() { return 'button'; }
   get tagName() { return this.tag; }
-  set disabled(value) {
-    if (value) {
-      this.element.setAttribute('disabled', 'disabled');
-    } else {
-      this.element.removeAttribute('disabled');
-    }
-  }
-  get disabled() {
-    return this.element.hasAttribute('disabled');
-  }
-  get busy() {
-    return this.element.classList.contains('busy');
-  }
-  set busy(value) {
-    if (value) {
-      this.element.classList.add('busy');
-    } else {
-      this.element.classList.remove('busy');
-    }
-  }
+
+  get disabled() { return this.element.hasAttribute('disabled'); }
+  set disabled(value) { this.element[value ? 'setAttribute' : 'removeAttribute']('disabled', 'disabled'); }
+
+  get small() { return this.element.classList.contains('small'); }
+  set small(value) { this.element.classList[value ? 'add' : 'remove']('small'); }
+
+  get busy() { return this.element.classList.contains('busy'); }
+  set busy(value) { this.element.classList[value ? 'add' : 'remove']('busy'); }
+
   get styleSheet() {
     return `
       :scope {
@@ -43,6 +33,7 @@ def((Item) => class extends Item {
         color: #fff;
         position: relative;
         text-align: center;
+        &.small { padding: 4px 5px; }
         &:hover { opacity: .8; }
         &:before {
           content: attr(text);
