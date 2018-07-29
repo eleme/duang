@@ -6,9 +6,10 @@ def((Tip) => {
     }
     get value() { return this.$value; }
     set value(value = this.defaultValue) {
-      if (!value) value = this;
       this.$value = value;
-      super.value = { data: value.text, tip: value.tip };
+      if (typeof value === 'string') value = { text: value };
+      let { text = this.text, tip = this.tip } = Object(value);
+      super.value = { data: text, tip };
     }
     get styleSheet() {
       return `
