@@ -34,7 +34,8 @@ def((Output, Item, TableRowActions, Caption) => {
       `;
     }
     init() {
-      let { uParams } = this.depot;
+      let { depot = window.depot } = this;
+      let { uParams } = depot;
       let { orderBy } = uParams;
       this.element.addEventListener('click', this.sort.bind(this));
       if (orderBy) {
@@ -89,7 +90,8 @@ def((Output, Item, TableRowActions, Caption) => {
   class NormalCell extends Cell {
     get tagName() { return 'td'; }
     init() {
-      let { breakWord, width, nowrap, value, component, args, actions, scheme, fieldMap, depot } = this;
+      let { depot = window.depot } = this;
+      let { breakWord, width, nowrap, value, component, args, actions, scheme, fieldMap } = this;
       if (width) this.element.style.width = width + 'px';
       if (nowrap) this.element.style.whiteSpace = 'nowrap';
       if (breakWord) this.element.style.wordBreak = 'break-all';
@@ -112,7 +114,8 @@ def((Output, Item, TableRowActions, Caption) => {
 
   class HeadCell extends Cell {
     init() {
-      let { width, nowrap, title, align, sortable, key, depot } = this;
+      let { depot = window.depot } = this;
+      let { width, nowrap, title, align, sortable, key } = this;
       if (width) this.element.style.width = width + 'px';
       if (align) this.element.style.textAlign = align;
       if (nowrap) this.element.style.whiteSpace = 'nowrap';
@@ -152,6 +155,7 @@ def((Output, Item, TableRowActions, Caption) => {
     get tagName() { return 'tr'; }
     remove() { this.element.remove(); }
     init() {
+      let { depot = window.depot } = this;
       let { scheme, params } = depot;
       // 处理 Checkbox
       let { listSelector } = scheme;
@@ -200,6 +204,7 @@ def((Output, Item, TableRowActions, Caption) => {
       return new NormalCell(field, { value, depot }, this);
     }
     createActionCell() {
+      let { depot = window.depot } = this;
       let { actions } = depot.scheme;
       if (actions && actions.length) {
         new NormalCell({ depot, actions, nowrap: true, width: 1 }, this).to(this);
@@ -221,6 +226,7 @@ def((Output, Item, TableRowActions, Caption) => {
       return new HeadCell(field, { depot });
     }
     createActionCell() {
+      let { depot = window.depot } = this;
       let { actions } = depot.scheme;
       if (actions && actions.length) {
         return new HeadCell({ title: depot.getConst('操作'), nowrap: true, align: 'right', depot });
@@ -269,7 +275,7 @@ def((Output, Item, TableRowActions, Caption) => {
     }
 
     get isEmptyFields() {
-      let { depot } = this;
+      let { depot = window.depot } = this;
       let { scheme } = depot;
       return !(scheme.fields && scheme.fields.length);
     }
