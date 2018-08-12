@@ -118,8 +118,6 @@ window.duang = () => {
       return this.constructor.waitUntilReady().then(() => {
         dispatchEvent(new CustomEvent('duang::notify', { detail: '正在加载并渲染框架控件' }));
         Object.defineProperty(this, Symbol.for('cache'), { configurable: true, value: {} });
-        let moduleName = String(this.module);
-        if (!/\W/.test(moduleName)) moduleName = 'MainWith' + moduleName.replace(/./, $0 => $0.toUpperCase());
 
         // 自动刷新（废弃）
         if (this._autoRefreshTimer) {
@@ -127,7 +125,10 @@ window.duang = () => {
           delete this._autoRefreshTimer;
         }
 
-        return Promise.all([ req('Frame'), req(moduleName) ]);
+        return Promise.all([
+          req('Frame'),
+          this.loadModule(this.module)
+        ]);
       }).then(([ Frame, Main ]) => {
         dispatchEvent(new CustomEvent('duang::done'));
         if (!this.moduleComponent) this.moduleComponent = new Frame().to(document.body);
@@ -229,6 +230,14 @@ window.duang = () => {
       });
     }
 
+    loadModule(name) {
+      // 对纯单词作为 MainWith 来加载，否则认为是一个 URL
+      if (/^\w+$/.test(name)) {
+        name = 'MainWith' + String(name).replace(/./, $0 => $0.toUpperCase()); // 首字母大写
+      }
+      return req(name).catch(() => req('MainWithError'));
+    }
+
     go({ args, target, title }) {
       args = Object.assign({}, args);
       if (args.where && typeof args.where === 'object') args.where = JSON.stringify(args.where);
@@ -239,9 +248,7 @@ window.duang = () => {
           return open(location.href.replace(/(#.*)?$/, '#!' + uParams));
         case 'dialog':
           try {
-            let moduleName = String(args.module).replace(/./, $0 => $0.toUpperCase());
-            if (!/\W/.test(moduleName)) moduleName = 'MainWith' + moduleName.replace(/./, $0 => $0.toUpperCase());
-            return req(moduleName).then(Main => {
+            return this.loadModule(args.module).then(Main => {
               let main = new Main({ depot: this.fork(uParams), title });
               return Promise.resolve(main.$promise).then(() => dialog.popup(main));
             });
