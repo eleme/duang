@@ -8,7 +8,8 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "eslint . --fix"
+    "test": "eslint . --fix",
+    "install": "ln -f pre-commit .git/hooks"
   },
   "repository": {
     "type": "git",
