@@ -115,8 +115,14 @@ window.duang = () => {
 
     static initSession() {
       let { config } = this.prototype;
-      let task = config.session ? api(config.session.authorize, { method: config.session.method || 'post' }) : Promise.resolve({});
-      dispatchEvent(new CustomEvent('duang::notify', { detail: '正在加载用户信息' }));
+      let task = Promise.resolve({});
+      if (config.session) {
+        dispatchEvent(new CustomEvent('duang::notify', { detail: '正在加载用户信息' }));
+        task = task.then(() => {
+          let method = config.session.method || 'post';
+          return api(config.session.authorize, { method });
+        });
+      }
       task.then(value => {
         dispatchEvent(new CustomEvent('duang::notify', { detail: '用户信息加载完毕' }));
         window.session = value;
@@ -132,17 +138,10 @@ window.duang = () => {
       return task;
     }
 
-    onRouteChange() {
+    hashchange() {
       return Depot.waitUntilReady().then(() => {
         dispatchEvent(new CustomEvent('duang::notify', { detail: '正在加载并渲染框架控件' }));
         this.resetCache();
-
-        // 自动刷新（废弃）
-        if (this._autoRefreshTimer) {
-          clearTimeout(this._autoRefreshTimer);
-          delete this._autoRefreshTimer;
-        }
-
         return Promise.all([
           req('Frame'),
           this.loadModule(this.module)
@@ -151,23 +150,11 @@ window.duang = () => {
         dispatchEvent(new CustomEvent('duang::done'));
         if (!this.moduleComponent) this.moduleComponent = new Frame().to(document.body);
         this.refresh(Main);
-
-        // 自动刷新（废弃）
-        let { autoRefresh } = this.scheme || {};
-        if (+autoRefresh) {
-          this._autoRefreshTimer = setTimeout(() => {
-            this.refresh();
-            delete this._autoRefreshTimer;
-          }, autoRefresh * 1000);
-        }
       }, error => {
         dispatchEvent(new CustomEvent('duang::fatal', { detail: '框架组件加载失败' }));
-        alert(error.message);
         setTimeout(() => { throw error; });
       });
     }
-
-    hashchange() { this.onRouteChange(); }
 
     // 缓存相关
     resetCache(value = {}) { Object.defineProperty(this, CACHE_SYMBOL, { configurable: true, value }); }
