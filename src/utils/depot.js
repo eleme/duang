@@ -9,12 +9,20 @@ window.duang = () => {
     }
   });
 
-  class Depot { // eslint-disable-line no-unused-vars
+  const parseObjectJSON = what => {
+    try {
+      what = JSON.parse(what);
+    } catch (error) {
+      void error;
+    }
+    return Object(what);
+  };
+
+  const CACHE_SYMBOL = Symbol('cache');
+
+  class Depot {
     constructor(uParams) {
-      Object.defineProperties(this, {
-        moduleComponent: { writable: true, configurable: true },
-        [Symbol.for('cache')]: { configurable: true, value: {} }
-      });
+      this.resetCache();
       if (uParams) this.cache('uParams', () => uParams);
       Depot.initRootDepotOnce(this);
     }
@@ -127,7 +135,7 @@ window.duang = () => {
     onRouteChange() {
       return Depot.waitUntilReady().then(() => {
         dispatchEvent(new CustomEvent('duang::notify', { detail: '正在加载并渲染框架控件' }));
-        Object.defineProperty(this, Symbol.for('cache'), { configurable: true, value: {} });
+        this.resetCache();
 
         // 自动刷新（废弃）
         if (this._autoRefreshTimer) {
@@ -161,24 +169,25 @@ window.duang = () => {
 
     hashchange() { this.onRouteChange(); }
 
+    // 缓存相关
+    resetCache(value = {}) { Object.defineProperty(this, CACHE_SYMBOL, { configurable: true, value }); }
     cache(name, resolver) {
-      let cache = this[Symbol.for('cache')];
+      let cache = this[CACHE_SYMBOL];
       if (name in cache) return cache[name];
       return (cache[name] = resolver());
     }
 
-    parseJSON(json) { try { return JSON.parse(json); } catch (error) { /* pass */ } }
-
     /**
      * 属性缓存
     **/
+
     get module() { return this.uParams.module || this.config.defaultModule || 'default'; }
     get id() { return this.params.id; }
     get key() { return this.uParams.key; }
     get resolvedKey() { return String(this.key).replace(/:(?=\D)([^/]+)/g, ($0, $1) => this.params[$1]); }
     get scheme() { return this.schemeMap[this.key] || {}; }
-    get where() { return this.cache('where', () => this.parseJSON(this.uParams.where) || {}); }
-    get params() { return this.cache('params', () => this.parseJSON(this.uParams.params) || {}); }
+    get where() { return this.cache('where', () => parseObjectJSON(this.uParams.where)); }
+    get params() { return this.cache('params', () => parseObjectJSON(this.uParams.params)); }
     get uParams() { return this.cache('uParams', () => new UParams()); }
     get formMode() {
       if (this.params.readonly) {
@@ -277,7 +286,7 @@ window.duang = () => {
     update(uParams = {}, whole) {
       uParams = new UParams(whole ? uParams : Object.assign({}, this.uParams, uParams));
       if (this !== window.depot) {
-        Object.defineProperty(this, Symbol.for('cache'), { configurable: true, value: { uParams } });
+        this.resetCache({ uParams });
         this.refresh();
       } else {
         let hash = '#!' + uParams;
