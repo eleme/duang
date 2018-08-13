@@ -213,12 +213,12 @@
     "inputs": [
       {
         "key": "imageSelector1", "component": "ImageSelector", "title": "图片选择",
-        "args": { "@options": "../data/imageselector-options.json" }
+        "args": { "@options": "imageselector-options" }
       },
       {
         "key": "imageSelector1", "component": "ImageSelector", "title": "图片选择",
         "args": {
-          "@options": "../data/imageselector-options.json",
+          "@options": "imageselector-options",
           "defaultValue": "item 2"
         }
       }

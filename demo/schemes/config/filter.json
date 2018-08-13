@@ -1,7 +1,7 @@
 [
 
   {
-    "key": "data/the-list-data-2.json?1",
+    "key": "the-list-data-2?1",
     "title": "配置 - 筛选器 - 单个筛选器",
     "filters": [
       {
@@ -24,7 +24,7 @@
   },
 
   {
-    "key": "data/the-list-data-2.json?2",
+    "key": "the-list-data-2?2",
     "title": "配置 - 筛选器 - 多个筛选器",
     "filters": [
       {
@@ -32,7 +32,7 @@
         "key": "f1",
         "component": "Checkbox",
         "args": {
-          "@options": "../string-map-abcd.json",
+          "@options": "string-map-abcd",
           "defaultValue": [ "a", "b" ]
         }
       },
@@ -59,7 +59,7 @@
   },
 
   {
-    "key": "data/the-list-data-2.json?3",
+    "key": "the-list-data-2?3",
     "noWhere": "<b>请先选择筛选条件</b>",
     "title": "配置 - 筛选器 - 默认不搜索",
     "filters": [

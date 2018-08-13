@@ -8,31 +8,31 @@
       {
         "description": "必选",
         "key": "suggestion1", "component": "Suggestion", "title": "带描述",
-        "args": { "api": "../data/value-list.json" }
+        "args": { "api": "value-list" }
       },
       {
         "key": "suggestion2", "component": "Suggestion", "title": "Placeholder",
-        "args": { "api": "../data/value-list.json", "placeholder": "placeholder" }
+        "args": { "api": "value-list", "placeholder": "placeholder" }
       },
       {
         "key": "suggestion3", "component": "Suggestion", "title": "设置宽度",
-        "args": { "api": "../data/value-list.json", "width": 100 }
+        "args": { "api": "value-list", "width": 100 }
       },
       {
         "key": "suggestion4", "component": "Suggestion", "title": "有默认值",
-        "args": { "api": "../data/value-list.json", "defaultValue": "hehe" }
+        "args": { "api": "value-list", "defaultValue": "hehe" }
       },
       {
         "key": "suggestion5", "component": "Suggestion", "title": "正常",
-        "args": { "api": "../data/empty-list.json" }
+        "args": { "api": "empty-list" }
       },
       {
         "key": "suggestion6", "component": "Suggestion", "title": "空提示",
-        "args": { "api": "../data/empty-list.json", "emptyTip": "并没有内容" }
+        "args": { "api": "empty-list", "emptyTip": "并没有内容" }
       },
       {
         "key": "suggestion7", "component": "Suggestion", "title": "",
-        "args": { "api": "../data/empty-list.json", "width": 100, "emptyTip": "并没有内容" }
+        "args": { "api": "empty-list", "width": 100, "emptyTip": "并没有内容" }
       }
     ]
   },
@@ -44,27 +44,27 @@
     "inputs": [
       {
         "key": "tagCollector1", "component": "TagCollector", "title": "正常",
-        "args": { "api": "../data/value-list.json" }
+        "args": { "api": "value-list" }
       },
       {
         "key": "tagCollector2", "component": "TagCollector", "title": "设置宽度",
-        "args": { "api": "../data/value-list.json", "width": 500 }
+        "args": { "api": "value-list", "width": 500 }
       },
       {
         "key": "tagCollector3", "component": "TagCollector", "title": "带默认值",
-        "args": { "api": "../data/value-list.json", "defaultValue": [ "item 1", "hehe" ] }
+        "args": { "api": "value-list", "defaultValue": [ "item 1", "hehe" ] }
       },
       {
         "key": "tagCollector4", "component": "TagCollector", "title": "空提示",
-        "args": { "api": "../data/empty-list.json", "emptyTip": "并没有内容" }
+        "args": { "api": "empty-list", "emptyTip": "并没有内容" }
       },
       {
         "key": "tagCollector5", "component": "TagCollector", "title": "Placeholder",
-        "args": { "api": "../data/empty-list.json", "placeholder": "placeholder" }
+        "args": { "api": "empty-list", "placeholder": "placeholder" }
       },
       {
         "key": "tagCollector6", "component": "TagCollector", "title": "api 带参数",
-        "args": { "api": "../data/empty-list.json?hehe=123" }
+        "args": { "api": "empty-list?hehe=123" }
       }
     ]
   },

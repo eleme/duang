@@ -1,7 +1,7 @@
 [
 
   {
-    "key": "data/the-list-data.json?1",
+    "key": "the-list-data?1",
     "title": "配置 - 列表 - 标准",
     "gentleRefreshing": true,
     "actions": [
@@ -61,7 +61,7 @@
 
   {
     "listSelector": true,
-    "key": "data/the-list-data.json?2",
+    "key": "the-list-data?2",
     "title": "配置 - 列表 - 可全选",
     "actions": [
       { "title": "www.ele.me", "method": "open", "href": "https://www.ele.me" },
@@ -96,7 +96,7 @@
   },
 
   {
-    "key": "data/the-list-data.json?3",
+    "key": "the-list-data?3",
     "title": "配置 - 列表 - 默认筛选条件",
     "where": { "f3": "a" },
     "filters": [
@@ -168,7 +168,7 @@
   },
 
   {
-    "key": "data/the-list-data.json?4",
+    "key": "the-list-data?4",
     "title": "配置 - 列表 - 默认折叠筛选器",
     "where": { "f3": "a" },
     "params": {
@@ -243,7 +243,7 @@
   },
 
   {
-    "key": "data/the-list-data.json?5",
+    "key": "the-list-data?5",
     "title": "配置 - 列表 - 默认隐藏部分字段",
     "where": { "f3": "a" },
     "params": {
@@ -318,7 +318,7 @@
   },
 
   {
-    "key": "data/pager-list-data.json",
+    "key": "pager-list-data",
     "title": "配置 - 列表 - 分页",
     "countable": 5,
     "pageSize": 10,
@@ -327,6 +327,16 @@
       { "key": "id", "title": "ID" },
       { "key": "a", "title": "A" },
       { "key": "b", "title": "B", "component": "Clipboard" }
+    ]
+  },
+
+  {
+    "key": "empty-list",
+    "title": "配置 - 列表 - 空列表",
+    "module": "list",
+    "fields": [
+      { "key": "id", "title": "ID" },
+      { "key": "a", "title": "A" }
     ]
   }
 

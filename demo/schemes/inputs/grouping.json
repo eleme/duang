@@ -10,7 +10,7 @@
         "args": {
           "inputs": [
             { "title": "hehe1", "args": { "width": 100 } },
-            { "title": "hehe1", "component": "Suggestion", "args": { "width": 150, "api": "../data/value-list.json" } },
+            { "title": "hehe1", "component": "Suggestion", "args": { "width": 150, "api": "value-list" } },
             { "title": "hehe1", "args": { "width": 100 } }
           ]
         }
@@ -100,7 +100,7 @@
           "options": { "a": "first", "b": "second" },
           "mode": "line",
           "subGroupMap": {
-            "a": [ { "title": "hehe1", "component": "Suggestion", "args": { "api": "../data/value-list.json" } } ],
+            "a": [ { "title": "hehe1", "component": "Suggestion", "args": { "api": "value-list" } } ],
             "b": [ { "args": { "placeholder": "b", "width": 100 } } ]
           }
         }
@@ -111,7 +111,7 @@
           "options": { "a": "first", "b": "second" },
           "subGroupMap": {
             "a": [
-              { "title": "hehe1", "component": "Suggestion", "args": { "width": 150, "api": "../data/value-list.json" } }
+              { "title": "hehe1", "component": "Suggestion", "args": { "width": 150, "api": "value-list" } }
             ],
             "b": [ { "args": { "placeholder": "b", "width": 100 } } ]
           }
@@ -164,7 +164,7 @@
         "key": "grouping1", "title": "GroupingCheckbox", "component": "GroupingCheckbox",
         "args": {
           "subGroup": [
-            { "title": "hehe1", "key": "hehe1", "component": "Suggestion", "args": { "api": "../data/value-list.json" } }
+            { "title": "hehe1", "key": "hehe1", "component": "Suggestion", "args": { "api": "value-list" } }
           ]
         }
       },

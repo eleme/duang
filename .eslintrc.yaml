@@ -6,6 +6,7 @@
     ecmaVersion: 2017
   globals:
     CodeMirror: false
+    FCeptor: false
     UParams: false
     Jinkela: false
     JSONPath: false

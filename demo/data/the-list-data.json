@@ -1,7 +1,0 @@
-[
-  { "id": "1.json", "a": { "text": "one", "tip": "hehe<br/>haha<br/>hoho" }, "b": "b1" },
-  { "id": "2.json", "a": "two", "b": "b2", "img": "../logo.png" },
-  { "id": "3.json", "a": "tree", "b": "", "img": "error" },
-  { "id": "4.json", "a": "four" },
-  { "id": "5.json", "a": "five", "b": "b5" }
-]

@@ -15,8 +15,8 @@
           "mode": "line",
           "subGroupMap": {
             "a": [
-              { "title": "hehe1", "component": "Suggestion", "args": { "api": "../data/value-list.json" } },
-              { "title": "hehe2", "component": "Suggestion", "args": { "api": "../data/value-list.json" } }
+              { "title": "hehe1", "component": "Suggestion", "args": { "api": "value-list" } },
+              { "title": "hehe2", "component": "Suggestion", "args": { "api": "value-list" } }
             ],
             "b": [
               { "component": "DateTime" },
@@ -32,7 +32,7 @@
           "defaultValue": [ "hehe" ],
           "component": "Suggestion",
           "args": {
-            "api": "../data/value-list.json",
+            "api": "value-list",
             "width": 100
           }
         }
@@ -80,8 +80,8 @@
             "mode": "line",
             "subGroupMap": {
               "a": [
-                { "title": "hehe1", "component": "Suggestion", "args": { "api": "../data/value-list.json" } },
-                { "title": "hehe2", "component": "Suggestion", "args": { "api": "../data/value-list.json" } },
+                { "title": "hehe1", "component": "Suggestion", "args": { "api": "value-list" } },
+                { "title": "hehe2", "component": "Suggestion", "args": { "api": "value-list" } },
                 { "component": "String", "args": { "width": 500 } }
               ],
               "b": [
