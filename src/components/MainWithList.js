@@ -71,7 +71,8 @@ def((FatalError, Output, ListFlex, ListOperations, ListHeaders, ListFilters, Tab
 
     initData() {
       return Promise.resolve().then(() => {
-        let { scheme, where } = this.depot;
+        let { depot } = this;
+        let { scheme, where } = depot;
         let { noWhere, fields = [] } = scheme;
 
         if (!fields || !fields.length) throw new Error('字段未配置');

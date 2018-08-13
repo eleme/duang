@@ -1,6 +1,6 @@
 window.duang = () => {
 
-  if (window.depot) return window.depot;
+  if (window.depot) return;
 
   require.config({
     paths: {
@@ -9,17 +9,27 @@ window.duang = () => {
     }
   });
 
-  window.depot = new class { // eslint-disable-line no-unused-vars
+  class Depot { // eslint-disable-line no-unused-vars
+    constructor(uParams) {
+      Object.defineProperties(this, {
+        moduleComponent: { writable: true, configurable: true },
+        [Symbol.for('cache')]: { configurable: true, value: {} }
+      });
+      if (uParams) this.cache('uParams', () => uParams);
+      Depot.initRootDepotOnce(this);
+    }
 
-    constructor() {
-      Object.defineProperty(this, 'moduleComponent', { writable: true, configurable: true });
+    static initRootDepotOnce(depot) {
+      // 只执行一次
+      Object.defineProperty(this, 'initRootDepotOnce', { configurable: true, value: () => {} });
+      // 全局事件注册
       if (document.readyState === 'complete') {
-        setTimeout(() => this.hashchange());
+        setTimeout(() => depot.hashchange());
       } else {
-        addEventListener('load', () => this.hashchange());
+        addEventListener('load', () => depot.hashchange());
       }
-      addEventListener('hashchange', () => this.hashchange());
-
+      addEventListener('hashchange', () => depot.hashchange());
+      // 默认对话框样式不适合 Duang，魔改一波
       initDialog: {
         let { popup } = dialog;
         Object.defineProperty(dialog, 'popup', {
@@ -115,7 +125,7 @@ window.duang = () => {
     }
 
     onRouteChange() {
-      return this.constructor.waitUntilReady().then(() => {
+      return Depot.waitUntilReady().then(() => {
         dispatchEvent(new CustomEvent('duang::notify', { detail: '正在加载并渲染框架控件' }));
         Object.defineProperty(this, Symbol.for('cache'), { configurable: true, value: {} });
 
@@ -159,15 +169,17 @@ window.duang = () => {
 
     parseJSON(json) { try { return JSON.parse(json); } catch (error) { /* pass */ } }
 
-    getConst(name) {
-      let { config, scheme } = this;
-      return (scheme && scheme.const && scheme.const[name]) || (config.const && config.const[name]) || name;
-    }
-
-    getSchemeByKey(key) { return this.schemeMap[key] || {}; }
-
+    /**
+     * 属性缓存
+    **/
     get module() { return this.uParams.module || this.config.defaultModule || 'default'; }
-
+    get id() { return this.params.id; }
+    get key() { return this.uParams.key; }
+    get resolvedKey() { return String(this.key).replace(/:(?=\D)([^/]+)/g, ($0, $1) => this.params[$1]); }
+    get scheme() { return this.schemeMap[this.key] || {}; }
+    get where() { return this.cache('where', () => this.parseJSON(this.uParams.where) || {}); }
+    get params() { return this.cache('params', () => this.parseJSON(this.uParams.params) || {}); }
+    get uParams() { return this.cache('uParams', () => new UParams()); }
     get formMode() {
       if (this.params.readonly) {
         return 'read';
@@ -175,21 +187,6 @@ window.duang = () => {
         return this.id ? 'edit' : 'create';
       }
     }
-
-    get id() { return this.params.id; }
-
-    get key() { return this.uParams.key; }
-
-    get resolvedKey() { return String(this.key).replace(/:(?=\D)([^/]+)/g, ($0, $1) => this.params[$1]); }
-
-    get scheme() { return this.getSchemeByKey(this.key); }
-
-    get where() { return this.cache('where', () => this.parseJSON(this.uParams.where) || {}); }
-
-    get params() { return this.cache('params', () => this.parseJSON(this.uParams.params) || {}); }
-
-    get uParams() { return this.cache('uParams', () => new UParams()); }
-
     get schemeMap() {
       let value = Object.create(null);
       this.schemes.forEach(scheme => {
@@ -198,12 +195,10 @@ window.duang = () => {
       Object.defineProperty(this, 'schemeMap', { value });
       return value;
     }
-
     get pageSize() {
       let pageSize = this.uParams.pageSize || this.scheme.pageSize;
       return pageSize instanceof Array ? pageSize[0] : pageSize;
     }
-
     get queryParams() {
       let params = {};
       let { page, where, orderBy } = this.uParams;
@@ -215,6 +210,14 @@ window.duang = () => {
       if (orderBy) params.orderBy = orderBy;
       return new UParams(params);
     }
+    getConst(name) {
+      let { config, scheme } = this;
+      return (scheme && scheme.const && scheme.const[name]) || (config.const && config.const[name]) || name;
+    }
+
+    /**
+     * 各种方法
+    **/
 
     refresh(Main = this.main.constructor) {
       let { scheme } = this;
@@ -249,8 +252,15 @@ window.duang = () => {
         case 'dialog':
           try {
             return this.loadModule(args.module).then(Main => {
-              let main = new Main({ depot: this.fork(uParams), title });
-              return Promise.resolve(main.$promise).then(() => dialog.popup(main));
+              let newDepot = new Depot(uParams);
+              let main = new Main({ depot: newDepot, title });
+              newDepot.moduleComponent = {
+                get main() { return main; },
+                set main(value) { main = value.renderWith(main); }
+              };
+              return Promise.resolve(main.$promise).then(() => {
+                dialog.popup(main);
+              });
             });
           } catch (error) {
             return console.error(error); // eslint-disable-line
@@ -279,12 +289,9 @@ window.duang = () => {
       }
     }
 
-    fork(uParams) {
-      return Object.create(Object.getPrototypeOf(this), {
-        [Symbol.for('cache')]: { configurable: true, value: { uParams } }
-      });
-    }
+    fork(...args) { return new Depot(...args); }
+  }
 
-  }();
+  window.depot = new Depot();
 
 };

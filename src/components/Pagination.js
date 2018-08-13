@@ -22,18 +22,13 @@ def((ButtonHollow, SvgIcon, Input) => {
   class EllipsisIcon extends Svg1024 { get data() { return 'M110.98112 510.74048m-110.98112 0a21.676 21.676 0 1 0 221.96224 0 21.676 21.676 0 1 0-221.96224 0Z M512.93184 510.74048m-110.98112 0a21.676 21.676 0 1 0 221.96224 0 21.676 21.676 0 1 0-221.96224 0Z M914.87744 510.74048m-110.98112 0a21.676 21.676 0 1 0 221.96224 0 21.676 21.676 0 1 0-221.96224 0Z'; } }
 
   class PageItem extends Jinkela {
-    static goto(value, redirect = true) {
-      let params = new UParams();
-      params.page = value;
-      let href = location.href.replace(/#.*/, '#' + params);
-      if (redirect) location.href = href;
-      return href;
-    }
     init() {
       this.active = this.value === this.currentIndex;
-      this.href = this.active ? 'JavaScript:' : this.constructor.goto(this.value, false);
     }
-    get template() { return '<a href="{href}"></a>' ; }
+    click() {
+      this.depot.update({ page: this.value });
+    }
+    get template() { return '<a href="javascript:" on-click="{click}"></a>' ; }
     set active(value) { this.element.classList[value ? 'add' : 'remove']('active'); }
     get active() { return this.element.classList.contains('active'); }
     get styleSheet() {
@@ -173,19 +168,19 @@ def((ButtonHollow, SvgIcon, Input) => {
       const { max, min, ceil } = Math;
       let pageCount = count === count ? ceil(count / pageSize) : currentIndex + (list.length === pageSize);
       if (pageCount < 1) pageCount = 1;
-      if (currentIndex > pageCount) PageItem.goto(pageCount);
+      if (currentIndex > pageCount) depot.update({ page: pageCount });
       let [ first, last ] = [ 1, pageCount ];
       let [ from, to ] = [ max(currentIndex - near, first + 1), min(currentIndex + near, last - 1) ];
       let [ ellipsisLeft, ellipsisRight ] = [ from - first > 1, last - to > 1 ];
       if (ellipsisLeft) from++;
       if (ellipsisRight) to--;
-      items.push(new PrevPage({ value: max(first, currentIndex - 1), currentIndex }));
-      items.push(new NthPage({ value: 1, currentIndex }));
-      if (ellipsisLeft) items.push(new FirstPage({ value: first, currentIndex }));
-      for (let index = from; index <= to; index++) items.push(new NthPage({ value: index, currentIndex }));
-      if (ellipsisRight) items.push(new LastPage({ value: pageCount, currentIndex }));
-      if (first !== last) items.push(new NthPage({ value: pageCount, currentIndex }));
-      items.push(new NextPage({ value: min(currentIndex + 1, last), currentIndex }));
+      items.push(new PrevPage({ depot, value: max(first, currentIndex - 1), currentIndex }));
+      items.push(new NthPage({ depot, value: 1, currentIndex }));
+      if (ellipsisLeft) items.push(new FirstPage({ depot, value: first, currentIndex }));
+      for (let index = from; index <= to; index++) items.push(new NthPage({ depot, value: index, currentIndex }));
+      if (ellipsisRight) items.push(new LastPage({ depot, value: pageCount, currentIndex }));
+      if (first !== last) items.push(new NthPage({ depot, value: pageCount, currentIndex }));
+      items.push(new NextPage({ depot, value: min(currentIndex + 1, last), currentIndex }));
       items.forEach(item => item.to(this));
       this.visible = pageSize;
     }
