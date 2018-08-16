@@ -33,4 +33,5 @@
     marked: false
     setStaleWhileRevalidate: false
     duang: false
+    mock: false
   extends: elemefe

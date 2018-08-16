@@ -31,129 +31,78 @@ FCeptor.post(/^/, ctx => {
   });
 });
 
-FCeptor.get(/now/, ctx => {
-  let headers = { 'Content-Type': 'application/json' };
-  let body = { 'value': new Date() };
-  ctx.response = new Response(JSON.stringify(body), { status: 200, headers });
-  return false;
+mock.get('/**/now', () => {
+  return { 'value': new Date() };
 });
 
-FCeptor.post(/the-form/, ctx => {
-  let headers = { 'Content-Type': 'application/json' };
-  let body = {
-    'action': 'open',
-    'args': {
-      'href': 'https://ele.me'
-    }
+mock.get('/**/the-form', () => {
+  return {
+    action: 'open',
+    args: { href: 'https://ele.me' }
   };
-  ctx.response = new Response(JSON.stringify(body), { status: 200, headers });
-  return false;
 });
 
-FCeptor.get(/\/500(\?.*)?$/, ctx => {
+mock.get('/**/500', () => {
   let headers = { 'Content-Type': 'application/json' };
   let body = { name: 'HEHE_ERROR', message: '这是一个错误的列表' };
-  ctx.response = new Response(JSON.stringify(body), { status: 500, headers });
-  return false;
+  return new Response(JSON.stringify(body), { status: 500, headers });
 });
 
-FCeptor.get(/\/pager-list-data\.json\/count(\?.*)?$/, ctx => {
-  let headers = { 'Content-Type': 'application/json' };
-  ctx.response = new Response(JSON.stringify(500), { status: 200, headers });
-  return false;
-});
+mock.get('/**/pager-list-data/count', () => 500);
 
-FCeptor.post(/\bfiletoken$/, ctx => {
-  console.log(1);
-  let headers = { 'Content-Type': 'application/json' };
-  let body = 'hehe';
-  ctx.response = new Response(JSON.stringify(body), { status: 200, headers });
-  return false;
-});
+mock.get('/**/filetoken', () => 'hehe');
 
-FCeptor.get(/\bfiletoken\/hehe$/, ctx => {
-  console.log(1);
+mock.get('/**/filetoken/hehe', () => {
   let headers = { 'Content-Type': 'image/svg+xml' };
-  let body = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 0 110 55"><path d="M 0 0 L 50 50 L 100 0" fill="none" stroke="#9b9ea0" stroke-width="10" /></svg>';
-  ctx.response = new Response(body, { status: 200, headers });
-  return false;
+  let body = `
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 0 110 55">
+      <path d="M 0 0 L 50 50 L 100 0" fill="none" stroke="#9b9ea0" stroke-width="10" />
+    </svg>
+  `.trim();
+  return new Response(body, { status: 200, headers });
 });
 
-FCeptor.get(/\bempty-list(\?.*$|$)/, ctx => {
-  let headers = { 'Content-Type': 'application/json' };
-  ctx.response = new Response(JSON.stringify([]), { status: 200, headers });
-  return false;
-});
+mock.get('/**/empty-list', () => []);
 
-FCeptor.get(/\bimageselector-options(\?.*$|$)/, ctx => {
-  let headers = { 'Content-Type': 'application/json' };
-  let body = JSON.stringify([
-    { 'src': 'https://fuss10.elemecdn.com/1/89/56d597e004abf8d30365009c4492bjpeg.jpeg', 'value': 'item 1' },
-    { 'src': 'https://fuss10.elemecdn.com/7/d3/48a777a6b444dc317cc24d101220cjpeg.jpeg', 'value': 'item 2' },
-    { 'src': 'https://fuss10.elemecdn.com/4/ff/bde8cd29387027b84824a95e0058bjpeg.jpeg', 'value': 'item 3' }
-  ]);
-  ctx.response = new Response(body, { status: 200, headers });
-  return false;
-});
+mock.get('/**/imageselector-options', () => [
+  { 'src': 'https://fuss10.elemecdn.com/1/89/56d597e004abf8d30365009c4492bjpeg.jpeg', 'value': 'item 1' },
+  { 'src': 'https://fuss10.elemecdn.com/7/d3/48a777a6b444dc317cc24d101220cjpeg.jpeg', 'value': 'item 2' },
+  { 'src': 'https://fuss10.elemecdn.com/4/ff/bde8cd29387027b84824a95e0058bjpeg.jpeg', 'value': 'item 3' }
+]);
 
-FCeptor.get(/\bpager-list-data(\?.*$|$)/, ctx => {
-  let headers = { 'Content-Type': 'application/json' };
-  let body = JSON.stringify([
-    { 'id': '1.json', 'a': 'one', 'b': 'hehe' },
-    { 'id': '2.json', 'a': 'two', 'b': 'hehe' }
-  ]);
-  ctx.response = new Response(body, { status: 200, headers });
-  return false;
-});
+mock.get('/**/pager-list-data', () => [
+  { 'id': '1.json', 'a': 'one', 'b': 'hehe' },
+  { 'id': '2.json', 'a': 'two', 'b': 'hehe' }
+]);
 
-FCeptor.get(/\bstring-map-abcd(\?.*$|$)/, ctx => {
-  let headers = { 'Content-Type': 'application/json' };
-  let body = JSON.stringify({
-    a: '一个很长很长的描述 A',
-    b: '一个很长很长的描述 B',
-    c: '一个很长很长的描述 C',
-    d: '一个很长很长的描述 D'
-  });
-  ctx.response = new Response(body, { status: 200, headers });
-  return false;
-});
+mock.get('/**/string-map-abcd', () => ({
+  a: '一个很长很长的描述 A',
+  b: '一个很长很长的描述 B',
+  c: '一个很长很长的描述 C',
+  d: '一个很长很长的描述 D'
+}));
 
-FCeptor.get(/\bthe-list-data(\?.*$|$)/, ctx => {
-  let headers = { 'Content-Type': 'application/json' };
-  let body = JSON.stringify([
-    { 'id': '1', 'a': { 'text': 'one', 'tip': 'hehe<br/>haha<br/>hoho' }, 'b': 'b1' },
-    { 'id': '2', 'a': 'two', 'b': 'b2', 'img': '../logo.png' },
-    { 'id': '3', 'a': 'tree', 'b': '', 'img': 'error' },
-    { 'id': '4', 'a': 'four' },
-    { 'id': '5', 'a': 'five', 'b': 'b5' }
-  ]);
-  ctx.response = new Response(body, { status: 200, headers });
-  return false;
-});
+mock.get('/**/the-list-data', () => [
+  { 'id': '1', 'a': { 'text': 'one', 'tip': 'hehe<br/>haha<br/>hoho' }, 'b': 'b1' },
+  { 'id': '2', 'a': 'two', 'b': 'b2', 'img': '../logo.png' },
+  { 'id': '3', 'a': 'tree', 'b': '', 'img': 'error' },
+  { 'id': '4', 'a': 'four' },
+  { 'id': '5', 'a': 'five', 'b': 'b5' }
+]);
 
-FCeptor.get(/\bthe-list-data-2(\?.*$|$)/, ctx => {
-  let headers = { 'Content-Type': 'application/json' };
-  let body = JSON.stringify([
-    { 'id': '1.json', 'a': { 'text': 'one', 'tip': 'hehe<br/>haha<br/>hoho' } },
-    { 'id': '2.json', 'a': 'two', 'img': '../logo.png' },
-    { 'id': '3.json', 'a': 'tree', 'img': 'error' },
-    { 'id': '4.json', 'a': 'four' },
-    { 'id': '5.json', 'a': 'five' }
-  ]);
-  ctx.response = new Response(body, { status: 200, headers });
-  return false;
-});
+mock.get('/**/the-list-data-2', () => [
+  { 'id': '1', 'a': { 'text': 'one', 'tip': 'hehe<br/>haha<br/>hoho' } },
+  { 'id': '2', 'a': 'two', 'img': '../logo.png' },
+  { 'id': '3', 'a': 'tree', 'img': 'error' },
+  { 'id': '4', 'a': 'four' },
+  { 'id': '5', 'a': 'five' }
+]);
 
-FCeptor.get(/\bvalue-list(\?.*$|$)/, ctx => {
-  let headers = { 'Content-Type': 'application/json' };
-  let body = JSON.stringify([
-    { 'value': 'item 1', 'html': 'i<strong style="color: red;">te</strong>m 1' },
-    { 'value': 'item 2' },
-    { 'value': 'item 3' },
-    { 'value': 'item 4' },
-    { 'value': 'item 5' },
-    { 'value': 'item 6' }
-  ]);
-  ctx.response = new Response(body, { status: 200, headers });
-  return false;
-});
+mock.get('/**/value-list', () => [
+  { 'value': 'item 1', 'html': 'i<strong style="color: red;">te</strong>m 1' },
+  { 'value': 'item 2' },
+  { 'value': 'item 3' },
+  { 'value': 'item 4' },
+  { 'value': 'item 5' },
+  { 'value': 'item 6' }
+]);
