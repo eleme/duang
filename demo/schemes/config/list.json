@@ -331,6 +331,16 @@
   },
 
   {
+    "key": "mergable-list",
+    "title": "配置 - 列表 - 合并单元格",
+    "module": "list",
+    "fields": [
+      { "key": "a", "title": "A", "mergable": true },
+      { "key": "b", "title": "B" }
+    ]
+  },
+
+  {
     "key": "empty-list",
     "title": "配置 - 列表 - 空列表",
     "module": "list",

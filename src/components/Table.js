@@ -298,16 +298,24 @@ def((Output, Item, TableRowActions, Caption) => {
           return (value > nextValue ^ isDesc) ? 1 : -1;
         });
       }
+
+      // 在这里初始化所有行组件（可以考虑做个差异更新，然而代码并不好写）
       let rows = list.map(fieldMap => new TableRow({ fieldMap, depot }));
       if (rows.length === 0) return;
-      let updating = Promise.all(rows.map(i => i.$promise)).then(rows => {
-        if (this.updating !== updating) return;
+
+      // 创建一个等待所有组件初始化的任务
+      let optimisticLocking = Promise.all(rows.map(i => i.$promise));
+      this.optimisticLocking = optimisticLocking;
+
+      // 注册异步
+      optimisticLocking.then(rows => {
+        // 如果异步执行时乐观锁版本不匹配则放弃执行
+        if (this.optimisticLocking !== optimisticLocking) return;
         this.clear();
         this.rows = rows;
         rows.forEach(row => row.to(this.table));
-        delete this.updating;
+        delete this.optimisticLocking;
       });
-      this.updating = updating;
     }
 
     get table() {

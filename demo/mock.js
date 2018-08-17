@@ -98,6 +98,15 @@ mock.get('/**/the-list-data-2', () => [
   { 'id': '5', 'a': 'five' }
 ]);
 
+mock.get('/**/mergable-list', () => [
+  { 'id': '1', 'a': 'l1', b: 'hehe 1' },
+  { 'id': '2', 'a': 'l1', b: 'hehe 2' },
+  { 'id': '3', 'a': 'l2', b: 'hehe 3' },
+  { 'id': '4', 'a': 'l2', b: 'hehe 4' },
+  { 'id': '5', 'a': 'l2', b: 'hehe 5' },
+  { 'id': '6', 'a': 'l2', b: 'hehe 6' }
+]);
+
 mock.get('/**/value-list', () => [
   { 'value': 'item 1', 'html': 'i<strong style="color: red;">te</strong>m 1' },
   { 'value': 'item 2' },
