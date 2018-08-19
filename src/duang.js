@@ -63,20 +63,20 @@
   Promise.all([
     w`https://shadow.elemecdn.com/bundle/${[
       'npm/excavator@0.2.1/bundle.min.js',
-      'npm/jinkela@1.2.21/umd.min.js',
+      'npm/jinkela@1.3.5/umd.min.js',
       'npm/stale-while-revalidate@0.1.0/bundle.min.js',
       'npm/fast-resolve@0.2.0/umd.min.js',
       'npm/jinkela-dialog@0.1.6/dialog.min.js',
       'npm/UParams@1.4.0/UParams.min.js',
 
       // TODO：收到具体控件中懒加载
-      'npm/jinkela-timepicker@1.1.1/umd.min.js',
-      'gh/jinkelajs/jinkela-datepicker@1.2.4/datepicker.min.js',
-      'gh/jinkelajs/jinkela-cascader@1.0.0/index.min.js',
-      'gh/jinkelajs/jinkela-forest@1.0.3/index.min.js',
-      'gh/jinkelajs/jinkela-checkbox@1.0.1/index.min.js',
-      'gh/jinkelajs/jinkela-radio@1.0.0/index.min.js',
-      'gh/jinkelajs/jinkela-clicktip@1.0.0/index.min.js',
+      'npm/jinkela-timepicker@1.3.1/umd.min.js',
+      'npm/jinkela-datepicker@1.3.1/umd.min.js',
+      'npm/jinkela-cascader@1.1.0/umd.min.js',
+      'npm/jinkela-forest@1.1.1/umd.min.js',
+      'npm/jinkela-checkbox@1.1.0/umd.min.js',
+      'npm//jinkela-radio@1.1.0/umd.min.js',
+      'npm/jinkela-clicktip@1.1.0/umd.min.js',
 
       'gh/s3u/JSONPath@v0.15.0/lib/jsonpath.min.js',
       'gh/YanagiEiichi/requirejs@caae34b/require.min.js',
