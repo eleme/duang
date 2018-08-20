@@ -154,11 +154,19 @@ def((Output, Item, TableRowActions, Caption) => {
   class Row extends PromisedItem {
     get tagName() { return 'tr'; }
     remove() { this.element.remove(); }
+
+    get checked() { return this.checkbox && this.checkbox.checked; }
+    set checked(value) {
+      if (!this.checkbox) return;
+      this.checkbox.checked = value;
+    }
+
     init() {
-      let { depot = window.depot } = this;
-      let { scheme, params } = depot;
-      // 处理 Checkbox
+      let { depot = window.depot, filteredFields } = this;
+      let { scheme } = depot;
       let { listSelector } = scheme;
+
+      // 处理 Checkbox
       if (listSelector) {
         this.checkbox = new CheckboxCell({
           handler: event => {
@@ -167,33 +175,21 @@ def((Output, Item, TableRowActions, Caption) => {
           }
         }).to(this);
       }
-      // 获取字段列表（过滤掉不需要的部分）
-      let { fields } = scheme;
-      if (!(fields instanceof Array)) {
-        setTimeout(() => { throw new Error('scheme.fields 必须是数组'); });
-        fields = [];
-      }
-      let visibleFields = params.fields;
-      if (visibleFields instanceof Array) {
-        fields = fields.filter(field => visibleFields.includes(field.key));
-      } else {
-        fields = fields.slice(0);
-      }
-      // 根据字段描述创建单元格
-      let cells = fields.map(field => this.createCell(field));
+
+      // 根据字段描述创建单元格组件
+      let cells = filteredFields.map(field => this.createCell(field));
+
+      // 等到所有单元格组件都初始化完毕
       return Promise.all(cells.map(i => i.$promise)).then(cells => {
-        cells.forEach(cell => cell.to(this));
-        let action = this.createActionCell();
+        cells.forEach(cell => cell.to(this)); // 渲染这些单元格组件
+
+        let action = this.createActionCell(); // 处理 actions
         if (action) action.to(this);
+
         this.$promise.resolve(this);
       }).catch(error => {
         setTimeout(() => { throw error; });
       });
-    }
-    get checked() { return this.checkbox && this.checkbox.checked; }
-    set checked(value) {
-      if (!this.checkbox) return;
-      this.checkbox.checked = value;
     }
   }
 
@@ -236,7 +232,7 @@ def((Output, Item, TableRowActions, Caption) => {
 
   return class extends Jinkela {
     beforeParse(params) {
-      this.depot = params.depot;
+      this.depot = params.depot || window.depot;
     }
 
     init() {
@@ -246,7 +242,7 @@ def((Output, Item, TableRowActions, Caption) => {
     }
 
     initCaption() {
-      let { depot = window.depot } = this;
+      let { depot } = this;
       let { scheme } = depot;
       let { captionType = 'table' } = scheme;
       if (captionType !== 'table' || !scheme.caption) return;
@@ -255,8 +251,22 @@ def((Output, Item, TableRowActions, Caption) => {
 
     initHead() {
       if (this.isEmptyFields) return;
-      let { depot = window.depot } = this;
-      this.head = new TableHead({ depot }).to(this.table.createTHead());
+      let { depot = window.depot, filteredFields } = this;
+      this.head = new TableHead({ depot, filteredFields }).to(this.table.createTHead());
+    }
+
+    // 获取需要显示的字段列表（处理 params.fields 过滤掉不需要的部分）
+    get filteredFields() {
+      let { depot } = this;
+      let { params, scheme } = depot;
+      let { fields } = scheme;
+      let visibleFields = params.fields;
+      let value = fields instanceof Array ? fields.slice(0) : [];
+      if (visibleFields instanceof Array) {
+        value = value.filter(field => visibleFields.includes(field.key));
+      }
+      Object.defineProperty(this, 'filteredFields', { configurable: true, value });
+      return value;
     }
 
     rowSelected(event) {
@@ -275,7 +285,7 @@ def((Output, Item, TableRowActions, Caption) => {
     }
 
     get isEmptyFields() {
-      let { depot = window.depot } = this;
+      let { depot } = this;
       let { scheme } = depot;
       return !(scheme.fields && scheme.fields.length);
     }
@@ -284,10 +294,14 @@ def((Output, Item, TableRowActions, Caption) => {
       if (this.rows instanceof Array) this.rows.forEach(item => item.remove());
     }
 
+    // TODO: 确认下这个是不是 set once 的，如果是的话就不需要用 setter 了，直接在 init 里处理逻辑更清晰
     set data(list) {
       if (!(list instanceof Array)) list = [];
-      let { depot = window.depot } = this;
-      let { orderBy } = depot.uParams;
+      let { depot, filteredFields } = this;
+      let { uParams } = depot;
+      let { orderBy } = uParams;
+
+      // 处理排序
       if (orderBy) {
         let [ , isDesc, key ] = /^(-?)(.*)$/.exec(orderBy);
         isDesc = !!isDesc;
@@ -300,7 +314,10 @@ def((Output, Item, TableRowActions, Caption) => {
       }
 
       // 在这里初始化所有行组件（可以考虑做个差异更新，然而代码并不好写）
-      let rows = list.map(fieldMap => new TableRow({ fieldMap, depot }));
+      let rows = list.map((fieldMap, index) => {
+        let nextFieldMap = list[index + 1];
+        return new TableRow({ depot, fieldMap, nextFieldMap, filteredFields });
+      });
       if (rows.length === 0) return;
 
       // 创建一个等待所有组件初始化的任务
