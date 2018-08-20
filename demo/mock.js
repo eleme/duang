@@ -1,34 +1,12 @@
-FCeptor.post(/^/, ctx => {
-  let headers = { 'Content-Type': 'application/json' };
+mock.post('/**', ctx => {
   let title = '请求已拦截';
-  let reqMime = ctx.request.headers.get('Content-Type');
-  let key;
-  switch (true) {
-    case /\bjson\b/.test(reqMime):
-      key = 'json';
-      break;
-    case /\btext\b/.test(reqMime):
-      key = 'text';
-      break;
-    default:
-      key = 'blob';
-  }
-  return new Promise(resolve => {
-    let promise = ctx.request[key]().then(data => {
-      let text = `<code style="font-size:14px;">POST ${ctx.request.url}</code><br/>`;
-      if (key === 'json') {
-        text += `<pre style="font-size:12px;">${JSON.stringify(data, null, 2)}</pre>`;
-      } else {
-        text += key;
-        // ctx.response = new Response(JSON.stringify('../logo.png'), { status: 200, headers });
-        // return false;
-      }
-      let body = { action: 'success', args: { text, title, result: { action: 'noop' } } };
-      ctx.response = new Response(JSON.stringify(body), { status: 200, headers });
-      return false;
-    });
-    setTimeout(() => { resolve(promise); }, 500);
-  });
+  let text = `<code style="font-size:14px;">POST ${ctx.url}</code><br/>`;
+  text += `<pre style="font-size:12px;">${JSON.stringify(ctx.body, null, 2)}</pre>`;
+  return { action: 'success', args: { text, title, result: { action: 'noop' } } };
+});
+
+mock.get('/**/locale-datetime', () => {
+  return { 'value': new Date().toLocaleString() };
 });
 
 mock.get('/**/now', () => {
@@ -82,6 +60,33 @@ mock.get('/**/string-map-abcd', () => ({
   d: '一个很长很长的描述 D'
 }));
 
+mock.get('/**/normal-list', () => [
+  { id: 1, type: '菜名', title: '蒸羊羔', description: '蒸羊之法在《齐民要术．饮食篇》已有记载。' },
+  { id: 2, type: '菜名', title: '蒸熊掌' },
+  { id: 3, type: '菜名', title: '蒸鹿尾儿' },
+  { id: 4, type: '菜名', title: '烧花鸭', description: '烧花鸭是一道色香味俱全的地方名菜，属于河北菜。' },
+  { id: 5, type: '菜名', title: '烧雏鸡' },
+  { id: 6, type: '菜名', title: '烧子鹅', description: '烧子鹅是一道由鹅、姜、蒜等做成的美食。' }
+]);
+
+mock.get('/**/complex-list', () => [
+  { id: 1, type: '菜名', title: '蒸羊羔', description: '蒸羊之法在《齐民要术．饮食篇》已有记载。' },
+  { id: 2, type: '菜名', title: '蒸熊掌' },
+  { id: 3, type: '菜名', title: '蒸鹿尾儿' },
+  { id: 4, type: '菜名', title: '烧花鸭', description: '烧花鸭是一道色香味俱全的地方名菜，属于河北菜。' },
+  { id: 5, type: '菜名', title: '烧雏鸡' },
+  { id: 6, type: '菜名', title: '烧子鹅', description: '烧子鹅是一道由鹅、姜、蒜等做成的美食。' }
+]);
+
+mock.get('/**/components-list', () => [
+  { id: 1, title: '蒸羊羔', value: 3, description: { tip: '蒸羊之法在《齐民要术．饮食篇》已有记载。' } },
+  { id: 2, title: '蒸熊掌', value: 1, img: 'error' },
+  { id: 3, title: '蒸鹿尾儿', value: 6, img: '../logo.png' },
+  { id: 4, title: '烧花鸭', value: 5, description: { tip: '烧花鸭是一道色香味俱全的地方名菜，属于河北菜。' } },
+  { id: 5, title: '烧雏鸡', value: 2 },
+  { id: 6, title: '烧子鹅', value: 4, description: { tip: '烧子鹅是一道由鹅、姜、蒜等做成的美食。' } }
+]);
+
 mock.get('/**/the-list-data', () => [
   { 'id': '1', 'a': { 'text': 'one', 'tip': 'hehe<br/>haha<br/>hoho' }, 'b': 'b1' },
   { 'id': '2', 'a': 'two', 'b': 'b2', 'img': '../logo.png' },
@@ -99,12 +104,13 @@ mock.get('/**/the-list-data-2', () => [
 ]);
 
 mock.get('/**/mergable-list', () => [
-  { 'id': '1', 'a': 'l1', b: 'hehe 1' },
-  { 'id': '2', 'a': 'l1', b: 'hehe 2' },
-  { 'id': '3', 'a': 'l2', b: 'hehe 3' },
-  { 'id': '4', 'a': 'l2', b: 'hehe 4' },
-  { 'id': '5', 'a': 'l2', b: 'hehe 5' },
-  { 'id': '6', 'a': 'l2', b: 'hehe 6' }
+  { id: 1, type: 'l1', name: 'hehe 1', tag: 'testing', value: 1 },
+  { id: 2, type: 'l1', name: 'hehe 2', tag: 'testing', value: 2 },
+  { id: 3, type: 'l2', name: 'hehe 3', tag: 'testing', value: 3 },
+  { id: 4, type: 'l2', name: 'hehe 4', tag: 'normal', value: 4 },
+  { id: 5, type: 'l2', name: 'hehe 5', tag: 'testing', value: 5 },
+  { id: 6, type: 'l2', name: 'hehe 6', tag: 'testing', value: 6 },
+  { id: 7, type: 'l3', name: 'hehe 7', tag: 'testing', value: 7 }
 ]);
 
 mock.get('/**/value-list', () => [

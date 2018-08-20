@@ -18,7 +18,7 @@ def(() => class extends Jinkela {
         return new Function(`return (${code})`)();
       });
     } else {
-      this.element.innerHTML = this.value;
+      this.element.innerHTML = this.value === void 0 ? '' : this.value;
     }
   }
   get styleSheet() {

@@ -1,9 +1,36 @@
 [
 
   {
-    "key": "the-list-data?1",
-    "title": "配置 - 列表 - 标准",
+    "key": "normal-list",
+    "title": "配置 - 列表 - 最简单的列表",
+    "fields": [
+      { "key": "id", "title": "ID" },
+      { "key": "type", "title": "类型" },
+      { "key": "title", "title": "名称" },
+      { "key": "description", "title": "描述" }
+    ]
+  },
+
+  {
+    "key": "components-list",
+    "title": "配置 - 列表 - 列表中使用组件",
+    "fields": [
+      { "key": "id", "title": "ID" },
+      { "key": "title", "title": "<font color=red>加特技</font>" },
+      { "key": "value", "title": "排序", "sortable": true },
+      {
+        "key": "description", "title": "悬停提示控件", "component": "TextTip",
+        "args": { "tip": "无提示文字", "text": "悬停显示描述" }
+      },
+      { "key": "img", "title": "图片控件", "component": "Image" }
+    ]
+  },
+
+  {
+    "key": "complex-list",
+    "title": "配置 - 列表 - 相当复杂的列表",
     "gentleRefreshing": true,
+    "listSelector": true,
     "actions": [
       { "title": "www.ele.me", "method": "open", "href": "https://www.ele.me" },
       { "title": "The-Action", "method": "post", "api": "theAction" }
@@ -11,45 +38,14 @@
     "caption": [
       {
         "component": "HTML",
-        "args": {
-          "html": "{value}",
-          "@defaultValue": "now"
-        }
+        "args": { "html": "数据加载时间 {value}", "@defaultValue": "locale-datetime" }
       }
     ],
     "fields": [
-      {
-        "key": "id",
-        "title": "ID",
-        "sortable": true
-      },
-      {
-        "key": "a",
-        "title": "<font color=red>A</font>",
-        "component": "TextTip"
-      },
-      {
-        "key": "b",
-        "title": "B",
-        "component": "TextTip",
-        "args": {
-          "underline": false,
-          "tip": "the tip, blah blah blah blah blah blah blah blah blah blah",
-          "text": "empty"
-        }
-      },
-      {
-        "key": "c",
-        "component": "QRCode",
-        "args": {
-          "defaultValue": "hehe"
-        },
-        "title": "QRCode"
-      },
-      {
-        "key": "img", "title": "图片",
-        "component": "Image"
-      }
+      { "key": "id", "title": "ID" },
+      { "key": "type", "title": "类型" },
+      { "key": "title", "title": "名称" },
+      { "key": "description", "title": "描述" }
     ],
     "headers": [
       { "component": "AutoRefresh", "args": { "interval": 3000 } }
@@ -334,9 +330,15 @@
     "key": "mergable-list",
     "title": "配置 - 列表 - 合并单元格",
     "module": "list",
+    "groupBy": [ "type" ],
+    "actions": [
+      { "method": "post", "title": "处理" }
+    ],
     "fields": [
-      { "key": "a", "title": "A", "mergable": true },
-      { "key": "b", "title": "B" }
+      { "key": "type", "title": "Type" },
+      { "key": "name", "title": "Name" },
+      { "key": "tag", "title": "Tag" },
+      { "key": "value", "title": "Value", "aggregate": "sum" }
     ]
   },
 
