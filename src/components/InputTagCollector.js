@@ -352,7 +352,7 @@ def((OutputHTML) => {
             }
           }
           &[popup] {
-            border-color: #20a0ff; 
+            border-color: #20a0ff;
             > div {
               visibility: visible;
               opacity: 1;

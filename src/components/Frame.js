@@ -60,7 +60,7 @@ def((Output, FrameNav, FrameAside, FrameMain) => {
       return `
         @media (min-width: 600px) { :scope { display: none; } }
         :scope {
-          height: 50px; 
+          height: 50px;
           position: absolute;
           z-index: 1;
           > svg {

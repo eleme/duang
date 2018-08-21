@@ -103,8 +103,8 @@
           "inputs": [
             { "component": "OutputHTML", "args": { "html": "呵呵" } },
             {
-              "component": "Forest", 
-              "key": "cascader4", 
+              "component": "Forest",
+              "key": "cascader4",
               "title": "树林",
               "args": {
                 "options": [

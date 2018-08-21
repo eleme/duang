@@ -113,7 +113,7 @@ def(() => class extends Jinkela {
           }
           .CodeMirror {
             background-color: #eff2f7;
-          } 
+          }
           border-color: #d3dce6;
           color: #bbb;
           cursor: not-allowed;
