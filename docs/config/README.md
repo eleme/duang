@@ -113,7 +113,7 @@
 
 `custom` 的行为是将 `params` 里的 `href` 以 iframe 的形式作为页面内容。
 
- 
+
 ### Scheme::operations
 
 一个 `Action` 类型的数组，配置表级别的操作，比如新增，清空
@@ -156,33 +156,45 @@
 | title | String | 字段展示名称 |
 | component | String | 指定 `Output` 组件（默认为 `html`）|
 | sortable | Boolean | 是否可以根据此字段排序（前端）|
+| aggregate | String | groupBy 时的聚合函数，目前取值只支持 `sum` |
 
-示例配置
+#### 最简单的列表
 
-```javascript
+```json
 {
-  fields: [
-    {
-      key: 'title',
-      title: '名称',
-      sortable: true
-    },
-    {
-      key: 'price',
-      title: '价格',
-      component: 'Number'
-    },
-    {
-      key: 'createdAt',
-      title: '创建日期',
-      component: 'DateTime',
-      args: {
-        format: '$Y-$M-$D'
-      }
-    }
+  "key": "normal-list",
+  "title": "配置 - 列表 - 标准",
+  "fields": [
+    { "key": "id", "title": "ID" },
+    { "key": "type", "title": "类型" },
+    { "key": "title", "title": "名称" },
+    { "key": "description", "title": "描述" }
   ]
 }
 ```
+
+[试一试](../../demo/#!module=list&key=normal-list)
+
+#### 列表中使用组件
+
+```json
+{
+  "key": "components-list",
+  "title": "配置 - 列表 - 列表中使用组件",
+  "fields": [
+    { "key": "id", "title": "ID" },
+    { "key": "title", "title": "<font color=red>加特技</font>" },
+    { "key": "value", "title": "排序", "sortable": true },
+    {
+      "key": "description", "title": "悬停提示控件", "component": "TextTip",
+      "args": { "tip": "无提示文字", "text": "悬停显示描述" }
+    },
+    { "key": "img", "title": "图片控件", "component": "Image" }
+  ]
+}
+```
+
+[试一试](../../demo/#!module=list&key=components-list)
 
 ### Scheme::filters
 
@@ -298,6 +310,30 @@
   ]
 }
 ```
+
+### Scheme::groupBy
+
+一个字符串数组，描述 fields 中哪些字段是需要聚合的
+
+```json
+{
+  "key": "mergable-list",
+  "title": "配置 - 列表 - 合并单元格",
+  "module": "list",
+  "groupBy": [ "type" ],
+  "actions": [
+    { "method": "post", "title": "处理" }
+  ],
+  "fields": [
+    { "key": "type", "title": "Type" },
+    { "key": "name", "title": "Name" },
+    { "key": "tag", "title": "Tag" },
+    { "key": "value", "title": "Value", "aggregate": "sum" }
+  ]
+}
+```
+
+[试一试](../../demo/#!module=list&key=mergable-list)
 
 ## Action
 

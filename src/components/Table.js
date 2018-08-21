@@ -74,6 +74,7 @@ def((Output, Item, TableRowActions, Caption) => {
   }
 
   class Cell extends PromisedItem {
+    get tagName() { return 'td'; }
     get styleSheet() {
       return `
         :scope {
@@ -84,6 +85,22 @@ def((Output, Item, TableRowActions, Caption) => {
           border-width: 1px 0;
         }
       `;
+    }
+  }
+
+  class MultipleValueTipCell extends Cell {
+    get styleSheet() {
+      return `
+        :scope {
+          color: #ccc;
+        }
+      `;
+    }
+    get template() {
+      return '<td>多个值</td>';
+    }
+    init() {
+      this.$promise.resolve(this);
     }
   }
 
@@ -106,6 +123,7 @@ def((Output, Item, TableRowActions, Caption) => {
           new TableRowActions({ depot, actions, scheme, fieldMap }).to(this);
           return this.$promise.resolve(this);
         default:
+          if (value === void 0) value = '';
           this.element.innerHTML = value;
           this.$promise.resolve(this);
       }
@@ -113,6 +131,7 @@ def((Output, Item, TableRowActions, Caption) => {
   }
 
   class HeadCell extends Cell {
+    get tagName() { return 'td'; }
     init() {
       let { depot = window.depot } = this;
       let { width, nowrap, title, align, sortable, key } = this;
@@ -123,7 +142,6 @@ def((Output, Item, TableRowActions, Caption) => {
       if (sortable) new Sortable({ key, depot }).to(this);
       this.$promise.resolve(this);
     }
-    get tagName() { return 'td'; }
     get styleSheet() {
       return `
         :scope {
@@ -151,14 +169,85 @@ def((Output, Item, TableRowActions, Caption) => {
     set checked(value) { this.checkbox.checked = value; }
   }
 
+  class ToggleCell extends Cell {
+    click() {
+      let result = this.handler();
+      this.element.classList[result ? 'add' : 'remove']('folded');
+    }
+    get template() {
+      return `
+        <td width="1">
+          <div on-click="{click}" class="wrapper">
+            <svg class="icon" viewBox="-10 -10 120 120">
+              <path d="M 25 0 L 75 50 L 25 100" />
+            </svg>
+          </div>
+        </td>
+      `;
+    }
+    get styleSheet() {
+      return `
+        :scope {
+          white-space: nowrap;
+          .wrapper {
+            transition: transform 200ms ease;
+            stroke: currentColor;
+            stroke-width: 10px;
+            fill: none;
+            cursor: pointer;
+            border-radius: 100%;
+            padding: .5em;
+            margin: -.5em;
+            &:hover {
+              background: #eee;
+            }
+          }
+          .icon {
+            display: block;
+            width: 1em;
+            height: 1em;
+          }
+          &.folded {
+            .wrapper {
+              transform: rotate(90deg);
+            }
+          }
+        }
+      `;
+    }
+  }
+
   class Row extends PromisedItem {
     get tagName() { return 'tr'; }
+    get styleSheet() {
+      return `
+        :scope {
+          &.hidden { display: none; }
+        }
+      `;
+    }
+
     remove() { this.element.remove(); }
+
+    beforeParse(params) {
+      this.depot = params.depot || window.depot;
+      if ('depot' in params) delete params.depot;
+    }
+
+    get checked() { return this.checkbox && this.checkbox.checked; }
+    set checked(value) {
+      if (!this.checkbox) return;
+      this.checkbox.checked = value;
+    }
+
     init() {
-      let { depot = window.depot } = this;
-      let { scheme, params } = depot;
+      let { depot, filteredFields, isAggregateRow } = this;
+      let { scheme } = depot;
+      let { listSelector, groupBy = [] } = scheme;
+
+      this.element.jinkela = this;
+
       // 处理 Checkbox
-      let { listSelector } = scheme;
       if (listSelector) {
         this.checkbox = new CheckboxCell({
           handler: event => {
@@ -167,46 +256,68 @@ def((Output, Item, TableRowActions, Caption) => {
           }
         }).to(this);
       }
-      // 获取字段列表（过滤掉不需要的部分）
-      let { fields } = scheme;
-      if (!(fields instanceof Array)) {
-        setTimeout(() => { throw new Error('scheme.fields 必须是数组'); });
-        fields = [];
+
+      // 处理 mergable 选项
+      if (groupBy.length) {
+        if (isAggregateRow && this instanceof TableRow) {
+          new ToggleCell({
+            isAggregateRow,
+            handler: () => {
+              let row = this.element.nextSibling;
+              let result = row.classList.contains('hidden');
+              while (row && row.jinkela && !row.jinkela.isAggregateRow) {
+                row.classList.toggle('hidden');
+                row.classList.contains('hidden');
+                row = row.nextSibling;
+              }
+              return result;
+            }
+          }).to(this);
+        } else {
+          new Cell().to(this);
+        }
+        if (!isAggregateRow && this instanceof TableRow) this.element.classList.add('hidden');
       }
-      let visibleFields = params.fields;
-      if (visibleFields instanceof Array) {
-        fields = fields.filter(field => visibleFields.includes(field.key));
-      } else {
-        fields = fields.slice(0);
-      }
-      // 根据字段描述创建单元格
-      let cells = fields.map(field => this.createCell(field));
+
+      // 根据字段描述创建单元格组件
+      let cells = [];
+      let cellsMap = {};
+      filteredFields.forEach(field => {
+        let cell = this.createCell(field);
+        cells.push(cell);
+        cellsMap[field.key] = cell;
+      });
+      this.cells = cells;
+      this.cellsMap = cellsMap;
+
+      // 等到所有单元格组件都初始化完毕
       return Promise.all(cells.map(i => i.$promise)).then(cells => {
-        cells.forEach(cell => cell.to(this));
-        let action = this.createActionCell();
+        cells.forEach(cell => cell.to(this)); // 渲染这些单元格组件
+
+        let action = this.createActionCell(); // 处理 actions
         if (action) action.to(this);
+
         this.$promise.resolve(this);
       }).catch(error => {
         setTimeout(() => { throw error; });
       });
     }
-    get checked() { return this.checkbox && this.checkbox.checked; }
-    set checked(value) {
-      if (!this.checkbox) return;
-      this.checkbox.checked = value;
-    }
   }
 
   class TableRow extends Row {
     createCell(field) {
+      let { key } = field;
       let { depot = window.depot, fieldMap } = this;
-      let value = fieldMap[field.key];
+      let value = fieldMap[key];
+      if (value instanceof Cell) return value;
       return new NormalCell(field, { value, depot }, this);
     }
     createActionCell() {
-      let { depot = window.depot } = this;
-      let { actions } = depot.scheme;
-      if (actions && actions.length) {
+      let { depot = window.depot, isAggregateRow = false } = this;
+      let { scheme } = depot;
+      let { actions } = scheme;
+      if (actions) {
+        if (isAggregateRow) actions = [];
         new NormalCell({ depot, actions, nowrap: true, width: 1 }, this).to(this);
       }
     }
@@ -228,15 +339,15 @@ def((Output, Item, TableRowActions, Caption) => {
     createActionCell() {
       let { depot = window.depot } = this;
       let { actions } = depot.scheme;
-      if (actions && actions.length) {
+      if (actions) {
         return new HeadCell({ title: depot.getConst('操作'), nowrap: true, align: 'right', depot });
       }
     }
   }
 
-  return class extends Jinkela {
+  class Table extends Jinkela {
     beforeParse(params) {
-      this.depot = params.depot;
+      this.depot = params.depot || window.depot;
     }
 
     init() {
@@ -246,7 +357,7 @@ def((Output, Item, TableRowActions, Caption) => {
     }
 
     initCaption() {
-      let { depot = window.depot } = this;
+      let { depot } = this;
       let { scheme } = depot;
       let { captionType = 'table' } = scheme;
       if (captionType !== 'table' || !scheme.caption) return;
@@ -255,8 +366,22 @@ def((Output, Item, TableRowActions, Caption) => {
 
     initHead() {
       if (this.isEmptyFields) return;
-      let { depot = window.depot } = this;
-      this.head = new TableHead({ depot }).to(this.table.createTHead());
+      let { depot = window.depot, filteredFields } = this;
+      this.head = new TableHead({ depot, filteredFields }).to(this.table.createTHead());
+    }
+
+    // 获取需要显示的字段列表（处理 params.fields 过滤掉不需要的部分）
+    get filteredFields() {
+      let { depot } = this;
+      let { params, scheme } = depot;
+      let { fields } = scheme;
+      let visibleFields = params.fields;
+      let value = fields instanceof Array ? fields.slice(0) : [];
+      if (visibleFields instanceof Array) {
+        value = value.filter(field => visibleFields.includes(field.key));
+      }
+      Object.defineProperty(this, 'filteredFields', { configurable: true, value });
+      return value;
     }
 
     rowSelected(event) {
@@ -275,7 +400,7 @@ def((Output, Item, TableRowActions, Caption) => {
     }
 
     get isEmptyFields() {
-      let { depot = window.depot } = this;
+      let { depot } = this;
       let { scheme } = depot;
       return !(scheme.fields && scheme.fields.length);
     }
@@ -284,10 +409,18 @@ def((Output, Item, TableRowActions, Caption) => {
       if (this.rows instanceof Array) this.rows.forEach(item => item.remove());
     }
 
+    // TODO: 确认下这个是不是 set once 的，如果是的话就不需要用 setter 了，直接在 init 里处理逻辑更清晰
     set data(list) {
-      if (!(list instanceof Array)) list = [];
-      let { depot = window.depot } = this;
-      let { orderBy } = depot.uParams;
+      if (!list) return;
+      let { depot, filteredFields } = this;
+      let { uParams, scheme } = depot;
+      let { groupBy = [] } = scheme;
+      let { orderBy } = uParams;
+
+      // 消除引用
+      list = list.slice(0);
+
+      // 处理排序
       if (orderBy) {
         let [ , isDesc, key ] = /^(-?)(.*)$/.exec(orderBy);
         isDesc = !!isDesc;
@@ -298,16 +431,60 @@ def((Output, Item, TableRowActions, Caption) => {
           return (value > nextValue ^ isDesc) ? 1 : -1;
         });
       }
-      let rows = list.map(fieldMap => new TableRow({ fieldMap, depot }));
-      if (rows.length === 0) return;
-      let updating = Promise.all(rows.map(i => i.$promise)).then(rows => {
-        if (this.updating !== updating) return;
+
+      // 处理 groupBy
+      const IS_AGGREGATE_ROW = Symbol('IS_AGGREGATE_ROW');
+      if (list.length && groupBy.length) {
+        const MAX_LENGTH = 100000; // 最大限制处理十万条记录（也为了避免代码没写好造成的死循环）
+        let fixedItem;
+        const eq = (a, b) => JSON.stringify(a) === JSON.stringify(b);
+        for (let i = 0; i < list.length; i++) {
+          let currentItem = list[i];
+          if (fixedItem && groupBy.every(key => eq(fixedItem[key], currentItem[key]))) {
+            filteredFields.forEach(field => {
+              let { key, aggregate } = field;
+              switch (aggregate) {
+                case 'sum':
+                  if (isNaN(fixedItem[key])) fixedItem[key] = parseInt(fixedItem[key], 10) || 0;
+                  fixedItem[key] += parseInt(currentItem[key], 10) || 0;
+                  break;
+                default:
+                  if (key in fixedItem) {
+                    if (fixedItem[key] !== currentItem[key]) fixedItem[key] = new MultipleValueTipCell();
+                  } else {
+                    fixedItem[key] = currentItem[key];
+                  }
+              }
+            });
+          } else {
+            fixedItem = { [IS_AGGREGATE_ROW]: true };
+            groupBy.forEach(key => { fixedItem[key] = currentItem[key]; });
+            list.splice(i, 0, fixedItem);
+          }
+          if (i >= MAX_LENGTH) throw new Error('wtf');
+        }
+      }
+
+      // 在这里初始化所有行组件（可以考虑做个差异更新，然而代码并不好写）
+      let rows = list.map((fieldMap, index) => {
+        let fieldMapNextRow = list[index + 1];
+        let isAggregateRow = fieldMap[IS_AGGREGATE_ROW];
+        return new TableRow({ depot, fieldMap, isAggregateRow, fieldMapNextRow, filteredFields });
+      });
+
+      // 创建一个等待所有组件初始化的任务
+      let optimisticLocking = Promise.all(rows.map(i => i.$promise));
+      this.optimisticLocking = optimisticLocking;
+
+      // 注册异步
+      optimisticLocking.then(rows => {
+        // 如果异步执行时乐观锁版本不匹配则放弃执行
+        if (this.optimisticLocking !== optimisticLocking) return;
         this.clear();
         this.rows = rows;
         rows.forEach(row => row.to(this.table));
-        delete this.updating;
+        delete this.optimisticLocking;
       });
-      this.updating = updating;
     }
 
     get table() {
@@ -348,5 +525,7 @@ def((Output, Item, TableRowActions, Caption) => {
       `;
     }
   };
+
+  return Table;
 
 });
