@@ -2,6 +2,20 @@
 
   let cache = {};
 
+  const parseResponseBody = response => {
+    let mime = response.headers.get('Content-Type');
+    switch (true) {
+      case /\bjson\b/.test(mime) || /\.json([?#]|$)/.test(response.url):
+        return response.text().then(result => result && JSON.parse(result));
+      case /\byaml\b/.test(mime) || /\.ya?ml([?#]|$)/.test(response.url):
+        return Promise.all([ response.text(), req('./jsyaml') ]).then(([ text, yml ]) => yml.load(text));
+      case /\btext\b/.test(mime):
+        return response.text();
+      default:
+        return response.blob();
+    }
+  };
+
   window.api = new class extends Function {
     constructor() {
       super('...args', 'return this(...args)');
@@ -65,19 +79,7 @@
           }).join('&');
         }
         const resolver = () => fetch(url, this.extendOptions(options)).then(response => {
-          let type = response.headers.get('content-type');
-          let key;
-          switch (true) {
-            case /\bjson\b/.test(type):
-              key = 'json';
-              break;
-            case /\btext\b/.test(type):
-              key = 'text';
-              break;
-            default:
-              key = 'blob';
-          }
-          return response[key]().then(result => {
+          return parseResponseBody(response).then(result => {
             if (result && typeof result === 'object') result[Symbol.for('response')] = response;
             if (response.status < 400) {
               return result;

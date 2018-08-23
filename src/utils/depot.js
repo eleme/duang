@@ -5,7 +5,8 @@ window.duang = () => {
   require.config({
     paths: {
       marked: 'https://shadow.elemecdn.com/gh/chjj/marked@v0.3.6/marked.min',
-      codemirror: 'https://shadow.elemecdn.com/gh/codemirror/CodeMirror@5.19.0'
+      codemirror: 'https://shadow.elemecdn.com/gh/codemirror/CodeMirror@5.19.0',
+      jsyaml: 'https://shadow.elemecdn.com/npm/js-yaml@3.12.0/dist/js-yaml.min'
     }
   });
 
