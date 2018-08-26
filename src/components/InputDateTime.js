@@ -1,4 +1,4 @@
-def(() => {
+def((DatePicker, TimePicker) => {
 
   const format = value => {
     let now = new Date();
@@ -55,14 +55,9 @@ def(() => {
           > span {
             > input {
               height: 28px;
-              width: 106px;
             }
             &:first-child {
               margin-right: 14px;
-            }
-            > div {
-              width: 222px;
-              left: -119px;
             }
           }
           &.readonly {

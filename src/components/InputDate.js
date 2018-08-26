@@ -1,4 +1,4 @@
-def(() => {
+def((DatePicker) => {
 
   const format = value => {
     let now = new Date();

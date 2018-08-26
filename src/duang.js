@@ -70,8 +70,6 @@
       'npm/UParams@1.4.0/UParams.min.js',
 
       // TODO：收到具体控件中懒加载
-      'npm/jinkela-timepicker@1.3.1/umd.min.js',
-      'npm/jinkela-datepicker@1.3.1/umd.min.js',
       'npm/jinkela-cascader@1.1.0/umd.min.js',
       'npm/jinkela-forest@1.1.1/umd.min.js',
       'npm/jinkela-checkbox@1.1.0/umd.min.js',
