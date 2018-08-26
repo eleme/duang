@@ -1,4 +1,4 @@
-def((Item, Output, Value) => {
+def((Checkbox, Item, Output, Value) => {
 
   return class extends Value {
     get styleSheet() {

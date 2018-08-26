@@ -1,4 +1,4 @@
-def((Item, Value) => {
+def((Radio, Item, Value) => {
 
   return class extends Value {
     get styleSheet() {

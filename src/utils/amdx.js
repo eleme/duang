@@ -3,7 +3,12 @@
   const SHADOW = 'https://shadow.elemecdn.com';
   const internalMap = {
     TimePicker: SHADOW + '/npm/jinkela-timepicker@1.3.2/umd.min.js',
-    DatePicker: SHADOW + '/npm/jinkela-datepicker@1.3.2/umd.min.js'
+    DatePicker: SHADOW + '/npm/jinkela-datepicker@1.3.2/umd.min.js',
+    Forest: SHADOW + '/npm/jinkela-forest@1.1.1/umd.min.js',
+    Cascader: SHADOW + '/npm/jinkela-cascader@1.1.0/umd.min.js',
+    Checkbox: SHADOW + '/npm/jinkela-checkbox@1.1.0/umd.min.js',
+    Radio: SHADOW + '/npm/jinkela-radio@1.1.0/umd.min.js',
+    ClickTip: SHADOW + '/npm/jinkela-clicktip@1.1.0/umd.min.js'
   };
 
   window.def = factory => {

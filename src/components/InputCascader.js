@@ -1,4 +1,4 @@
-def(() => {
+def((Cascader) => {
 
   class CascaderWithDuang extends Cascader {
     beforeParse(params) {

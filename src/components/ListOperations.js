@@ -1,4 +1,4 @@
-def((Output, InputCheckbox, Button, ButtonHollow, Item, Confirm, ErrorDialog) => {
+def((Output, Checkbox, Button, ButtonHollow, Item, Confirm, ErrorDialog) => {
 
   class OperationsItem extends Button {
     get styleSheet() {

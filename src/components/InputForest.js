@@ -1,4 +1,4 @@
-def(() => {
+def((Forest) => {
 
   class ForestWithDuang extends Forest {
     beforeParse(params) {

@@ -1,4 +1,5 @@
-def((SubGroupMap) => class extends Jinkela {
+def((SubGroupMap, Checkbox) => class extends Jinkela {
+  get Checkbox() { return Checkbox; }
 
   beforeParse(params) {
     this.options = { true: params.label };

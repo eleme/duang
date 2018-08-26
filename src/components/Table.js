@@ -1,4 +1,4 @@
-def((Output, Item, TableRowActions, Caption) => {
+def((Checkbox, Output, Item, TableRowActions, Caption) => {
 
   class Sortable extends Jinkela {
     get styleSheet() {
@@ -158,6 +158,7 @@ def((Output, Item, TableRowActions, Caption) => {
   }
 
   class CheckboxCell extends Cell {
+    get Checkbox() { return Checkbox; }
     get template() {
       return `
         <td width="1">

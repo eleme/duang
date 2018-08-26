@@ -68,14 +68,6 @@
       'npm/fast-resolve@0.2.0/umd.min.js',
       'npm/jinkela-dialog@0.1.6/dialog.min.js',
       'npm/UParams@1.4.0/UParams.min.js',
-
-      // TODO：收到具体控件中懒加载
-      'npm/jinkela-cascader@1.1.0/umd.min.js',
-      'npm/jinkela-forest@1.1.1/umd.min.js',
-      'npm/jinkela-checkbox@1.1.0/umd.min.js',
-      'npm//jinkela-radio@1.1.0/umd.min.js',
-      'npm/jinkela-clicktip@1.1.0/umd.min.js',
-
       'gh/s3u/JSONPath@v0.15.0/lib/jsonpath.min.js',
       'gh/YanagiEiichi/requirejs@caae34b/require.min.js',
       'placeholder/bundle.js'
