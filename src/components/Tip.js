@@ -41,12 +41,13 @@ def((Output) => {
     }
     get value() { return this.$value; }
     set value(value = this.defaultValue) {
-      if (!value) value = {};
+      if (value === null || value === void 0) value = {};
       let { data, tip } = typeof value === 'object' ? value : { data: value };
       this.tip = tip;
       this.element.dataset['hastip'] = !!tip;
       while (this.element.firstChild) this.element.firstChild.remove();
-      Output.createAny(data || '').to(this.element);
+      if (data === void 0) data = '';
+      Output.createAny(data).to(this.element);
     }
     get panel() {
       let value = new Panel();

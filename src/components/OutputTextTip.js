@@ -8,7 +8,7 @@ def((Tip) => {
     get value() { return this.$value; }
     set value(value = this.defaultValue) {
       this.$value = value;
-      if (typeof value === 'string') value = { text: value };
+      if (typeof value !== 'object') value = { text: value };
       let { text = this.text, tip = this.tip } = Object(value);
       super.value = { data: text, tip };
     }
