@@ -149,12 +149,14 @@ def((Output, Checkbox, Button, ButtonHollow, Item, Confirm, ErrorDialog) => {
             filter: drop-shadow(0 0 3px rgba(0,0,0,.15));
             border-radius: 4px;
             margin-top: 1em;
-            padding: .75em 1em;
+            padding: 1em 1.5em;
             background: #fff;
             position: absolute;
             top: 100%;
             right: 0;
-            width: 200px;
+            width: max-content;
+            max-width: 600px;
+            z-index: 10;
             visibility: hidden;
             opacity: 0;
             transition: 200ms;
