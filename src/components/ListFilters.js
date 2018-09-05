@@ -39,7 +39,6 @@ def((Input, Output, Item, Button, ButtonHollow) => {
       } else {
         this.value = where[key];
       }
-      this.defaultValue = this.value;
     }
     get checked() { return this.checkbox.checked; }
     set checked(value) { this.checkbox.checked = value; }
@@ -138,19 +137,15 @@ def((Input, Output, Item, Button, ButtonHollow) => {
       Object.defineProperty(this, '$promise', { value: $promise, configurable: true });
     }
     apply() {
-      let { where } = this.depot;
-      this.list.forEach(({ optional, checked, defaultValue, value, key, squash }) => {
-        if (optional && !checked) {
-          delete where[key];
+      let where = {};
+      this.list.forEach(({ optional, checked, value, key, squash }) => {
+        if (optional && !checked) return;
+        if (squash === 'direct') {
+          where[key] = value[''];
+          delete value[''];
+          Object.assign(where, value);
         } else {
-          if (squash === 'direct') {
-            if (defaultValue) Object.keys(defaultValue).forEach(key => delete where[key]);
-            where[key] = value[''];
-            delete value[''];
-            Object.assign(where, value);
-          } else {
-            where[key] = value;
-          }
+          where[key] = value;
         }
       });
       this.depot.update({ where: JSON.stringify(where) });
