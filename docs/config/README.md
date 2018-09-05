@@ -335,6 +335,20 @@
 
 [试一试](../../demo/#!module=list&key=mergable-list)
 
+
+### Scheme::params
+
+一个对象，从列表进入 Scheme 时候默认带到 URL 上的 params
+
+params 有一些特殊用途：
+
+| 名称 | 类型 | 用途 |
+| ---- | ---- | ---- |
+| id | Any | 从列表页进入编辑页时带上的 ID |
+| readonly | Boolean | 页面进入只读模式 |
+| filterState | "folded", "unfolded" | 筛选器的折叠状态（如果未设置则不可折叠） |
+| fields | Array&lt;String&gt; | 提供自定义需要展示的字段的能力（默认不提供） |
+
 ## Action
 
 `Action` 是用来操作 表/行级数据 的配置，比如：编辑/删除，在 `Duang` 中用于：
