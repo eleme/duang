@@ -111,6 +111,55 @@ def((Output, Checkbox, Button, ButtonHollow, Item, Confirm, ErrorDialog) => {
   class FieldsController extends Item {
     get Button() { return Button; }
     get ButtonHollow() { return ButtonHollow; }
+    get Checkbox() { return Checkbox; }
+
+    get busy() { return this.element.classList.contains('busy'); }
+    set busy(value) { this.element.classList[value ? 'add' : 'remove']('busy'); }
+
+    get active() { return this.element.classList.contains('active'); }
+    set active(value) { this.element.classList[value ? 'add' : 'remove']('active'); }
+
+    init() {
+      let { depot } = this;
+      let { scheme, params } = depot;
+      let { fields } = scheme;
+      this.list = fields.map(item => {
+        let { title, key } = item;
+        let text = Output.createAny(title);
+        let checked = params.fields === 'all' || params.fields.includes(key);
+        let checkbox = new FieldsControllerCheckbox({ key, text, checked }).to(this.container);
+        return checkbox;
+      });
+      this.update();
+    }
+
+    showPanel(event) {
+      if (!this.panel.contains(event.target)) this.active = !this.active;
+    }
+
+    update() {
+      if (this.updating) return;
+      this.theAll.checked = this.list.every(item => item.checked);
+    }
+
+    toggleAll() {
+      let { checked } = this.theAll;
+      this.updating = true;
+      this.list.forEach(item => {
+        item.checked = checked;
+      });
+      this.updating = false;
+    }
+
+    cancel() { this.active = false; }
+    apply() {
+      let { depot, list } = this;
+      let { params } = depot;
+      let fields = list.filter(item => item.checked).map(item => item.key);
+      let newParams = Object.assign({}, params, { fields });
+      depot.update({ params: JSON.stringify(newParams) });
+    }
+
     get template() {
       return `
         <div on-click="{showPanel}">
@@ -120,10 +169,15 @@ def((Output, Checkbox, Button, ButtonHollow, Item, Confirm, ErrorDialog) => {
                      0 58 24t24 57z" />
           </svg>
           <div class="panel" ref="panel">
-            <div class="container" ref="container"></div>
+            <div class="container" ref="container" on-change="{update}"></div>
             <div class="controls">
-              <jkl-button on-click="{apply}" small="true">应用</jkl-button>&nbsp;
-              <jkl-button-hollow on-click="{cancel}" small="true">取消</jkl-button-hollow>
+              <div style="flex: 1;">
+                <jkl-checkbox on-click="{toggleAll}" text="全选" ref="theAll"></jkl-checkbox>
+              </div>
+              <div>
+                <jkl-button on-click="{apply}">确定</jkl-button>&nbsp;
+                <jkl-button-hollow on-click="{cancel}">取消</jkl-button-hollow>
+              </div>
             </div>
           </div>
         </div>
@@ -132,6 +186,7 @@ def((Output, Checkbox, Button, ButtonHollow, Item, Confirm, ErrorDialog) => {
     get styleSheet() {
       return `
         :scope {
+          margin-left: 1em;
           background: #20a0ff;
           height: 32px;
           width: 32px;
@@ -149,7 +204,7 @@ def((Output, Checkbox, Button, ButtonHollow, Item, Confirm, ErrorDialog) => {
             filter: drop-shadow(0 0 3px rgba(0,0,0,.15));
             border-radius: 4px;
             margin-top: 1em;
-            padding: 1em 1.5em;
+            padding: 1em;
             background: #fff;
             position: absolute;
             top: 100%;
@@ -166,8 +221,12 @@ def((Output, Checkbox, Button, ButtonHollow, Item, Confirm, ErrorDialog) => {
               flex-wrap: wrap;
             }
             > .controls {
-              margin-top: .5em;
+              border-top: 1px solid #e0e6ed;
+              margin-top: 1em;
+              padding-top: 1em;
               white-space: nowrap;
+              display: flex;
+              align-items: center;
             }
             &::before {
               position: absolute;
@@ -192,33 +251,6 @@ def((Output, Checkbox, Button, ButtonHollow, Item, Confirm, ErrorDialog) => {
           }
         }
       `;
-    }
-    get busy() { return this.element.classList.contains('busy'); }
-    set busy(value) { this.element.classList[value ? 'add' : 'remove']('busy'); }
-    get active() { return this.element.classList.contains('active'); }
-    set active(value) { this.element.classList[value ? 'add' : 'remove']('active'); }
-    init() {
-      let { depot } = this;
-      let { scheme, params } = depot;
-      let { fields } = scheme;
-      this.list = fields.map(item => {
-        let { title, key } = item;
-        let text = Output.createAny(title);
-        let checked = params.fields === 'all' || params.fields.includes(key);
-        let checkbox = new FieldsControllerCheckbox({ key, text, checked }).to(this.container);
-        return checkbox;
-      });
-    }
-    showPanel(event) {
-      if (!this.panel.contains(event.target)) this.active = true;
-    }
-    cancel() { this.active = false; }
-    apply() {
-      let { depot, list } = this;
-      let { params } = depot;
-      let fields = list.filter(item => item.checked).map(item => item.key);
-      let newParams = Object.assign({}, params, { fields });
-      depot.update({ params: JSON.stringify(newParams) });
     }
   }
 
