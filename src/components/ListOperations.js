@@ -31,6 +31,7 @@ def((Output, Checkbox, Button, ButtonHollow, Item, Confirm, ErrorDialog) => {
       let { params } = this.depot;
       params.filterState = { folded: 'unfolded', unfolded: 'folded' }[params.filterState];
       this.updateState();
+      params = JSON.stringify(params);
       let args = Object.assign(this.depot.uParams, { params });
       this.depot.go({ args, target: 'soft' });
       this.element.dispatchEvent(new CustomEvent('filtertoggle', { bubbles: true }));
