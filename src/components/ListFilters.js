@@ -27,8 +27,11 @@ def((Input, Output, Item, Button, ButtonHollow) => {
       this.element.dataset.checked = !!this.checked;
     }
     get $promise() { return this.input.$promise; }
-    keydown({ keyCode, target }) {
-      if (target.tagName !== 'TEXTAREA' && keyCode === 13) this.apply();
+    keydown({ keyCode, target, shouldNotSubmit }) {
+      if (keyCode !== 13) return;
+      if (target.tagName === 'TEXTAREA') return;
+      if (shouldNotSubmit) return;
+      this.apply();
     }
     apply() { this.element.dispatchEvent(new CustomEvent('apply', { bubbles: true })); }
     ready() {

@@ -33,6 +33,7 @@ def((InputString, OutputHTML, Item) => {
       this.width = params.width = params.width || 300;
 
       this.input = new InputString(params);
+      this.input.element.addEventListener('keydown', event => (event.shouldNotSubmit = true));
       this.input.element.addEventListener('focus', event => this.inputHandler(event));
       this.input.element.addEventListener('blur', event => this.blur(event));
       this.input.element.addEventListener('input', event => this.inputHandler(event));
