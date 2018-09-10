@@ -154,7 +154,7 @@ def((Input, Output, Item, Button, ButtonHollow) => {
 
       let { depot } = this;
       let { scheme } = depot;
-      let { beforeApply } = scheme;
+      let { beforeApply = {} } = scheme;
       let dynamicAction = JSON.parse(JSON.stringify(beforeApply));
       // 强行把 where 塞进去（擦，怎么可以这么恶心
       if (dynamicAction.action === 'get') {
