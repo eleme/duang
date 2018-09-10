@@ -1,39 +1,32 @@
----
-  key: "the-form"
-  title: "配置 - 表单"
-  module: "editor"
-  inputs: 
-    - 
-      component: "String"
-      args: 
-        width: 100
-      title: "文本框（100px）"
-      description: "描述"
-    - 
-      component: "String"
-      args: 
-        width: 150
-      title: "文本框（150px）"
-      description: "描述"
-    - 
-      component: "String"
-      args: 
-        width: 300
-      title: 
-        value: "文本框<font color=\"red\">（300px）</font>"
-      description: 
-        value: "描述 <del>呵呵</del>"
-    - 
-      component: "String"
-      title: "HEHE 权限可见"
-      require: "HEHE"
-    - 
-      component: "String"
-      title: "HAHA 权限可见"
-      require: "HAHA"
-    - 
-      component: "OutputMarkdown"
-      title: "OutputMarkdown"
-      args: 
-        defaultValue: "# HAHA\n\n**bold** x *italic*"
+key: "the-form"
+title: "配置 - 表单"
+module: "editor"
+inputs:
+  - component: "String"
+    args:
+      width: 100
+    title: "文本框（100px）"
+    description: "描述"
+  - component: "String"
+    args:
+      width: 150
+    title: "文本框（150px）"
+    description: "描述"
+  - component: "String"
+    args:
+      width: 300
+    title:
+      value: "文本框<font color=\"red\">（300px）</font>"
+    description:
+      value: "描述 <del>呵呵</del>"
+  - component: "String"
+    title: "HEHE 权限可见"
+    require: "HEHE"
+  - component: "String"
+    title: "HAHA 权限可见"
+    require: "HAHA"
+  - component: "OutputMarkdown"
+    title: "OutputMarkdown"
+    args:
+      defaultValue: "# HAHA\n\n**bold** x *italic*"
 

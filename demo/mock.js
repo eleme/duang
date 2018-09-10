@@ -60,6 +60,23 @@ mock.get('/**/string-map-abcd', () => ({
   d: '一个很长很长的描述 D'
 }));
 
+mock.get('/**/the-filter', ({ searchParams }) => {
+  let where = JSON.parse(searchParams.get('where') || '{}');
+  return [
+    { id: 1, title: '蒸羊羔', description: '蒸羊之法在《齐民要术．饮食篇》已有记载。' },
+    { id: 2, title: '蒸熊掌' },
+    { id: 3, title: '蒸鹿尾儿' },
+    { id: 4, title: '烧花鸭', description: '烧花鸭是一道色香味俱全的地方名菜，属于河北菜。' },
+    { id: 5, title: '烧雏鸡' },
+    { id: 6, title: '烧子鹅', description: '烧子鹅是一道由鹅、姜、蒜等做成的美食。' }
+  ].filter(row => {
+    let result = true;
+    if ('f1' in where && !~String(row.title).indexOf(where.f1)) result = false;
+    if ('f2' in where && !~String(row.description).indexOf(where.f2)) result = false;
+    return result;
+  });
+});
+
 mock.get('/**/normal-list', () => [
   { id: 1, type: '菜名', title: '蒸羊羔', description: '蒸羊之法在《齐民要术．饮食篇》已有记载。' },
   { id: 2, type: '菜名', title: '蒸熊掌' },

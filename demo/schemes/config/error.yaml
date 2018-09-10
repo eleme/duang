@@ -1,17 +1,10 @@
----
-  - 
-    key: "404"
-    title: "配置 - 异常 - 404"
-    fields: 
-      - 
-        key: "id"
-  - 
-    key: "500"
-    title: "配置 - 异常 - 500"
-    fields: 
-      - 
-        key: "id"
-  - 
-    key: "hehe"
-    title: "配置 - 异常 - 字段未配置"
-
+- key: "404"
+  title: "配置 - 异常 - 404"
+  fields:
+    - key: "id"
+- key: "500"
+  title: "配置 - 异常 - 500"
+  fields:
+    - key: "id"
+- key: "hehe"
+  title: "配置 - 异常 - 字段未配置"
