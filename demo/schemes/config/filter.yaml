@@ -1,0 +1,83 @@
+---
+  - 
+    key: "the-list-data-2?1"
+    title: "配置 - 筛选器 - 单个筛选器"
+    filters: 
+      - 
+        title: "条件"
+        key: "f1"
+        component: "String"
+    fields: 
+      - 
+        key: "id"
+        title: "ID"
+        sortable: true
+      - 
+        key: "a"
+        title: "a"
+        component: "TextTip"
+  - 
+    key: "the-list-data-2?2"
+    title: "配置 - 筛选器 - 多个筛选器"
+    filters: 
+      - 
+        title: "Radio"
+        key: "f1"
+        component: "Checkbox"
+        args: 
+          '@options': "string-map-abcd"
+          defaultValue: 
+            - "a"
+            - "b"
+      - 
+        title: "DateTime"
+        key: "f2"
+        component: "DateTime"
+    fields: 
+      - 
+        key: "id"
+        title: "ID"
+        sortable: true
+      - 
+        key: "a"
+        title: "a"
+        component: "TextTip"
+    operations: 
+      - 
+        title: "我只是一个按钮"
+        method: "create"
+  - 
+    key: "the-list-data-2?3"
+    noWhere: "<b>请先选择筛选条件</b>"
+    title: "配置 - 筛选器 - 默认不搜索"
+    filters: 
+      - 
+        title: "条件"
+        key: "f1"
+        component: "String"
+    fields: 
+      - 
+        key: "id"
+        title: "ID"
+        sortable: true
+      - 
+        key: "a"
+        title: "a"
+        component: "TextTip"
+  - 
+    key: "the-list-data-2?4"
+    title: "配置 - 筛选器 - beforeApply"
+    beforeApply: 
+      action: "confirm"
+      args: 
+        text: "确定要提交这个筛选条件？"
+    filters: 
+      - 
+        title: "条件"
+        key: "f1"
+        component: "String"
+    fields: 
+      - 
+        key: "id"
+        title: "ID"
+

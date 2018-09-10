@@ -35,7 +35,9 @@ def((Output, Item, Confirm, ErrorDialog) => {
     goAction() {
       let { module, key, params, _blank, target, title, where, depot } = this;
       let data = Object.create(depot);
-      for (let key in this.fieldMap) Object.defineProperty(data, key, { configurable: true, value: this.fieldMap[key] });
+      for (let key in this.fieldMap) {
+        Object.defineProperty(data, key, { configurable: true, value: this.fieldMap[key] });
+      }
       params = refactor(params || {}, data);
       where = refactor(where || {}, data);
       if (_blank) target = '_blank';

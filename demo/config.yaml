@@ -12,11 +12,11 @@ schemes:
   - schemes/inputs/other.json
   - schemes/inputs/combines.json
   - schemes/inputs/caption.json
-  - schemes/config/list.json
-  - schemes/config/filter.json
-  - schemes/config/error.json
-  - schemes/config/form.json
-  - schemes/config/hidden.json
+  - schemes/config/list.yaml
+  - schemes/config/filter.yaml
+  - schemes/config/error.yaml
+  - schemes/config/form.yaml
+  - schemes/config/hidden.yaml
   - key: doc
     title: 文档
     module: Custom
