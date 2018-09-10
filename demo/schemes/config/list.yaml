@@ -1,148 +1,115 @@
 ---
-  - 
-    key: "normal-list"
+  - key: "normal-list"
     title: "配置 - 列表 - 最简单的列表"
     fields: 
-      - 
-        key: "id"
+      - key: "id"
         title: "ID"
-      - 
-        key: "type"
+      - key: "type"
         title: "类型"
-      - 
-        key: "title"
+      - key: "title"
         title: "名称"
-      - 
-        key: "description"
+      - key: "description"
         title: "描述"
-  - 
-    key: "components-list"
+  - key: "components-list"
     title: "配置 - 列表 - 列表中使用组件"
     fields: 
-      - 
-        key: "id"
+      - key: "id"
         title: "ID"
-      - 
-        key: "title"
+      - key: "title"
         title: "<font color=red>加特技</font>"
-      - 
-        key: "value"
+      - key: "value"
         title: "排序"
         sortable: true
-      - 
-        key: "description"
+      - key: "description"
         title: "悬停提示控件"
         component: "TextTip"
         args: 
           tip: "无提示文字"
           text: "悬停显示描述"
-      - 
-        key: "img"
+      - key: "img"
         title: "图片控件"
         component: "Image"
-  - 
-    key: "complex-list"
+  - key: "complex-list"
     title: "配置 - 列表 - 相当复杂的列表"
     gentleRefreshing: true
     listSelector: true
     actions: 
-      - 
-        title: "www.ele.me"
+      - title: "www.ele.me"
         method: "open"
         href: "https://www.ele.me"
-      - 
-        title: "The-Action"
+      - title: "The-Action"
         method: "post"
         api: "theAction"
     caption: 
-      - 
-        component: "HTML"
+      - component: "HTML"
         args: 
           html: "数据加载时间 {value}"
           '@defaultValue': "locale-datetime"
     fields: 
-      - 
-        key: "id"
+      - key: "id"
         title: "ID"
-      - 
-        key: "type"
+      - key: "type"
         title: "类型"
-      - 
-        key: "title"
+      - key: "title"
         title: "名称"
-      - 
-        key: "description"
+      - key: "description"
         title: "描述"
     headers: 
-      - 
-        component: "AutoRefresh"
+      - component: "AutoRefresh"
         args: 
           interval: 3000
     operations: 
-      - 
-        title: "批量删除"
+      - title: "批量删除"
         method: "delete"
         query: true
-  - 
-    listSelector: true
+  - listSelector: true
     key: "the-list-data?2"
     title: "配置 - 列表 - 可全选"
     actions: 
-      - 
-        title: "www.ele.me"
+      - title: "www.ele.me"
         method: "open"
         href: "https://www.ele.me"
-      - 
-        title: "The-Action"
+      - title: "The-Action"
         method: "post"
         api: "theAction"
     fields: 
-      - 
-        key: "id"
+      - key: "id"
         title: "ID"
         sortable: true
-      - 
-        key: "a"
+      - key: "a"
         title: "<font color=red>A</font>"
         component: "TextTip"
-      - 
-        key: "img"
+      - key: "img"
         title: "图片"
         component: "Image"
-      - 
-        key: "c"
+      - key: "c"
         component: "QRCode"
         args: 
           defaultValue: "hehe"
         title: "QRCode"
     operations: 
-      - 
-        title: "批量删除"
+      - title: "批量删除"
         method: "delete"
         query: true
-  - 
-    key: "the-list-data?3"
+  - key: "the-list-data?3"
     title: "配置 - 列表 - 默认筛选条件"
     where: 
       f3: "a"
     filters: 
-      - 
-        key: "f1"
+      - key: "f1"
         component: "String"
         args: 
           width: 100
         title: "Input - 100"
         description: "描述"
-      - 
-        key: "f2"
+      - key: "f2"
         component: "String"
         optional: true
         args: 
           width: 150
         title: "Input - 150"
         description: "描述"
-      - 
-        key: "f3"
+      - key: "f3"
         component: "Radio"
         optional: true
         args: 
@@ -151,8 +118,7 @@
             b: "2"
           defaultValue: "a"
         title: "Radio"
-      - 
-        key: "f4"
+      - key: "f4"
         component: "Checkbox"
         args: 
           options: 
@@ -165,63 +131,52 @@
             - "b"
         title: "Radio"
     actions: 
-      - 
-        title: "www.ele.me"
+      - title: "www.ele.me"
         method: "open"
         href: "https://www.ele.me"
-      - 
-        title: "The-Action"
+      - title: "The-Action"
         method: "post"
         api: "theAction"
     fields: 
-      - 
-        key: "id"
+      - key: "id"
         title: "ID"
         sortable: true
-      - 
-        key: "a"
+      - key: "a"
         title: "<font color=red>A</font>"
         component: "TextTip"
-      - 
-        key: "img"
+      - key: "img"
         title: "图片"
         component: "Image"
-      - 
-        key: "c"
+      - key: "c"
         component: "QRCode"
         args: 
           defaultValue: "hehe"
         title: "QRCode"
     operations: 
-      - 
-        title: "批量删除"
+      - title: "批量删除"
         method: "delete"
         query: true
-  - 
-    key: "the-list-data?4"
+  - key: "the-list-data?4"
     title: "配置 - 列表 - 默认折叠筛选器"
     where: 
       f3: "a"
     params: 
       filterState: "folded"
     filters: 
-      - 
-        key: "f1"
+      - key: "f1"
         component: "String"
         args: 
           width: 100
         title: "Input - 100"
         description: "描述"
-      - 
-        key: "f2"
+      - key: "f2"
         component: "String"
         optional: true
         args: 
           width: 150
         title: "Input - 150"
         description: "描述"
-      - 
-        key: "f3"
+      - key: "f3"
         component: "Radio"
         optional: true
         args: 
@@ -230,8 +185,7 @@
             b: "2"
           defaultValue: "a"
         title: "Radio"
-      - 
-        key: "f4"
+      - key: "f4"
         component: "Checkbox"
         args: 
           options: 
@@ -244,63 +198,52 @@
             - "b"
         title: "Radio"
     actions: 
-      - 
-        title: "www.ele.me"
+      - title: "www.ele.me"
         method: "open"
         href: "https://www.ele.me"
-      - 
-        title: "The-Action"
+      - title: "The-Action"
         method: "post"
         api: "theAction"
     fields: 
-      - 
-        key: "id"
+      - key: "id"
         title: "ID"
         sortable: true
-      - 
-        key: "a"
+      - key: "a"
         title: "<font color=red>A</font>"
         component: "TextTip"
-      - 
-        key: "img"
+      - key: "img"
         title: "图片"
         component: "Image"
-      - 
-        key: "c"
+      - key: "c"
         component: "QRCode"
         args: 
           defaultValue: "hehe"
         title: "QRCode"
     operations: 
-      - 
-        title: "批量删除"
+      - title: "批量删除"
         method: "delete"
         query: true
-  - 
-    key: "the-list-data?5"
+  - key: "the-list-data?5"
     title: "配置 - 列表 - 默认隐藏部分字段"
     where: 
       f3: "a"
     params: 
       fields: "all"
     filters: 
-      - 
-        key: "f1"
+      - key: "f1"
         component: "String"
         args: 
           width: 100
         title: "Input - 100"
         description: "描述"
-      - 
-        key: "f2"
+      - key: "f2"
         component: "String"
         optional: true
         args: 
           width: 150
         title: "Input - 150"
         description: "描述"
-      - 
-        key: "f3"
+      - key: "f3"
         component: "Radio"
         optional: true
         args: 
@@ -309,8 +252,7 @@
             b: "2"
           defaultValue: "a"
         title: "Radio"
-      - 
-        key: "f4"
+      - key: "f4"
         component: "Checkbox"
         args: 
           options: 
@@ -323,88 +265,83 @@
             - "b"
         title: "Radio"
     actions: 
-      - 
-        title: "www.ele.me"
+      - title: "www.ele.me"
         method: "open"
         href: "https://www.ele.me"
-      - 
-        title: "The-Action"
+      - title: "The-Action"
         method: "post"
         api: "theAction"
     fields: 
-      - 
-        key: "id"
+      - key: "id"
         title: "ID"
         sortable: true
-      - 
-        key: "a"
+      - key: "a"
         title: "<font color=red>A</font>"
         component: "TextTip"
-      - 
-        key: "img"
+      - key: "img"
         title: "图片"
         component: "Image"
-      - 
-        key: "c"
+      - key: "c"
         component: "QRCode"
         args: 
           defaultValue: "hehe"
         title: "QRCode"
     operations: 
-      - 
-        title: "批量删除"
+      - title: "批量删除"
         method: "delete"
         query: true
-  - 
-    key: "pager-list-data"
+  - key: "pager-list-data"
     title: "配置 - 列表 - 分页"
     countable: 5
     pageSize: 10
     module: "list"
     fields: 
-      - 
-        key: "id"
+      - key: "id"
         title: "ID"
-      - 
-        key: "a"
+      - key: "a"
         title: "A"
-      - 
-        key: "b"
+      - key: "b"
         title: "B"
         component: "Clipboard"
-  - 
-    key: "mergable-list"
+  - key: "mergable-list"
     title: "配置 - 列表 - 合并单元格"
     module: "list"
     groupBy: 
       - "type"
     actions: 
-      - 
-        method: "post"
+      - method: "post"
         title: "处理"
     fields: 
-      - 
-        key: "type"
+      - key: "type"
         title: "Type"
-      - 
-        key: "name"
+      - key: "name"
         title: "Name"
-      - 
-        key: "tag"
+      - key: "tag"
         title: "Tag"
-      - 
-        key: "value"
+      - key: "value"
         title: "Value"
         aggregate: "sum"
-  - 
-    key: "empty-list"
+  - key: "empty-list"
     title: "配置 - 列表 - 空列表"
     module: "list"
     fields: 
-      - 
-        key: "id"
+      - key: "id"
         title: "ID"
-      - 
-        key: "a"
+      - key: "a"
         title: "A"
-
+  - key: "link-list"
+    title: "配置 - 列表 - 链接"
+    fields: 
+      - key: "id"
+        title: "ID"
+      - key: "type"
+        title: "类型"
+      - key: "title"
+        title: "名称"
+      - key: "link"
+        title: "链接"
+        component: Link2
+        args:
+          title: 链接
+          module: list
+          key: 'the-list-data-2?1'

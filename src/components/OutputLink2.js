@@ -1,8 +1,14 @@
 def(() => class extends Jinkela {
   onClick(e) {
     e.stopPropagation();
-    var { module, key, params = {}, where = {}, title, target, href, value } = this;
-    var { module, key, target, params, where, href, title } = Object.assign({ module, target, key, params, where, href, title }, value); // eslint-disable-line no-redeclare
+    let { module, key, params = {}, where = {}, title, target, href, value = {} } = this;
+    if ('module' in value) module = value.module;
+    if ('target' in value) target = value.target;
+    if ('key' in value) key = value.key;
+    if ('params' in value) params = value.params;
+    if ('where' in value) where = value.where;
+    if ('href' in value) href = value.href;
+    if ('title' in value) title = value.title;
     if (href) {
       open(href, target || '_self');
     } else {
@@ -14,11 +20,6 @@ def(() => class extends Jinkela {
       <a on-click="{onClick}" href="javascript:">{title}</a>
     `;
   }
-  set value(value) {
-    this.$value = value;
-    if (value) this.title = value.title || value;
-  }
-  get value() { return this.$value; }
   get styleSheet() {
     return `
       :scope {

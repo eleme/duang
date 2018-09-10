@@ -69,6 +69,15 @@ mock.get('/**/normal-list', () => [
   { id: 6, type: '菜名', title: '烧子鹅', description: '烧子鹅是一道由鹅、姜、蒜等做成的美食。' }
 ]);
 
+mock.get('/**/link-list', () => [
+  { id: 1, type: '菜名', title: '蒸羊羔', link: { where: { f1: '蒸羊羔' } } },
+  { id: 2, type: '菜名', title: '蒸熊掌', link: { where: { f1: '蒸熊掌' } } },
+  { id: 3, type: '菜名', title: '蒸鹿尾儿', link: { where: { f1: '蒸鹿尾儿' } } },
+  { id: 4, type: '菜名', title: '烧花鸭', link: { where: { f1: '烧花鸭' } } },
+  { id: 5, type: '菜名', title: '烧雏鸡', link: { where: { f1: '烧雏鸡' } } },
+  { id: 6, type: '菜名', title: '烧子鹅', link: { where: { f1: '烧子鹅' } } }
+]);
+
 mock.get('/**/complex-list', () => [
   { id: 1, type: '菜名', title: '蒸羊羔', description: '蒸羊之法在《齐民要术．饮食篇》已有记载。' },
   { id: 2, type: '菜名', title: '蒸熊掌' },
