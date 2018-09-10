@@ -77,6 +77,10 @@ mock.get('/**/the-filter', ({ searchParams }) => {
   });
 });
 
+mock.get('/**/the-filter/before', ({ searchParams }) => {
+  return confirm(searchParams.get('where'));
+});
+
 mock.get('/**/normal-list', () => [
   { id: 1, type: '菜名', title: '蒸羊羔', description: '蒸羊之法在《齐民要术．饮食篇》已有记载。' },
   { id: 2, type: '菜名', title: '蒸熊掌' },

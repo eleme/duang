@@ -52,16 +52,20 @@
       title: "a"
       component: "TextTip"
 
-- key: "the-list-data-2?4"
+- key: "the-filter?_=4"
   title: "配置 - 筛选器 - beforeApply"
   beforeApply:
-    action: "confirm"
+    action: "get"
     args:
-      text: "确定要提交这个筛选条件？"
+      key: "before"
   filters:
-    - title: "条件"
-      key: "f1"
-      component: "String"
+    - title: 名称
+      key: f1
   fields:
-    - key: "id"
-      title: "ID"
+    - key: id
+      title: ID
+      sortable: true
+    - key: title
+      title: 名称
+    - key: description
+      title: 描述

@@ -155,8 +155,16 @@ def((Input, Output, Item, Button, ButtonHollow) => {
       let { depot } = this;
       let { scheme } = depot;
       let { beforeApply } = scheme;
+      let dynamicAction = JSON.parse(JSON.stringify(beforeApply));
+      // 强行把 where 塞进去（擦，怎么可以这么恶心
+      if (dynamicAction.action === 'get') {
+        let args = Object(dynamicAction.args);
+        args.key = args.key || '';
+        args.key += '?' + new URLSearchParams({ where: JSON.stringify(where) });
+        dynamicAction.args = args;
+      }
       try {
-        let result = await (beforeApply && doAction(beforeApply, depot));
+        let result = await (dynamicAction && doAction(dynamicAction, depot));
         if (result === false) throw new Error();
         this.depot.update({ where: JSON.stringify(where) });
       } catch (error) {
