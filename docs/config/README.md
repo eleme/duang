@@ -102,6 +102,7 @@
 | noSubmit | Boolean | 在编辑页隐藏提交按钮 |
 | gentleRefreshing | Boolean | 后台加载完毕后再刷新，跳过 Loading 状态 |
 | beforeApply | DynamicAction | 筛选按钮前执行一个动作 |
+| [filterStyle](#Scheme::filterStyle) | String | 设置筛选器样式 |
 
 ### Scheme::module
 
@@ -336,6 +337,47 @@
 
 [试一试](../../demo/#!module=list&key=mergable-list)
 
+### Scheme::filterStyle
+
+修改筛选器样式，目前支持 `normal` 和 `floating` 两个取值
+
+```yaml
+- key: "the-filter?_=style"
+  title: "配置 - 筛选器 - 浮动样式"
+  filterStyle: floating
+  filters:
+    - title: 名称
+      key: f1
+      args: { width: 80 }
+    - title: 描述
+      key: f2
+      args: { width: 100 }
+    - title: 没卵用的字段
+      key: x1
+      component: DateTime
+    - title: 没卵用的字段
+      key: x2
+      component: Select
+      args: { '@options': the-options }
+    - title: 没卵用的字段
+      key: x3
+      component: Radio
+      args: { '@options': the-options }
+    - title: 没卵用的字段
+      key: x4
+      component: Checkbox
+      args: { '@options': the-options }
+  fields:
+    - key: id
+      title: ID
+      sortable: true
+    - key: title
+      title: 名称
+    - key: description
+      title: 描述
+```
+
+[试一试](../../demo/#!module=list&key=the-filter%3F_%3Dstyle)
 
 ### Scheme::params
 

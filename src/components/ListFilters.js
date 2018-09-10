@@ -1,6 +1,9 @@
 def((Input, Output, Item, Button, ButtonHollow) => {
 
   class FilterItem extends Item {
+    beforeParse() {
+      this.keydown = this.keydown.bind(this);
+    }
     init() {
       this.initTitle();
       this.initCheckbox();
@@ -124,6 +127,10 @@ def((Input, Output, Item, Button, ButtonHollow) => {
 
   return class extends Jinkela {
     get FiltersButtonGroup() { return FiltersButtonGroup; }
+    beforeParse() {
+      this.apply = this.apply.bind(this);
+      this.reset = this.reset.bind(this);
+    }
     init() {
       let { depot } = this;
       let { scheme = {} } = depot;
@@ -136,7 +143,8 @@ def((Input, Output, Item, Button, ButtonHollow) => {
         this.element.style.display = 'none';
         $promise = Promise.resolve();
       }
-      if (filters.length === 1 && !scheme.disableInlineFilter) this.element.classList.add('line');
+      if (filters.length === 1 && !scheme.disableInlineFilter) this.element.classList.add('only-one-line');
+      if (scheme.filterStyle === 'floating') this.element.classList.add('floating');
       Object.defineProperty(this, '$promise', { value: $promise, configurable: true });
     }
     async apply() {
@@ -193,12 +201,23 @@ def((Input, Output, Item, Button, ButtonHollow) => {
           padding: var(--spacing);
           border: 1px solid #e0e6ed;
           border-radius: 4px;
-          &.line {
+          &.only-one-line {
             display: flex;
             > :first-child { flex: 1; }
           }
-          &:not(.line) {
+          &:not(.only-one-line) {
             > :last-child { margin-top: 1em; }
+          }
+          &.floating {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            label { min-width: auto; }
+            padding-top: calc(var(--spacing) - .5em);
+            padding-bottom: calc(var(--spacing) - .5em);
+            > *, > :first-child, > :last-child {
+              margin: .5em 1em .5em 0;
+            }
           }
         }
       `;
