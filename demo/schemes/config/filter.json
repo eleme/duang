@@ -80,6 +80,22 @@
         "component": "TextTip"
       }
     ]
+  },
+
+  {
+    "key": "the-list-data-2?4",
+    "title": "配置 - 筛选器 - beforeApply",
+    "beforeApply": { "action": "confirm", "args": { "text": "确定要提交这个筛选条件？" } },
+    "filters": [
+      {
+        "title": "条件",
+        "key": "f1",
+        "component": "String"
+      }
+    ],
+    "fields": [
+      { "key": "id", "title": "ID" }
+    ]
   }
 
 ]

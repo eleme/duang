@@ -101,6 +101,7 @@
 | noWhere | String | 进入列表时不发起查询，以这个字符串提示用户 |
 | noSubmit | Boolean | 在编辑页隐藏提交按钮 |
 | gentleRefreshing | Boolean | 后台加载完毕后再刷新，跳过 Loading 状态 |
+| beforeApply | DynamicAction | 筛选按钮前执行一个动作 |
 
 ### Scheme::module
 
@@ -520,5 +521,18 @@ Action 示例配置
   ]
 }
 ```
+
+## DynamicAction
+
+动态动作
+
+| 字段名 | 类型   |
+| ------ | ------ |
+| action | String |
+| args   | Object |
+
+action 的取值：
+`success`, `failure`, `confirm`, `replace`, `assign`,
+`open`, `go`, `get`, `put`, `delete`, `post`, `patch`
 
 <br/>

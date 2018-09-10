@@ -139,7 +139,7 @@ def((Input, Output, Item, Button, ButtonHollow) => {
       if (filters.length === 1 && !scheme.disableInlineFilter) this.element.classList.add('line');
       Object.defineProperty(this, '$promise', { value: $promise, configurable: true });
     }
-    apply() {
+    async apply() {
       let where = {};
       this.list.forEach(({ optional, checked, value, key, squash }) => {
         if (optional && !checked) return;
@@ -151,7 +151,17 @@ def((Input, Output, Item, Button, ButtonHollow) => {
           where[key] = value;
         }
       });
-      this.depot.update({ where: JSON.stringify(where) });
+
+      let { depot } = this;
+      let { scheme } = depot;
+      let { beforeApply } = scheme;
+      try {
+        let result = await (beforeApply && doAction(beforeApply, depot));
+        if (result === false) throw new Error();
+        this.depot.update({ where: JSON.stringify(where) });
+      } catch (error) {
+        void error;
+      }
     }
     reset() {
       let { scheme } = this.depot;
