@@ -344,7 +344,7 @@
       args:
         title: 链接
         module: list
-        key: 'the-list-data-2?1'
+        key: 'the-filter?_=1'
 
 - title: "配置 - 列表 - 空列表"
   key: "empty-list"

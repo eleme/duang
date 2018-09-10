@@ -22,7 +22,7 @@
       return this.bind(this.launch);
     }
     resolvePath(path) {
-      return this.basePath.concat(path).reduce((base, item) => {
+      let result = this.basePath.concat(path).reduce((base, item) => {
         if (item === void 0) return base;
         item = new Function('return `' + item + '`')();
         // 外链直接使用，不做额外处理
@@ -36,6 +36,14 @@
         }
         return base + item;
       });
+      // 处理 QS 叠加
+      let isFirst = true;
+      result = result.replace(/\?/g, () => {
+        if (!isFirst) return '&';
+        isFirst = false;
+        return '?';
+      });
+      return result;
     }
     extendOptions(options) {
       options = Object.assign({ credentials: 'include' }, options);

@@ -12,30 +12,21 @@
     - key: description
       title: 描述
 
-- key: "the-list-data-2?2"
+- key: "the-filter?_=2"
   title: "配置 - 筛选器 - 多个筛选器"
   filters:
-    - title: "Radio"
-      key: "f1"
-      component: "Checkbox"
-      args:
-        '@options': "string-map-abcd"
-        defaultValue:
-          - "a"
-          - "b"
-    - title: "DateTime"
-      key: "f2"
-      component: "DateTime"
+    - title: 名称
+      key: f1
+    - title: 描述
+      key: f2
   fields:
-    - key: "id"
-      title: "ID"
+    - key: id
+      title: ID
       sortable: true
-    - key: "a"
-      title: "a"
-      component: "TextTip"
-  operations:
-    - title: "我只是一个按钮"
-      method: "create"
+    - key: title
+      title: 名称
+    - key: description
+      title: 描述
 
 - key: "the-list-data-2?3"
   noWhere: "<b>请先选择筛选条件</b>"
