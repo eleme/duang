@@ -35,12 +35,22 @@
   gentleRefreshing: true
   listSelector: true
   actions:
-    - title: "www.ele.me"
-      method: "open"
-      href: "https://www.ele.me"
-    - title: "The-Action"
-      method: "post"
-      api: "theAction"
+    - title: www.ele.me
+      method: open
+      href: https://www.ele.me
+    - title: The-Action
+      method: post
+      api: theAction
+    - title: read
+      method: read
+      target: dialog
+      api: theAction
+  inputs:
+    - title: 名称
+      key: title
+    - title: 描述
+      component: Text
+      key: description
   caption:
     - component: "HTML"
       args:

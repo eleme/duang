@@ -108,6 +108,20 @@ mock.get('/**/complex-list', () => [
   { id: 6, type: '菜名', title: '烧子鹅', description: '烧子鹅是一道由鹅、姜、蒜等做成的美食。' }
 ]);
 
+mock({
+  method: 'GET',
+  pattern: '/**/complex-list/:id',
+  handler: ({ params }) => [
+    { id: 1, type: '菜名', title: '蒸羊羔', description: '蒸羊之法在《齐民要术．饮食篇》已有记载。' },
+    { id: 2, type: '菜名', title: '蒸熊掌' },
+    { id: 3, type: '菜名', title: '蒸鹿尾儿' },
+    { id: 4, type: '菜名', title: '烧花鸭', description: '烧花鸭是一道色香味俱全的地方名菜，属于河北菜。' },
+    { id: 5, type: '菜名', title: '烧雏鸡' },
+    { id: 6, type: '菜名', title: '烧子鹅', description: '烧子鹅是一道由鹅、姜、蒜等做成的美食。' }
+  ].find(item => item.id === +params.id),
+  throttle: 500
+});
+
 mock.get('/**/the-options', () => [
   { value: 1, text: '蒸羊羔' },
   { value: 2, text: '蒸熊掌' },

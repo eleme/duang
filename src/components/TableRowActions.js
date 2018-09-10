@@ -1,7 +1,6 @@
 def((Output, Item, Confirm, ErrorDialog) => {
 
   class TableRowActionsItem extends Item {
-
     init() {
       Output.createAny(this.title || this.method).to(this);
       if (!this.checkPermissions()) this.element.style.display = 'none';
@@ -28,7 +27,11 @@ def((Output, Item, Confirm, ErrorDialog) => {
     }
 
     onClick() {
-      this.confirm ? Confirm.popup(this.confirm, this.depot).then(result => result && this.exec()) : this.exec();
+      if (this.confirm) {
+        return Confirm.popup(this.confirm, this.depot).then(result => result && this.exec());
+      } else {
+        return this.exec();
+      }
     }
     get exec() { return this[this.method + 'Action'] || this.defaultAction; }
 
@@ -49,7 +52,7 @@ def((Output, Item, Confirm, ErrorDialog) => {
       this.module = 'editor';
       this.params = Object.assign({ '@id': '$.id' }, depot.params);
       this.key = depot.key;
-      this.goAction();
+      return this.goAction();
     }
 
     readAction() {
@@ -57,7 +60,7 @@ def((Output, Item, Confirm, ErrorDialog) => {
       this.module = 'editor';
       this.params = Object.assign({ '@id': '$.id' }, depot.params, { readonly: true });
       this.key = depot.key;
-      this.goAction();
+      return this.goAction();
     }
 
     copyAction() {
@@ -65,7 +68,7 @@ def((Output, Item, Confirm, ErrorDialog) => {
       this.module = 'editor';
       this.params = Object.assign({}, depot.params, { '@copy': '$.id' });
       this.key = depot.key;
-      this.goAction();
+      return this.goAction();
     }
 
     openAction() {
@@ -107,7 +110,6 @@ def((Output, Item, Confirm, ErrorDialog) => {
         }
       `;
     }
-
   }
 
   return class extends Jinkela {
