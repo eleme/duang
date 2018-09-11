@@ -4,7 +4,7 @@ def(() => class extends Jinkela {
     let { module, key, params = {}, where = {}, title, _blank, target } = this;
     params = JSON.stringify(refactor(params, this.value));
     where = JSON.stringify(refactor(where, this.value));
-    let uParams = new UParams({ module, key, params, where });
+    let uParams = new URLSearchParams({ module, key, params, where });
     if (_blank) target = '_blank';
     switch (target) {
       case '_blank':

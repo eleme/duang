@@ -9,7 +9,7 @@ const doAction = (data, depot = window.depot) => {
     case 'replace': return new Promise((resolve, reject) => { location.replace(args.href); setTimeout(reject, 300); });
     case 'assign': return new Promise((resolve, reject) => { location.assign(args.href); setTimeout(reject, 300); });
     case 'open': return new Promise((resolve, reject) => { open(args.href); setTimeout(reject, 300); });
-    case 'go': return location.replace('#!' + new UParams(args));
+    case 'go': return location.replace('#!' + new URLSearchParams(args));
     case 'get':
     case 'put':
     case 'delete':

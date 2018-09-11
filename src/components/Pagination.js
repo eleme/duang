@@ -163,7 +163,7 @@ def((ButtonHollow, SvgIcon, Input) => {
       new Select({ depot }).to(this);
       let near = countable || 3;
       if (!(list instanceof Array)) list = [];
-      let currentIndex = +depot.uParams.page || 1;
+      let currentIndex = depot.page || 1;
       let items = [];
       const { max, min, ceil } = Math;
       let pageCount = count === count ? ceil(count / pageSize) : currentIndex + (list.length === pageSize);

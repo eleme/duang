@@ -6,7 +6,7 @@
 
 | 名字 | 类型 | 描述 |
 | ---- | ---- | ---- |
-| logo | `String` or `dict` | 显示在页面左上角，默认显示「Duang」|
+| logo | `String` or `Object` | 显示在页面左上角，默认显示「Duang」|
 
 示例配置
 
@@ -91,7 +91,7 @@
 | href | String | 如果设置了 href，该选项会忽略其他配置，直接变成超链接，target 也会变成超链接的打开方式 |
 | target | String | 当前菜单项的打开方式，如果设置了 href 则表示超链接的打开方式 |
 | icon | String | 图标的 URL |
-| where | dict | 进入这张表的默认查询条件 |
+| [where](#Scheme::where) | Object | 进入这张表的默认查询条件 |
 | caption | list | 一个 `Output` 类型的数组，配置列表页的表头 |
 | pageSize | number | 配置列表页每页显示的条数，默认显示所有 |
 | countable | Boolean | 配置为 true 后会调用接口获取结果集总数用于渲染分页导航，接口地址为 `key + "/count"`，需返回一个数字 |
@@ -385,12 +385,36 @@
 
 params 有一些特殊用途：
 
-| 名称 | 类型 | 用途 |
-| ---- | ---- | ---- |
-| id | Any | 从列表页进入编辑页时带上的 ID |
-| readonly | Boolean | 页面进入只读模式 |
-| filterState | "folded", "unfolded" | 筛选器的折叠状态（如果未设置则不可折叠） |
-| fields | Array&lt;String&gt; | 提供自定义需要展示的字段的能力（默认不提供） |
+| 名称 | 类型 | 用途 | 示例 |
+| ---- | ---- | ---- | ---- |
+| id | Any | 从列表页进入编辑页时带上的 ID | - |
+| readonly | Boolean | 页面进入只读模式 | - |
+| filterState | "folded", <br/>"unfolded" | 筛选器的折叠状态<br/>（如果未设置则不可折叠）| [试一试](../../demo/#!module=list&key=the-filter%3F_%3Dfolded&params=%7B"filterState"%3A"folded"%7D) |
+| fields | Array&lt;String&gt; | 提供自定义需要展示的字段的能力<br/>（默认不提供） | [试一试](../../demo/#!module=list&key=normal-list%3F_%3Doptional-fields&params=%7B"fields"%3A%5B"title"%2C"description"%5D%7D) |
+
+### Scheme::where
+
+一个对象，用于设置默认筛选条件
+
+```yaml
+- key: "the-filter?_=where"
+  title: 配置 - 筛选器 - 默认条件
+  where:
+    f1: 烧
+  filters:
+    - title: 名称
+      key: f1
+  fields:
+    - key: id
+      title: ID
+      sortable: true
+    - key: title
+      title: 名称
+    - key: description
+      title: 描述
+```
+
+[试一试](../../demo/#!module=list&key=the-filter%3F_%3Dwhere&where=%7B"f1"%3A"烧"%7D)
 
 ## Action
 

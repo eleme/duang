@@ -169,14 +169,21 @@ window.duang = () => {
      * 属性缓存
     **/
 
-    get module() { return this.uParams.module || this.config.defaultModule || 'default'; }
+    get module() { return this.uParams.get('module') || this.config.defaultModule || 'default'; }
     get id() { return this.params.id; }
-    get key() { return this.uParams.key; }
+    get key() { return this.uParams.get('key'); }
     get resolvedKey() { return String(this.key).replace(/:(?=\D)([^/]+)/g, ($0, $1) => this.params[$1]); }
     get scheme() { return this.schemeMap[this.key] || {}; }
-    get where() { return this.cache('where', () => parseObjectJSON(this.uParams.where)); }
-    get params() { return this.cache('params', () => parseObjectJSON(this.uParams.params)); }
-    get uParams() { return this.cache('uParams', () => new UParams()); }
+    get where() { return this.cache('where', () => parseObjectJSON(this.uParams.get('where'))); }
+    get params() { return this.cache('params', () => parseObjectJSON(this.uParams.get('params'))); }
+    get page() { return this.cache('page', () => +this.uParams.get('page')); }
+    get uParams() {
+      return this.cache('uParams', () => {
+        let { search, hash } = location;
+        // USP 在 get 的时候是取首次出现的，为了让 hash 的优先级更高，把 hash 拼在 search 前面了
+        return new URLSearchParams(hash.replace(/^[#!]*/, '') + search.replace(/^[?]/, '&'));
+      });
+    }
     get formMode() {
       if (this.params.readonly) {
         return 'read';
@@ -193,19 +200,21 @@ window.duang = () => {
       return value;
     }
     get pageSize() {
-      let pageSize = this.uParams.pageSize || this.scheme.pageSize;
+      let pageSize = this.uParams.get('pageSize') || this.scheme.pageSize;
       return pageSize instanceof Array ? pageSize[0] : pageSize;
     }
     get queryParams() {
       let params = {};
-      let { page, where, orderBy } = this.uParams;
+      let page = this.page;
+      let where = this.uParams.get('where');
+      let orderBy = this.uParams.get('orderBy');
       if (this.pageSize) {
         params.limit = this.pageSize;
         params.offset = this.pageSize * (page - 1 || 0);
       }
       if (where) params.where = where;
       if (orderBy) params.orderBy = orderBy;
-      return new UParams(params);
+      return new URLSearchParams(params);
     }
     getConst(name) {
       let { config, scheme } = this;
@@ -239,16 +248,23 @@ window.duang = () => {
     }
 
     go({ args, target, title }) {
-      args = Object.assign({}, args);
-      if (args.where && typeof args.where === 'object') args.where = JSON.stringify(args.where);
-      if (args.params && typeof args.params === 'object') args.params = JSON.stringify(args.params);
-      let uParams = new UParams(args);
+      let uParams;
+      if (args instanceof URLSearchParams) {
+        uParams = args;
+      } else {
+        args = Object.assign({}, args);
+        if (args.where && typeof args.where === 'object') args.where = JSON.stringify(args.where);
+        if (args.params && typeof args.params === 'object') args.params = JSON.stringify(args.params);
+        uParams = new URLSearchParams(args);
+      }
+      if (uParams.get('where') === '{}') uParams.delete('where');
+      if (uParams.get('params') === '{}') uParams.delete('params');
       switch (target) {
         case '_blank':
           return open(location.href.replace(/(#.*)?$/, '#!' + uParams));
         case 'dialog':
           try {
-            return this.loadModule(args.module).then(Main => {
+            return this.loadModule(uParams.get('module')).then(Main => {
               let newDepot = new Depot(uParams);
               let main = new Main({ depot: newDepot, title });
               newDepot.moduleComponent = {
@@ -263,7 +279,9 @@ window.duang = () => {
             return console.error(error); // eslint-disable-line
           }
         case 'soft':
-          return history.pushState(null, null, location.href.replace(/(#.*)?$/, '#!' + uParams));
+          history.pushState(null, null, location.href.replace(/(#.*)?$/, '#!' + uParams));
+          this.resetCache();
+          return;
         case 'replace':
           return location.replace(location.href.replace(/(#.*)?$/, '#!' + uParams));
         default:
@@ -271,8 +289,15 @@ window.duang = () => {
       }
     }
 
-    update(uParams = {}, whole) {
-      uParams = new UParams(whole ? uParams : Object.assign({}, this.uParams, uParams));
+    update(uParams, whole) {
+      uParams = new URLSearchParams(uParams);
+      if (!whole) {
+        let usp = new URLSearchParams(this.uParams);
+        uParams.forEach((value, key) => usp.set(key, value));
+        uParams = usp;
+      }
+      if (uParams.get('where') === '{}') uParams.delete('where');
+      if (uParams.get('params') === '{}') uParams.delete('params');
       if (this !== window.depot) {
         this.resetCache({ uParams });
         this.refresh();

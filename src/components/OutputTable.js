@@ -25,7 +25,7 @@ def((Table) => {
     }
 
     init() {
-      let uParams = new UParams({ module: 'list', key: depot.key });
+      let uParams = new URLSearchParams({ module: 'list', key: depot.key });
       let newDepot = depot.fork(uParams);
       let scheme = { fields: this.fields, key: depot.key, module: 'list' };
       Object.defineProperty(newDepot, 'scheme', { value: scheme, configurable: true });

@@ -31,8 +31,8 @@ def((Output, Checkbox, Button, ButtonHollow, Item, Confirm, ErrorDialog) => {
       let { params } = this.depot;
       params.filterState = { folded: 'unfolded', unfolded: 'folded' }[params.filterState];
       this.updateState();
-      params = JSON.stringify(params);
-      let args = Object.assign(this.depot.uParams, { params });
+      let args = new URLSearchParams(this.depot.uParams);
+      args.set('params', JSON.stringify(params));
       this.depot.go({ args, target: 'soft' });
       this.element.dispatchEvent(new CustomEvent('filtertoggle', { bubbles: true }));
     }
@@ -80,7 +80,9 @@ def((Output, Checkbox, Button, ButtonHollow, Item, Confirm, ErrorDialog) => {
       let path = [ resolvedKey ];
       if ('api' in this) path.push(this.api);
       if (this.query) {
-        if (scheme.listSelector) queryParams.selectedItems = JSON.stringify(main.table.selectedItems);
+        if (scheme.listSelector) {
+          queryParams.set('selectedItems', JSON.stringify(main.table.selectedItems));
+        }
         path.push('?' + queryParams);
       }
       api(path, { method: this.method || 'POST' }).then(() => {
