@@ -82,7 +82,7 @@ def((Output, Item, Confirm, ErrorDialog) => {
       let { depot } = this;
       let path = [ depot.resolvedKey, this.fieldMap.id ];
       if ('api' in this) path.push(this.api);
-      api(path, { method: this.method || 'POST' }).then(() => {
+      return api(path, { method: this.method || 'POST' }).then(result => doAction(result, depot)).then(() => {
         depot.refresh();
       }, error => {
         ErrorDialog.popup({ error });

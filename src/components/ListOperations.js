@@ -43,7 +43,11 @@ def((Output, Checkbox, Button, ButtonHollow, Item, Confirm, ErrorDialog) => {
       this.text = this.title;
     }
     onClick() {
-      this.confirm ? Confirm.popup(this.confirm, this.depot).then(result => result && this.exec()) : this.exec();
+      if (this.confirm) {
+        return Confirm.popup(this.confirm, this.depot).then(result => result && this.exec());
+      } else {
+        return this.exec();
+      }
     }
     get exec() {
       switch (this.method) {
@@ -85,7 +89,7 @@ def((Output, Checkbox, Button, ButtonHollow, Item, Confirm, ErrorDialog) => {
         }
         path.push('?' + queryParams);
       }
-      api(path, { method: this.method || 'POST' }).then(() => {
+      return api(path, { method: this.method || 'POST' }).then(result => doAction(result, depot)).then(() => {
         depot.refresh();
       }, error => {
         ErrorDialog.popup({ error });

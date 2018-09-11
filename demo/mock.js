@@ -1,8 +1,12 @@
-mock.post('/**', ctx => {
-  let title = '请求已拦截';
-  let text = `<code style="font-size:14px;">POST ${ctx.url}</code><br/>`;
-  text += `<pre style="font-size:12px;">${JSON.stringify(ctx.body, null, 2)}</pre>`;
-  return { action: 'success', args: { text, title, result: { action: 'noop' } } };
+[ 'post', 'put', 'delete', 'patch' ].forEach(method => {
+  mock[method]('/**', ctx => {
+    let title = '请求已拦截';
+    let text = `<code style="font-size:14px;">POST ${ctx.pathname}${ctx.search}</code><br/>`;
+    if (ctx.body && !(ctx.body instanceof Blob)) {
+      text += `<pre style="font-size:12px;">${JSON.stringify(ctx.body, null, 2)}</pre>`;
+    }
+    return { action: 'success', args: { text, title } };
+  });
 });
 
 mock.get('/**/locale-datetime', () => {
