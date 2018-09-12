@@ -1,1 +1,1 @@
-npm t
+npm run lint

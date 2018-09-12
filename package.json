@@ -8,7 +8,8 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "eslint . --fix",
+    "lint": "eslint . --fix",
+    "test": "eslint . --fix && ui-tester-start tests",
     "install": "ln -f pre-commit .git/hooks"
   },
   "repository": {
@@ -24,6 +25,7 @@
   "devDependencies": {
     "babel-eslint": "^7.2.3",
     "eslint": "^4.13.1",
-    "eslint-config-elemefe": "^0.3.0"
+    "eslint-config-elemefe": "^0.3.0",
+    "ui-tester": "^1.2.0"
   }
 }

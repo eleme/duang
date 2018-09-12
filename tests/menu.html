@@ -1,0 +1,34 @@
+<meta charset="utf-8" />
+<script src="/tester.js"></script>
+<script>
+var config = {
+  schemes: [
+    { title: '社会主义核心价值观' },
+    { title: '社会主义核心价值观 - 国家' },
+    { title: '社会主义核心价值观 - 国家 - 富强', key: 111 },
+    { title: '社会主义核心价值观 - 国家 - 民主', key: 112 },
+    { title: '社会主义核心价值观 - 国家 - 文明', key: 113 },
+    { title: '社会主义核心价值观 - 国家 - 和谐', key: 114 },
+    { title: '社会主义核心价值观 - 社会' },
+    { title: '社会主义核心价值观 - 社会 - 自由', key: 121 },
+    { title: '社会主义核心价值观 - 社会 - 平等', key: 122 },
+    { title: '社会主义核心价值观 - 社会 - 公正', key: 123 },
+    { title: '社会主义核心价值观 - 社会 - 法治', key: 124 },
+    { title: '社会主义核心价值观 - 个人' },
+    { title: '社会主义核心价值观 - 个人 - 爱国', key: 131 },
+    { title: '社会主义核心价值观 - 个人 - 敬业', key: 132 },
+    { title: '社会主义核心价值观 - 个人 - 诚信', key: 133 },
+    { title: '社会主义核心价值观 - 个人 - 友善', key: 134 }
+  ]
+};
+</script>
+<script src="/src/duang.js"></script>
+<script>
+addEventListener('duang::done', () => {
+  setTimeout(() => {
+    Tester.assert(document.querySelectorAll('ul').length === 5);
+    Tester.assert(document.querySelectorAll('li').length === 16);
+    Tester.feedback(true);
+  }, 100);
+});
+</script>
