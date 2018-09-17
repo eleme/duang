@@ -176,7 +176,7 @@ window.duang = () => {
     get scheme() { return this.schemeMap[this.key] || {}; }
     get where() { return this.cache('where', () => parseObjectJSON(this.uParams.get('where'))); }
     get params() { return this.cache('params', () => parseObjectJSON(this.uParams.get('params'))); }
-    get page() { return this.cache('page', () => +this.uParams.get('page')); }
+    get page() { return this.cache('page', () => Math.max(+this.uParams.get('page'), 1)); }
     get uParams() {
       return this.cache('uParams', () => {
         let { search, hash } = location;
@@ -206,13 +206,13 @@ window.duang = () => {
     get queryParams() {
       let params = {};
       let page = this.page;
-      let where = this.uParams.get('where');
+      let where = this.uParams.get('where') || '{}';
       let orderBy = this.uParams.get('orderBy');
       if (this.pageSize) {
         params.limit = this.pageSize;
         params.offset = this.pageSize * (page - 1 || 0);
       }
-      if (where) params.where = where;
+      params.where = where;
       if (orderBy) params.orderBy = orderBy;
       return new URLSearchParams(params);
     }

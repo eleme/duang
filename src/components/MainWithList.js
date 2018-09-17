@@ -68,7 +68,8 @@ def((FatalError, Output, ListFlex, ListOperations, ListHeaders, ListFilters, Tab
       ]).then(([ list, count ]) => {
         if (!(list instanceof Array)) throw new Error('返回结果必须是数组');
         this.list = list;
-        this.count = typeof count === 'number' ? count : count.count;
+        count = typeof count === 'number' ? count : count.count;
+        this.count = count;
         // 如果设置了 pageSize，那么初始化分页控件
         if ('pageSize' in depot.scheme) this.pagination = new Pagination({ depot, list, count });
         return list.length;
