@@ -26,7 +26,7 @@
         if (item === void 0) return base;
         item = new Function('return `' + item + '`')();
         // 外链直接使用，不做额外处理
-        if (/^(?:https?:)?\/\//.test(item)) return item;
+        if (/^(?:blob:)?(?:https?:)?\/\//.test(item)) return item;
         // 斜杆开头的接到 base 所在域名后面作为路径
         if (/^\//.test(item)) return base.replace(/^((?:https?:)?\/\/[^/]*)?(.*)/, `$1${item}`);
         // 其它情况，处理掉 qs，然后计算出相对路径

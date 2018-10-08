@@ -1,14 +1,3 @@
-[ 'post', 'put', 'delete', 'patch' ].forEach(method => {
-  mock[method]('/**', ctx => {
-    let title = '请求已拦截';
-    let text = `<code style="font-size:14px;">POST ${ctx.pathname}${ctx.search}</code><br/>`;
-    if (ctx.body && !(ctx.body instanceof Blob)) {
-      text += `<pre style="font-size:12px;">${JSON.stringify(ctx.body, null, 2)}</pre>`;
-    }
-    return { action: 'success', args: { text, title } };
-  });
-});
-
 mock.get('/**/locale-datetime', () => {
   return { 'value': new Date().toLocaleString() };
 });
@@ -178,3 +167,19 @@ mock.get('/**/value-list', () => [
   { 'value': 'item 5' },
   { 'value': 'item 6' }
 ]);
+
+mock.post('/**/upload', ctx => {
+  let url = URL.createObjectURL(ctx.body);
+  return url;
+});
+
+[ 'post', 'put', 'delete', 'patch' ].forEach(method => {
+  mock[method]('/**', ctx => {
+    let title = '请求已拦截';
+    let text = `<code style="font-size:14px;">POST ${ctx.pathname}${ctx.search}</code><br/>`;
+    if (ctx.body && !(ctx.body instanceof Blob)) {
+      text += `<pre style="font-size:12px;">${JSON.stringify(ctx.body, null, 2)}</pre>`;
+    }
+    return { action: 'success', args: { text, title } };
+  });
+});

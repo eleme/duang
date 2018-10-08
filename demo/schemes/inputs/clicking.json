@@ -72,9 +72,12 @@
     "title": "组件 - 点选类 - FileToken",
     "module": "editor",
     "inputs": [
-      { "key": "file1", "component": "FileToken", "title": "常规" },
+      {
+        "key": "file1", "component": "FileToken", "title": "常规",
+        "args": { "api": "/upload", "disableEncode": true }
+      },
       { "key": "file2", "component": "FileToken", "title": "默认值",
-        "args": { "defaultValue": "logo.png", "api": "/" }
+        "args": { "defaultValue": "logo.png", "api": "/upload" }
       },
       {
         "key": "file3", "title": {
