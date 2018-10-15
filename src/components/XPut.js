@@ -32,11 +32,10 @@ def((Item) => {
       Object.defineProperty(this, '$hasValue', { configurable: true, writable: true, value: false });
       Object.defineProperty(this, '$resolveAt', { configurable: true, writable: true, value: false });
       let { depot, query } = params;
-      delete params.depot;
       this.depot = depot;
-      params = JSON.parse(JSON.stringify(params));
-      this.$resolveAt = parse(params, depot, query).then(() => {
-        Object.assign(this, refactor(params, params));
+      let tmpl = JSON.parse(JSON.stringify(Object.assign({}, params, { depot: void 0 })));
+      this.$resolveAt = parse(tmpl, depot, query).then(() => {
+        Object.assign(this, refactor(tmpl, params));
       });
     }
 

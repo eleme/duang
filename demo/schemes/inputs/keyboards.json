@@ -1,4 +1,5 @@
 [
+
   {
     "key": "Input::String",
     "title": "组件 - 键盘输入类 - String",
@@ -6,6 +7,7 @@
     "inputs": [
       { "key": "string1", "component": "String", "title": "常规" },
       { "key": "string2", "component": "String", "title": "默认值", "args": { "defaultValue": "hehe" } },
+      { "key": "string2", "component": "String", "title": "默认值2", "args": { "defaultValue": "$.depot.key" } },
       { "key": "string3", "component": "String", "title": "最大限制", "args": { "maxLength": 3 } },
       { "key": "string4", "component": "String", "title": "最小限制", "args": { "minLength": 3 } },
       { "key": "string5", "component": "String", "title": "非空", "args": { "notEmpty": true } },
