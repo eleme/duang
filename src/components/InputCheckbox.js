@@ -41,8 +41,12 @@ def((Checkbox, Item, Output, Value) => {
     }
     set value(value = this.defaultValue || []) {
       this.$value = value;
-      let set = new Set(value);
-      if (this.list) this.list.forEach(item => (item.checked = set.has(item.value)));
+      if (value && typeof value === 'object' && value.all === true) { // 默认全选
+        if (this.list) this.list.forEach(item => (item.checked = true));
+      } else {
+        let set = new Set(value);
+        if (this.list) this.list.forEach(item => (item.checked = set.has(item.value)));
+      }
       this.updateTheAll();
     }
     get value() {

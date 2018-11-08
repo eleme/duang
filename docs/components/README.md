@@ -192,6 +192,8 @@ options 是一个对象，其键名对应复选框的 value，其值对应复选
 }
 ```
 
+* `defaultValue` 设置成 `{ "all": true }` 可以默认全选
+
 [试一试](../../demo/#!module=editor&key=Input::Checkbox)
 
 ### Input::Radio

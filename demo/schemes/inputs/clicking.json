@@ -42,6 +42,10 @@
       {
         "key": "checkbox3", "component": "Checkbox", "title": "多选",
         "args": { "options": { "1": "one", "2": "two" }, "defaultValue": [ "1", "2" ] }
+      },
+      {
+        "key": "checkbox4", "component": "Checkbox", "title": "多选",
+        "args": { "options": { "1": "one", "2": "two" }, "defaultValue": { "all": true } }
       }
     ]
   },
