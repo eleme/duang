@@ -97,9 +97,10 @@ def((Checkbox, Output, Item, TableRowActions, Caption) => {
       `;
     }
     get template() {
-      return '<td>多个值</td>';
+      return '<td>{labelText}</td>';
     }
     init() {
+      this.labelText = this.labelText || '多个值';
       this.$promise.resolve(this);
     }
   }
@@ -443,7 +444,7 @@ def((Checkbox, Output, Item, TableRowActions, Caption) => {
           let currentItem = list[i];
           if (fixedItem && groupBy.every(key => eq(fixedItem[key], currentItem[key]))) {
             filteredFields.forEach(field => {
-              let { key, aggregate } = field;
+              let { key, aggregate, labelText } = field;
               switch (aggregate) {
                 case 'sum':
                   if (isNaN(fixedItem[key])) fixedItem[key] = parseInt(fixedItem[key], 10) || 0;
@@ -451,7 +452,7 @@ def((Checkbox, Output, Item, TableRowActions, Caption) => {
                   break;
                 default:
                   if (key in fixedItem) {
-                    if (fixedItem[key] !== currentItem[key]) fixedItem[key] = new MultipleValueTipCell();
+                    if (fixedItem[key] !== currentItem[key]) fixedItem[key] = new MultipleValueTipCell({ labelText });
                   } else {
                     fixedItem[key] = currentItem[key];
                   }
