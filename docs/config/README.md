@@ -159,6 +159,7 @@
 | component | String | 指定 `Output` 组件（默认为 `html`）|
 | sortable | Boolean | 是否可以根据此字段排序（前端）|
 | aggregate | String | groupBy 时的聚合函数，目前取值只支持 `sum` |
+| labelText | String | groupBy 时的自定义文本（默认为 `多个值`）|
 
 #### 最简单的列表
 

@@ -133,6 +133,7 @@
       title: "Name"
     - key: "tag"
       title: "Tag"
+      labelText: "自定义文本"
     - key: "value"
       title: "Value"
       aggregate: "sum"
