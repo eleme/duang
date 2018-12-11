@@ -36,7 +36,8 @@ def((Checkbox, Output, Item, TableRowActions, Caption) => {
     init() {
       let { depot = window.depot } = this;
       let { uParams } = depot;
-      let { orderBy } = uParams;
+      // uParams => URLSearchParams 对象
+      let orderBy = uParams.get('orderBy');
       this.element.addEventListener('click', this.sort.bind(this));
       if (orderBy) {
         let [ , isDesc, key ] = /^(-?)(.*)$/.exec(orderBy);
@@ -417,7 +418,8 @@ def((Checkbox, Output, Item, TableRowActions, Caption) => {
       let { depot, filteredFields } = this;
       let { uParams, scheme } = depot;
       let { groupBy = [] } = scheme;
-      let { orderBy } = uParams;
+      // uParams => URLSearchParams 对象
+      let orderBy = uParams.get('orderBy');
 
       // 消除引用
       list = list.slice(0);
