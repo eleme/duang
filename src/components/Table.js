@@ -417,7 +417,7 @@ def((Checkbox, Output, Item, TableRowActions, Caption) => {
       if (!list) return;
       let { depot, filteredFields } = this;
       let { uParams, scheme } = depot;
-      let { groupBy = [] } = scheme;
+      let { groupBy = [], firstRow = false } = scheme;
       // uParams => URLSearchParams 对象
       let orderBy = uParams.get('orderBy');
 
@@ -455,6 +455,7 @@ def((Checkbox, Output, Item, TableRowActions, Caption) => {
                   break;
                 default:
                   if (key in fixedItem) {
+                    if (firstRow) return; // 多个值的时候取第一行的值
                     if (fixedItem[key] !== currentItem[key]) fixedItem[key] = new MultipleValueTipCell({ labelText });
                   } else {
                     fixedItem[key] = currentItem[key];
