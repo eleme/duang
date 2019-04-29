@@ -103,6 +103,7 @@
 | gentleRefreshing | Boolean | 后台加载完毕后再刷新，跳过 Loading 状态 |
 | beforeApply | DynamicAction | 筛选按钮前执行一个动作 |
 | [filterStyle](#Scheme::filterStyle) | String | 设置筛选器样式 |
+| firstRow | Boolean | groupBy 的情况下，显示的内容是否为折叠的第一行的内容（不包括 aggregate 为 sum 的情况），默认为 false |
 
 ### Scheme::module
 
@@ -323,6 +324,7 @@
   "key": "mergable-list",
   "title": "配置 - 列表 - 合并单元格",
   "module": "list",
+  "firstRow": true,
   "groupBy": [ "type" ],
   "actions": [
     { "method": "post", "title": "处理" }

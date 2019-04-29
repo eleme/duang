@@ -244,7 +244,7 @@ def((Checkbox, Output, Item, TableRowActions, Caption) => {
     }
 
     init() {
-      let { depot, filteredFields, isAggregateRow } = this;
+      let { depot, filteredFields, isAggregateRow, item_length } = this;
       let { scheme } = depot;
       let { listSelector, groupBy = [] } = scheme;
 
@@ -262,7 +262,7 @@ def((Checkbox, Output, Item, TableRowActions, Caption) => {
 
       // 处理 mergable 选项
       if (groupBy.length) {
-        if (isAggregateRow && this instanceof TableRow) {
+        if (isAggregateRow && this instanceof TableRow && item_length != 1) {
           new ToggleCell({
             isAggregateRow,
             handler: () => {
@@ -417,7 +417,7 @@ def((Checkbox, Output, Item, TableRowActions, Caption) => {
       if (!list) return;
       let { depot, filteredFields } = this;
       let { uParams, scheme } = depot;
-      let { groupBy = [] } = scheme;
+      let { groupBy = [], firstRow = false } = scheme;
       // uParams => URLSearchParams 对象
       let orderBy = uParams.get('orderBy');
 
@@ -445,6 +445,7 @@ def((Checkbox, Output, Item, TableRowActions, Caption) => {
         for (let i = 0; i < list.length; i++) {
           let currentItem = list[i];
           if (fixedItem && groupBy.every(key => eq(fixedItem[key], currentItem[key]))) {
+            fixedItem.item_length += 1;
             filteredFields.forEach(field => {
               let { key, aggregate, labelText } = field;
               switch (aggregate) {
@@ -454,6 +455,7 @@ def((Checkbox, Output, Item, TableRowActions, Caption) => {
                   break;
                 default:
                   if (key in fixedItem) {
+                    if (firstRow) return; // 多个值的时候取第一行的值
                     if (fixedItem[key] !== currentItem[key]) fixedItem[key] = new MultipleValueTipCell({ labelText });
                   } else {
                     fixedItem[key] = currentItem[key];
@@ -461,7 +463,8 @@ def((Checkbox, Output, Item, TableRowActions, Caption) => {
               }
             });
           } else {
-            fixedItem = { [IS_AGGREGATE_ROW]: true };
+            // item_length 如果是一行的话就不要折叠效果
+            fixedItem = { [IS_AGGREGATE_ROW]: true, item_length: 0 };
             groupBy.forEach(key => { fixedItem[key] = currentItem[key]; });
             list.splice(i, 0, fixedItem);
           }
@@ -472,8 +475,9 @@ def((Checkbox, Output, Item, TableRowActions, Caption) => {
       // 在这里初始化所有行组件（可以考虑做个差异更新，然而代码并不好写）
       let rows = list.map((fieldMap, index) => {
         let fieldMapNextRow = list[index + 1];
+        let item_length = fieldMap.item_length;
         let isAggregateRow = fieldMap[IS_AGGREGATE_ROW];
-        return new TableRow({ depot, fieldMap, isAggregateRow, fieldMapNextRow, filteredFields });
+        return new TableRow({ depot, fieldMap, isAggregateRow, fieldMapNextRow, filteredFields, item_length });
       });
 
       // 创建一个等待所有组件初始化的任务
